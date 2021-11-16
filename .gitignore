@@ -460,3 +460,7 @@ modules.xml
 # Cython debug symbols
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,pycharm+iml,pycharm,python,flask,macos
+
+# user defined
+*pruebas/*
+*temp/*
