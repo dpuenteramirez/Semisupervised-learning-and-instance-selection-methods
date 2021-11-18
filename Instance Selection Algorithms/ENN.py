@@ -44,9 +44,6 @@ def ENN(X, k):
 def main():
     data = load_iris()
     k = 3
-    target_names = list(data.target_names)
-    target_names.append('deleted')
-    data['target_names'] = np.array(target_names)
 
     S = ENN(X=data, k=k)
 
@@ -56,7 +53,7 @@ def main():
     formatter = plt.FuncFormatter(lambda i, *args: S.target_names[int(i)])
     plt.figure(figsize=(5, 4))
     plt.scatter(S.data[:, x_index], S.data[:, y_index], c=S.target)
-    plt.colorbar(ticks=[0, 1, 2, 3], format=formatter)
+    plt.colorbar(ticks=[0, 1, 2], format=formatter)
     plt.xlabel(S.feature_names[x_index])
     plt.ylabel(S.feature_names[y_index])
 
