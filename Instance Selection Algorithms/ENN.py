@@ -21,7 +21,7 @@ def ENN(X, k):
     :return:
     """
     y = X.target
-    borrado = 0
+    deleted_samples = 0
     for index, flower in enumerate(X.data):
         classes = {}
         index += 1
@@ -33,11 +33,11 @@ def ENN(X, k):
             except KeyError:
                 classes[neigh] = 0
         if max(classes, key=classes.get) != y[index - 1]:
-            borrado += 1
+            deleted_samples += 1
             np.delete(X.data, index - 1, 0)
             np.delete(X.target, index - 1, 0)
 
-    print(f"Se han eliminado {borrado} muestras.")
+    print(f"{deleted_samples} samples deleted.")
     return X
 
 
