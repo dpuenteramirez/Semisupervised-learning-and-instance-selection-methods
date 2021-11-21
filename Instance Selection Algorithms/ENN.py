@@ -22,7 +22,7 @@ def ENN(X, k):
     """
     y = X.target
     deleted_samples = 0
-    for index, flower in enumerate(X.data):
+    for index in range(len(X['data'])):
         classes = {}
         index += 1
         neighbors_classes = y[index:index + k] if len(y[index:index + k]) == k else np.hstack(
