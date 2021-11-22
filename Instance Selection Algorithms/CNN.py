@@ -4,11 +4,9 @@
 # @Author:      Daniel Puente Ramírez
 # @Time:        19/11/21 07:13
 
-import random
 import numpy as np
 from sklearn.datasets import load_iris
 from graficas import grafica_2D
-from ENN import ENN
 
 
 def __delete_multiple_element__(list_object, indices):
@@ -18,7 +16,7 @@ def __delete_multiple_element__(list_object, indices):
             list_object.pop(idx)
 
 
-def CNN(X, k=3):
+def CNN(X):
     """
     Comienza seleccionando un objeto aleatorio de cada clase.
     Para todos los objetos se los intenta clasificar.
@@ -27,13 +25,10 @@ def CNN(X, k=3):
     :return:
     """
 
-    assert k > 0, "k must be greater than 0. Default value is 3."
-    store = []
-    store_classes = []
-    for i in range(k):
-        random_int = random.randint(0, len(X['data'] - 1))
-        store.append(X['data'][random_int])
-        store_classes.append(X['target'][random_int])
+    store_classes, indexes = np.unique(X.target, return_index=True)
+    store_classes = store_classes.tolist()
+    store = [X['data'][x] for x in indexes]
+
     handbag = []
 
     for sample_class, sample in zip(X.target, X.data):
@@ -92,7 +87,6 @@ def CNN(X, k=3):
 
 def main():
     data = load_iris()
-    k = 3
     S = CNN(data)
     grafica_2D(S)
 
