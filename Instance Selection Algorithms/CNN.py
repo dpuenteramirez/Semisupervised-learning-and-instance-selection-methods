@@ -37,8 +37,8 @@ def CNN(X, k=3):
     handbag = []
 
     for sample_class, sample in zip(X.target, X.data):
-        # NN Rule classification: assigns an unclassified sample to the same class as the nearest of n stored, correctly
-        # samples.
+        # NN Rule classification: assigns an unclassified sample to the same
+        # class as the nearest of n stored, correctly samples.
         # Distancia Euclídea
         euc = []
         for s in store:
@@ -48,14 +48,16 @@ def CNN(X, k=3):
         index_nn = np.ravel(np.where(euc == euc_nn))
         nn_class = store_classes[index_nn[0]]
 
-        # With the NN and its class, we step forward into looking if the classification of the classes match or not
+        # With the NN and its class, we step forward into looking if the
+        # classification of the classes match or not
         if nn_class == sample_class:
             handbag.append((sample_class, sample))
         else:
             store.append(sample)
             store_classes.append(sample_class)
     """ 
-    After one pass through the original sample set, the procedure continues to loop trough *handbag* until termination.
+    After one pass through the original sample set, the procedure continues to 
+    loop trough *handbag* until termination.
         - Handbag exhausted. All members are in store.
         - One complete pass is made with no transfers to store. 
     """
@@ -91,7 +93,6 @@ def CNN(X, k=3):
 def main():
     data = load_iris()
     k = 3
-    S = ENN(data, k)
     S = CNN(data)
     grafica_2D(S)
 

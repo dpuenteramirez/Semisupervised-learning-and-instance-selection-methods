@@ -13,9 +13,10 @@ def ENN(X, k):
     """
     Implementation of the Wilson Editing algorithm.
 
-    For each flower locates the *k* neighbors and selects the number of different classes there are.
-    It has careful with the last values of the data, so if it reaches the end of the array, starts
-    looking at the start of himself.
+    For each flower locates the *k* neighbors and selects the number of
+    different classes there are.
+    It has careful with the last values of the data, so if it reaches the end
+    of the array, starts looking at the start of himself.
     :param X:
     :param k:
     :return:
@@ -25,7 +26,8 @@ def ENN(X, k):
     for index in range(len(X['data'])):
         classes = {}
         index += 1
-        neighbors_classes = y[index:index + k] if len(y[index:index + k]) == k else np.hstack(
+        neighbors_classes = y[index:index + k] if len(y[index:index + k]) == k \
+            else np.hstack(
             (y[index:index + k], y[0:k - len(y[index:index + k])]))
         for neigh in neighbors_classes:
             try:
