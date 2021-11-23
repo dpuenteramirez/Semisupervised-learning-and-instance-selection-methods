@@ -4,10 +4,13 @@
 # @Author:      Daniel Puente Ramírez
 # @Time:        23/11/21 09:37
 
-from sklearn.datasets import load_iris
+import sys
+
 import numpy as np
-from graficas import grafica_2D
+from sklearn.datasets import load_iris
+
 from ENN import ENN
+from graficas import grafica_2D
 
 
 def __delete_multiple_element__(list_object, indices):
@@ -18,37 +21,36 @@ def __delete_multiple_element__(list_object, indices):
 
 
 def __coverage__(dat, tar):
-    cov = np.zeros(len(dat))
-    reachable = np.zeros(len(dat))
+    cov = [[None] for _ in range(len(dat))]
+    reachable = [[None] for _ in range(len(dat))]
+
+    matrix_distances = [[sys.maxsize for _ in range(len(dat))]
+                        for _ in range(len(dat))]
 
     for index in range(len(tar)):
-        i1 = i2 = index
-        target_class = tar[index]
-        # Iterate Forward
-        over = False
-        while True:
-            if i1 + 1 < len(tar) and not over:
-                i1 += 1
-            elif i1 + 1 == len(tar):
-                over = True
-                i1 = 0
-            elif over:
-                i1 += 1
+        for index2 in range(index, len(tar)):
+            euc = np.linalg.norm(dat[index] - dat[index2])
+            matrix_distances[index][index2] = euc
+            matrix_distances[index2][index] = euc
 
-            if tar[i1] == target_class:
-                cov[index] += 1
-                reachable[i1] += 1
-            else:
-                break
+    closest_enemy = [[None, None] for _ in range(len(dat))]
+    for index, row in enumerate(matrix_distances):
+        x_class = tar[index]
+        enemies = np.where(tar != x_class)[0]
+        closest_enemy[index] = [enemies[0], matrix_distances[index][enemies[0]]]
+        for enemy in enemies[1:]:
+            if matrix_distances[index][enemy] < closest_enemy[index][1]:
+                closest_enemy[index] = [enemy, matrix_distances[index][enemy]]
 
-        # Iterate Backwards
-        while True:
-            i2 -= 1
-            if tar[i2] == target_class:
-                cov[index] += 1
-                reachable[i2] += 1
-            else:
-                break
+    for index, row in enumerate(matrix_distances):
+        x_class = tar[index]
+        allies = np.where(tar == x_class)[0]
+        for ally in allies:
+            if matrix_distances[index][ally] < closest_enemy[index][1]:
+                cov[index].append(ally)
+                reachable[ally].append(index)
+    cov = [[i for i in val if i] for val in cov]
+    reachable = [[i for i in val if i] for val in reachable]
 
     return cov, reachable
 
@@ -66,6 +68,7 @@ def ICF(X):
     data = S['data']
     target = S['target']
     progress = True
+    removed_samples = 0
     while progress:
 
         coverage, reachable = __coverage__(data, target)
@@ -74,25 +77,24 @@ def ICF(X):
         remove_indexes = []
         for index, instance in enumerate(zip(data, target)):
             (dat, tar) = instance
-            if abs(reachable[index]) > abs(coverage[index]):
+            if abs(len(reachable[index])) > abs(len(coverage[index])):
                 remove_indexes.append(index)
                 progress = True
-        print(progress)
+                removed_samples += 1
         __delete_multiple_element__(data, remove_indexes)
         __delete_multiple_element__(target, remove_indexes)
 
-    S['data'] = data
+    S['data'] = np.array(data)
     S['target'] = target
-    print(f"{len(X['data']) - len(S['data'])} samples deleted.")
+
+    print(f"{removed_samples} samples deleted.")
     return S
 
 
 def main():
     data = load_iris()
-
     S = ICF(X=data)
-
-    #grafica_2D(S)
+    grafica_2D(S)
 
 
 if __name__ == '__main__':
