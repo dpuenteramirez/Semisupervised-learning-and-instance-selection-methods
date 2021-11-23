@@ -21,8 +21,10 @@ def ENN(X, k):
     :param k:
     :return:
     """
+
     y = X.target
-    deleted_samples = 0
+    data = []
+    target = []
     for index in range(len(X['data'])):
         classes = {}
         index += 1
@@ -34,12 +36,15 @@ def ENN(X, k):
                 classes[neigh] += 1
             except KeyError:
                 classes[neigh] = 0
-        if max(classes, key=classes.get) != y[index - 1]:
-            deleted_samples += 1
-            np.delete(X.data, index - 1, 0)
-            np.delete(X.target, index - 1, 0)
 
-    print(f"{deleted_samples} samples deleted.")
+        if max(classes, key=classes.get) == y[index - 1]:
+            data.append(X['data'][index])
+            target.append(X['target'][index])
+
+    print(f"{len(X['data']) - len(data)} samples deleted.")
+    X['data'] = data
+    X['target'] = target
+
     return X
 
 
@@ -49,7 +54,7 @@ def main():
 
     S = ENN(X=data, k=k)
 
-    grafica_2D(S)
+    # grafica_2D(S)
 
 
 if __name__ == '__main__':
