@@ -11,7 +11,15 @@ from sklearn.datasets import load_iris
 from graficas import grafica_2D
 
 
-def __distancia_enemigo__(dat, tar):
+def __enemy_distance__(dat, tar):
+    """
+    Inner method which calculates the distance between each sample and its
+    nearest enemy.
+    :param dat: T samples.
+    :param tar: T classes.
+    :return: list of triplets: [sample, class, distance], sorted by the
+    smallest distance.
+    """
     solution = []
     for sample, x_class in zip(dat, tar):
         distance = sys.maxsize
@@ -31,6 +39,8 @@ def __distancia_enemigo__(dat, tar):
 
 def MSS(X):
     """
+    Implementation of Modified Selective Subset
+
     It starts with two empty arrays *dat* and *tar*, which will contain the
     instances selected. The first approach is to sort based on Dj all the
     dataset. And after that it will perform for every xi, check if xj is in
@@ -39,11 +49,11 @@ def MSS(X):
     keeps track of all indexes marked for removal. If some removed had to be
     done, the *add* boolean will be set to True and it will result in xi
     being added to the results dataset.
-    :param X:
-    :return:
+    :param X: dataset with scikit-learn structure.
+    :return: the input dataset with the remaining samples.
     """
 
-    triplets = __distancia_enemigo__(X['data'], X['target'])
+    triplets = __enemy_distance__(X['data'], X['target'])
     dat = []
     tar = []
     remove_indexes = []
@@ -66,13 +76,15 @@ def MSS(X):
 
     X['data'] = np.array(dat)
     X['target'] = tar
-    print(f"{len(triplets) - len(tar)} samples removed.")
     return X
 
 
 def main():
     data = load_iris()
+    n_samples = len(data['data'])
     S = MSS(X=data)
+
+    print(f"{n_samples - len(S['data'])} samples deleted.")
     grafica_2D(S)
 
 
