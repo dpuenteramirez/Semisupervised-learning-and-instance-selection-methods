@@ -42,7 +42,6 @@ def ENN(X, k):
             data.append(X['data'][index])
             target.append(X['target'][index])
 
-    print(f"{len(X['data']) - len(data)} samples deleted.")
     X['data'] = data
     X['target'] = target
 
@@ -53,6 +52,7 @@ def main():
     data = load_iris()
     k = 3
     S = ENN(X=data, k=k)
+    print(f"{len(data['data']) - len(S['data'])} samples deleted.")
     grafica_2D(S)
 
 
