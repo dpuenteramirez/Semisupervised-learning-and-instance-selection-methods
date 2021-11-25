@@ -6,6 +6,7 @@
 
 import numpy as np
 from sklearn.datasets import load_iris
+
 from graficas import grafica_2D
 
 
@@ -18,11 +19,22 @@ def __delete_multiple_element__(list_object, indices):
 
 def CNN(X):
     """
-    Comienza seleccionando un objeto aleatorio de cada clase.
-    Para todos los objetos se los intenta clasificar.
-    :param k:
-    :param X:
-    :return:
+    Implementation of The Condensed Nearest Neighbor Rule
+
+    The first sample of each class is placed in *store*. Thus we only have
+    one the second sample classification will be trivial. When a sample is
+    classified correctly it is places in *handbag*, otherwise it is placed
+    inside *store*. This procedure will be repeated until the nth sample is
+    being classified, whether it was correctly or not.
+    Once the first loop is finished, it continues looping through *handbag*
+    until termination, what will happen if either of these two cases occurs:
+    - All the samples have been added to *store*, which means *handbag* is
+    empty.
+    - One complete pass has been made through *handbag* and none samples
+    where transferred to *store*. The following passes will end up with the
+    same result as the underlying decision surface has not been changed.
+    :param X: dataset with scikit-learn structure.
+    :return: the input dataset with the remaining samples.
     """
 
     store_classes, indexes = np.unique(X.target, return_index=True)
@@ -32,9 +44,6 @@ def CNN(X):
     handbag = []
 
     for sample_class, sample in zip(X.target, X.data):
-        # NN Rule classification: assigns an unclassified sample to the same
-        # class as the nearest of n stored, correctly samples.
-        # Distancia Euclídea
         euc = []
         for s in store:
             euc.append(np.linalg.norm(s - sample))
@@ -43,19 +52,12 @@ def CNN(X):
         index_nn = np.ravel(np.where(euc == euc_nn))
         nn_class = store_classes[index_nn[0]]
 
-        # With the NN and its class, we step forward into looking if the
-        # classification of the classes match or not
         if nn_class == sample_class:
             handbag.append((sample_class, sample))
         else:
             store.append(sample)
             store_classes.append(sample_class)
-    """ 
-    After one pass through the original sample set, the procedure continues to 
-    loop trough *handbag* until termination.
-        - Handbag exhausted. All members are in store.
-        - One complete pass is made with no transfers to store. 
-    """
+
     store_not_modified = True
     while len(handbag) > 0 and store_not_modified:
         store_not_modified = False
@@ -77,17 +79,18 @@ def CNN(X):
         __delete_multiple_element__(handbag, indexes)
     del handbag
 
-    # Save changes in the original dataset
     store = np.array(store)
     X['data'] = store
     X['target'] = store_classes
-    print(f"{len(store)} samples retrieved.")
     return X
 
 
 def main():
     data = load_iris()
+    n_samples = len(data['data'])
     S = CNN(data)
+
+    print(f"{n_samples - len(S['data'])} samples deleted.")
     grafica_2D(S)
 
 
