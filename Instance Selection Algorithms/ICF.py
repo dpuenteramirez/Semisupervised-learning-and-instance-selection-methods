@@ -21,6 +21,14 @@ def __delete_multiple_element__(list_object, indices):
 
 
 def __coverage__(dat, tar):
+    """
+    Inner method that performs the coverage and reachability of T.
+    :param dat: samples of T
+    :param tar: target class of dat.
+    :return: (cov, reachable): vectors. cov contains for each sample the
+    samples that it can cover. And reachable for each sample the samples that
+    are able to reach it.
+    """
     cov = [[None] for _ in range(len(dat))]
     reachable = [[None] for _ in range(len(dat))]
 
@@ -57,18 +65,23 @@ def __coverage__(dat, tar):
 
 def ICF(X):
     """
+    Implementation of Iterative Case Filtering
 
-    :param X:
-    :return:
+    ICF is based on coverage and reachable, due to this two concepts it
+    performs deletion of samples based on the rule: "If the reachability
+    of a sample is greater than its coverage, that sample has to be removed".
+    I.e. if another sample of the same class which is nearer than the closest
+    enemy is able to provide more information, the sample with less coverage
+    than reachable will be removed.
+    Ending up with a dataset as generalized as ICF allows.
+    :param X: dataset with scikit-learn structure.
+    :return: the input dataset with the remaining samples.
     """
-    # Perform Wilson Editing
     S = ENN(X=X, k=3)
 
-    # Iterate until no cases flagged for removal
     data = S['data']
     target = S['target']
     progress = True
-    removed_samples = 0
     while progress:
 
         coverage, reachable = __coverage__(data, target)
@@ -80,20 +93,21 @@ def ICF(X):
             if abs(len(reachable[index])) > abs(len(coverage[index])):
                 remove_indexes.append(index)
                 progress = True
-                removed_samples += 1
         __delete_multiple_element__(data, remove_indexes)
         __delete_multiple_element__(target, remove_indexes)
 
     S['data'] = np.array(data)
     S['target'] = target
 
-    print(f"{removed_samples} samples deleted.")
     return S
 
 
 def main():
     data = load_iris()
+    n_samples = len(data['data'])
     S = ICF(X=data)
+
+    print(f"{n_samples - len(S['data'])} samples deleted.")
     grafica_2D(S)
 
 
