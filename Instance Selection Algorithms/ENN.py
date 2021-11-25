@@ -6,6 +6,7 @@
 
 import numpy as np
 from sklearn.datasets import load_iris
+
 from graficas import grafica_2D
 
 
@@ -13,13 +14,13 @@ def ENN(X, k):
     """
     Implementation of the Wilson Editing algorithm.
 
-    For each flower locates the *k* neighbors and selects the number of
+    For each sample locates the *k* nearest neighbors and selects the number of
     different classes there are.
-    It has careful with the last values of the data, so if it reaches the end
-    of the array, starts looking at the start of himself.
-    :param X:
-    :param k:
-    :return:
+    If a sample results in a wrong classification after being classified with
+    k-NN, that sample is removed from the TS.
+    :param X: dataset with scikit-learn structure.
+    :param k: int: number of neighbors to evaluate.
+    :return: the input dataset with the remaining samples.
     """
 
     y = X.target
@@ -51,10 +52,8 @@ def ENN(X, k):
 def main():
     data = load_iris()
     k = 3
-
     S = ENN(X=data, k=k)
-
-    # grafica_2D(S)
+    grafica_2D(S)
 
 
 if __name__ == '__main__':
