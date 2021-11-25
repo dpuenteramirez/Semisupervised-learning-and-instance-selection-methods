@@ -5,17 +5,25 @@
 # @Time:        22/11/21 08:22
 
 from collections import deque
+
 import numpy as np
 from sklearn.datasets import load_iris
+
 from CNN import CNN
 from graficas import grafica_2D
 
 
 def RNN(X):
     """
+    Implementation of The Reduced Nearest Neighbor
 
-    :param X:
-    :return:
+    RNN is an extension of CNN. Firstly CNN will be executed in order to have
+    S-CCN. It will perform iterative sample removal from S, and reclasificate
+    all T, in hopes that there is no sample inside T classified incorrectly,
+    in case there is at least one, the sample removed will be added again to S.
+
+    :param X: dataset with scikit-learn structure.
+    :return: the input dataset with the remaining samples.
     """
     S = CNN(X)
     data = deque([x for x in S['data']])
@@ -42,14 +50,16 @@ def RNN(X):
 
     S['data'] = np.array(data)
     S['target'] = target
-    print(f"{len(data)} samples retrieved.")
 
     return S
 
 
 def main():
     data = load_iris()
+    n_samples = len(data['data'])
     S = RNN(X=data)
+
+    print(f"{n_samples - len(S['data'])} samples deleted.")
     grafica_2D(S)
 
 
