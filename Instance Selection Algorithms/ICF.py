@@ -79,8 +79,8 @@ def ICF(X):
     """
     S = ENN(X=X, k=3)
 
-    data = S['data']
-    target = S['target']
+    data = list(S['data'])
+    target = list(S['target'])
     progress = True
     while progress:
 
