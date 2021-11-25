@@ -33,6 +33,9 @@ def CNN(X):
     - One complete pass has been made through *handbag* and none samples
     where transferred to *store*. The following passes will end up with the
     same result as the underlying decision surface has not been changed.
+    Extracted from:
+    The condensed nearest neighbor rule. IEEE Transactions on Information
+    Theory ( Volume: 14, Issue: 3, May 1968)
     :param X: dataset with scikit-learn structure.
     :return: the input dataset with the remaining samples.
     """
