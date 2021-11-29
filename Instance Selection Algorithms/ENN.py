@@ -29,9 +29,12 @@ def ENN(X, k):
     for index in range(len(X['data'])):
         classes = {}
         index += 1
-        neighbors_classes = y[index:index + k] if len(y[index:index + k]) == k \
-            else np.hstack(
-            (y[index:index + k], y[0:k - len(y[index:index + k])]))
+
+        if len(y[index:index + k]) == k:
+            neighbors_classes = y[index:index + k]
+        else:
+            neighbors_classes = np.hstack((y[index:index + k],
+                                           y[0:k - len(y[index:index + k])]))
         for neigh in neighbors_classes:
             try:
                 classes[neigh] += 1
