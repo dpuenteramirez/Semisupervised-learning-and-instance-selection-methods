@@ -3,6 +3,7 @@
 # @Filename:    testing.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/11/21 07:13
+import os.path
 
 import arff
 import csv
@@ -21,24 +22,33 @@ from MSS import MSS
 
 def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
-    acc = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
+    datasets.sort()
+    header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
+    acc = []
+    for path in datasets[:10]:
+        name = path.split('.')[0]
+        print(f'Starting {name} dataset...')
+        data = arff2sk_dataset(os.path.join('../datasets/', path))
+        row = [name]
 
-    for path in datasets:
-        data = arff2sk_dataset('../datasets/iris.arff')
-        row = [path.split('.')[0]]
-
+        print('\tENN...')
         data_alg = ENN(X=data, k=3)
         row.append(__train_and_predict__(data_alg, data))
 
+        print('\tCNN...')
         data_alg = CNN(X=data)
         row.append(__train_and_predict__(data_alg, data))
 
+        print('\tRNN...')
         data_alg = RNN(X=data)
         row.append(__train_and_predict__(data_alg, data))
 
+        # TODO: fix bug line 35 ENN when call from ICF
+        print('\tICF...')
         data_alg = ICF(X=data)
         row.append(__train_and_predict__(data_alg, data))
 
+        print('\tMSS...')
         data_alg = MSS(X=data)
         row.append(__train_and_predict__(data_alg, data))
 
@@ -47,6 +57,7 @@ def main():
     csv_path = './testing_output.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
+        w.writerow(header)
         w.writerows(acc)
 
 
