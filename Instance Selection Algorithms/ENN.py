@@ -28,20 +28,23 @@ def ENN(X, k):
     target = []
     for index in range(len(X['data'])):
         classes = {}
-        index += 1
 
-        if len(y[index:index + k]) == k:
-            neighbors_classes = y[index:index + k]
-        else:
-            neighbors_classes = np.hstack((y[index:index + k],
-                                           y[0:k - len(y[index:index + k])]))
-        for neigh in neighbors_classes:
+        possible_neighbors = zip(np.delete(X['data'], index),
+                                 np.delete(y, index))
+        distances_neighbors = []
+        for sample, sample_class in possible_neighbors:
+            euc = np.linalg.norm(X['data'][index] - sample)
+            distances_neighbors.append([sample, sample_class, euc])
+
+        distances_neighbors.sort(key=lambda x: x[2])
+        neighbors_classes = distances_neighbors[:k]
+        for _, neigh, _ in neighbors_classes:
             try:
                 classes[neigh] += 1
             except KeyError:
                 classes[neigh] = 0
 
-        if max(classes, key=classes.get) == y[index - 1]:
+        if max(classes, key=classes.get) == y[index]:
             data.append(X['data'][index])
             target.append(X['target'][index])
 
