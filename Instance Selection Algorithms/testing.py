@@ -3,6 +3,7 @@
 # @Filename:    testing.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/11/21 07:13
+import copy
 import os.path
 
 import arff
@@ -28,32 +29,42 @@ def main():
     for path in datasets[:10]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
-        data = arff2sk_dataset(os.path.join('../datasets/', path))
+        d1 = arff2sk_dataset(os.path.join('../datasets/', path))
+        print(f'\t{len(d1["data"])} samples.')
         row = [name]
 
         print('\tENN...')
+        data = copy.copy(d1)
         data_alg = ENN(X=data, k=3)
+        print(f"\t\t{len(data_alg['data'])} final samples.")
         row.append(__train_and_predict__(data_alg, data))
 
         print('\tCNN...')
+        data = copy.copy(d1)
         data_alg = CNN(X=data)
+        print(f"\t\t{len(data_alg['data'])} final samples.")
         row.append(__train_and_predict__(data_alg, data))
 
         print('\tRNN...')
+        data = copy.copy(d1)
         data_alg = RNN(X=data)
+        print(f"\t\t{len(data_alg['data'])} final samples.")
         row.append(__train_and_predict__(data_alg, data))
 
-        # TODO: fix bug line 35 ENN when call from ICF
         print('\tICF...')
+        data = copy.copy(d1)
         data_alg = ICF(X=data)
+        print(f"\t\t{len(data_alg['data'])} final samples.")
         row.append(__train_and_predict__(data_alg, data))
 
         print('\tMSS...')
+        data = copy.copy(d1)
         data_alg = MSS(X=data)
+        print(f"\t\t{len(data_alg['data'])} final samples.")
         row.append(__train_and_predict__(data_alg, data))
 
         acc.append(row)
-
+        break
     csv_path = './testing_output.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
