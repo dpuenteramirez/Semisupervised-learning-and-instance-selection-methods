@@ -12,7 +12,9 @@ from os import walk
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn import metrics
 from sklearn.utils import Bunch
+from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
+from statistics import mean
 import numpy as np
 from ENN import ENN
 from CNN import CNN
@@ -26,46 +28,94 @@ def main():
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
     acc = []
+    avg = []
+    random_state = 0x1122021
+    kf = KFold(n_splits=10, shuffle=True, random_state=random_state)
     for path in datasets[:10]:
+
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
         d1 = arff2sk_dataset(os.path.join('../datasets/', path))
         print(f'\t{len(d1["data"])} samples.')
-        row = [name]
+        current_dataset = [name]
 
-        print('\tENN...')
+        print('\tENN____')
         data = copy.copy(d1)
-        data_alg = ENN(X=data, k=3)
-        print(f"\t\t{len(data_alg['data'])} final samples.")
-        row.append(__train_and_predict__(data_alg, data))
+        X = data['data']
+        y = data['target']
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            data_alg = ENN(X=Bunch(data=X_train, target=y_train), k=3)
+            avg.append(__train_and_predict__(data_alg, Bunch(data=X_test,
+                                                             target=y_test)))
+            print(f"\t\titer: {len(avg):>2}. acc: {avg[-1]:.3f}")
+        print(f"\taverage: {mean(avg):.2f}")
+        current_dataset.append(mean(avg))
 
-        print('\tCNN...')
+        avg *= 0
+        print('\tCNN____')
         data = copy.copy(d1)
-        data_alg = CNN(X=data)
-        print(f"\t\t{len(data_alg['data'])} final samples.")
-        row.append(__train_and_predict__(data_alg, data))
+        X = data['data']
+        y = data['target']
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            data_alg = CNN(X=Bunch(data=X_train, target=y_train))
+            avg.append(__train_and_predict__(data_alg, Bunch(data=X_test,
+                                                             target=y_test)))
+            print(f"\t\titer: {len(avg):>2}. acc: {avg[-1]:.3f}")
+        print(f"\taverage: {mean(avg):.2f}")
+        current_dataset.append(mean(avg))
 
-        print('\tRNN...')
+        avg *= 0
+        print('\tRNN____')
         data = copy.copy(d1)
-        data_alg = RNN(X=data)
-        print(f"\t\t{len(data_alg['data'])} final samples.")
-        row.append(__train_and_predict__(data_alg, data))
+        X = data['data']
+        y = data['target']
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            data_alg = RNN(X=Bunch(data=X_train, target=y_train))
+            avg.append(__train_and_predict__(data_alg, Bunch(data=X_test,
+                                                             target=y_test)))
+            print(f"\t\titer: {len(avg):>2}. acc: {avg[-1]:.3f}")
+        print(f"\taverage: {mean(avg):.2f}")
+        current_dataset.append(mean(avg))
 
-        print('\tICF...')
+        avg *= 0
+        print('\tICF____')
         data = copy.copy(d1)
-        data_alg = ICF(X=data)
-        print(f"\t\t{len(data_alg['data'])} final samples.")
-        row.append(__train_and_predict__(data_alg, data))
+        X = data['data']
+        y = data['target']
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            data_alg = ICF(X=Bunch(data=X_train, target=y_train))
+            avg.append(__train_and_predict__(data_alg, Bunch(data=X_test,
+                                                             target=y_test)))
+            print(f"\t\titer: {len(avg):>2}. acc: {avg[-1]:.3f}")
+        print(f"\taverage: {mean(avg):.2f}")
+        current_dataset.append(mean(avg))
 
-        print('\tMSS...')
+        avg *= 0
+        print('\tMSS____')
         data = copy.copy(d1)
-        data_alg = MSS(X=data)
-        print(f"\t\t{len(data_alg['data'])} final samples.")
-        row.append(__train_and_predict__(data_alg, data))
+        X = data['data']
+        y = data['target']
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            data_alg = MSS(X=Bunch(data=X_train, target=y_train))
+            avg.append(__train_and_predict__(data_alg, Bunch(data=X_test,
+                                                             target=y_test)))
+            print(f"\t\titer: {len(avg):>2}. acc: {avg[-1]:.3f}")
+        print(f"\taverage: {mean(avg):.2f}")
+        current_dataset.append(mean(avg))
+        avg *= 0
+        acc.append(current_dataset)
 
-        acc.append(row)
-        break
-    csv_path = './testing_output.csv'
+    csv_path = './testing_output_cross-validation.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
         w.writerow(header)
@@ -73,7 +123,7 @@ def main():
 
 
 def __train_and_predict__(data_alg, data):
-    mod_td = DecisionTreeClassifier(max_depth=3, random_state=1)
+    mod_td = DecisionTreeClassifier(max_depth=10, random_state=1)
     mod_td.fit(data_alg['data'], data_alg['target'])
     prediction = mod_td.predict(data['data'])
     accuracy = metrics.accuracy_score(prediction, data['target'])
