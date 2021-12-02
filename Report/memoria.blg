@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: memoria.aux
+A level-1 auxiliary file: ./tex/1_Introduccion.aux
+A level-1 auxiliary file: ./tex/2_Objetivos_del_proyecto.aux
+A level-1 auxiliary file: ./tex/3_Conceptos_teoricos.aux
+A level-1 auxiliary file: ./tex/4_Tecnicas_y_herramientas.aux
+A level-1 auxiliary file: ./tex/5_Aspectos_relevantes_del_desarrollo_del_proyecto.aux
+A level-1 auxiliary file: ./tex/6_Trabajos_relacionados.aux
+A level-1 auxiliary file: ./tex/7_Conclusiones_Lineas_de_trabajo_futuras.aux
+The style file: plain.bst
+Database file #1: bibliografia.bib
+Warning--empty booktitle in Chapman2000CRISPDM1S
+You've used 3 entries,
+            2118 wiz_defined-function locations,
+            523 strings with 4703 characters,
+and the built_in function-call counts, 1096 in all, are:
+= -- 94
+> -- 66
+< -- 1
++ -- 25
+- -- 22
+* -- 68
+:= -- 186
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 19
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 42
+empty$ -- 88
+format.name$ -- 22
+if$ -- 233
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 2
+newline$ -- 17
+num.names$ -- 8
+pop$ -- 30
+preamble$ -- 1
+purify$ -- 16
+quote$ -- 0
+skip$ -- 34
+stack$ -- 0
+substring$ -- 35
+swap$ -- 10
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 12
+warning$ -- 1
+while$ -- 9
+width$ -- 4
+write$ -- 31
+(There was 1 warning)
