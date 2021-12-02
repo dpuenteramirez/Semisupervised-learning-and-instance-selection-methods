@@ -6,14 +6,11 @@
 \contentsline {chapter}{Introducción}{1}{chapter*.4}%
 \contentsline {chapter}{Objetivos del proyecto}{3}{chapter*.5}%
 \contentsline {chapter}{Conceptos teóricos}{5}{chapter*.6}%
-\contentsline {section}{\numberline {3.1}Secciones}{5}{section.3.1}%
-\contentsline {subsection}{Subsecciones}{5}{section*.7}%
-\contentsline {subsubsection}{Subsubsecciones}{5}{section*.8}%
-\contentsline {section}{\numberline {3.2}Referencias}{5}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Imágenes}{6}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Listas de items}{6}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Tablas}{7}{section.3.5}%
+\contentsline {section}{\numberline {3.1}Minería de datos}{5}{section.3.1}%
+\contentsline {subsection}{Proceso de minería de datos}{5}{section*.7}%
+\contentsline {subsection}{Técnicas utilizadas en la minería de datos}{8}{section*.8}%
 \contentsline {chapter}{Técnicas y herramientas}{9}{chapter*.9}%
 \contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{11}{chapter*.10}%
 \contentsline {chapter}{Trabajos relacionados}{13}{chapter*.11}%
 \contentsline {chapter}{Conclusiones y Líneas de trabajo futuras}{15}{chapter*.12}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{17}{chapter*.13}%

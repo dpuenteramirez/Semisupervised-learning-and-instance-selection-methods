@@ -14,6 +14,7 @@ Las técnicas de minería de datos principales se pueden dividir en función de 
     \item Predicción de resultados mediante el uso de algoritmos de aprendizaje automático.
 \end{enumerate}
 
+
 \subsection{Proceso de minería de datos}
 El proceso seguido en la minería de datos es muy directo. Comienza con la recogida de los datos que van a ser
 tratados. y finaliza con la visualización de la información extraída de éstos. 
@@ -22,6 +23,7 @@ Los científicos de datos describen los datos a través de sus observaciones de 
 Uno de los marcos de referencia más importantes en el proceso de minado de datos es CRISP-DM, \textit{Cross Industry Standard Process for Data Mining}. Desarrollado por un consorcio de empresas involucradas en la minería de datos. \cite{Chapman2000CRISPDM1S}
 
 \imagen{../img/CRISP-DM}{Enfoque CRISP de la minería de datos.}
+
 
 En \cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o pasos principales: establecimiento de los objetivos y comprensión del problema, recopilación y preparación de los datos, desarrollo del modelo, aplicación del modelo y la evaluación de los resultados y despliegue en producción.
 
@@ -46,25 +48,7 @@ En \cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o 
         \item Detección de anomalías.
     \end{enumerate}
     
-    El modelo debe ser creado con especial cuidado para evitar el \textit{overfitting}, i.e. el modelo memoriza el conjunto de entrenamiento y no tendrá un rendimiento correcto una vez desplegado en producción. Se desea que el modelo sea lo más generalizado posible de cara a \textit{aprender} de los datos del conjunto de entrenamiento.
-
-    \item \textbf{Aplicación del modelo.}
-	El momento de la aplicación del modelo es cuando de verdad se comprueba si realmente el modelo está listo para pasar al siguiente punto, en otras palabras, si es apto para ser desplegado en producción. 
-	Para ello se tienen en cuenta métricas como la calidad del modelo ante el problema, su tiempo de respuesta, etc.
+    % TODO: seguir con esto https://books.google.es/books?hl=es&lr=&id=dRHoAwAAQBAJ&oi=fnd&pg=PP1&dq=Chapter+2+-+Data+Mining+Process+VijayKotuBalaDeshpandePhD&ots=SCVjIlON9w&sig=aYkEFyM_zrlNEVq7pjx5BpBYiUY#v=onepage&q&f=false
     
-	\item \textbf{Evaluación de los resultados y despliegue en producción.}
-	Una vez que el modelo se encuentra listo es desplegado en producción. Es habitual que los parámetros con los que el modelo fue entrenado con el paso del tiempo dejen de ser los más interesantes, pudiendo ser comprobado el error proporcionado por el modelo con los datos de prueba. Cuando ese error sea excesivo o fuera de un margen dado se deberá de volver a entrenar el modelo, comprobar, y desplegar. 
-	De esta forma se puede comprobar como el ciclo de vida del modelo es circular.
-\end{enumerate}
-
-El proceso aplicado en la minería de datos proporciona un marco de trabajo mediante el cual se permite extraer información aparentemente no trivial de grandes conjuntos de datos. 
-Es un campo de aprendizaje constante, tanto el aplicar los conocimientos del analista para reducir las dimensiones del conjunto de datos, como una vez que se ha entrenado el modelo y puesto en producción aprender los puntos fuertes de este y el porqué de éstos.\cite{Chapman2000CRISPDM1S}
-
-\subsection{Técnicas utilizadas en la minería de datos}
-Como se ha comentado anteriormente, uno de los mayores problemas de cara al minado de datos es la dimensionalidad que en muchas ocasiones tienen estos. Es por ello que se aplican técnicas o algoritmos que faciliten la extracción de la información útil. Algunos de ellos son:
-\begin{enumerate}
-	\item \textbf{Reglas de asociación.} Dado un conjunto de datos concreto, consiste en la aplicación de reglas para encontrar relaciones entre las variables.
-	\item \textbf{Redes neuronales.} 
-	\item \textbf{Árboles de decisión.} 
-	\item \textbf{k-vecinos más cercanos.} 
+    \item \textbf{Evaluación y visualización de los resultados.}
 \end{enumerate}
