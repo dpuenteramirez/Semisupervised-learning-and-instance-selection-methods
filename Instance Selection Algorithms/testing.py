@@ -17,6 +17,7 @@ from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.utils import Bunch
 
+
 from CNN import CNN
 from ENN import ENN
 from ICF import ICF
@@ -28,9 +29,15 @@ def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
+    csv_path = 'testing_out/testing_output_cross-validation9.csv'
+    with open(csv_path, 'w') as save:
+        w = csv.writer(save)
+        w.writerow(header)
+        save.close()
     acc = []
     random_state = 0x1122021
     kf = KFold(n_splits=10, shuffle=True, random_state=random_state)
+
     for path in datasets[:10]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
@@ -39,11 +46,11 @@ def main():
         current_dataset = [name]
         results_dataset = __evaluate__(dataset=d1, kf=kf)
         acc.append(current_dataset + results_dataset)
-    csv_path = './testing_output_cross-validation.csv'
-    with open(csv_path, 'w') as save:
-        w = csv.writer(save)
-        w.writerow(header)
-        w.writerows(acc)
+
+        with open(csv_path, 'a') as save:
+            w = csv.writer(save)
+            w.writerows(acc)
+            save.close()
 
 
 def __evaluate__(dataset, kf):
