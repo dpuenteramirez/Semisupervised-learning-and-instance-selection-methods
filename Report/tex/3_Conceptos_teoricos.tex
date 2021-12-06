@@ -21,7 +21,7 @@ Los científicos de datos describen los datos a través de sus observaciones de 
 
 Uno de los marcos de referencia más importantes en el proceso de minado de datos es CRISP-DM, \textit{Cross Industry Standard Process for Data Mining}. Desarrollado por un consorcio de empresas involucradas en la minería de datos. \cite{Chapman2000CRISPDM1S}
 
-\imagen{../img/CRISP-DM}{Enfoque CRISP de la minería de datos.}
+\imagen{./img/memoria/CRISP-DM}{Enfoque CRISP de la minería de datos.}
 
 En \cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o pasos principales: establecimiento de los objetivos y comprensión del problema, recopilación y preparación de los datos, desarrollo del modelo, aplicación del modelo y la evaluación de los resultados y despliegue en producción.
 
@@ -66,5 +66,40 @@ Como se ha comentado anteriormente, uno de los mayores problemas de cara al mina
 	\item \textbf{Reglas de asociación.} Dado un conjunto de datos concreto, consiste en la aplicación de reglas para encontrar relaciones entre las variables.
 	\item \textbf{Redes neuronales.} Principalmente utilizadas en \textit{deep learning}, simulan la interconectividad propia del cerebro humano utilizando capas de nodos. Cada nodo está compuesto por \(x_n\) entradas, \(w_n\) pesos y un sesgo o umbral, el cual al ser superado activa la neurona, pasando los datos del nodo a la siguiente neurona. Habitualmente con una única iteración sobre la red neuronal, esta es capaz de obtener una solución medianamente buena de un conjunto de datos de tamaño considerable. 
 	\item \textbf{Árboles de decisión.} Mediante el uso de métodos de clasificación y regresión se clasifican o predicen potenciales resultados en función de un conjunto de decisiones. Utiliza una visualización en forma de árbol para representar los posibles resultados de estas decisiones.
-	\item \textbf{k-vecinos más cercanos. KNN (\textit{k-nearest neighbors})} Método no paramétrico de clasificación, sencillo pero eficaz. Para clasificar un conjunto de datos \textit{T}, se recuperan sus \textit{k} vecinos más cercanos, que forman una vecindad de \textit{T}. Se suele utilizar la votación por mayoría entre los registros de datos de la vecindad para decidir la clasificación de \textit{T} con o sin consideración de la ponderación basada en la distancia.
+	\item \textbf{k-vecinos más cercanos. KNN (\textit{k-nearest neighbors})} Método no paramétrico de clasificación, sencillo pero eficaz. \cite{hand2007principles} 
+Para clasificar un conjunto de datos \textit{T}, se recuperan sus \textit{k} vecinos más cercanos, que forman una vecindad de \textit{T}. Se suele utilizar la votación por mayoría entre los registros de datos de la vecindad para decidir la clasificación de \textit{T} con o sin consideración de la ponderación basada en la distancia. \cite{guo2003knn}
 \end{enumerate}
+
+\section{Función distancia entre instancias}
+La función distancia proporciona la proximidad entre dos instancias en función de todos sus parámetros. Si la distancia que separa dos instancias es cero, ambas instancias son idénticas. Se tiende a trabajar con conjuntos de datos normalizados, i.e. todos los datos son ajustados a una escala común, independientemente de la escala en la que hayan sido medidos.
+
+Existen multitud de métricas para calcular la distancia, pudiendo variar la distancia en función de cuál se aplique. Se van a analizar las más habituales.
+\begin{itemize}
+\item \textbf{Distancia de Minkowski.} La distancia de Minkowski es una métrica en el espacio vectorial normalizado. Es una métrica que se puede modificar con facilidad para calcular la distancia entre dos instancias de diferentes maneras. 
+\begin{enumerate}
+\item \(p = 1\), cálculo de la distancia de Manhattan.
+\item \(p = 2\), cálculo de la distancia Euclídea.
+\item \(p = \infty\), cálculo de la distancia Chebychev.
+\end{enumerate}
+Su fórmula es la siguiente:
+\[ \mathbb{D}(x, y) = \left( \sum_{i=1}^{n}\left| x_i - y_i \right|^p \right)^{1/p} \]\\
+
+\item \textbf{Distancia de Manhattan} o distancia del taxista. Se define formalmente como la distancia entre dos vectores \textbf{\(p\)},\textbf{\(q\)} en un espacio vectorial n-dimensional co
+\end{itemize}
+
+
+\section{Aprendizaje en \textit{machine learning}}
+En \cite{sanchez_2020} se define \textit{machine learning} como una rama dentro del campo de la Inteligencia Artificial que proporciona a los sistemas la capacidad de aprender y mejorar de manera automática, a partir de la experiencia. Estos sistemas transforman los datos en información, y con esta información pueden tomar decisiones. Este tipo de modelos se crean a base del uso masivo de datos. Cuando se dispone de los datos suficientes para entrenar un modelo comienza el proceso de aprendizaje. El objetivo de este aprendizaje es descubrir patrones ocultos en los datos. En muchas ocasiones el resultado del aprendizaje, el modelo, es una función que dadas unos datos de entrada clasifica o predice correctamente una salida. Como se puede ver en la Figura \ref{fig:../img/memoria/Machine-learning-overview} el aprendizaje automático, \textit{machine learning}, posee diferentes aproximaciones, cada una de ellas con una aproximación diferente en cuanto al uso de instancias etiquetadas.
+\imagen{../img/memoria/Machine-learning-overview}{\textit{Machine learning overview}\cite{technovert_2020}}
+
+
+
+\subsection{Aprendizaje supervisado}
+El aprendizaje automático puede ser resumido como aprender de ejemplos. Al programa se le proporcionan dos conjuntos de datos, uno de entrenamiento y otro de validación.\cite{learned2014introduction} El objetivo es simple, debe de ``aprender'' en función del conjunto de datos etiquetado proporcionado como entrenamiento para posteriormente identificar las correspondientes etiqueta/s de cada instancia del conjunto de validación con la mayor precisión posible. 
+
+Dependiendo del tipo de etiqueta, en el aprendizaje supervisado hay dos modelos:
+\begin{enumerate}
+	\item \textbf{Modelos de clasificación.} Producen como salida una etiqueta discreta, i.e. una etiqueta dentro de un conjunto finito de etiquetas, habitualmente suelen ser o binarias \([0,1]\), \([sí,no]\)... o multi-etiqueta, donde los valores pueden variar \([0...n]\) (no teniendo porque ser exclusivamente numéricas).
+	\item \textbf{Modelos de regresión.} Producen como salida un valor real, numérico.
+\end{enumerate}
+

@@ -8,12 +8,38 @@ Peter Chapman, Janet Clinton, Randy Kerber, Tom Khabaza, Thomas~P. Reinartz,
 
 \bibitem{IBM-WhatisDataMining}
 IBM~Cloud Education.
-\newblock What is data mining?
+\newblock What is data mining?, 2021.
+
+\bibitem{guo2003knn}
+Gongde Guo, Hui Wang, David Bell, Yaxin Bi, and Kieran Greer.
+\newblock Knn model-based approach in classification.
+\newblock In {\em OTM Confederated International Conferences" On the Move to
+  Meaningful Internet Systems"}, pages 986--996. Springer, 2003.
+
+\bibitem{hand2007principles}
+David~J Hand.
+\newblock Principles of data mining.
+\newblock {\em Drug safety}, 30(7):621--622, 2007.
 
 \bibitem{KOTU201517}
 Vijay Kotu and Bala Deshpande.
 \newblock Chapter 2 - data mining process.
 \newblock In Vijay Kotu and Bala Deshpande, editors, {\em Predictive Analytics
   and Data Mining}, pages 17--36. Morgan Kaufmann, Boston, 2015.
+
+\bibitem{learned2014introduction}
+Erik~G Learned-Miller.
+\newblock Introduction to supervised learning.
+\newblock {\em I: Department of Computer Science, University of Massachusetts},
+  2014.
+
+\bibitem{sanchez_2020}
+Jose~Antonio Sanchez.
+\newblock ¿cómo aprenden las máquinas? machine learning y sus diferentes
+  tipos, Aug 2020.
+
+\bibitem{technovert_2020}
+Technovert.
+\newblock Introduction to machine learning, 2020.
 
 \end{thebibliography}
