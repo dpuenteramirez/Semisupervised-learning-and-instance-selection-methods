@@ -29,7 +29,7 @@ def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
-    csv_path = 'testing_out/testing_output_cross-validation9.csv'
+    csv_path = 'testing_out/testing_output_cross-validation.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
         w.writerow(header)
