@@ -30,7 +30,8 @@ def main():
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
     for precision in precisions:
-        print(f"\n\nCurrent precision: {precision}")
+        print(f"\n\nCurrent precision: {precision*100:>2}%")
+        print("-----------------------")
         csv_path_acc = f'testing_out/test_unlabeled_{precision}_acc.csv'
         csv_path_mse = f'testing_out/test_unlabeled_{precision}_mse.csv'
         with open(csv_path_acc, 'w') as save:
