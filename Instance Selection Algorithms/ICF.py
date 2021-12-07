@@ -29,8 +29,11 @@ def __coverage__(dat, tar):
     samples that it can cover. And reachable for each sample the samples that
     are able to reach it.
     """
-    cov = [[None] for _ in range(len(dat))]
-    reachable = [[None] for _ in range(len(dat))]
+    one_class = True if len(np.unique(tar)) == 1 else False
+    cov = [[None if not one_class else i] for i in range(len(dat))]
+    reachable = [[None if not one_class else i] for i in range(len(dat))]
+    if one_class:
+        return cov, reachable
 
     matrix_distances = [[sys.maxsize for _ in range(len(dat))]
                         for _ in range(len(dat))]
