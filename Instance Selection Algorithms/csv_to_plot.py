@@ -3,11 +3,13 @@
 # @Filename:    csv_to_plot.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        8/12/21 10:03
-import pandas as pd
-from os import walk
-import numpy as np
 import re
+from os import walk
+
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
 
 def main():
     path = './test_unlabeled/'
@@ -55,20 +57,9 @@ def main():
         ax1.set_title('ACC')
         ax2.plot(precision, mse_algorithms[:, i])
         ax2.set_title('MSE')
-        file_name = path+algorithms[i]+f'_{dataset}'+'.png'
+        file_name = path + algorithms[i] + f'_{dataset}' + '.png'
         plt.savefig(file_name)
         plt.show()
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
