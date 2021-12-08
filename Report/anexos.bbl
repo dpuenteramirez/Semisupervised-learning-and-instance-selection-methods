@@ -1,10 +1,56 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{barandela2005decision}
+Ricardo Barandela, Francesc~J Ferri, and J~Salvador S{\'a}nchez.
+\newblock Decision boundary preserving prototype selection for nearest neighbor
+  classification.
+\newblock {\em International Journal of Pattern Recognition and Artificial
+  Intelligence}, 19(06):787--806, 2005.
+
+\bibitem{blum1998combining}
+Avrim Blum and Tom Mitchell.
+\newblock Combining labeled and unlabeled data with co-training.
+\newblock In {\em Proceedings of the eleventh annual conference on
+  Computational learning theory}, pages 92--100, 1998.
+
+\bibitem{brighton2002advances}
+Henry Brighton and Chris Mellish.
+\newblock Advances in instance selection for instance-based learning
+  algorithms.
+\newblock {\em Data mining and knowledge discovery}, 6(2):153--172, 2002.
 
 \bibitem{cervone2011understanding}
 H~Frank Cervone.
 \newblock Understanding agile project management methods using scrum.
 \newblock {\em OCLC Systems \& Services: International digital library
   perspectives}, 2011.
+
+\bibitem{gates1972reduced}
+Geoffrey Gates.
+\newblock The reduced nearest neighbor rule (corresp.).
+\newblock {\em IEEE transactions on information theory}, 18(3):431--433, 1972.
+
+\bibitem{grochowski2004comparison}
+Marek Grochowski and Norbert Jankowski.
+\newblock Comparison of instance selection algorithms ii. results and comments.
+\newblock In {\em International Conference on Artificial Intelligence and Soft
+  Computing}, pages 580--585. Springer, 2004.
+
+\bibitem{hart1968condensed}
+Peter Hart.
+\newblock The condensed nearest neighbor rule (corresp.).
+\newblock {\em IEEE transactions on information theory}, 14(3):515--516, 1968.
+
+\bibitem{jankowski2004comparison}
+Norbert Jankowski and Marek Grochowski.
+\newblock Comparison of instances seletion algorithms i. algorithms survey.
+\newblock In {\em International conference on artificial intelligence and soft
+  computing}, pages 598--603. Springer, 2004.
+
+\bibitem{liu2002issues}
+Huan Liu and Hiroshi Motoda.
+\newblock On issues of instance selection.
+\newblock {\em Data Mining and Knowledge Discovery}, 6(2):115, 2002.
 
 \bibitem{danradigan2021}
 Dan Radigan.
@@ -14,5 +60,24 @@ Dan Radigan.
 \bibitem{julioroche_2020}
 Julio Roche.
 \newblock Scrum: roles y responsabilidades, 2020.
+
+\bibitem{wu2018self}
+Di~Wu, Mingsheng Shang, Xin Luo, Ji~Xu, Huyong Yan, Weihui Deng, and Guoyin
+  Wang.
+\newblock Self-training semi-supervised classification based on density peaks
+  of data.
+\newblock {\em Neurocomputing}, 275:180--191, 2018.
+
+\bibitem{zhou2004democratic}
+Yan Zhou and Sally Goldman.
+\newblock Democratic co-learning.
+\newblock In {\em 16th IEEE International Conference on Tools with Artificial
+  Intelligence}, pages 594--602. IEEE, 2004.
+
+\bibitem{zhou2005tri}
+Zhi-Hua Zhou and Ming Li.
+\newblock Tri-training: Exploiting unlabeled data using three classifiers.
+\newblock {\em IEEE Transactions on knowledge and Data Engineering},
+  17(11):1529--1541, 2005.
 
 \end{thebibliography}

@@ -48,7 +48,7 @@ La estimación es una parte muy importante ya que es lo que permitirá al equipo
 \item \textbf{\textit{Sprint backlog.}} Lista de tareas extraídas del \textit{product backlog} que se han acordado desarrollarse a lo largo de un \textit{sprint}. Este \textit{backlog} es seleccionado por el propio equipo de desarrollo, para ello seleccionan una tarea del \textit{product backlog} y se divide en tareas de menor tamaño y abordables. Aquellas tareas de menor tamaño que el equipo no haya sido capaz de desarrollar previo a la finalización del \textit{sprint} quedarán almacenadas para próximos \textit{sprints} en el \textit{sprint backlog}.
 \end{itemize}
 
-\subsection{Actores, roles y responsabilidades}
+\subsubsection{Actores, roles y responsabilidades}
 Dentro de un equipo que sigue la metodología \textit{scrum} encontramos diferentes actores, como ya se ha comentado el equipo de desarrollo suele estar compuesto por entre cinco y diez personas, además del \textit{Scrum Master} y el \textit{Product Owner}.\cite{julioroche_2020}
 \begin{itemize}
 \item \textbf{\textit{Product Owner.}} Encargado de optimizar y maximizar el valor del producto, es la persona encargada de gestionar las prioridades del \textit{product backlog}. Una de sus principales tareas es la de intermediario con los \textit{stakeholders}, partes interesadas, del proyecto; junto con recoger los requerimientos de los clientes. Es habitual que esta figura sea representante del negocio, con lo que aumenta su valor.
@@ -63,6 +63,129 @@ Para cada \textit{sprint} debe de marcar el objetivo de éste de manera clara y 
 \item \textbf{Equipo de desarrollo.} Formado por entre cinco y diez personas encargados del desarrollo del producto, organizados de forma autónoma para conseguir entregar las tareas del \textit{product backlog} asignadas al \textit{sprint} correspondiente. Para que funcione correctamente la metodología todos los integrantes deben de conocer su rol dentro del equipo, internamente se pueden gestionar como el equipo considere, pero de cara ``hacia fuera'' son un equipo con una responsabilidad.
 \end{itemize}
 \newpage
+\subsection{Planificación por \textit{sprints}}
+La organización temporal del proyecto se ha organizado siguiendo los estándares de la metodología \textit{scrum}, i.e. usando \textit{sprints}. 
+
+Inicialmente la \textit{sprint planning meeting} es realizada cada dos semanas, debido a una falta de costumbre de trabajo con esta metodología se combina junto con la \textit{sprint review meeting}, de forma que en una sola reunión se comenta tanto lo que se ha hecho como lo que está por realizarse en el siguiente \textit{sprint}.
+
+La velocidad de desarrollo del proyecto es una incógnita, debido a la no existencia de referencias previas del equipo de desarrollo del proyecto, en proyectos de ésta índole. Por lo tanto, la duración de los \textit{sprints} puede que se vea ajustada a lo largo de la vida del proyecto.
+
+No se utilizan \textit{daily meetings} puesto que a pesar de que se invierte una media de tres a cinco horas diarias en el desarrollo, no es considerada necesaria. Si bien en caso de problemas se acuerda una reunión para el día siguiente con el fin de mantener la agilidad y no retrasar el proyecto.
+
+\subsubsection{\textit{Sprint} 0: \textit{Lights out and away we go!} }
+El \textit{sprint} con el que comienza el desarrollo de este proyecto no ha seguido la metodología \textit{scrum}, puesto que se formuló desde un punto de vista de toma de contacto inicial con el trabajo de investigación y todo lo que ello conlleva.
+
+Los objetivos definidos han sido:
+\begin{enumerate}
+\item Lectura de \textit{papers} relacionados con el ámbito de la inteligencia artificial. En concreto \textit{SSL density peaks}\cite{wu2018self}, \textit{Co-Training}\cite{blum1998combining}, \textit{Tri-Training}\cite{zhou2005tri} y \textit{Democratic Co-Learning}\cite{zhou2004democratic}.
+\end{enumerate}
+
+El tiempo empleado en la lectura y asimilación de estos conceptos ha sido de catorce horas, es la primera vez que se leen \textit{papers} o artículos científicos completos procurando asimilar todos los conceptos de éstos. Se ha desarrollado entre el veintisiete de octubre y el cinco de noviembre, de dos mil veintiuno. 
+
+\subsubsection{\textit{Sprint} 1: Chad}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del primer \textit{sprint}:
+\begin{enumerate}
+\item Lectura del API de \textit{scikit-learn}. Comprensión del funcionamiento de los transformadores y estimadores enfocado desde el punto de su programación.
+\item Lectura de los \textit{papers On issues instance selection}\cite{liu2002issues}, \textit{Comparison of instances seletion algorithms I. algorithms survey}\cite{jankowski2004comparison} y \textit{Comparison of instance selection algorithms II. Results and comments}\cite{grochowski2004comparison}.
+\item Implementación de las técnicas de reducción del conjunto de entrenamiento, basados en k-NN.
+\end{enumerate}
+
+\item \textbf{Marcas temporales}
+El \textit{sprint} se desarrolla entre el ocho y el diecinueve de noviembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto treinta horas.
+
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint1}
+\caption{\textit{Burndown Chart Sprint 1.}}\label{fig:BD-Sprint1}
+\end{center}
+\end{figure}
+Durante este \textit{sprint} el trabajo inicial comenzó ligeramente retrasado, motivos en el apartado \textit{sprint review meeting}, por lo tanto podemos observar en la Figura \ref{fig:BD-Sprint1} como el trabajo completado dista del ideal o proyectado para este \textit{sprint}.
+
+En el \textit{sprint backlog} habían sido incluidos todos los algoritmos a programar, es por ello que indica que se ha completado aproximadamente la mitad del trabajo.
+
+\item \textbf{\textit{Sprint review meeting}}
+El trabajo en este primer \textit{sprint} ha salido adelante correctamente. Al ser el primer \textit{sprint} ha habido un pequeño error de configuración del repositorio junto con la herramienta ZenHub, de ahí que en el \textit{burndown chart} de esta semana, Figura \ref{fig:BD-Sprint1}, aparezca como que la primera semana del \textit{sprint} no ha habido trabajo completado.
+
+La adaptación a la metodología ágil ha resultado un poco compleja.
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 2: Holleyman}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del segundo \textit{sprint}:
+\begin{enumerate}
+\item Finalizar implementación de los algoritmos basados en técnicas de reducción del conjunto de entrenamiento.
+\item Añadir la documentación correspondiente a los algoritmos implementados.
+\item Comprobar el rendimiento de los algoritmos implementados respecto a los resultados de una ejecución similar con el software \textit{Weka}.
+\end{enumerate}
+El \textit{sprint} se desarrolla entre el veintidós de noviembre y el tres de diciembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto treinta y ocho horas.
+
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint2}
+\caption{\textit{Burndown Chart Sprint 2.}}\label{fig:BD-Sprint2}
+\end{center}
+\end{figure}
+
+El trabajo realizado a lo largo de este \textit{sprint} ya ha sido adecuado a la metodología \textit{scrum}, obteniendo un \textit{burndown chart}, Figura \ref{fig:BD-Sprint2}, con más sentido que la que se había obtenido en el \textit{Sprint } 1. 
+
+El equipo de desarrollo se sigue habituando poco a poco a la metodología de trabajo y en este \textit{sprint} se ha trabajo por debajo del ``ideal'' para el proyecto. 
+
+\item \textbf{\textit{Sprint review meeting}}
+
+A lo largo de este \textit{sprint} se descubrió un problema en la forma de identificar los k-NN en el algoritmo \textit{Condensed Nearest Neighbor, CNN}\cite{hart1968condensed}, retrasando el trabajo cuatro horas, entre identificación y re-programación. Este error se descubrió mientras se investigaba otro error, en este caso el algoritmo \textit{Iterative Case Filtering, ICF}\cite{brighton2002advances} terminaba en error buscando los k-NN de las últimas instancias.
+
+La implementación de los algoritmos \textit{Reduced Nearest Neighbor, RNN}\cite{gates1972reduced} y \textit{Modified Selective Subset, MSS}\cite{barandela2005decision} ha sido relativamente asequible una vez se comprendía el algoritmo en cuestión así como su funcionamiento (entradas, procesado, salidas...).
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 3: Manion}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del tercer \textit{sprint}:
+\begin{enumerate}
+\item Comenzar la documentación del proyecto.
+\begin{itemize}
+\item Comenzar la memoria por el marco teórico.
+\item Comenzar los anexos por la planificación temporal.
+\end{itemize} 
+Se va a realizar en \LaTeX.
+\item Aprender lo básico de \LaTeX lo más rápido posible para poder trabajar con él.
+\item Buscar la precisión de los algoritmos implementados con conjuntos etiquetados de $[1\%, 5\%, 10\%, 20\%, 50\%]$ del conjunto total. En búsqueda de las asíntotas donde ya no mejora la clasificación.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+El \textit{sprint} se desarrolla entre el seis y el diecisiete de diciembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto XYZ horas.
+
+\item \textbf{\textit{Burndown chart}}
+
+\item \textbf{\textit{Sprint review meeting}}
+
+\end{itemize}
+
+\newpage
+\subsubsection{\textit{Sprint} n: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+\begin{enumerate}
+\item Primero
+\item Segundo
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+\item \textbf{\textit{Burndown chart}}
+
+\item \textbf{\textit{Sprint review meeting}}
+
+\end{itemize}
+
+\newpage
 \section{Estudio de viabilidad}
 
 \newpage
@@ -72,3 +195,78 @@ Para cada \textit{sprint} debe de marcar el objetivo de éste de manera clara y 
 \subsection{Viabilidad legal}
 
 \newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
