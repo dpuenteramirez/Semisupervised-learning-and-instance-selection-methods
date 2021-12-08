@@ -10,8 +10,8 @@
 \contentsline {subsection}{Proceso de minería de datos}{5}{section*.7}%
 \contentsline {subsection}{Técnicas utilizadas en la minería de datos}{8}{section*.8}%
 \contentsline {section}{\numberline {3.2}Función distancia entre instancias}{9}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Aprendizaje en \textit {machine learning}}{10}{section.3.3}%
-\contentsline {subsection}{Aprendizaje supervisado}{11}{section*.9}%
+\contentsline {section}{\numberline {3.3}Aprendizaje en \textit {machine learning}}{11}{section.3.3}%
+\contentsline {subsection}{Aprendizaje supervisado}{12}{section*.9}%
 \contentsline {chapter}{Técnicas y herramientas}{13}{chapter*.10}%
 \contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{15}{chapter*.11}%
 \contentsline {chapter}{Trabajos relacionados}{17}{chapter*.12}%
