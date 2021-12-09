@@ -15,6 +15,7 @@ import numpy as np
 from sklearn import metrics
 from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.utils import Bunch
 
 
@@ -29,7 +30,7 @@ def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
-    csv_path = 'testing_out/testing_output_cross-validation.csv'
+    csv_path = 'testing_output_cross-validation-KNN.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
         w.writerow(header)
@@ -38,7 +39,7 @@ def main():
     random_state = 0x1122021
     kf = KFold(n_splits=10, shuffle=True, random_state=random_state)
 
-    for path in datasets[:10]:
+    for path in datasets[6:10]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
         d1 = arff2sk_dataset(os.path.join('../datasets/', path))
@@ -78,7 +79,8 @@ def __evaluate__(dataset, kf):
 
 
 def __train_and_predict__(data_alg, data):
-    mod_td = DecisionTreeClassifier(max_depth=10, random_state=1)
+    # mod_td = DecisionTreeClassifier(max_depth=10, random_state=1)
+    mod_td = KNeighborsClassifier(n_neighbors=3)
     mod_td.fit(data_alg['data'], data_alg['target'])
     prediction = mod_td.predict(data['data'])
     accuracy = metrics.accuracy_score(prediction, data['target'])

@@ -68,7 +68,7 @@ def main():
             save.close()
         with open(csv_path_mse, 'a') as save:
             w = csv.writer(save)
-            w.writerows(acc)
+            w.writerows(mse)
             save.close()
 
 
