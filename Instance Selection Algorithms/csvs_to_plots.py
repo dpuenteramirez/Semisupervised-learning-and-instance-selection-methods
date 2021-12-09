@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    csv_to_plot.py
+# @Filename:    csvs_to_plots.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        8/12/21 10:03
 import re
