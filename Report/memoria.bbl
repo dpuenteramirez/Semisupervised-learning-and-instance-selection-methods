@@ -1,4 +1,10 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{bengio2012unsupervised}
+Yoshua Bengio, Aaron~C Courville, and Pascal Vincent.
+\newblock Unsupervised feature learning and deep learning: A review and new
+  perspectives.
+\newblock {\em CoRR, abs/1206.5538}, 1:2012, 2012.
 
 \bibitem{Chapman2000CRISPDM1S}
 Peter Chapman, Janet Clinton, Randy Kerber, Tom Khabaza, Thomas~P. Reinartz,
@@ -21,6 +27,10 @@ David~J Hand.
 \newblock Principles of data mining.
 \newblock {\em Drug safety}, 30(7):621--622, 2007.
 
+\bibitem{supervised_learning_mathworks_inc}
+Mathworks Inc.
+\newblock Supervised learning.
+
 \bibitem{KOTU201517}
 Vijay Kotu and Bala Deshpande.
 \newblock Chapter 2 - data mining process.
@@ -32,6 +42,16 @@ Erik~G Learned-Miller.
 \newblock Introduction to supervised learning.
 \newblock {\em I: Department of Computer Science, University of Massachusetts},
   2014.
+
+\bibitem{li2002unsupervised}
+Cen Li and Gautam Biswas.
+\newblock Unsupervised learning with mixed numeric and nominal data.
+\newblock {\em IEEE Transactions on Knowledge and Data Engineering},
+  14(4):673--690, 2002.
+
+\bibitem{unsupervised_learning_clustering}
+Onesmus Mbaabu.
+\newblock Clustering in unsupervised machine learning.
 
 \bibitem{sanchez_2020}
 Jose~Antonio Sanchez.
