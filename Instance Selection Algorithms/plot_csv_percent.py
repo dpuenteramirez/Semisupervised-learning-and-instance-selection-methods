@@ -67,7 +67,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     dataset = 'page-blocks' if args.d is None else str(args.d[0])
-    #test_unlabeled(dataset)
-    plot_self_tarining(dataset)
+    test_unlabeled(dataset)
+    #plot_self_tarining(dataset)
 
 
