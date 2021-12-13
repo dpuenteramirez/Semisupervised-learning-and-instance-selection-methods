@@ -31,6 +31,10 @@ David~J Hand.
 Mathworks Inc.
 \newblock Supervised learning.
 
+\bibitem{javatpoint_semisupervised}
+JavaTPoint.
+\newblock Introduction to semi-supervised learning - javatpoint.
+
 \bibitem{KOTU201517}
 Vijay Kotu and Bala Deshpande.
 \newblock Chapter 2 - data mining process.
@@ -61,5 +65,16 @@ Jose~Antonio Sanchez.
 \bibitem{technovert_2020}
 Technovert.
 \newblock Introduction to machine learning, 2020.
+
+\bibitem{thekumparampil2018attention}
+Kiran~K Thekumparampil, Chong Wang, Sewoong Oh, and Li-Jia Li.
+\newblock Attention-based graph neural network for semi-supervised learning.
+\newblock {\em arXiv preprint arXiv:1803.03735}, 2018.
+
+\bibitem{zhou2014semi}
+Xueyuan Zhou and Mikhail Belkin.
+\newblock Semi-supervised learning.
+\newblock In {\em Academic Press Library in Signal Processing}, volume~1, pages
+  1239--1269. Elsevier, 2014.
 
 \end{thebibliography}

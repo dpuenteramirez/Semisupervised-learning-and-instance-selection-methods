@@ -11,45 +11,45 @@ A level-1 auxiliary file: ./tex/7_Conclusiones_Lineas_de_trabajo_futuras.aux
 The style file: plain.bst
 Database file #1: bibliografia.bib
 Warning--empty booktitle in Chapman2000CRISPDM1S
-You've used 12 entries,
+You've used 15 entries,
             2118 wiz_defined-function locations,
-            575 strings with 5953 characters,
-and the built_in function-call counts, 3595 in all, are:
-= -- 336
-> -- 167
-< -- 2
-+ -- 66
-- -- 54
-* -- 211
-:= -- 597
-add.period$ -- 33
-call.type$ -- 12
-change.case$ -- 62
+            590 strings with 6386 characters,
+and the built_in function-call counts, 4605 in all, are:
+= -- 437
+> -- 210
+< -- 4
++ -- 83
+- -- 68
+* -- 267
+:= -- 754
+add.period$ -- 42
+call.type$ -- 15
+change.case$ -- 78
 chr.to.int$ -- 0
-cite$ -- 13
-duplicate$ -- 136
-empty$ -- 311
-format.name$ -- 54
-if$ -- 764
+cite$ -- 16
+duplicate$ -- 179
+empty$ -- 394
+format.name$ -- 68
+if$ -- 987
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 7
-newline$ -- 58
-num.names$ -- 26
-pop$ -- 89
+int.to.str$ -- 15
+missing$ -- 9
+newline$ -- 72
+num.names$ -- 32
+pop$ -- 111
 preamble$ -- 1
-purify$ -- 50
+purify$ -- 63
 quote$ -- 0
-skip$ -- 114
+skip$ -- 154
 stack$ -- 0
-substring$ -- 174
-swap$ -- 29
-text.length$ -- 2
+substring$ -- 229
+swap$ -- 44
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
+type$ -- 60
 warning$ -- 1
-while$ -- 35
-width$ -- 14
-write$ -- 117
+while$ -- 44
+width$ -- 17
+write$ -- 147
 (There was 1 warning)

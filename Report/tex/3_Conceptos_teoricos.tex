@@ -165,3 +165,19 @@ Principalmente existen dos técnicas de aprendizaje no supervisado.
 	
 	\item \textbf{Reducción de la dimensionalidad.} La clasificación en el aprendizaje automático se basa en atributos o características que tienen los datos, permitiendo su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad.\cite{li2002unsupervised}
 \end{enumerate}
+
+\subsection{Aprendizaje semi-supervisado}\label{subsec:Aprendizaje-Semi-Supervisado}
+\textit{Semi-Supervised Learning} según \cite{zhou2014semi}, se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, i.e. si no sería un aprendizaje supervisado, Sección \ref{subsec:Aprendizaje-Supervisado}, o no supervisado, Sección \ref{subsec:Aprendizaje-No-Supervisado}. 
+
+El uso de aprendizaje semi-supervisado se caracteriza por ser más barato que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es largo y costoso.Además, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado. 
+Conseguir datos sin etiquetar es una tarea muy sencilla, mientras que conseguir conjuntos de datos etiquetados es un proceso complejo y actualmente no hay ``de todo''.
+
+Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren inter-relacionadas entre sí por alguna de sus características. \cite{javatpoint_semisupervised} indica las siguientes suposiciones que se dan en el aprendizaje semi-supervisado.
+\begin{enumerate}
+	\item \textbf{Continuidad.} Se asume que los objetos cercanos entre sí se encontrarán en el mismo \textit{cluster} o grupo --- de etiquetas. 
+	\item \textbf{\textit{Clustering.}} Las instancias son divididas en diferentes grupos discretos, compartiendo todos los elementos de un \textit{cluster} la misma etiqueta.
+	\item \textbf{\textit{Manifold}} o colectores. Se emplea el uso de distancias y funciones de densidad de forma que las instancias se encuentran en colectores con menos dimensiones que el espacio de entrada.
+\end{enumerate}
+
+Dentro de las \textit{best preactices} en \textit{semi-supervised learning} se encuentran el uso de diferentes modelos de redes neuronales para el entrenamiento.  \cite{thekumparampil2018attention}
+\newpage
