@@ -19,7 +19,7 @@ from testing import arff2sk_dataset
 
 
 def main():
-    precisions = [0.01, 0.05, 0.1, 0.2, 0.5]
+    precisions = [0.01, 0.05, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0]
     classifiers = ['KNN', 'Tree']
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
@@ -62,11 +62,11 @@ def main():
                 for train_index, test_index in kf.split(X):
                     X_train, X_test = X[train_index], X[test_index]
                     y_train, y_test = y[train_index], y[test_index]
-                    X_train, _, y_train, _ = train_test_split(X_train, y_train,
-                                                              test_size=
-                                                              1 - precision,
-                                                              random_state=
-                                                              random_state)
+                    if precision != 1.0:
+                        X_train, _, y_train, _ = \
+                            train_test_split(X_train, y_train,
+                                             test_size=1 - precision,
+                                             random_state=random_state)
                     if c == 'Tree':
                         classifier = DecisionTreeClassifier(max_depth=10,
                                                             random_state=

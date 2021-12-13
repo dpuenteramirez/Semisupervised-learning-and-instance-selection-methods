@@ -3,6 +3,7 @@
 # @Filename:    plot_csv_percent.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        9/12/21 12:35
+import argparse
 from os import walk
 
 import matplotlib.pyplot as plt
@@ -10,8 +11,7 @@ import numpy as np
 import pandas as pd
 
 
-def main():
-    dataset = 'page-blocks'
+def test_unlabeled(dataset):
     folder = './test_unlabeled/'
 
     files = next(walk(folder), (None, None, []))[2]
@@ -55,5 +55,19 @@ def main():
     plt.show()
 
 
+def plot_self_tarining(dataset):
+    df = pd.read_csv('./test_self_training/accuracy_self_training.csv')
+    datasets = df.keys()[1:]
+    print(datasets)
+
+
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--d', nargs=1)
+    args = parser.parse_args()
+
+    dataset = 'page-blocks' if args.d is None else str(args.d[0])
+    #test_unlabeled(dataset)
+    plot_self_tarining(dataset)
+
+

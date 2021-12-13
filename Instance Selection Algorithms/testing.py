@@ -39,7 +39,7 @@ def main():
     random_state = 0x1122021
     kf = KFold(n_splits=10, shuffle=True, random_state=random_state)
 
-    for path in datasets[6:10]:
+    for path in datasets[0:10]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
         d1 = arff2sk_dataset(os.path.join('../datasets/', path))
