@@ -67,46 +67,9 @@ Como se ha comentado anteriormente, uno de los mayores problemas de cara al mina
 	\item \textbf{Redes neuronales.} Principalmente utilizadas en \textit{deep learning}, simulan la interconectividad propia del cerebro humano utilizando capas de nodos. Cada nodo está compuesto por \(x_n\) entradas, \(w_n\) pesos y un sesgo o umbral, el cual al ser superado activa la neurona, pasando los datos del nodo a la siguiente neurona. Habitualmente con una única iteración sobre la red neuronal, esta es capaz de obtener una solución medianamente buena de un conjunto de datos de tamaño considerable. 
 	\item \textbf{Árboles de decisión.} Mediante el uso de métodos de clasificación y regresión se clasifican o predicen potenciales resultados en función de un conjunto de decisiones. Utiliza una visualización en forma de árbol para representar los posibles resultados de estas decisiones.
 	\item \textbf{k-vecinos más cercanos. KNN (\textit{k-nearest neighbors})} Método no paramétrico de clasificación, sencillo pero eficaz. \cite{hand2007principles} 
-Para clasificar un conjunto de datos \textit{T}, se recuperan sus \textit{k} vecinos más cercanos, que forman una vecindad de \textit{T}. Se suele utilizar la votación por mayoría entre los registros de datos de la vecindad para decidir la clasificación de \textit{T} con o sin consideración de la ponderación basada en la distancia. \cite{guo2003knn}
+Su objetivo es clasificar un conjunto de datos \textit{T}, para ello se recuperan sus \textit{k} vecinos más cercanos, que forman una vecindad de \textit{T}. Se suele utilizar la votación por mayoría entre los registros de datos de la vecindad para decidir la clasificación de \textit{T} con o sin consideración de la ponderación basada en la distancia. \cite{guo2003knn}
 \end{enumerate}
 
-\section{Función distancia entre instancias}
-La función distancia proporciona la proximidad entre dos instancias en función de todos sus parámetros. Si la distancia que separa dos instancias es cero, ambas instancias son idénticas. Se tiende a trabajar con conjuntos de datos normalizados, i.e. todos los datos son ajustados a una escala común, independientemente de la escala en la que hayan sido medidos.
-
-Existen multitud de métricas para calcular la distancia, pudiendo variar la distancia en función de cuál se aplique. Se van a analizar las más habituales.
-\begin{itemize}
-\item \textbf{Distancia de Minkowski.} La distancia de Minkowski es una métrica en el espacio vectorial normalizado. Es una métrica que se puede modificar con facilidad para calcular la distancia entre dos instancias de diferentes maneras. 
-\begin{enumerate}
-\item \(p = 1\), cálculo de la distancia de Manhattan.
-\item \(p = 2\), cálculo de la distancia Euclídea.
-\item \(p = \infty\), cálculo de la distancia de Chebyshov.
-\end{enumerate}
-Su fórmula es la siguiente:
-\[ \mathbb{D}(x, y) = \left( \sum_{i=1}^{n}\left| x_i - y_i \right|^p \right)^{1/p} \]
-
-\item \textbf{Distancia de Manhattan} o distancia del taxista. Es una métrica en un espacio vectorial normalizado, calculándose como la suma de los $n$ segmentos verticales u horizontales que unen dos puntos.
-
-Su fórmula es la siguiente:
-\[  \mathbb{D}(x, y) = \sum_{i=1}^{d}\left| x_i - y_i\right| \]
-
-\item \textbf{Distancia euclidiana} o norma L2 o distancia L2. Es la distancia en línea recta entre dos puntos de datos en el espacio euclidiano.
-
-Su fórmula normalizada es la siguiente:
-\[  \mathbb{D}(x, y) = \sqrt{\sum_{i=1}^{d} \frac{\left(x_i - y_i\right)^2}{\sigma_i^2}}  \]
-
-\item \textbf{Distancia de Chebyshow} o distancia del tablero de ajedrez. La distancia entre dos puntos es la mayor de sus diferencias a lo largo de cualquiera de sus dimensiones coordenadas.
-
-Su fórmula es la siguiente:
-\[  \mathbb{D}(x, y) = \max_i\left(\left|x_i - y_i\right|\right) \]
-
-\item \textbf{Distancia del Coseno.} Mide la similitud o distancia entre dos vectores calculando el coseno del ángulo que forman.
-
-Su fórmula es la siguiente:
-\[ \mathbb{D}(x, y) = \frac{\sum_{i=1}^{d}x_iy_i}{\sqrt{\sum_{i=1}^{d}x_i^2}\sqrt{\sum_{i=1}^{d}y_i^2} } \]
-
-\item \textbf{Distribución de Pearson} o $\chi^2$. 
-
-\end{itemize}
 \newpage
 \section{Aprendizaje en \textit{machine learning}}
 En \cite{sanchez_2020} se define \textit{machine learning} como una rama dentro del campo de la Inteligencia Artificial que proporciona a los sistemas la capacidad de aprender y mejorar de manera automática, a partir de la experiencia. Estos sistemas transforman los datos en información, y con esta información pueden tomar decisiones. Este tipo de modelos se crean a base del uso masivo de datos. Cuando se dispone de los datos suficientes para entrenar un modelo comienza el proceso de aprendizaje. El objetivo de este aprendizaje es descubrir patrones ocultos en los datos. En muchas ocasiones el resultado del aprendizaje, el modelo, es una función que dadas unos datos de entrada clasifica o predice correctamente una salida. Como se puede ver en la Figura \ref{fig:../img/memoria/Machine-learning-overview} el aprendizaje automático, \textit{machine learning}, posee diferentes aproximaciones, cada una de ellas con una aproximación diferente en cuanto al uso de instancias etiquetadas.
@@ -119,7 +82,7 @@ El aprendizaje automático puede ser resumido como aprender de ejemplos. Al prog
 
 Dependiendo del tipo de etiqueta, en el aprendizaje supervisado hay dos modelos.\cite{supervised_learning_mathworks_inc}
 \begin{enumerate}
-	\item \textbf{Modelos de clasificación.} Producen como salida una etiqueta discreta, i.e. una etiqueta dentro de un conjunto finito de etiquetas, habitualmente suelen ser o binarias \([0,1]\), \([sí,no]\)... o multi-etiqueta, donde los valores pueden variar \([0...n]\) (no teniendo porque ser exclusivamente numéricas).
+	\item \textbf{Modelos de clasificación.} Producen como salida una etiqueta discreta, i.e. una etiqueta dentro de un conjunto finito de etiquetas, habitualmente suelen ser o binarias $[0,1]$, $[sí,no]$... o multi-etiqueta, donde los valores pueden variar $[0...n]$ (no teniendo porque ser exclusivamente numéricas).
 
 Entre los algoritmos de clasificación más frecuentes encontramos:
 	\begin{itemize}
@@ -180,4 +143,95 @@ Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren 
 \end{enumerate}
 
 Dentro de las \textit{best preactices} en \textit{semi-supervised learning} se encuentran el uso de diferentes modelos de redes neuronales para el entrenamiento.  \cite{thekumparampil2018attention}
+\newpage
+
+\section{Técnicas de selección de instancias}\label{sec:tecnicas-seleccion-instancias}
+Dentro de los conjuntos de datos nos encontramos con las instancias, son cada uno de los elementos que componen el \textit{dataset}; en problemas reales de \textit{machine learning} es habitual que se requiera de clasificación automática de estos datos. Este proceso se puede llevar a cabo con algoritmos de aprendizaje supervisado, Sección \ref{subsec:Aprendizaje-Supervisado}, con el objetivo de etiquetar la nueva información. Para poder hacerlo previamente se ha tenido que entrenado el clasificador con un conjunto de entrenamiento, $T$. \cite{olvera2010review}
+
+En la práctica, cualquier $T$ dado contendrá información útil e información desechable, este último tipo de información --- que son en realidad instancias --- a parte de ser redundantes producen ruido, pudiendo inducir en una clasificación errónea en el proceso de aprendizaje, y posteriormente tener un modelo que no sea capaz de clasificar correctamente la nueva información.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{../img/memoria/Instance-Selection-Overview}
+\caption{Proceso de selección de instancias.}
+\label{fig:instance-election-overview}
+\end{figure}
+
+Es por ello que un pre-procesado de las instancias pertenecientes al $T$ original es necesario. En la Figura \ref{fig:instance-election-overview} se puede consultar de manera gráfica el proceso de selección de instancias. Dado un conjunto de datos de entrenamiento inicial, $T$, el objetivo será obtener un subconjunto $S$, tal que $S \subseteq T$ de manera que $S$ no contiene instancias redundantes ni ``ruidosas''. Además, $Acc(S) \cong Acc(T)$, donde $Acc(X)$ es la precisión, \textit{accuracy} en inglés, del modelo entrenado con el conjunto de datos $X$.
+
+En función de cómo comienzan a crear el nuevo subconjunto de datos, $S$, se identifican dos aproximaciones, ascendente y descendente. 
+\begin{itemize}
+\item \textbf{Ascendente.} El nuevo conjunto de datos comienza estando vacío, $S = \emptyset$, y a medida que se vayan realizando iteraciones del algoritmo correspondiente, se irán añadiendo instancias a $S$. El principal problema que posee esta aproximación es su sensibilidad al orden, i.e. dada una instancia $x \subset T$, en diferentes iteraciones del mismo algoritmo de selección de instancias sobre el mismo $T$, puede o no estar en $S$. Esto se debe a la aleatoriedad con la que se presentan los datos, para asegurar esta aleatoriedad los datos se escogen de manera aleatoria de $T$, intrínsecamente da una mayor facilidad a las muestras iniciales a estar en $S$ que las finales, ya que puede que ya se encuentren representadas o sean clasificadas como ruido.
+
+Entre las principales ventajas de esta aproximación destaca el espacio de almacenamiento requerido, puesto que se van guardando instancias y por lo tanto en un inicio es muy pequeño.
+
+\item \textbf{Descendente.} El nuevo conjunto de datos comienza siendo el conjunto de entrenamiento al completo, $S = T$, y a medida que se vayan realizando las iteraciones del algoritmo correspondiente, se irán eliminando instancias de $S$. Esta aproximación es mucho más costosa computacionalmente, para cada instancia que debe decidir si eliminar o no debe comprobar todo el subconjunto $S$, pero en contraposición consigue reducir más que la aproximación ascendente, el conjunto de entrenamiento $T$.
+\end{itemize}
+
+Junto con esta diferenciación, en función de la aproximación de selección de instancias existen dos agrupaciones.
+\begin{itemize}
+\item \textbf{\textit{Wrapper}.} El criterio de selección se basa en la precisión del clasificador. Aquellas instancias que no contribuyen a la mejora del clasificador se quedan fuera de $S$. Este trabajo está centrado en este criterio de selección.
+\item \textbf{\textit{Filter}.} El criterio de selección utiliza una función, $f(x, y)$, para realizar la selección, no se basa en el clasificador.
+\end{itemize}
+
+\begin{table}[]
+\begin{center}
+	\begin{tabular}{@{}ccc@{}}
+	\toprule
+	\rowcolor[HTML]{EFEFEF} 
+	\textbf{Método} & \textbf{Basado en}       & \textbf{Referencia} \\ \midrule
+	ENN             & Clasificación incorrecta & \cite{wilson1972asymptotic}\\ \midrule
+	\rowcolor[HTML]{EFEFEF} 
+	CNN             & Clasificación incorrecta & \cite{hart1968condensed}\\ \midrule
+	RNN             & Clasificación incorrecta & \cite{gates1972reduced}  \\ \midrule
+	\rowcolor[HTML]{EFEFEF} 
+	ICF             & Alcance y covertura      & \cite{brighton2002advances}\\ \midrule
+	MSS             & Fronteras de decisión    & \cite{barandela2005decision}\\ \bottomrule
+	\end{tabular}
+\end{center}
+\caption{Algunos métodos de selección de instancias.}
+\label{tab:instance-selection-methods}
+\end{table}
+
+En la Tabla \ref{tab:instance-selection-methods}
+
+
+\newpage
+\section{Función distancia entre instancias}
+La función distancia proporciona la proximidad entre dos instancias en función de todos sus parámetros. Si la distancia que separa dos instancias es cero, ambas instancias son idénticas. Se tiende a trabajar con conjuntos de datos normalizados, i.e. todos los datos son ajustados a una escala común, independientemente de la escala en la que hayan sido medidos.
+
+Existen multitud de métricas para calcular la distancia, pudiendo variar la distancia calculada en función de cuál se aplique. Se van a comentar las más representativas.
+\begin{itemize}
+\item \textbf{Distancia de Minkowski.} La distancia de Minkowski es una métrica en el espacio vectorial normalizado. Es una métrica que se puede modificar con facilidad para calcular la distancia entre dos instancias de diferentes maneras. 
+\begin{enumerate}
+\item \(p = 1\), cálculo de la distancia de Manhattan.
+\item \(p = 2\), cálculo de la distancia Euclídea.
+\item \(p = \infty\), cálculo de la distancia de Chebyshov.
+\end{enumerate}
+Su fórmula es la siguiente:
+\[ \mathbb{D}(x, y) = \left( \sum_{i=1}^{n}\left| x_i - y_i \right|^p \right)^{1/p} \]
+
+\item \textbf{Distancia de Manhattan} o distancia del taxista. Es una métrica en un espacio vectorial normalizado, calculándose como la suma de los $n$ segmentos verticales u horizontales que unen dos puntos.
+
+Su fórmula es la siguiente:
+\[  \mathbb{D}(x, y) = \sum_{i=1}^{d}\left| x_i - y_i\right| \]
+
+\item \textbf{Distancia euclidiana} o norma L2 o distancia L2. Es la distancia en línea recta entre dos puntos de datos en el espacio euclidiano.
+
+Su fórmula normalizada es la siguiente:
+\[  \mathbb{D}(x, y) = \sqrt{\sum_{i=1}^{d} \frac{\left(x_i - y_i\right)^2}{\sigma_i^2}}  \]
+
+\item \textbf{Distancia de Chebyshow} o distancia del tablero de ajedrez. La distancia entre dos puntos es la mayor de sus diferencias a lo largo de cualquiera de sus dimensiones coordenadas.
+
+Su fórmula es la siguiente:
+\[  \mathbb{D}(x, y) = \max_i\left(\left|x_i - y_i\right|\right) \]
+
+\item \textbf{Distancia del Coseno.} Mide la similitud o distancia entre dos vectores calculando el coseno del ángulo que forman.
+
+Su fórmula es la siguiente:
+\[ \mathbb{D}(x, y) = \frac{\sum_{i=1}^{d}x_iy_i}{\sqrt{\sum_{i=1}^{d}x_i^2}\sqrt{\sum_{i=1}^{d}y_i^2} } \]
+
+\item \textbf{Distribución de Pearson} o $\chi^2$. 
+
+\end{itemize}
 \newpage

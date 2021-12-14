@@ -1,10 +1,23 @@
 \begin{thebibliography}{10}
 
+\bibitem{barandela2005decision}
+Ricardo Barandela, Francesc~J Ferri, and J~Salvador S{\'a}nchez.
+\newblock Decision boundary preserving prototype selection for nearest neighbor
+  classification.
+\newblock {\em International Journal of Pattern Recognition and Artificial
+  Intelligence}, 19(06):787--806, 2005.
+
 \bibitem{bengio2012unsupervised}
 Yoshua Bengio, Aaron~C Courville, and Pascal Vincent.
 \newblock Unsupervised feature learning and deep learning: A review and new
   perspectives.
 \newblock {\em CoRR, abs/1206.5538}, 1:2012, 2012.
+
+\bibitem{brighton2002advances}
+Henry Brighton and Chris Mellish.
+\newblock Advances in instance selection for instance-based learning
+  algorithms.
+\newblock {\em Data mining and knowledge discovery}, 6(2):153--172, 2002.
 
 \bibitem{Chapman2000CRISPDM1S}
 Peter Chapman, Janet Clinton, Randy Kerber, Tom Khabaza, Thomas~P. Reinartz,
@@ -16,6 +29,11 @@ Peter Chapman, Janet Clinton, Randy Kerber, Tom Khabaza, Thomas~P. Reinartz,
 IBM~Cloud Education.
 \newblock What is data mining?, 2021.
 
+\bibitem{gates1972reduced}
+Geoffrey Gates.
+\newblock The reduced nearest neighbor rule (corresp.).
+\newblock {\em IEEE transactions on information theory}, 18(3):431--433, 1972.
+
 \bibitem{guo2003knn}
 Gongde Guo, Hui Wang, David Bell, Yaxin Bi, and Kieran Greer.
 \newblock Knn model-based approach in classification.
@@ -26,6 +44,11 @@ Gongde Guo, Hui Wang, David Bell, Yaxin Bi, and Kieran Greer.
 David~J Hand.
 \newblock Principles of data mining.
 \newblock {\em Drug safety}, 30(7):621--622, 2007.
+
+\bibitem{hart1968condensed}
+Peter Hart.
+\newblock The condensed nearest neighbor rule (corresp.).
+\newblock {\em IEEE transactions on information theory}, 14(3):515--516, 1968.
 
 \bibitem{supervised_learning_mathworks_inc}
 Mathworks Inc.
@@ -57,6 +80,12 @@ Cen Li and Gautam Biswas.
 Onesmus Mbaabu.
 \newblock Clustering in unsupervised machine learning.
 
+\bibitem{olvera2010review}
+J~Arturo Olvera-L{\'o}pez, J~Ariel Carrasco-Ochoa, J~Francisco
+  Mart{\'\i}nez-Trinidad, and Josef Kittler.
+\newblock A review of instance selection methods.
+\newblock {\em Artificial Intelligence Review}, 34(2):133--143, 2010.
+
 \bibitem{sanchez_2020}
 Jose~Antonio Sanchez.
 \newblock ¿cómo aprenden las máquinas? machine learning y sus diferentes
@@ -70,6 +99,12 @@ Technovert.
 Kiran~K Thekumparampil, Chong Wang, Sewoong Oh, and Li-Jia Li.
 \newblock Attention-based graph neural network for semi-supervised learning.
 \newblock {\em arXiv preprint arXiv:1803.03735}, 2018.
+
+\bibitem{wilson1972asymptotic}
+Dennis~L Wilson.
+\newblock Asymptotic properties of nearest neighbor rules using edited data.
+\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics},
+  (3):408--421, 1972.
 
 \bibitem{zhou2014semi}
 Xueyuan Zhou and Mikhail Belkin.
