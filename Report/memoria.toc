@@ -14,9 +14,11 @@
 \contentsline {subsection}{Aprendizaje no supervisado}{12}{section*.10}%
 \contentsline {subsection}{Aprendizaje semi-supervisado}{13}{section*.11}%
 \contentsline {section}{\numberline {3.3}Técnicas de selección de instancias}{14}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Función distancia entre instancias}{16}{section.3.4}%
-\contentsline {chapter}{Técnicas y herramientas}{19}{chapter*.12}%
-\contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{21}{chapter*.13}%
-\contentsline {chapter}{Trabajos relacionados}{23}{chapter*.14}%
-\contentsline {chapter}{Conclusiones y Líneas de trabajo futuras}{25}{chapter*.15}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{27}{chapter*.16}%
+\contentsline {section}{\numberline {3.4}Algoritmos de selección de instancias}{16}{section.3.4}%
+\contentsline {subsection}{Algoritmo de edición de Wilson}{16}{section*.12}%
+\contentsline {section}{\numberline {3.5}Función distancia entre instancias}{18}{section.3.5}%
+\contentsline {chapter}{Técnicas y herramientas}{21}{chapter*.13}%
+\contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{23}{chapter*.14}%
+\contentsline {chapter}{Trabajos relacionados}{25}{chapter*.15}%
+\contentsline {chapter}{Conclusiones y Líneas de trabajo futuras}{27}{chapter*.16}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{29}{chapter*.17}%
