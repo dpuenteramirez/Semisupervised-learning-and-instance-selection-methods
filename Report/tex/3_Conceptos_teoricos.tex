@@ -232,7 +232,41 @@ Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} 
 
 El algoritmo de edición de Wilson, ver Algoritmo \ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas.
 
+
 \subsection{Algoritmo Condensado de Hart}
+
+\begin{algorithm}
+\caption{Algoritmo condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $X$
+\Ensure Conjunto editado $S \subset X$
+\Statex
+\Procedure{CNN}{$X$}
+	\State $S = \left\lbrace x_1 \right\rbrace$
+	\ForAll{$x \in X$}
+		\If {$x$ no se clasifica correctamente usando $S$}
+			\State Añadir $x$ a $S$
+			\State Restart		
+		\EndIf
+	\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Hart \cite{hart1968condensed} 1968 propuso la que se considera la primera regla formal de condensador para NN. El algoritmo de condensado de Hart, \textit{CNN --- Condensed Nearest Neighbor}. Está basado en técnicas de consistencia y reducción. Sea $X \not= \emptyset$ y $S \subseteq X$, podremos decir que el subconjunto $S$ es consistente respecto al conjunto $X$ si al utilizar a $S$ como conjunto de aprendizaje, se puede clasificar correctamente a todo el conjunto $X$.
+
+El algoritmo de Hart está basado en técnicas ascendentes, a partir de las primeras instancias que se añadan a $S$ se clasificarán y añadirán, o no, a $S$. Consiste en encontrar entre todas las instancias de $T$ un subconjunto $S$ tal que cada instancia de $T$ sea más cercano a las instancias en $S$ de su misma clase que a las instancias de otras clases, permitiendo utilizar $S$ como conjunto de clasificación de $T$. Para el correcto funcionamiento se asume que el conjunto $T$ es consistente, no posee dos instancias idénticas con pertenencia a diferentes clases.
+
+El algoritmo propuesto por Hart \cite{hart1968condensed}, ver Algoritmo \ref{alg:Hart-CNN}, posee una complejidad de $O(n^2)$. El conjunto obtenido a partir de $T$, i.e. $S$, operando con grandes conjuntos de datos demuestra poseer un tamaño considerablemente menor respecto a $T$. 
+
+Si bien es una técnica utilizada por su efectividad, posee una serie de puntos negativos a su vez.
+\begin{itemize}
+\item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestran no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
+\item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
+\end{itemize}
+
+
+
 
 \newpage
 \section{Función distancia entre instancias}
