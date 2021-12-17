@@ -21,7 +21,7 @@ from sklearn.utils import Bunch
 
 from CNN import CNN
 from ENN import ENN
-from ICF import ICF
+from ICF_V2 import ICF
 from MSS import MSS
 from RNN import RNN
 
@@ -55,7 +55,7 @@ def main():
 
 
 def __evaluate__(dataset, kf):
-    algorithms = [ENN, CNN, RNN, ICF, MSS]
+    algorithms = [ICF]#[ENN, CNN, RNN, ICF, MSS]
     current_dataset = []
     for algorithm in algorithms:
         avg = []
