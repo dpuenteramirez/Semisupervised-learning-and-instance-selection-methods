@@ -3,6 +3,7 @@
 # @Filename:    ICF_V2.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        16/12/21 16:35
+import copy
 
 from sklearn.datasets import load_iris
 from ENN_V2 import ENN
@@ -103,6 +104,8 @@ def ICF(X):
 
     # Wilson
     TS = ENN(X=X, k=3)
+    #TS = copy.deepcopy(X)
+
 
     while True:
         data = list(TS['data'])
