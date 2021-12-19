@@ -48,10 +48,10 @@ def main():
         results_dataset = __evaluate__(dataset=d1, kf=kf)
         acc.append(current_dataset + results_dataset)
 
-        with open(csv_path, 'a') as save:
-            w = csv.writer(save)
-            w.writerows(acc)
-            save.close()
+    with open(csv_path, 'a') as save:
+        w = csv.writer(save)
+        w.writerows(acc)
+        save.close()
 
 
 def __evaluate__(dataset, kf):

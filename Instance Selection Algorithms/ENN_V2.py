@@ -30,11 +30,19 @@ def ENN(X, k):
     removed = 0
     index = 0
     while True:
-        other_samples = samples[:index] + samples[index+1:]
-        nbrs = NearestNeighbors(n_neighbors=k, algorithm='ball_tree').fit(
-            other_samples)
-        distances, indices = nbrs.kneighbors([samples[index]])
-        closest_clases = targets[indices[0]]
+        x_sample = samples[index]
+        other_samples = samples[:index] + samples[index + 1:]
+
+        distances = []
+        for dis_index in range(len(other_samples)):
+            y_sample = samples[dis_index]
+            y_target = targets[dis_index]
+            distances.append([np.linalg.norm(x_sample - y_sample), y_target])
+
+        distances.sort(key=lambda x: x[0])
+
+        closest_clases = [x[1] for x in distances[:k]]
+
         counts = np.bincount(closest_clases)
         closest_class = np.argmax(counts)
 
@@ -45,7 +53,7 @@ def ENN(X, k):
         else:
             index += 1
 
-        if index+removed == size:
+        if index + removed == size:
             break
     X['data'] = np.array(samples)
     X['target'] = targets
