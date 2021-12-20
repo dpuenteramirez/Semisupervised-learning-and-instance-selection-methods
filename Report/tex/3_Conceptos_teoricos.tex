@@ -218,10 +218,10 @@ Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} 
 \Ensure Conjunto editado $S \subset X$.
 \Statex
 \Procedure{ENN}{$X, k$}
-	\State $S=X$
+	\State $S\leftarrow X$
 	\ForAll{$x \in S$}
 		\State Find x.$N_{1...k+1}$, the $k+1$ nearest neighbors of $x \in X - \{x\}$
-		\If{$\delta_{k-NN}\left(x_i\right)\not=\theta_i$}
+		\If{$\delta_{k-NN}\left(x_i\right)\neq \theta_i$}
 			\State Remove $x$ of $S$
 		\EndIf
 	\EndFor
@@ -242,7 +242,7 @@ El algoritmo de edición de Wilson, ver Algoritmo \ref{alg:Wilson-ENN} posee una
 \Ensure Conjunto editado $S \subset X$
 \Statex
 \Procedure{CNN}{$X$}
-	\State $S = \left\lbrace x_1 \right\rbrace$
+	\State $S \leftarrow \left\lbrace x_1 \right\rbrace$
 	\ForAll{$x \in X$}
 		\If {$x$ no se clasifica correctamente usando $S$}
 			\State Añadir $x$ a $S$
@@ -274,7 +274,7 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
 \Ensure Conjunto editado $S \subset X$
 \Statex
 \Procedure{RNN}{$X$}
-	\State $S = \left\lbrace x_1 \right\rbrace$
+	\State $S \leftarrow \left\lbrace x_1 \right\rbrace$
 	\ForAll{$x \in S$}
 		\If {$x$ no se clasifica correctamente usando $S$}
 			\State Añadir $x$ a $S$
@@ -295,6 +295,38 @@ Gates \cite{gates1972reduced} 1972 propuso el algoritmo del conjunto reducido, b
 El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo \ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
 
 De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución $S$.
+
+
+\subsection{Algoritmo \textit{Iterative Case Filtering}}
+
+\begin{algorithm}
+\caption{Algoritmo \textit{Iterative Case Filtering}, \textit{ICF}.}\label{alg:Brighton-ICF}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $X$
+\Ensure Conjunto editado $S \subset X$
+\Statex
+\Procedure{ICF}{$X$}	
+	\State $T \leftarrow ENN(X,k)$ \Comment Filtro de ruido en función de la regla \textit{k-NN}
+	\Repeat
+		\ForAll {$x \in T$}
+			\State Calcular $coverage(x)$
+			\State Calcular $reachable(x)$		
+		\EndFor
+		\State $progress \leftarrow false$
+		\ForAll {$x \in T$}
+			\If {$\left| reachable(x) \right| > \left| coverage(x) \right|$}
+				\State Marcar $x$ para eliminar
+				\State $progress \leftarrow true$
+			\EndIf
+		\EndFor
+		\ForAll {$X \in T$}
+			\State Eliminar $x$ de $T$
+		\EndFor
+	\Until no $progress$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 
 \newpage
 \section{Función distancia entre instancias}
