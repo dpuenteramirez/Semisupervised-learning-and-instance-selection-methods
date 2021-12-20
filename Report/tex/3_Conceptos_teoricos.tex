@@ -236,7 +236,7 @@ El algoritmo de edición de Wilson, ver Algoritmo \ref{alg:Wilson-ENN} posee una
 \subsection{Algoritmo Condensado de Hart}
 
 \begin{algorithm}
-\caption{Algoritmo condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
+\caption{Algoritmo Condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
 \begin{algorithmic}[1]
 \Require Conjunto de entrenamiento $X$
 \Ensure Conjunto editado $S \subset X$
@@ -265,8 +265,36 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
 \item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
 \end{itemize}
 
+\subsection{Algoritmo Condensado Reducido}
 
+\begin{algorithm}
+\caption{Algoritmo Condensado Reducido, \textit{RNN}.}\label{alg:Gates-RNN}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $X$
+\Ensure Conjunto editado $S \subset X$
+\Statex
+\Procedure{RNN}{$X$}
+	\State $S = \left\lbrace x_1 \right\rbrace$
+	\ForAll{$x \in S$}
+		\If {$x$ no se clasifica correctamente usando $S$}
+			\State Añadir $x$ a $S$
+			\State Restart 
+		\EndIf
+	\EndFor
+	\ForAll {$x \in S$}
+		\State Remove $x$ de $S$
+		\If {$\exists x_i$ incorrectamente clasificada usando $S$}	
+			\State Añadir $x$ a $S$
+		\EndIf
+	\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
+Gates \cite{gates1972reduced} 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver subsección \ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
+El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo \ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
+
+De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución $S$.
 
 \newpage
 \section{Función distancia entre instancias}
