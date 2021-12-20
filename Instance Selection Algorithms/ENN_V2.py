@@ -3,11 +3,10 @@
 # @Filename:    ENN_V2.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        17/12/21 18:30
-
+import copy
 
 from sklearn.datasets import load_iris
 import numpy as np
-from sklearn.neighbors import NearestNeighbors
 from graficas import grafica_2D
 
 
@@ -26,10 +25,10 @@ def ENN(X, k):
     size = len(X['data'])
     samples = list(X['data'])
     targets = X['target']
+    S = copy.deepcopy(X)
+    to_remove = []
 
-    removed = 0
-    index = 0
-    while True:
+    for index in range(size):
         x_sample = samples[index]
         other_samples = samples[:index] + samples[index + 1:]
 
@@ -47,18 +46,12 @@ def ENN(X, k):
         closest_class = np.argmax(counts)
 
         if closest_class != targets[index]:
-            del samples[index]
-            targets = np.delete(targets, index)
-            removed += 1
-        else:
-            index += 1
+            to_remove.append(index)
 
-        if index + removed == size:
-            break
-    X['data'] = np.array(samples)
-    X['target'] = targets
+    S['data'] = np.delete(S['data'], to_remove, axis=0)
+    S['target'] = np.delete(S['target'], to_remove, axis=0)
 
-    return X
+    return S
 
 
 if __name__ == '__main__':
