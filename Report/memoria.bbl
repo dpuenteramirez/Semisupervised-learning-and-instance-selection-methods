@@ -86,6 +86,12 @@ J~Arturo Olvera-L{\'o}pez, J~Ariel Carrasco-Ochoa, J~Francisco
 \newblock A review of instance selection methods.
 \newblock {\em Artificial Intelligence Review}, 34(2):133--143, 2010.
 
+\bibitem{ritter1975algorithm}
+G~Ritter, H~Woodruff, S~Lowry, and T~Isenhour.
+\newblock An algorithm for a selective nearest neighbor decision rule
+  (corresp.).
+\newblock {\em IEEE Transactions on Information Theory}, 21(6):665--669, 1975.
+
 \bibitem{sanchez_2020}
 Jose~Antonio Sanchez.
 \newblock ¿cómo aprenden las máquinas? machine learning y sus diferentes
@@ -99,6 +105,12 @@ Technovert.
 Kiran~K Thekumparampil, Chong Wang, Sewoong Oh, and Li-Jia Li.
 \newblock Attention-based graph neural network for semi-supervised learning.
 \newblock {\em arXiv preprint arXiv:1803.03735}, 2018.
+
+\bibitem{wilfong1992nearest}
+Gordon Wilfong.
+\newblock Nearest neighbor problems.
+\newblock {\em International Journal of Computational Geometry \&
+  Applications}, 2(04):383--416, 1992.
 
 \bibitem{wilson1972asymptotic}
 Dennis~L Wilson.

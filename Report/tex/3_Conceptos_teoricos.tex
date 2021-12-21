@@ -198,7 +198,7 @@ En la Tabla \ref{tab:instance-selection-methods} se aprecian aquellos algoritmos
 \section{Algoritmos de selección de instancias}
 Existen multitud de algoritmos a día de hoy que son capaces de reducir el número de instancias de $T$, en este trabajo se van a comentar los pertenecientes a la Tabla \ref{tab:instance-selection-methods}. Cada uno de ellos tiene sus ventajas y sus desventajas como cabe esperar, en la literatura no apreciamos un ``este es mejor que aquel'' o similar.
 
-\subsection{Algoritmo de edición de Wilson}
+\subsection{Algoritmo de edición de Wilson}\label{sec:ENN}
 Wilson \cite{wilson1972asymptotic} (1972) publicó la regla del vecino más cercano editado, \textit{ENN}. Los problemas de clasificación de instancias en función de una etiqueta, se caracterizan por:
 \begin{itemize}
 \item Hay una instancia a ser clasificada.
@@ -233,7 +233,7 @@ Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} 
 El algoritmo de edición de Wilson, ver Algoritmo \ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas.
 
 
-\subsection{Algoritmo Condensado de Hart}
+\subsection{Algoritmo Condensado de Hart}\label{sec:CNN}
 
 \begin{algorithm}
 \caption{Algoritmo Condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
@@ -265,7 +265,7 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
 \item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
 \end{itemize}
 
-\subsection{Algoritmo Condensado Reducido}
+\subsection{Algoritmo Condensado Reducido}\label{sec:CNN}
 
 Gates \cite{gates1972reduced} 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver subsección \ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
 El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo \ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
@@ -299,7 +299,7 @@ De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, 
 
 
 
-\subsection{Algoritmo \textit{Iterative Case Filtering}}
+\subsection{Algoritmo \textit{Iterative Case Filtering}}\label{sec:ICF}
 
 Brighton \cite{brighton2002advances} 2002 propuso el algoritmo iterativo de filtrado, \textit{ICF}, bajo la premisa de predecir la clase de una instancia con la misma precisión, o mayor si fuera el caso, que el $T$ original. Uno de los objetivos principales del propio algoritmo es mantener en el subconjunto $S$ únicamente aquellas instancias que sean críticas para la decisión.
 
@@ -326,11 +326,11 @@ Una instancia $x$ podrá ser adaptada a una $x'$ si y solo si $x$ es una instanc
 			\State Calcular $coverage(x)$
 			\State Calcular $reachable(x)$		
 		\EndFor
-		\State $progress \leftarrow false$
+		\State $progress \leftarrow$ \textbf{false}
 		\ForAll {$x \in T$}
 			\If {$\left| reachable(x) \right| > \left| coverage(x) \right|$}
 				\State Marcar $x$ para eliminar
-				\State $progress \leftarrow true$
+				\State $progress \leftarrow $ \textbf{true}
 			\EndIf
 		\EndFor
 		\ForAll {$X \in T$}
@@ -342,6 +342,62 @@ Una instancia $x$ podrá ser adaptada a una $x'$ si y solo si $x$ es una instanc
 \end{algorithm}
 
 
+\subsection{Algoritmo Subconjunto Selectivo}\label{sec:SS}
+Ritter \cite{ritter1975algorithm} 1975 propone un algoritmo capaz de satisfacer la condición de consistencia del algoritmo condensado de Hart, ver Sección \ref{sec:CNN}; para ello introduce una condición más ``fuerte'' de consistencia, el objetivo es encontrar aquellas instancias de un orden independiente. 
+
+Un subconjunto $S$ del conjunto de entrenamiento $T$, es un Subconjunto Selectivo, $SS$, si $SS$ cumple las siguientes condiciones:
+\begin{enumerate}
+\item El subconjunto $S$ debe ser consistente.
+\item Todas las instancias tiene que ser más cercanas a un vecino selectivo de la misma clase que a cualquier otra instancia de otra clase.
+\item No puede haber ningún subconjunto $S'$ que satisfaga las condiciones 1 y 2, y que al mismo tiempo contenga un menor número de instancias que el Subconjunto Selectivo, $SS$.
+\end{enumerate}
+
+La segunda condición es la diferencia principal entre el algoritmo de Hart y el subconjunto calculado con el algoritmo del subconjunto selectivo. De forma que se puede reformular el punto número dos de la siguiente manera:
+\begin{center}
+Todas las instancias del conjunto de entrenamiento $T$ deben de ser más ceranos a un vecino condensado --- miembro del subconjunto condensado $\mathcal{CS}$ --- de la misma clase que a cualquier otra instancia de otra clase diferente del $\mathcal{CS}$.
+\end{center}
+Pudiendo verse como una reformulación del punto nº 1. Además, el punto nº  2 para el subconjunto selectivo permite un subconjunto de menor tamaño, eliminando la necesidad de calcular todas las permutaciones de las instancias en $T$. Con unos criterios más específicos que los que se encuentran en el algoritmo condensado, el subconjunto selectivo resultante no tiene porqué ser mínimamente consistente. Asimismo, de forma general, no será un subconjunto reducido del $S$ producido por \textit{CNN}.
+
+
+\subsection{Algoritmo Subconjunto Selectivo Modificado}\label{sec:MSS}
+Barandela \cite{barandela2005decision} 2005 propuso el algoritmo de subconjunto selectivo modificado, \textit{MSS}, como su propio nombre indica, se trata de una modificación del algoritmo propuesto previamente, ver Sección \ref{sec:SS}. Debido a que no se puede garantizar que el algoritmo de Ritter \cite{ritter1975algorithm} devuelva un subconjunto, $S$, el cual sea mínimo y consistente, habiendo sido categorizado como un problema NP-Completo \cite{wilfong1992nearest}, por lo que \textit{MSS} pretende conseguir el subconjunto mínimo consistente mediante el uso de la propiedad selectiva.
+
+La aproximación realizada por Barandela \textit{et al.} modifica la condición nº 3 anteriormente propuesta, mientras que las nº 1 y 2 no son modificadas. De forma que la definición nº 3 queda formulada de la siguiente manera:
+\begin{center}
+El Subconjunto Selectivo Modificado, \textit{MSS}, se define como el subconjunto del conjunto de entrenamiento $TS$, el cual $\forall x_i \in TS$ aquella instancia de $Y_i$ qiue es más cercano a otra clase que a la de $x_i$, i.e. el más cercano a su enemigo más cercano.
+\end{center}
+
+El objetivo principal de esta modificación es reforzar la condición que debe cumplir el subconjunto reducido para maximizar la aproximación a la frontera de decisión. Quedando definido el algoritmo, ver Algoritmo \ref{alg:Barandela-MSS}, como una alternativa eficiente al algoritmo propuesto por Ritter \textit{et al.}, siendo capaz de seleccionar mejores instancias (más cercanas a la frontera de decisión). 
+
+El criterio que sigue \textit{MSS} para determinar la frontera de decisión es la distancia al enemigo más cercano. Con esta medida se puede definir el mejor subconjunto selectivo coimo aquel que contiene el mejor vecino relacionado para cada instancia en el $TS$. (Mejor $\iff$ Menor distancia a su enemigo más cercano).
+
+\begin{algorithm}
+\caption{Algoritmo \textit{Modified Selective Subset}, \textit{MSS}.}\label{alg:Barandela-MSS}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $X$
+\Ensure Conjunto editado $S \subset X$
+\Statex
+\Procedure{MSS}{$X$}	
+	\State $S \leftarrow \emptyset$
+	\State Ordenar las instancias $\lbrace x_i \rbrace^{n}_{i=1}$ en función de $D_i$ a su enemigo más cercano
+	\For {$i = 1$ hasta $n$}
+		\State $add \leftarrow$ \textbf{false}
+		\For {$j=i$ hasta $n$}
+			\If {$x_j \in T \bigwedge d\left( x_i, x_j \right) < D_j$}
+				 \State Eliminar $x_j$ de $T$
+				 \State $add \leftarrow$ \textbf{true}
+			\EndIf
+		\EndFor
+		\If {$add$}
+			\State Añadir $x_i$ a $S$
+		\EndIf 
+		\If {$T = \emptyset$}
+			\State \textbf{return} $S$
+		\EndIf
+	\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 \newpage
 \section{Función distancia entre instancias}

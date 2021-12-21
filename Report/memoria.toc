@@ -19,9 +19,11 @@
 \contentsline {subsection}{Algoritmo Condensado de Hart}{17}{section*.13}%
 \contentsline {subsection}{Algoritmo Condensado Reducido}{19}{section*.14}%
 \contentsline {subsection}{Algoritmo \textit {Iterative Case Filtering}}{20}{section*.15}%
-\contentsline {section}{\numberline {3.5}Función distancia entre instancias}{21}{section.3.5}%
-\contentsline {chapter}{Técnicas y herramientas}{23}{chapter*.16}%
-\contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{25}{chapter*.17}%
-\contentsline {chapter}{Trabajos relacionados}{27}{chapter*.18}%
-\contentsline {chapter}{Conclusiones y Líneas de trabajo futuras}{29}{chapter*.19}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{31}{chapter*.20}%
+\contentsline {subsection}{Algoritmo Subconjunto Selectivo}{21}{section*.16}%
+\contentsline {subsection}{Algoritmo Subconjunto Selectivo Modificado}{22}{section*.17}%
+\contentsline {section}{\numberline {3.5}Función distancia entre instancias}{24}{section.3.5}%
+\contentsline {chapter}{Técnicas y herramientas}{27}{chapter*.18}%
+\contentsline {chapter}{Aspectos relevantes del desarrollo del proyecto}{29}{chapter*.19}%
+\contentsline {chapter}{Trabajos relacionados}{31}{chapter*.20}%
+\contentsline {chapter}{Conclusiones y Líneas de trabajo futuras}{33}{chapter*.21}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{35}{chapter*.22}%
