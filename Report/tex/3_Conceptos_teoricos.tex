@@ -267,6 +267,11 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
 
 \subsection{Algoritmo Condensado Reducido}
 
+Gates \cite{gates1972reduced} 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver subsección \ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
+El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo \ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
+
+De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución $S$.
+
 \begin{algorithm}
 \caption{Algoritmo Condensado Reducido, \textit{RNN}.}\label{alg:Gates-RNN}
 \begin{algorithmic}[1]
@@ -291,13 +296,22 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
 \end{algorithmic}
 \end{algorithm}
 
-Gates \cite{gates1972reduced} 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver subsección \ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
-El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo \ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
 
-De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución $S$.
 
 
 \subsection{Algoritmo \textit{Iterative Case Filtering}}
+
+Brighton \cite{brighton2002advances} 2002 propuso el algoritmo iterativo de filtrado, \textit{ICF}, bajo la premisa de predecir la clase de una instancia con la misma precisión, o mayor si fuera el caso, que el $T$ original. Uno de los objetivos principales del propio algoritmo es mantener en el subconjunto $S$ únicamente aquellas instancias que sean críticas para la decisión.
+
+El problema de la clasificación basada en instancias no es apreciado tanto desde ese punto de vista, sino que se observa el problema como su fuera de borrado de instancias, todas aquellas superfluas o que lo único que aportan es ruido a $T$. Al reducir el tamaño de $T$ los tiempos de respuesta para el proceso de clasificación mejorarán, ya que se examinarán un menor número de instancias para realizar la clasificación; por contrapartida al eliminar muestras que se creen que son dañinas para el proceso, se pueden estar eliminando algunas que sean clave y por lo tanto teniendo una degradación de la calidad del clasificador.
+
+\textit{ICF} se basa en dos categorías para la decisión de si una instancia debe permanecer o no en $S$, ver Algoritmo \ref{alg:Brighton-ICF}, estas son \textit{Coverage} y \textit{Reachable}. Definidas de la siguiente manera para el caso base $\mathcal{CB} = \lbrace x_1, x_2, ..., x_n\rbrace$.
+
+\[Coverage (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x, x')\rbrace \]
+\[Reachable (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x',x)\rbrace\]
+
+Una instancia $x$ podrá ser adaptada a una $x'$ si y solo si $x$ es una instancia relevante para la solución de $x'$, i.e. $x \in k-NN(x)$. La problemática surge en el momento en el cual una instancia con clase diferente no permite la correcta clasificación de $x'$, es por ello que el vecindario de $x'$ viene definido por todas las instancias antes de la primera instancia de diferente clase, utilizando \textit{sets} descritos por Wilson y Martinez. La propiedad \textit{Reachable} no está fijada desde el principio del algoritmo, sino que es dinámica siendo fijada cada vez en función de la instancia de clase diferente más cercana. El criterio seguido para realizar la eliminación de una muestras es: si el \textit{set} formado por el $reachable(x)$ es mayor que el $coverage(x)$, i.e. una instancia $x$ es eliminada cuando más instancias pueden resolver $x$ que las que $x$ puede resolver por sí misma.
+
 
 \begin{algorithm}
 \caption{Algoritmo \textit{Iterative Case Filtering}, \textit{ICF}.}\label{alg:Brighton-ICF}
@@ -326,6 +340,7 @@ De igual manera que con \textit{CNN}, posee la problemática de la minimalidad, 
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
 
 
 \newpage
