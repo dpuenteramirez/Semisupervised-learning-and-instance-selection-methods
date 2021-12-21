@@ -3,6 +3,9 @@
 # @Filename:    ENN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        16/11/21 17:14
+# @Version:     2.0
+
+import copy
 
 import numpy as np
 from sklearn.datasets import load_iris
@@ -22,47 +25,41 @@ def ENN(X, k):
     :param k: int: number of neighbors to evaluate.
     :return: the input dataset with the remaining samples.
     """
+    size = len(X['data'])
+    samples = list(X['data'])
+    targets = X['target']
+    S = copy.deepcopy(X)
+    to_remove = []
 
-    y = X.target
-    data = []
-    target = []
-    for index in range(len(X['data'])):
-        classes = {}
+    for index in range(size):
+        x_sample = samples[index]
+        other_samples = samples[:index] + samples[index + 1:]
 
-        possible_neighbors = zip(np.delete(X['data'], index),
-                                 np.delete(y, index))
-        distances_neighbors = []
-        for sample, sample_class in possible_neighbors:
-            euc = np.linalg.norm(X['data'][index] - sample)
-            distances_neighbors.append([sample, sample_class, euc])
+        distances = []
+        for dis_index in range(len(other_samples)):
+            y_sample = samples[dis_index]
+            y_target = targets[dis_index]
+            distances.append([np.linalg.norm(x_sample - y_sample), y_target])
 
-        distances_neighbors.sort(key=lambda x: x[2])
-        neighbors_classes = distances_neighbors[:k]
-        for _, neigh, _ in neighbors_classes:
-            try:
-                classes[neigh] += 1
-            except KeyError:
-                classes[neigh] = 0
+        distances.sort(key=lambda x: x[0])
 
-        if max(classes, key=classes.get) == y[index]:
-            data.append(X['data'][index])
-            target.append(X['target'][index])
+        closest_clases = [x[1] for x in distances[:k]]
 
-    X['data'] = np.array(data)
-    X['target'] = target
+        counts = np.bincount(closest_clases)
+        closest_class = np.argmax(counts)
 
-    return X
+        if closest_class != targets[index]:
+            to_remove.append(index)
 
+    S['data'] = np.delete(S['data'], to_remove, axis=0)
+    S['target'] = np.delete(S['target'], to_remove, axis=0)
 
-def main():
-    data = load_iris()
-    n_samples = len(data['data'])
-    k = 3
-    S = ENN(X=data, k=k)
-
-    print(f"{n_samples - len(S['data'])} samples deleted.")
-    grafica_2D(S)
+    return S
 
 
 if __name__ == '__main__':
-    main()
+    iris = load_iris()
+    print(f'Input samples: {len(iris.data)}')
+    S = ENN(iris, 3)
+    print(f'Output samples: {len(S.data)}')
+    grafica_2D(S)

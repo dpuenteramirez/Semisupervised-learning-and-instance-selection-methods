@@ -21,7 +21,7 @@ from sklearn.utils import Bunch
 
 from CNN import CNN
 from ENN import ENN
-from ICF import ICF
+from ICF_V2 import ICF
 from MSS import MSS
 from RNN import RNN
 
@@ -30,14 +30,14 @@ def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
     header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
-    csv_path = 'testing_output_cross-validation-KNN.csv'
+    csv_path = 'testing_output_cross-validation-KNN19122021.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
         w.writerow(header)
         save.close()
     acc = []
     random_state = 0x1122021
-    kf = KFold(n_splits=10, shuffle=True, random_state=random_state)
+    kf = KFold(n_splits=2, shuffle=True, random_state=random_state)
 
     for path in datasets[0:10]:
         name = path.split('.')[0]
@@ -48,14 +48,14 @@ def main():
         results_dataset = __evaluate__(dataset=d1, kf=kf)
         acc.append(current_dataset + results_dataset)
 
-        with open(csv_path, 'a') as save:
-            w = csv.writer(save)
-            w.writerows(acc)
-            save.close()
+    with open(csv_path, 'a') as save:
+        w = csv.writer(save)
+        w.writerows(acc)
+        save.close()
 
 
 def __evaluate__(dataset, kf):
-    algorithms = [ENN, CNN, RNN, ICF, MSS]
+    algorithms = [ICF]#[ENN, CNN, RNN, ICF, MSS]
     current_dataset = []
     for algorithm in algorithms:
         avg = []
@@ -80,7 +80,8 @@ def __evaluate__(dataset, kf):
 
 def __train_and_predict__(data_alg, data):
     # mod_td = DecisionTreeClassifier(max_depth=10, random_state=1)
-    mod_td = KNeighborsClassifier(n_neighbors=3)
+    mod_td = KNeighborsClassifier(n_neighbors=12, algorithm='brute', p=2,
+                                  n_jobs=-1)
     mod_td.fit(data_alg['data'], data_alg['target'])
     prediction = mod_td.predict(data['data'])
     accuracy = metrics.accuracy_score(prediction, data['target'])

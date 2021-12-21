@@ -3,8 +3,9 @@
 # @Filename:    ICF.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        23/11/21 09:37
+# @Version:     2.0
 
-import sys
+from sys import maxsize
 
 import numpy as np
 from sklearn.datasets import load_iris
@@ -20,7 +21,7 @@ def __delete_multiple_element__(list_object, indices):
             list_object.pop(idx)
 
 
-def __coverage__(dat, tar):
+def __coverage__(T):
     """
     Inner method that performs the coverage and reachability of T.
     :param dat: samples of T
@@ -29,41 +30,53 @@ def __coverage__(dat, tar):
     samples that it can cover. And reachable for each sample the samples that
     are able to reach it.
     """
-    one_class = True if len(np.unique(tar)) == 1 else False
-    cov = [[None if not one_class else i] for i in range(len(dat))]
-    reachable = [[None if not one_class else i] for i in range(len(dat))]
-    if one_class:
-        return cov, reachable
+    size = len(T.data)
+    matrix_distances = np.zeros([size, size])
+    distances_to_enemies = []
+    sol = []
 
-    matrix_distances = [[sys.maxsize for _ in range(len(dat))]
-                        for _ in range(len(dat))]
+    for sample in range(size):
+        distance_to_closest_enemy = maxsize
+        x_sample = T['data'][sample]
+        x_target = T['target'][sample]
+        for other_sample in range(size):
+            y_sample = T['data'][other_sample]
+            y_target = T['target'][other_sample]
+            distance = np.linalg.norm(x_sample - y_sample)
+            matrix_distances[sample][other_sample] = distance
+            # Si son enemigas, nos quedamos con la distancia
+            if x_target != y_target and distance < distance_to_closest_enemy:
+                distance_to_closest_enemy = distance
+        distances_to_enemies.append(distance_to_closest_enemy)
 
-    for index in range(len(tar)):
-        for index2 in range(index, len(tar)):
-            euc = np.linalg.norm(dat[index] - dat[index2])
-            matrix_distances[index][index2] = euc
-            matrix_distances[index2][index] = euc
+    for sample in range(size):
+        x_coverage = []
+        x_target = T['target'][sample]
+        distance_to_closest_enemy = distances_to_enemies[sample]
+        for other_sample in range(size):
+            if sample == other_sample:
+                continue
+            y_target = T['target'][other_sample]
+            if x_target == y_target:
+                distance_between_samples = matrix_distances[sample][
+                    other_sample]
+                if distance_between_samples < distance_to_closest_enemy:
+                    x_coverage.append(other_sample)
+        sol.append([x_coverage])
 
-    closest_enemy = [[None, None] for _ in range(len(dat))]
-    for index, row in enumerate(matrix_distances):
-        x_class = tar[index]
-        enemies = np.where(tar != x_class)[0]
-        closest_enemy[index] = [enemies[0], matrix_distances[index][enemies[0]]]
-        for enemy in enemies[1:]:
-            if matrix_distances[index][enemy] < closest_enemy[index][1]:
-                closest_enemy[index] = [enemy, matrix_distances[index][enemy]]
+    for sample in range(size):
+        reachable = []
+        x_target = T['target'][sample]
+        for other_sample in range(size):
+            y_target = T['target'][other_sample]
+            if sample != other_sample and x_target == y_target:
+                # if x_target == y_target:
+                coverage = sol[other_sample][0]
+                if sample in coverage:
+                    reachable.append(other_sample)
+        sol[sample].append(reachable)
 
-    for index, row in enumerate(matrix_distances):
-        x_class = tar[index]
-        allies = np.where(tar == x_class)[0]
-        for ally in allies:
-            if matrix_distances[index][ally] < closest_enemy[index][1]:
-                cov[index].append(ally)
-                reachable[ally].append(index)
-    cov = [[i for i in val if i] for val in cov]
-    reachable = [[i for i in val if i] for val in reachable]
-
-    return cov, reachable
+    return sol
 
 
 def ICF(X):
@@ -80,29 +93,32 @@ def ICF(X):
     :param X: dataset with scikit-learn structure.
     :return: the input dataset with the remaining samples.
     """
-    S = ENN(X=X, k=3)
 
-    data = list(S['data'])
-    target = list(S['target'])
-    progress = True
-    while progress:
+    TS = ENN(X=X, k=3)
 
-        coverage, reachable = __coverage__(data, target)
+    while True:
+        data = list(TS['data'])
+        target = list(TS['target'])
+
+        cov_reach = __coverage__(TS)
 
         progress = False
-        remove_indexes = []
-        for index, instance in enumerate(zip(data, target)):
-            (dat, tar) = instance
-            if abs(len(reachable[index])) > abs(len(coverage[index])):
-                remove_indexes.append(index)
+        removable_indexes = []
+        for index in range(len(cov_reach)):
+            (x_cov, x_reach) = cov_reach[index]
+            if len(x_reach) > len(x_cov):
+                removable_indexes.append(index)
                 progress = True
-        __delete_multiple_element__(data, remove_indexes)
-        __delete_multiple_element__(target, remove_indexes)
 
-    S['data'] = np.array(data)
-    S['target'] = target
+        __delete_multiple_element__(data, removable_indexes)
+        __delete_multiple_element__(target, removable_indexes)
+        TS['data'] = data
+        TS['target'] = target
+        if not progress:
+            break
 
-    return S
+    TS['data'] = np.array(TS['data'])
+    return TS
 
 
 def main():
