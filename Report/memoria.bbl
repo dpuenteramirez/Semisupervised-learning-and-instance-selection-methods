@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{mlpipeline2018}
+Sunith~Shetty ~.
+\newblock Automl for building simple to complex ml pipelines, Sep 2018.
+
 \bibitem{barandela2005decision}
 Ricardo Barandela, Francesc~J Ferri, and J~Salvador S{\'a}nchez.
 \newblock Decision boundary preserving prototype selection for nearest neighbor
@@ -24,6 +28,11 @@ Peter Chapman, Janet Clinton, Randy Kerber, Tom Khabaza, Thomas~P. Reinartz,
   Colin Shearer, and Richard Wirth.
 \newblock Crisp-dm 1.0: Step-by-step data mining guide.
 \newblock 2000.
+
+\bibitem{potomac1999introduction}
+Potomac Two~Crows Corporation.
+\newblock {\em Introduction to data mining and knowledge discovery}.
+\newblock Two Crows, 1999.
 
 \bibitem{IBM-WhatisDataMining}
 IBM~Cloud Education.
@@ -85,6 +94,12 @@ J~Arturo Olvera-L{\'o}pez, J~Ariel Carrasco-Ochoa, J~Francisco
   Mart{\'\i}nez-Trinidad, and Josef Kittler.
 \newblock A review of instance selection methods.
 \newblock {\em Artificial Intelligence Review}, 34(2):133--143, 2010.
+
+\bibitem{palmer2011data}
+Alfonso Palmer, Rafael Jim{\'e}nez, and Elena Gervilla.
+\newblock Data mining: Machine learning and statistical techniques.
+\newblock {\em Knowledge-Oriented Applications in Data Mining, Prof. Kimito
+  Funatsu (Ed.)}, pages 373--396, 2011.
 
 \bibitem{ritter1975algorithm}
 G~Ritter, H~Woodruff, S~Lowry, and T~Isenhour.
