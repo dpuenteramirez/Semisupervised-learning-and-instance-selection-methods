@@ -85,11 +85,11 @@ def plot_unlabeled_to_one():
 
         fig, ax = plt.subplots(figsize=(10, 10))
         for d in dataset:
-            plt.plot(precision, d[1:])
+            plt.plot(precision, d[1:], label=d[0].split('_')[1])
         ax.set_xlabel("So much per one labeled")
         ax.set_ylabel('Correct prediction')
         ax.set_title(str_datasets[index])
-
+        plt.legend(loc='best')
         plt.tight_layout()
         plt.savefig(f'./test_unlabeled/all_in_one_{str_datasets[index]}')
 
