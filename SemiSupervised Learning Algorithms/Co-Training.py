@@ -54,10 +54,12 @@ def co_training(p, n, k, u, L, U):
         idx_1 = np.amax(pred_proba_1, axis=1)
         aa = pd.DataFrame(pred_proba_1)
         idx_2 = np.amax(pred_proba_2, axis=1)
-        prediction_1 = [[x, y, z, u] for x, y, z, u in zip(pred_1, pred_proba_1,
-                                                           idx_1, __U__)]
-        prediction_2 = [[x, y, z, u] for x, y, z, u in zip(pred_2, pred_proba_2,
-                                                           idx_2, __U__)]
+        prediction_1 = [[x, y, z, u_] for x, y, z, u_ in zip(pred_1,
+                                                             pred_proba_1,
+                                                             idx_1, __U__)]
+        prediction_2 = [[x, y, z, u_] for x, y, z, u_ in zip(pred_2,
+                                                             pred_proba_2,
+                                                             idx_2, __U__)]
 
         prediction_1.sort(key=lambda x: x[2], reverse=True)
         prediction_2.sort(key=lambda x: x[2], reverse=True)
@@ -87,11 +89,33 @@ def co_training(p, n, k, u, L, U):
                            dtype=object)
         classes = np.array([x for x in predictions.pop('Class').to_numpy()])
 
+        found = []
+        for index, s1 in enumerate(U['data']):
+            for s2 in samples:
+                if np.array_equal(s1, s2):
+                    found.append(index)
+                    break
+        U['data'] = np.delete(U['data'], found, axis=0)
+
+        found = []
+        for index, s1 in enumerate(__U__):
+            for s2 in samples:
+                if np.array_equal(s1, s2):
+                    found.append(index)
+                    break
+
+        __U__ = np.delete(__U__, found, axis=0)
+
         L['data'] = np.concatenate((L['data'], samples), axis=0)
         L['target'] = np.concatenate((L['target'], classes), axis=0)
+        try:
+            temp = rng.choice(U['data'], size=int(2 * p + 2 * n), shuffle=False)
+        except ValueError:
+            # If no more values remain for taking, it was not correctly
+            # parametrized
+            return L['data'], L['target']
 
-        __U__ = rng.choice(U['data'], size=int(2 * p + 2 * n), replace=False,
-                           shuffle=False)
+        __U__ = np.vstack([__U__, temp])
 
     return L['data'], L['target']
 
@@ -105,13 +129,14 @@ if __name__ == '__main__':
     parser.add_argument('--d', nargs=1)
     args = parser.parse_args()
 
-    if args.d[0] not in files_tot:
-        print('File does not exist.')
-        exit(1)
-    dataset = [file for file in files if args.d[0] in file]
-    if len(dataset) != 1:
-        print('More than one file found.')
-        exit(2)
+    # if args.d[0] not in files_tot:
+    #     print('File does not exist.')
+    #     exit(1)
+    # dataset = [file for file in files if args.d[0] in file]
+    # if len(dataset) != 1:
+    #     print('More than one file found.')
+    #     exit(2)
+    dataset = ['iris.arff']
 
     dataset = arff2sk_dataset(folder + dataset[0])
 

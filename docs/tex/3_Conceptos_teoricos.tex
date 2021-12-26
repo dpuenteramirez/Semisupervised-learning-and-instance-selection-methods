@@ -74,8 +74,51 @@ Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren 
 \end{enumerate}
 
 Dentro de las \textit{best practices} en \textit{semi-supervised learning} se encuentran el uso de diferentes modelos de redes neuronales para el entrenamiento~\cite{thekumparampil2018attention}
-\vfill
 
+
+\section{Algoritmos en el aprendizaje semi-sepervisado}\label{sec_alg:semi-supervised}
+A continuación se van a presentar los algoritmos tratados en este trabajo.
+
+\subsection{\textit{Self-training}}
+
+
+
+\subsection{\textit{Co-Training}}
+Blum~\cite{blum1998combining} en 1998 propuso el \textit{Co-Training} para conjuntos de datos compuestos por datos etiquetados y no etiquetados. Bajo la presunción de que con unos pocos datos etiquetados y diferentes clases que aportan información, se pueden entrenar dos algoritmos de aprendizaje por separado para posteriormente añadir al conjunto de datos etiquetados aquellas predicciones con mayor \textit{confidence level}.
+
+Las dos características del problema mencionadas anteriormente, disponibilidad de datos etiquetados y no etiquetados, y la disponibilidad de dos <<tipos>> diferentes de conocimiento sobre los ejemplo; aproximan a la siguiente estrategia de aprendizaje. Se desea encontrar los predictores débiles basados en cada tipo de información utilizando un pequeño conjunto inicial de instancias etiquetadas, seguidamente, utilizando los datos no etiquetados se intenta hacer un \textit{bootstrap} a partir de esos <<malos>> predictores. Este tipo de \textit{bootstrapping} es el denominado \textit{Co-Training}, y posee una estrecha relación con el \textit{bootstraping} a partir de datos incompletos en el marco de la maximización de expectativas~\cite{ghahramani1994supervised, ratsaby1995learning}
+
+\begin{algorithm}[H]
+\caption{\textit{Co-Training}.}\label{alg:Co-Training}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $L \lbrace\left(x_i, y_i\right)\rbrace_{i=1}^l$ y $U \lbrace x_j \rbrace_{j=l+1}^{l+u}$ de datos etiquetados y no etiquetados, respectivamente
+\Require $p$, $n$, $k$, $u$, datos positivos a seleccionar, los negativos, iteraciones, tamaño \textit{pool} inicial
+\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
+\Statex
+\Procedure{\textit{Co-Training}}{$L,U,p,n,k,u$}
+	\State $U' \leftarrow U[u]$\Comment{$u$ instancias aleatorias de $U$}
+	\For{k}
+		\State Usar $L$ para entrenar un clasificador $h_1$ utilizando $x$
+		\State Usar $L$ para entrenar un clasificador $h_2$ utilizando $y$
+		\State $h_1$ clasifica $U'$
+		\State $h_2$ clasifica $U'$
+		\State Seleccionar las $p$ y $n$ instancias con mayor \textit{confidence level} de cada clasificador
+		\State Añadirlas a $L$
+		\State Elegir de forma aleatoria $2p+2n$ instancias de $U$ y añadirlas a $U'$
+	\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{\textit{Tri-Training}}
+
+
+
+\subsection{\textit{Democratic Co-Training}}
+
+
+
+\vfill
 \section{Minería de datos}
 
 Según IBM~\cite{IBM-WhatisDataMining}, podemos definir la minería de datos, o descubrimiento de conocimiento
@@ -156,7 +199,7 @@ A continuación se presentan una serie de técnicas utilizadas en función de la
 	
 	Para evitar el \textit{overfitting} del modelo, el árbol puede podarse eliminando las ramas con pocas instancias, o donde aquellas instancias sean poco representativas~\cite{palmer2011data}
 	
-	\item \textbf{$k$-vecinos más cercanos. KNN (\textit{k-nearest neighbors})}~\cite{guo2003knn}~\cite{hand2007principles}~\cite{palmer2011data} Las técnicas \textit{k}-NN se basan en el concepto de similaridad. Permite la construcción de un método de clasificación sin hacer suposiciones sobre la forma de la función que relaciona la variable dependiente con las variables independientes.
+	\item \textbf{$k$-vecinos más cercanos. KNN (\textit{k-nearest neighbors})}~\cite{guo2003knn,hand2007principles,palmer2011data} Las técnicas \textit{k}-NN se basan en el concepto de similaridad. Permite la construcción de un método de clasificación sin hacer suposiciones sobre la forma de la función que relaciona la variable dependiente con las variables independientes.
 	
 	El objetivo es identificar de forma dinámica las \textit{k} instancias en los datos de entrenamiento que son similares (vecinas) a la instancia que se quiere clasificar. La clasificación de una instancia viene dada por la observación de la clase de la vecindad, para ello se basa en los atributos de las variables. En otras palabras, cuenta el número de instancias para cada clase en la vecindad y asigna a la instancia en cuestión aquella clase que sea mayoritaria en la vecindad~\cite{potomac1999introduction}
 	
