@@ -80,6 +80,11 @@ Dentro de las \textit{best practices} en \textit{semi-supervised learning} se en
 A continuación se van a presentar los algoritmos tratados en este trabajo.
 
 \subsection{\textit{Self-training}}
+Los métodos de auto-entrenamiento (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~Triguero~\textit{et al.}~\cite{triguero2015self} Se encuentran basados en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador se encuentra siendo entrenado constantemente con datos etiquetados conocidos y por los que se van conociendo a medida que pasan las iteraciones. Es decir, en el inicio el clasificador es entrenado con los datos etiquetados que se conocen, con ese clasificador se obtienen nuevas instancias etiquetadas y las mejores (con mayor \textit{confidence level}) son añadidas al conjunto de datos etiquetado para volver a entrenar el clasificador~\cite{jesper2020survey}
+
+Yarowsky~\cite{yarowsky1995unsupervised} en 1995 propuso la primera versión de \textit{Self-training}, desde entonces numerosas aproximaciones han sido realizadas, modificando la utilización del conjunto de datos etiquetado, los nuevos datos, etcétera. El diseño que se le puede dar y los campos de aplicación del mismo son muy variados.
+
+El procedimiento de selección de qué datos son pseudo-etiquetados es de vital importancia, puesto que determinará qué datos acaban en el conjunto de datos etiquetado de sucesivas iteraciones. Siendo este un proceso iterativo y no incremental, ya que la probabilidad de etiquetado de los datos es re-calculada en cada iteración. De no serlo sería una apoximación a \textit{expectation-maximization}~\cite{dempster1977maximum}
 
 
 
