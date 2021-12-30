@@ -56,7 +56,8 @@ def test_unlabeled(dataset):
 
 
 def plot_self_tarining(dataset):
-    df = pd.read_csv('./test_self_training/accuracy_self_training.csv')
+    df = pd.read_csv(
+        '../SemiSupervised Learning Algorithms/test_self_training/accuracy_self_training.csv')
     datasets = df.keys()[1:]
     print(datasets)
 
