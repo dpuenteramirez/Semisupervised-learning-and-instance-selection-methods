@@ -176,8 +176,90 @@ Dado que \textit{Tri-Training} no impone ninguna restricción al algoritmo de ap
 
 \clearpage
 \subsection{\textit{Democratic Co-Training}}
+Zhou~\cite{zhou2004democratic} en 2004 presentó el algoritmo \textit{Democratic Co-Learning}. El algoritmo a diferencia de sus <<homónimos>>, trabaja con múltiples algoritmos de aprendizaje supervisado, en lugar de múltiples clases significativas, permitiendo que se etiqueten nuevas instancias entre ellos. Debido a que diferentes algoritmos de aprendizaje poseen diferentes sesgos, seleccionar la clase más votada por la mayoría produce mejores predicciones.
 
+El algoritmo es por tanto enfocado para el uso en casos donde:
+\begin{itemize}
+\item Solo se poseen unas pocas muestras etiquetadas 
+\item Existe un conjunto de datos de tamaño muy superior, sin etiquetar
+\item No existen dos conjuntos de atributos independientes y redundantes
+\end{itemize}
 
+Es por ello que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
+
+Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $\left( l + h \right) / 2$ para $l$ y $h$ definidas por el intervalo de confianza del 95\% $\left[l,h\right]$.
+
+Finalmente el algoritmo, ver~\ref{alg:Democratic-Co-2}, finaliza con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
+
+\begin{algorithm}
+\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente
+\Require $A_1,\dots , A_n$ los $n$ algoritmos de aprendizaje supervisado
+\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
+\Statex
+\Procedure{\textit{Democratic Co-Learning}}{$L,U$}
+	\For{$i = i,\dots , n$}
+		\State $L_i \leftarrow L$
+		\State $e_i \leftarrow 0$ 
+	\EndFor
+	\Repeat
+		\For{$i = 1,\dots , n$}
+			\State Calcular las hip $H_i$ con los datos $L_i$ para cada clasificador $A_i$
+		\EndFor
+		\ForAll{$x \in U$}
+			\For{$j = 1, \dots, r$}\Comment{Posibles etiquetas}
+				\State $c_j \leftarrow \left|\lbrace H_i | H_i\left(x\right) = j \rbrace\right|$
+			\EndFor
+			\State $k \leftarrow arg max_j \lbrace c_j\rbrace$
+		\EndFor
+		\For{$i = 1, \dots ,  n$}\Comment{$x$ propuestos para etiquetar}
+			\State Utilizar $L$ para calcular el int. de conf. 95\% $\left[l_i, h_i\right]$ para $H_i$
+			\State $w_i \leftarrow \left(l_i + h_i \right)/2$
+			\For{$i = 1, \dots , n$}
+				\State $L'_i = \emptyset$
+			\EndFor
+			\If{$\sum_{H_j(x) = c_k} w_j > max_{c'_k \not= c_k}\sum_{H_j(x) = c'_k} w_j$}
+				\State $L'_i \leftarrow L'_i \cup \lbrace\left(x, c_k\right)\rbrace$, $\forall i$ tal que $H_i(x) \not= c_k$
+			\EndIf
+		\EndFor
+		\LineComment{Comprobar si añadir $L'_i$ a $L$ mejora la precisión}
+		\For{$i = 1, \dots , n$}
+			\State $q_i \leftarrow \left| L_i\right| \left(1-2\left(\frac{e_i}{\left|L_i\right|}\right)\right)^2$\Comment{est. del error}
+			\State $e'_i \leftarrow \left(1-\frac{\sum_{i=1}^{d}l_i}{d}\right) \left|L'_i\right|$\Comment{est. del nuevo error}
+			\State $q'_i \leftarrow \left| L_i \cup L'_i \right| \left(1-\frac{2\left(e_i+e'_i\right)}{\left|L_i \cup L'_i\right|}\right)^2$\Comment{si $L'_i$ es añadida}			
+		\EndFor
+		\If{$q'_i > q_i$}
+			\State $e_i \leftarrow e_i + e'_i$
+		\EndIf
+	\Until{Ningún $L_1, \dots , L_n$ cambie}
+\algstore{alg:democratic}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co-2}
+\begin{algorithmic}[1]
+\algrestore{alg:democratic}
+	\For{$i=1,\dots , n$}
+		\State Calcular el int. de conf. 95\% $\left[ l_i, h_i\right]$ para $H_i$ usando $L$
+		\State $w_i \leftarrow \left( l_i + h_i\right)/2$
+	\EndFor
+	\ForAll{$x \in \left(L \cup U \right)$}
+		\For{$i = 1, \dots, n$}
+			\If{$H_i(x)$ predice $c_j$ y $w_i > 0.5$}
+				\State Asociar $H_i$ al grupo $G_j$
+			\EndIf
+		\EndFor
+		\For{$j = 1, \dots,r$}
+			\State $\overline{C}_{G_{j}} \leftarrow \frac{\left|G_j\right| + 0.5}{\left|G_j\right| + 1} \times \frac{\sum_{H_i\in G_j}w_i}{\left| G_j\right|}$
+		\EndFor
+	\EndFor
+	\State Predicciones $H$ con $Gk$ para $k = argmax_j\left(\overline{C}_{G_{j}}\right)$
+	\State \textbf{return} $H$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 \vfill
 \section{Minería de datos}

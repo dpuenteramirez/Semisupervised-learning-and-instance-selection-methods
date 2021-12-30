@@ -30,12 +30,17 @@
 % Ecuaciones
 \usepackage{amsmath}
 
+% Algoritmos
+\algrenewcomment[1]{\(\triangleright\) #1}
+\algnewcommand{\LineComment}[1]{\Statex \(\triangleright\) #1}
+\algnewcommand\LeftComment[2]{%
+\hspace{#1\algindent}$\triangleright$ \eqparbox{COMMENT}{#2} \hfill %
+}
+
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
 
 % Párrafos
-
-
 \setlength{\parindent}{4em}
 \setlength{\parskip}{1em}
 
