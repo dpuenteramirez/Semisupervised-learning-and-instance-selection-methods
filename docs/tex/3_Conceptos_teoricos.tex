@@ -607,6 +607,58 @@ El criterio que sigue \textit{MSS} para determinar la frontera de decisión es l
 \end{algorithmic}
 \end{algorithm}
 
+\paragraph{\textit{Decremental Reduction Optimization Procedure}}\label{paragraph:DROP}
+\hfill \break
+Bajo el nombre de \textit{Decremental Reduction Optimization Procedure, DROP}~\cite{wilson2000reduction} nos encontramos con hasta 5 aproximaciones para la resolución del mismo problema. Todas ellas seleccionan prototipos en función de \textit{socio} y \textit{asociado}. Definidos como:
+\begin{itemize}
+\item Socio. Sea $X \not= \emptyset$, el socio de un objeto $P$ el cual pertence al conjunto $X$, es aquél objeto que tiene a $P$ como uno de sus $k$ vecinos más cercanos.
+\item Asociado. Todo prototipo que contenga a $P$ como a uno de sus $k$ vecinos más cercanos, será denominado asociado de $P$, denotado con la expresión $P.A_{1,\dots,a}$ donde $a$ es el número de asociados de $P$.
+\end{itemize}
+
+\begin{algorithm}[H]
+\caption{Algoritmo \textit{Decremental Reduction Optimization Procedure 3}, \textit{DROP3}.}\label{alg:DROP3}
+\begin{algorithmic}[1]
+\Require Conjunto de entrenamiento $X$ y número de vecinos más cercanos a considerar, $k$
+\Ensure Conjunto editado $S \subset X$
+\Statex
+\Procedure{DROP3}{$X, k$}
+	\State $T \leftarrow \text{Filtrado de ruido}(X)$ 
+	\State $S \leftarrow T$
+	\State Ordenar las instancias de $S$ por la distancia a su enemigo más próximo \Comment de mayor a menor
+	\ForAll{$x \in S$}
+		\State Encontrar los $x.N_{1\dots k+1}$, los $k+1$ vecniso más cercanos de $x$ en $S$
+		\State Añadir $x$ a la lista de asociados de cada uno de sus vecinos
+	\EndFor
+	\ForAll{$x \in S$}
+		\State $with \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{con} $x$ como vecino
+		\State $without \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{sin} $x$ como vecino
+		\If{$without \geq with$}
+			\State Eliminar $x$ de $S$
+			\ForAll{Asociado $a$ de $x$}
+				\State Eliminar $x$ de la lista de vecinos de $a$
+				\State Encontrar nuevo vecino para $a$
+				\State Añadir $a$ en la lista de asociados del nuevo vecino
+			\EndFor
+		\EndIf
+	\EndFor
+	\State \textbf{return} $S$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo algoritmo~\cite{wilson2000reduction} pero con modificaciones el las técnicas de pre-procesado de los prototipos. Sus diferencias son:
+\begin{itemize}
+\item \textit{DROP1}. Eliminará un objeto $P$ de $S$ si sus socios en $S$ se clasifican correctamente sin $P$, i.e. la ausencia de $P$ no impide la correcta clasificación del resto de prototipos.
+\item \textit{DROP2}. Eliminará un objeto $P$ de $S$ si los socios que tiene $P$ en $TS$ se clasifican correctamente sin $P$, i.e., verificará el efecto que causa esta eliminación sobre la muestra original. Previo al proceso de eliminación de objetos $P$, ordena los prototipos a tratar en orden a su enemigo más cercano, permitiendo que los primeros prototipos que se van a tratar serán aquellos más alejados de las fronteras de decisión.
+\item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, muy similar a la edición de Wilson, ver~en~\ref{paragraph:ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}
+\item \textit{DROP4}. Aplica un filtro de ruido diferente, en este casos consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
+\item \textit{DROP5}. Modificación sobre \textit{DROP2}, en este algoritmo el proceso de eliminación de objetos comienza por aquellos más cercanos a sus enemigos. 
+\end{itemize}
+
+El concepto \textit{with} permite recoger el número de asociados correctamente clasificados teniendo en cuenta un prototipo $x$ como vecino, en cambio \textit{without} tiene en cuenta el número de asociados correctamente clasificados los cuales no tienen el prototipo $x$ como vecino. En los casos en los que $withput > with$ se está tratando con un prototipo el cual no aporta información sobre el conjunto $S$ permitiendo su eliminación.
+
+
+
 \vfill
 \section{Función distancia entre instancias}
 Una función distancia proporciona la proximidad entre dos instancias en función de todos sus parámetros. Si la distancia que separa dos instancias es cero, ambas instancias son idénticas. Se tiende a trabajar con conjuntos de datos normalizados, i.e. todos los datos son ajustados a una escala común, independientemente de la escala en la que hayan sido medidos, para evitar que atributos/características con mucha varianza puedan <<despistar>> a los algoritmos.
