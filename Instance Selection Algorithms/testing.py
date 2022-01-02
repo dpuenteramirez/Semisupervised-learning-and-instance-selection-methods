@@ -21,7 +21,7 @@ from sklearn.utils import Bunch
 
 from CNN import CNN
 from ENN import ENN
-from ICF_V2 import ICF
+from ICF import ICF
 from MSS import MSS
 from RNN import RNN
 
