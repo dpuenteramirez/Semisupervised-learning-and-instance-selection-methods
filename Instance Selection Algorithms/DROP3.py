@@ -3,38 +3,48 @@
 # @Filename:    DROP3.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        31/12/21 16:00
+# @Version:     3.0
 
+import copy
 from sys import maxsize
-
 import numpy as np
 from sklearn.datasets import load_iris
-
-from ENN import ENN
+from sklearn.neighbors import NearestNeighbors
 from graficas import grafica_2D
+from tqdm import trange
 
 
-def with_without(x_sample, sample_associates, samples_labels, neighs):
+def with_without(x_sample, samples_info):
     with_ = 0
     without = 0
-    for a_sample in sample_associates:
-        a_label = samples_labels[tuple(a_sample)]
-        for y_sample, y_neighs, y_labels in neighs:
-            if np.array_equal(a_sample, y_sample):
-                count = np.bincount(y_labels)
-                max_class = np.where(count == np.amax(count))[0][0]
-                if max_class == a_label:
-                    was_in = False
-                    for a_neigh in y_neighs:
-                        if np.array_equal(x_sample, a_neigh):
-                            was_in = True
-                            break
-                    if was_in:
-                        with_ += 1
-                    else:
-                        without += 1
+    x_associates = samples_info[x_sample][1]
+    associates_targets = [samples_info[tuple(x)][2] for x in x_associates]
+    associates_neighs = [samples_info[tuple(x)][0] for x in x_associates]
+
+    for a_associate, a_target, a_neighs in zip(x_associates,
+                                               associates_targets,
+                                               associates_neighs):
+
+        neighs_targets = [samples_info[tuple(x)][2] for x in a_neighs]
+
+        # With
+        count = np.bincount(neighs_targets[:-1])
+        max_class = np.where(count == np.amax(count))[0][0]
+        if max_class == a_target:
+            with_ += 1
+
+        # Without
+        for index_a, neigh in enumerate(a_neighs):
+            if np.array_equal(neigh, x_sample):
                 break
+        count = np.bincount(neighs_targets[:index_a] + neighs_targets[
+            index_a + 1:])
+        max_class = np.where(count == np.amax(count))[0][0]
+        if max_class == a_target:
+            without += 1
 
     return with_, without
+
 
 
 def DROP3(X, k):
@@ -44,112 +54,101 @@ def DROP3(X, k):
     :param k:
     :return:
     """
-    # Filtro de ruido
-    S = ENN(X, k)
+    S = copy.deepcopy(X)
+    initial_samples = S['data'].tolist()
+    initial_targets = S['target'].tolist()
+    knn = NearestNeighbors(n_neighbors=k+2, n_jobs=-1, p=2)
+    knn.fit(initial_samples)
 
-    # Ordenar las instancias en S por la distancia a su enemigo más próximo
-    # de más lejano a más cercano
-    initial_samples, initial_labels = S['data'], S['target']
+    # Samples_info -> dict{x_sample : list([list(k+1-NN), list(x_associates),
+    # label])}
+    samples_info = {tuple(x): [[], [], y] for x, y in zip(initial_samples,
+                                                          initial_targets)}
+
+    initial_samples, initial_targets = S['data'], S['target']
     initial_distances = []
 
-    for x_sample, x_label in zip(initial_samples, initial_labels):
+    for x_sample, x_target in zip(initial_samples, initial_targets):
+        # Find distance to closest enemy
         min_distance = maxsize
-        for y_sample, y_label in zip(initial_samples, initial_labels):
-            if x_label != y_label:
+        for y_sample, y_label in zip(initial_samples, initial_targets):
+            if x_target != y_label:
                 xy_distance = np.linalg.norm(x_sample - y_sample)
                 if xy_distance < min_distance:
                     min_distance = xy_distance
-        initial_distances.append([x_sample, x_label, min_distance])
+        initial_distances.append([x_sample, x_target, min_distance])
+
+        # Find k+1-NN
+        _, neigh_ind = knn.kneighbors([x_sample])
+        x_neighs = [initial_samples[x] for x in neigh_ind[0][1:]]
+        samples_info[tuple(x_sample)][0] = x_neighs
+
+        # Add x in the associates lists of x_neighs
+        for neigh in x_neighs[:-1]:
+            samples_info[tuple(neigh)][1].append(x_sample)
 
     initial_distances.sort(key=lambda x: x[2], reverse=True)
 
-    # Para cada x en S, encontrar sus k-NN y añadir x a la lista de asociados
-    # de sus k-NN
-    sample_neighs = []
-    sample_associates = [[x, []] for x, _, _ in initial_distances]
-
-    for x_sample, _, _ in initial_distances:
-        y_sample_distance = []
-        for y_sample, y_label in zip(initial_samples, initial_labels):
-            if not np.array_equal(x_sample, y_sample):
-                y_sample_distance.append([y_sample, y_label, np.linalg.norm(
-                    x_sample - y_sample)])
-        y_sample_distance.sort(key=lambda x: x[2])
-        x_neighs = [x for x, _, _ in y_sample_distance[:k]]
-        x_neighs_labels = [x for _, x, _ in y_sample_distance[:k]]
-        sample_neighs.append([x_sample, x_neighs, x_neighs_labels])
-
-        for index, a in enumerate(sample_associates):
-            a_sample = a[0]
-            for y_sample, _, _ in y_sample_distance[:k]:
-                if np.array_equal(a_sample, y_sample):
-                    sample_associates[index][1].append(x_sample)
-                    break
-
-    # Para cada x en S calcular with and without
-    final_samples = [x for x, _, _ in initial_distances]
-    final_labels = [x for _, x, _ in initial_distances]
-    samples_labels_dict = {tuple(x): y for x, y, _ in initial_distances}
     removed = 0
+    size = len(initial_distances)
+    for index_x in trange(size):
+        x_sample = initial_distances[index_x-removed][0]
 
-    for index in range(len(initial_distances)):
-        x_sample, x_label = initial_distances[index][0], initial_distances[
-            index][1]
-        x_associates = sample_associates[index]
-        with_, without = with_without(x_sample, x_associates[1],
-                                      samples_labels_dict, sample_neighs)
+        with_, without = with_without(tuple(x_sample), samples_info)
 
         if without >= with_:
-            final_samples = np.delete(final_samples, index - removed, axis=0)
-            final_labels = np.delete(final_labels, index - removed, axis=0)
-
+            initial_distances = initial_distances[:index_x - removed] + \
+                                initial_distances[index_x - removed + 1:]
             removed += 1
-            for associate in x_associates[1]:
-                for index_y, y in enumerate(sample_neighs):
-                    y_sample, y_neighs, y_neighs_labels = y
-                    if np.array_equal(associate, y_sample):
-                        # Eliminar x de la lista de vecinos de a
-                        for x_index, neigh in enumerate(y_neighs):
-                            if np.array_equal(x_sample, neigh):
-                                break
-                        del y_neighs[x_index]
-                        del y_neighs_labels[x_index]
 
-                        # Encontrar un nuevo vecino para a
-                        z_distances = []
-                        for z_sample, z_label in zip(final_samples,
-                                                     final_labels):
-                            if not np.array_equal(associate, z_sample):
-                                z_distance = np.linalg.norm(associate -
-                                                            z_sample)
-                                z_distances.append([z_sample, z_label,
-                                                    z_distance])
-                        z_distances.sort(key=lambda x: x[2])
+            # For each associate of x_sample
+            for a_associate_of_x in samples_info[(tuple(x_sample))][1]:
+                # a_associate_of_x = a_associate_of_x.tolist()
+                # Remove x_sample from a_associate neighs
+                a_neighs = samples_info[tuple(a_associate_of_x)][0]
+                for index_a, neigh in enumerate(a_neighs):
+                    if np.array_equal(neigh, x_sample):
+                        break
+                a_neighs = a_neighs[:index_a] + a_neighs[index_a + 1:]
+                try:
+                    assert len(a_neighs) == k
+                except AssertionError:
+                    breakpoint()
+                # Find a new neigh for the associate
+                remaining_samples = [x for x, _, _ in initial_distances]
+                knn = NearestNeighbors(n_neighbors=k+2, n_jobs=-1, p=2)
+                knn.fit(remaining_samples)
+                _, neigh_ind = knn.kneighbors([a_associate_of_x])
+                possible_neighs = [initial_distances[x][0] for x in
+                                   neigh_ind[0]]
 
-                        for neigh_sample, neigh_label, _ in z_distances[:k]:
-                            was_in = False
-                            for index_z, old_neigh in enumerate(y_neighs):
-                                if np.array_equal(neigh_sample, old_neigh):
-                                    was_in = True
-                                    break
-                            if not was_in:
-                                y_neighs.append(neigh_sample)
-                                y_neighs_labels.append(neigh_label)
-                                break
-                        sample_neighs[index_y][1] = y_neighs
-                        sample_neighs[index_y][2] = y_neighs_labels
-
-                        # Añadir a en la lista de asociados del nuevo vecino
-                        for index_z, z in enumerate(sample_associates):
-                            z_sample, z_associates = z
-                            if np.array_equal(z_sample, neigh_sample):
-                                z_associates.append(associate)
-                                break
-                        sample_associates[index_z][1] = z_associates
+                for pos_neigh in possible_neighs[1:]:
+                    was_in = False
+                    for old_neigh in a_neighs:
+                        if np.array_equal(old_neigh, pos_neigh):
+                            was_in = True
+                            break
+                    if not was_in:
+                        a_neighs.append(pos_neigh)
                         break
 
-    S['data'] = final_samples
-    S['target'] = final_labels.tolist()
+                try:
+                    assert len(a_neighs) == k+1
+                except AssertionError:
+                    breakpoint()
+
+                samples_info[tuple(a_associate_of_x)][0] = a_neighs
+
+                # Add a_associate to the associates list of the new neigh
+                new_neigh = a_neighs[-1]
+                try:
+
+                    samples_info[tuple(new_neigh)][1].append(a_associate_of_x)
+                except TypeError:
+                    breakpoint()
+
+    S['data'] = np.array([x for x, _, _ in initial_distances])
+    S['target'] = np.array([x for _, x, _ in initial_distances])
 
     return S
 
