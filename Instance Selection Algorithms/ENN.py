@@ -8,7 +8,7 @@
 import copy
 
 import numpy as np
-from sklearn.datasets import load_boston as load_iris
+from sklearn.datasets import load_iris
 from sklearn.neighbors import NearestNeighbors
 
 from graficas import grafica_2D
