@@ -3,12 +3,13 @@
 # @Filename:    ENN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        16/11/21 17:14
-# @Version:     2.0
+# @Version:     3.0
 
 import copy
 
 import numpy as np
 from sklearn.datasets import load_iris
+from sklearn.neighbors import NearestNeighbors
 
 from graficas import grafica_2D
 
@@ -25,34 +26,32 @@ def ENN(X, k):
     :param k: int: number of neighbors to evaluate.
     :return: the input dataset with the remaining samples.
     """
-    size = len(X['data'])
-    samples = list(X['data'])
-    targets = X['target']
     S = copy.deepcopy(X)
-    to_remove = []
+    size = len(X['data'])
+    s_samples = list(X['data'])
+    s_targets = list(X['target'])
+    removed = 0
 
     for index in range(size):
-        x_sample = samples[index]
-        other_samples = samples[:index] + samples[index + 1:]
+        x_sample = s_samples[index - removed]
+        x_target = s_targets[index - removed]
+        knn = NearestNeighbors(n_jobs=-1, n_neighbors=k, p=2)
+        samples_not_x = s_samples[:index - removed] + s_samples[
+                                                      index - removed + 1:]
+        targets_not_x = s_targets[:index - removed] + s_targets[
+                                                      index - removed + 1:]
+        knn.fit(samples_not_x)
+        _, neigh_ind = knn.kneighbors([x_sample])
+        y_targets = [targets_not_x[x] for x in neigh_ind[0]]
+        count = np.bincount(y_targets)
+        max_class = np.where(count == np.amax(count))[0][0]
+        if max_class != x_target:
+            removed += 1
+            s_samples = samples_not_x
+            s_targets = targets_not_x
 
-        distances = []
-        for dis_index in range(len(other_samples)):
-            y_sample = samples[dis_index]
-            y_target = targets[dis_index]
-            distances.append([np.linalg.norm(x_sample - y_sample), y_target])
-
-        distances.sort(key=lambda x: x[0])
-
-        closest_clases = [x[1] for x in distances[:k]]
-
-        counts = np.bincount(closest_clases)
-        closest_class = np.argmax(counts)
-
-        if closest_class != targets[index]:
-            to_remove.append(index)
-
-    S['data'] = np.delete(S['data'], to_remove, axis=0)
-    S['target'] = np.delete(S['target'], to_remove, axis=0)
+    S['data'] = np.array(s_samples)
+    S['target'] = s_targets
 
     return S
 
