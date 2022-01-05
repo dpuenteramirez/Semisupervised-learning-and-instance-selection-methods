@@ -3,18 +3,19 @@
 # @Filename:    self_training.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        10/12/21 08:36
-from os import walk
-import os.path
-from testing import arff2sk_dataset
-from math import floor
 import copy
 import csv
-import numpy as np
+import os.path
+from math import floor
+from os import walk
 from statistics import mean
+
+import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, KFold
-from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.semi_supervised import SelfTrainingClassifier
+from testing import arff2sk_dataset
 
 
 def main():
@@ -56,7 +57,7 @@ def main():
                 if precision != 1.0:
                     indexes = np.random.choice(len(y_train),
                                                floor(len(y_train) * (
-                                                           1 - precision)),
+                                                       1 - precision)),
                                                replace=False)
                     indexes = np.setdiff1d(np.arange(len(y_train)), indexes)
                     y_train[indexes] = -1
