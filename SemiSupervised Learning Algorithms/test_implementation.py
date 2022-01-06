@@ -3,24 +3,21 @@
 # @Filename:    test_implementation.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        5/1/22 15:54
-import time
 import csv
-import copy
-import sys
 import logging
-from statistics import mean
-import threading
-from os import walk
-import sys
 import os
+import sys
+import time
+from os import walk
 from os.path import join
-from sklearn.datasets import load_iris
+from statistics import mean
+
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.model_selection import StratifiedKFold
 
 from CoTraining import CoTraining
-from TriTraining import TriTraining
 from DemocraticCoLearning import DemocraticCoLearning
+from TriTraining import TriTraining
 
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
@@ -42,9 +39,9 @@ def test_implementation():
         save.close()
 
     random_state = 0x06012022
-    kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=random_state)
+    kf = StratifiedKFold(n_splits=2, shuffle=True, random_state=random_state)
 
-    for path in datasets[:2]:
+    for path in datasets[0:2]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
         d1 = arff2sk_dataset(join('../datasets/', path))
@@ -94,14 +91,14 @@ def __evaluate__(dataset, kf, random_state, header):
 
     logging.info(f"\tMain   : {header[0]}")
     th_co = ReturnValueThread(target=__compute__, args=(header[0], 0, X, y,
-                                                           kf, random_state))
+                                                        kf, random_state))
     logging.info(f"\tMain   : {header[1]}")
     th_tri = ReturnValueThread(target=__compute__, args=(header[1], 1, X, y,
-                                                            kf, random_state))
+                                                         kf, random_state))
     logging.info(f"\tMain   : {header[2]}")
     th_demo = ReturnValueThread(target=__compute__, args=(header[2], 2, X, y,
-                                                             kf, random_state))
-
+                                                          kf, random_state))
+    # t = __compute__(header[2], 2, X, y, kf, random_state)
     th_co.start()
     th_tri.start()
     th_demo.start()

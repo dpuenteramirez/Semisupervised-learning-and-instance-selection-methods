@@ -11,6 +11,7 @@ from math import sqrt
 import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
 
 
@@ -41,6 +42,7 @@ class DemocraticCoLearning:
             np.random.randint(low=0, high=10e5, size=1)[0]
         self.n_classifiers = 3
         self.n_attributes = 0
+        self.n_labels = 0
         self.w1 = 0
         self.w2 = 0
         self.w3 = 0
@@ -50,6 +52,16 @@ class DemocraticCoLearning:
         self.h3 = DecisionTreeClassifier(random_state=self.random_state)
 
     def fit(self, L, U, y):
+        if len(L) != len(y):
+            raise ValueError(
+                f'The dimension of the labeled data must be the same as the '
+                f'number of labels given. {len(L)} != {len(y)}'
+            )
+
+        le = LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.n_labels = max(np.unique(y))+1
 
         unlabeled_data = U
         self.n_attributes = len(L[0])
@@ -259,28 +271,31 @@ class DemocraticCoLearning:
     def predict(self, X):
         all_instances = X
 
-        gj = [0 for _ in range(self.n_attributes)]
-        gj_h = [[0 for _ in range(self.n_attributes)] for _ in
+        gj = [0 for _ in range(self.n_labels)]
+        gj_h = [[0 for _ in range(self.n_labels)] for _ in
                 range(self.n_classifiers)]
-        for sample in all_instances:
-            sample_s = [sample]
-            if self.w1 > 0.5:
-                p = self.h1.predict(sample_s)
-                p = np.ravel(p)[0]
-                gj[p] += 1
-                gj_h[0][p] += 1
-            if self.w2 > 0.5:
-                p = self.h2.predict(sample_s)
-                p = np.ravel(p)[0]
-                gj[p] += 1
-                gj_h[1][p] += 1
-            if self.w3 > 0.5:
-                p = self.h3.predict(sample_s)
-                p = np.ravel(p)[0]
-                gj[p] += 1
-                gj_h[2][p] += 1
+        try:
+            for sample in all_instances:
+                sample_s = [sample]
+                if self.w1 > 0.5:
+                    p = self.h1.predict(sample_s)
+                    p = np.ravel(p)[0]
+                    gj[p] += 1
+                    gj_h[0][p] += 1
+                if self.w2 > 0.5:
+                    p = self.h2.predict(sample_s)
+                    p = np.ravel(p)[0]
+                    gj[p] += 1
+                    gj_h[1][p] += 1
+                if self.w3 > 0.5:
+                    p = self.h3.predict(sample_s)
+                    p = np.ravel(p)[0]
+                    gj[p] += 1
+                    gj_h[2][p] += 1
+        except IndexError:
+            breakpoint()
 
-        confidence = [0 for _ in range(self.n_attributes)]
+        confidence = [0 for _ in range(self.n_labels)]
         for j in range(len(gj)):
             izq = (gj[j] + 0.5) / (gj[j] + 1)
             div = True if gj[j] != 0 else False
@@ -296,4 +311,14 @@ class DemocraticCoLearning:
         classifiers = [self.h1, self.h2, self.h3]
         confidence = np.array(confidence)
         classifier = np.where(confidence == np.amax(confidence))[0][0]
-        return classifiers[classifier].predict(X)
+
+        labels = []
+        pred1 = self.h1.predict(X)
+        pred2 = self.h2.predict(X)
+        pred3 = self.h3.predict(X)
+
+        for p in zip(pred1, pred2, pred3):
+            count = np.bincount(p)
+            labels.append(np.where(count == np.amax(count))[0][0])
+
+        return np.array(labels)
