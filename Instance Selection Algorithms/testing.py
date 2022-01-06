@@ -84,7 +84,7 @@ def __train_and_predict__(data_alg, data):
                                   n_jobs=-1)
     mod_td.fit(data_alg['data'], data_alg['target'])
     prediction = mod_td.predict(data['data'])
-    accuracy = metrics.accuracy_score(prediction, data['target'])
+    accuracy = metrics.accuracy_score(data['target'], prediction)
     return accuracy
 
 

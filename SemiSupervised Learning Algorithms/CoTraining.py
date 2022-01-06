@@ -5,7 +5,7 @@
 # @Time:        22/12/21 09:27
 # @Version:     2.0
 
-from math import floor
+from math import ceil, floor
 
 import numpy as np
 from sklearn.naive_bayes import GaussianNB
@@ -36,17 +36,18 @@ class CoTraining:
         y = le.transform(y)
         tot = self.n + self.p
 
-        self.size_x1 = floor(len(L[0]) / 2)
+        self.size_x1 = ceil(len(L[0]) / 2)
 
         rng = np.random.default_rng()
         u_random_index = rng.choice(len(U), size=floor(self.u),
                                     replace=False, shuffle=False)
 
         u_prime = U[u_random_index]
-        u1, u2 = np.hsplit(u_prime, self.size_x1)
+        u1, u2 = np.array_split(u_prime, 2, axis=1)
 
         for _ in range(self.k):
-            x1, x2 = np.hsplit(L, self.size_x1)
+            x1, x2 = np.array_split(L, 2, axis=1)
+
             self.h1.fit(x1, y)
             self.h2.fit(x2, y)
 
@@ -95,7 +96,7 @@ class CoTraining:
                       'enough unlabeled samples.')
 
     def predict(self, X):
-        x1, x2 = np.hsplit(X, self.size_x1)
+        x1, x2 = np.array_split(X, 2, axis=1)
         pred1, pred_proba1 = self.h1.predict(x1), self.h1.predict_proba(x1)
         pred2, pred_proba2 = self.h2.predict(x2), self.h2.predict_proba(x2)
         labels = []

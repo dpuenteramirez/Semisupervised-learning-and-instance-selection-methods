@@ -24,7 +24,7 @@ def main():
     datasets.sort()
     random_state = 0x10122021
 
-    csv_path = f'test_self_training/accuracy_self_training.csv'
+    csv_path = f'tests/accuracy_self_training.csv'
     header = ['dataset'] + precisions
 
     with open(csv_path, 'w') as save:

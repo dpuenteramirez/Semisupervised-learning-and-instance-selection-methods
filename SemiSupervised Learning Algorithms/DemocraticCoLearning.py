@@ -266,14 +266,17 @@ class DemocraticCoLearning:
             sample_s = [sample]
             if self.w1 > 0.5:
                 p = self.h1.predict(sample_s)
+                p = np.ravel(p)[0]
                 gj[p] += 1
                 gj_h[0][p] += 1
             if self.w2 > 0.5:
                 p = self.h2.predict(sample_s)
+                p = np.ravel(p)[0]
                 gj[p] += 1
                 gj_h[1][p] += 1
             if self.w3 > 0.5:
                 p = self.h3.predict(sample_s)
+                p = np.ravel(p)[0]
                 gj[p] += 1
                 gj_h[2][p] += 1
 

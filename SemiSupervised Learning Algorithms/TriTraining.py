@@ -26,7 +26,7 @@ def measure_error(classifier_j, classifier_k, labeled_data):
 
 class TriTraining:
     def __init__(self, learn=None, random_state=None):
-        if learn is None or learn not in [*range(3)]:
+        if learn is None or learn not in [*range(5)]:
             raise ValueError(
                 'The learn algorithm must be passed to the constructor.\n'
                 '\t 1 for 3-NN \n\t 2 for Decision Tree \n\t 3 for Random '
