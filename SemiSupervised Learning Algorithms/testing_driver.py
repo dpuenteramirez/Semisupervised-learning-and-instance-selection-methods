@@ -8,14 +8,15 @@ from sklearn.datasets import load_iris
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 
-from TriTraining import TriTraining
+from DemocraticCoLearning import DemocraticCoLearning
 
 if __name__ == '__main__':
-    model = TriTraining(learn=1, random_state=42)
+    model = DemocraticCoLearning(random_state=42)
     iris = load_iris()
     X = iris['data']
     y = iris['target']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.4,
+    X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                        train_size=0.1,
                                                         stratify=y,
                                                         random_state=42)
     model.fit(L=X_train, U=X_test, y=y_train)
