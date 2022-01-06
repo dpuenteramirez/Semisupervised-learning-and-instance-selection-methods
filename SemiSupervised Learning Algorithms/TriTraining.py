@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    Tri-Training.py
+# @Filename:    TriTraining.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        27/12/21 10:25
 # @Version:     2.0
