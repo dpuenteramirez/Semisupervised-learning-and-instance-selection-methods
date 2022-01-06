@@ -17,6 +17,13 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import Bunch
 
 
+def measure_error(classifier_j, classifier_k, labeled_data):
+    pred_j = classifier_j.predict(labeled_data)
+    pred_k = classifier_k.predict(labeled_data)
+    same = len([0 for x, y in zip(pred_j, pred_k) if x == y])
+    return (len(pred_j) - same) / same
+
+
 class TriTraining:
     def __init__(self, learn=None, random_state=None):
         if learn is None or learn not in [*range(3)]:
@@ -44,12 +51,6 @@ class TriTraining:
 
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
-
-    def measure_error(self, classifier_j, classifier_k, labeled_data):
-        pred_j = classifier_j.predict(labeled_data)
-        pred_k = classifier_k.predict(labeled_data)
-        same = len([0 for x, y in zip(pred_j, pred_k) if x == y])
-        return (len(pred_j) - same) / same
 
     def subsample(self, l_t, s):
         np.random.seed(self.random_state)
@@ -95,7 +96,7 @@ class TriTraining:
 
             update_j = False
             L_j = Bunch(data=[], target=[])
-            e_j = self.measure_error(h_j, h_k, L)
+            e_j = measure_error(h_j, h_k, L)
 
             if e_j < ep_j:
                 for sample in U:
@@ -122,7 +123,7 @@ class TriTraining:
 
             update_k = False
             L_k = Bunch(data=np.array([]), target=np.array([]))
-            e_k = self.measure_error(h_j, h_k, L)
+            e_k = measure_error(h_j, h_k, L)
 
             if e_k < ep_k:
                 for sample in U:
@@ -149,7 +150,7 @@ class TriTraining:
 
             update_i = False
             L_i = Bunch(data=np.array([]), target=np.array([]))
-            e_i = self.measure_error(h_j, h_k, L)
+            e_i = measure_error(h_j, h_k, L)
 
             if e_i < ep_i:
                 for sample in U:
