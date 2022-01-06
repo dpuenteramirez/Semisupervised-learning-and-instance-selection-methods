@@ -14,12 +14,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import metrics
 from sklearn.model_selection import KFold
-from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import plot_tree
 from sklearn.utils import Bunch
 
-
 from CNN import CNN
+from DROP3 import DROP3
 from ENN import ENN
 from ICF import ICF
 from MSS import MSS
@@ -29,7 +29,7 @@ from RNN import RNN
 def main():
     datasets = next(walk('../datasets'), (None, None, []))[2]
     datasets.sort()
-    header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS']
+    header = ['dataset', 'ENN', 'CNN', 'RNN', 'ICF', 'MSS', 'DROP3']
     csv_path = 'testing_output_cross-validation-KNN19122021.csv'
     with open(csv_path, 'w') as save:
         w = csv.writer(save)
@@ -55,7 +55,7 @@ def main():
 
 
 def __evaluate__(dataset, kf):
-    algorithms = [ICF]#[ENN, CNN, RNN, ICF, MSS]
+    algorithms = [ENN, CNN, RNN, ICF, MSS, DROP3]
     current_dataset = []
     for algorithm in algorithms:
         avg = []
@@ -66,7 +66,7 @@ def __evaluate__(dataset, kf):
         for train_index, test_index in kf.split(X):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
-            if algorithm.__name__ != "ENN":
+            if algorithm.__name__ not in ['ENN', 'DROP3']:
                 data_alg = algorithm(X=Bunch(data=X_train, target=y_train))
             else:
                 data_alg = algorithm(X=Bunch(data=X_train, target=y_train), k=3)
