@@ -22,7 +22,7 @@ from TriTraining import TriTraining
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
-from utils.arff2dataset import arff2sk_dataset
+from utils.arff2dataset import arff_data
 from utils.threads import ReturnValueThread
 
 
@@ -39,12 +39,12 @@ def test_implementation():
         save.close()
 
     random_state = 0x06012022
-    kf = StratifiedKFold(n_splits=2, shuffle=True, random_state=random_state)
+    kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=random_state)
 
-    for path in datasets[0:2]:
+    for path in datasets[:10]:
         name = path.split('.')[0]
         print(f'Starting {name} dataset...')
-        d1 = arff2sk_dataset(join('../datasets/', path))
+        d1 = arff_data(join('../datasets/', path))
         print(f'\t{len(d1["data"])} samples.')
         current_dataset = [name]
         results_dataset = __evaluate__(dataset=d1, kf=kf,
