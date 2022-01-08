@@ -3,10 +3,11 @@
 # @Filename:    arff2dataset.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        22/12/21 18:05
-# @Version:     1.12252021
+# @Version:     2.0
 
 import arff
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 from sklearn.utils import Bunch
 
 
@@ -23,7 +24,7 @@ def arff2sk_dataset(dataset_path):
         tar = tt.astype(int)
     except ValueError:
         tar_names = np.array([x for x in range(len(dataset['attributes'][-1][
-            1]))])
+                                                       1]))])
         relation = {}
         for index, target in enumerate(dataset['attributes'][-1][1]):
             relation[target] = index
@@ -34,3 +35,31 @@ def arff2sk_dataset(dataset_path):
                     class_names=tar_names)
 
     return dataset
+
+
+def arff_data(dataset_path):
+    file = open(dataset_path, 'r')
+    data = []
+    start = False
+    while True:
+        next_line = file.readline()
+        if not next_line:
+            break
+        if next_line[0] == '%':
+            continue
+        if '@DATA' in next_line.strip().upper():
+            start = True
+            continue
+        if start:
+            line_data = next_line.strip().split(sep=',')
+            data.append(np.array(line_data))
+    file.close()
+    data = np.array(data)
+    labels = data[:, -1]
+    data = np.delete(data, -1, 1)
+    data = data.astype(float)
+    le = LabelEncoder()
+    le.fit(labels)
+    labels = le.transform(labels)
+
+    return Bunch(data=data, target=labels)
