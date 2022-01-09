@@ -166,6 +166,13 @@ El \textit{sprint} se desarrolla entre el seis y el diecisiete de diciembre de d
 
 \item \textbf{\textit{Burndown chart}}
 
+El trabajo realizado en este tercer \textit{sprint} ha sido realizado a un ritmo constante y con una dedicación en número de horas un poco mayor a los anteriores, como se puede ver en el \textit{Burndown report}, ver figura~\ref{fig:BD-Sprint3}, el número de \textit{story points} de este \textit{sprint} era de 39 y a pesar de que algunas tareas llevaron más tiempo del inicialmente planificado, otras resultaron ser totalmente lo contrario, mucho más rápidas de realizar.
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint3}
+\caption{\textit{Burndown Chart Sprint 3.}}\label{fig:BD-Sprint3}
+\end{center}
+\end{figure}
 \item \textbf{\textit{Sprint review meeting}}
 
 Este \textit{sprint} ha sido un poco más grande en cuanto a horas de trabajo invertidas ya que el tiempo del equipo de desarrollo así lo ha permitido. A su vez se han detectado \textit{bugs} en la codificación de algoritmos como ICF (se arreglará en el siguiente \textit{sprint}) el cual después de comparar sus resultados contra los expresados por \textit{Weka} con 9 conjuntos de datos no considerados como de juguete, la codificación del proyecto obtiene soluciones 20\% inferiores; el resto de los algoritmos implementados están en el rango de $\pm2\%$. A su vez también se han descubierto limitaciones de otros algoritmos como es el caso de ENN cuando tiene pocas muestras y un número elevado de clases diferentes.
@@ -181,23 +188,58 @@ Objetivos del cuarto \textit{sprint}
 \begin{enumerate}
 \item Revisar y corregir la codificación del algoritmo \textit{Iterative Case Filtering}, \textit{ICF}.
 \item Formatear las métricas de rendimiento recogidas durante el \textit{sprint} anterior.
-\item Codificación de \textit{Co-Training} y \textit{Tri-Training}.
 \end{enumerate}
 \item \textbf{Marcas temporales}
 
-El \textit{sprint} se desarrolla entre el dieciocho y el veintitrés de diciembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto XYZ horas. Este \textit{sprint} posee una duración más corta con el fin de ajustar las reuniones a las festividades propias de la Navidad.
+El \textit{sprint} se desarrolla entre el dieciocho y el veintitrés de diciembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto 21 horas. Este \textit{sprint} posee una duración más corta con el fin de ajustar las reuniones a las festividades propias de la Navidad.
 
 \item \textbf{\textit{Burndown chart}}
 
+En el \textit{Burndown report} asociado a este \textit{sprint}, ver figura~\ref{fig:BD-Sprint4}, se aprecia como el trabajo ha sido finalizado  en unas marcas temporales muy por delante de lo <<ideal>>. Esto se debe a que el equipo de desarrolló comenzó a realizar el trabajo el sábado 18 de diciembre, en lugar de esperar al lunes 20, bajo la presunción de que el trabajo asignado iba a ser mayor.
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint4}
+\caption{\textit{Burndown Chart Sprint 4.}}\label{fig:BD-Sprint4}
+\end{center}
+\end{figure}
+
+\item \textbf{\textit{Sprint review meeting}}
+Ha pesar de la corta duración del \textit{sprint} para poder organizar el siguiente \textit{sprint} antes de las festividades navideñas, el trabajo realizado ha sido correcto e importante, debido a que para poder seguir trabajando en otros algoritmos de selección de instancias o de aprendizaje semi-supervisado, lo anterior debe de quedar correctamente hecho. Es por ello, que prácticamente se le ha dedicado un \textit{sprint} entero a arreglar el algoritmo \textit{Iterative Case Filtering, ICF}, ya que con él y a falta de implementar DROP3, ya tendríamos todos los algoritmos de selección de instancias correctamente implementados.
+\end{itemize}
+\vfill
+\subsubsection{\textit{Sprint} 5: Murph}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del quinto \textit{sprint}:
+\begin{enumerate}
+\item Codificación de los algoritmos de aprendizaje semi-supervisado: Co-Training~\cite{blum1998combining}, Tri-Training~\cite{zhou2005tri}, Democratic Co-Learning~\cite{zhou2004democratic} Y del algoritmo de selección de instancias DROP3~\cite{wilson2000reduction}
+\item Implementar los algoritmos anteriores como clases para poder ser utilizados con métodos \textit{fit} y \textit{predict}.
+\item Escribir la documentación de la memoria referente a los anteriores algoritmos.
+\item Escribir la planificación temporal relativa a los \textit{sprints} 4 y 5.
+\item Añadir leyenda a la figuras generadas con \textit{self-training} en función de un \% de datos etiquetados.
+\end{enumerate}
+Se espera que sea un \textit{sprint} muy productivo debido a las fechas en las que se realiza y la mayor disponibilidad del equipo de desarrollo.
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el veinticuatro de diciembre de dos mil veintiuno y el diez de enero de dos mil veintidós. Tiene una duración igual a las festividades navideñas.
+\item \textbf{\textit{Burndown chart}}
+% Imagen
+
+En este \textit{sprint}, y como vemos en la figura n, referente al correspondiente \textit{Burndown report}; se ha realizado una gran cantidad de trabajo, habiendo siendo completados 77 puntos de historia, una cantidad muy superior a anteriores \textit{sprints}, esto es debido en gran parte a las fechas en las que nos encontramos, ya que el número de horas que se han podido invertir en el desarrollo del proyecto ha sido muy superior a lo que venían siendo habituales. En total han sido utilizadas cerca de 110 horas de trabajo, siendo repartidas en los 17 días que ha durado el \textit{sprint} y con una media de horas de trabajo de 6.5 horas diarias. 
 \item \textbf{\textit{Sprint review meeting}}
 
-\end{itemize}
+Todo el trabajo que se ha realizado en este \textit{sprint} podría haber sido realizado seguramente en tres cuartas partes del tiempo real invertido, pero debido al tiempo de lectura de los artículos de donde se extraían los algoritmos, así como su correcta comprensión, codificación y posterior resolución de problemas asociados a \textit{bugs} que se van descubriendo <<sobre la marcha>>, ha sido un \textit{sprint} largo y en algunos momentos agotador. 
 
+A falta de realizar las correspondientes pruebas de validación de los algoritmos implementados, para comprobar que son correctas las implementaciones, ya se encontrarían finalizados todos los algoritmos de selección de instancias.
+
+\end{itemize}
 
 \newpage
 \subsubsection{\textit{Sprint} n: Name}
 \begin{itemize}
 \item \textbf{\textit{Planning meeting}}
+Objetivos del n \textit{sprint}:
 \begin{enumerate}
 \item Primero
 \item Segundo
