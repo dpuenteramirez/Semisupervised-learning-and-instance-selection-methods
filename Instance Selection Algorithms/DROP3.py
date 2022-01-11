@@ -7,11 +7,12 @@
 
 import copy
 from sys import maxsize
+from tqdm import trange
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.neighbors import NearestNeighbors
+
 from graficas import grafica_2D
-from tqdm import trange
 
 
 def with_without(x_sample, samples_info):
@@ -38,13 +39,12 @@ def with_without(x_sample, samples_info):
             if np.array_equal(neigh, x_sample):
                 break
         count = np.bincount(neighs_targets[:index_a] + neighs_targets[
-            index_a + 1:])
+                                                       index_a + 1:])
         max_class = np.where(count == np.amax(count))[0][0]
         if max_class == a_target:
             without += 1
 
     return with_, without
-
 
 
 def DROP3(X, k):
@@ -54,10 +54,16 @@ def DROP3(X, k):
     :param k:
     :return:
     """
+
     S = copy.deepcopy(X)
-    initial_samples = S['data'].tolist()
-    initial_targets = S['target'].tolist()
-    knn = NearestNeighbors(n_neighbors=k+2, n_jobs=-1, p=2)
+    initial_samples = S['data']
+    initial_targets = S['target']
+
+    initial_samples, samples_index = np.unique(ar=initial_samples,
+                                               return_index=True, axis=0)
+    initial_targets = initial_targets[samples_index]
+
+    knn = NearestNeighbors(n_neighbors=k + 2, n_jobs=-1, p=2)
     knn.fit(initial_samples)
 
     # Samples_info -> dict{x_sample : list([list(k+1-NN), list(x_associates),
@@ -65,7 +71,6 @@ def DROP3(X, k):
     samples_info = {tuple(x): [[], [], y] for x, y in zip(initial_samples,
                                                           initial_targets)}
 
-    initial_samples, initial_targets = S['data'], S['target']
     initial_distances = []
 
     for x_sample, x_target in zip(initial_samples, initial_targets):
@@ -92,7 +97,7 @@ def DROP3(X, k):
     removed = 0
     size = len(initial_distances)
     for index_x in trange(size):
-        x_sample = initial_distances[index_x-removed][0]
+        x_sample = initial_distances[index_x - removed][0]
 
         with_, without = with_without(tuple(x_sample), samples_info)
 
@@ -116,7 +121,7 @@ def DROP3(X, k):
                     breakpoint()
                 # Find a new neigh for the associate
                 remaining_samples = [x for x, _, _ in initial_distances]
-                knn = NearestNeighbors(n_neighbors=k+2, n_jobs=-1, p=2)
+                knn = NearestNeighbors(n_neighbors=k + 2, n_jobs=-1, p=2)
                 knn.fit(remaining_samples)
                 _, neigh_ind = knn.kneighbors([a_associate_of_x])
                 possible_neighs = [initial_distances[x][0] for x in
@@ -133,8 +138,9 @@ def DROP3(X, k):
                         break
 
                 try:
-                    assert len(a_neighs) == k+1
+                    assert len(a_neighs) == k + 1
                 except AssertionError:
+                    print('Duplicated instances')
                     breakpoint()
 
                 samples_info[tuple(a_associate_of_x)][0] = a_neighs
@@ -142,7 +148,6 @@ def DROP3(X, k):
                 # Add a_associate to the associates list of the new neigh
                 new_neigh = a_neighs[-1]
                 try:
-
                     samples_info[tuple(new_neigh)][1].append(a_associate_of_x)
                 except TypeError:
                     breakpoint()
