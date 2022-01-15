@@ -89,80 +89,80 @@ Blum~\cite{blum1998combining} en 1998 propuso el \textit{Co-Training} para conju
 
 Las dos características del problema mencionadas anteriormente, disponibilidad de datos etiquetados y no etiquetados, y la disponibilidad de dos <<tipos>> diferentes de conocimiento sobre los ejemplo; aproximan a la siguiente estrategia de aprendizaje. Se desea encontrar los predictores débiles basados en cada tipo de información utilizando un pequeño conjunto inicial de instancias etiquetadas, seguidamente, utilizando los datos no etiquetados se intenta hacer un \textit{bootstrap} a partir de esos <<malos>> predictores. Este tipo de \textit{bootstrapping} es el denominado \textit{Co-Training}, y posee una estrecha relación con el \textit{bootstraping} a partir de datos incompletos en el marco de la maximización de expectativas~\cite{ghahramani1994supervised, ratsaby1995learning}
 
-\begin{algorithm}[H]
-\caption{\textit{Co-Training}.}\label{alg:Co-Training}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $L \lbrace\left(x_i, y_i\right)\rbrace_{i=1}^l$ y $U \lbrace x_j \rbrace_{j=l+1}^{l+u}$ de datos etiquetados y no etiquetados, respectivamente
-\Require $p$, $n$, $k$, $u$, datos positivos a seleccionar, los negativos, iteraciones, tamaño \textit{pool} inicial
-\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
-\Statex
-\Procedure{\textit{Co-Training}}{$L,U,p,n,k,u$}
-	\State $U' \leftarrow U[u]$\Comment{$u$ instancias aleatorias de $U$}
-	\For{k}
-		\State Usar $L$ para entrenar un clasificador $h_1$ utilizando $x$
-		\State Usar $L$ para entrenar un clasificador $h_2$ utilizando $y$
-		\State $h_1$ clasifica $U'$
-		\State $h_2$ clasifica $U'$
-		\State Seleccionar las $p$ y $n$ instancias con mayor intervalo de confianza de cada clasificador
-		\State Añadirlas a $L$ y eliminarlas de $U'$
-		\State Elegir aleatoriamente $2p+2n$ instancias de $U$ y añadirlas a $U'$
-	\EndFor
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}[H]
+%\caption{\textit{Co-Training}.}\label{alg:Co-Training}
+%\begin{algorithmic}[1]
+%\Require Conjunto de entrenamiento $L \lbrace\left(x_i, y_i\right)\rbrace_{i=1}^l$ y $U \lbrace x_j \rbrace_{j=l+1}^{l+u}$ de datos etiquetados y no etiquetados, respectivamente
+%\Require $p$, $n$, $k$, $u$, datos positivos a seleccionar, los negativos, iteraciones, tamaño \textit{pool} inicial
+%\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
+%\Statex
+%\Procedure{\textit{Co-Training}}{$L,U,p,n,k,u$}
+%	\State $U' \leftarrow U[u]$\Comment{$u$ instancias aleatorias de $U$}
+%	\For{k}
+%		\State Usar $L$ para entrenar un clasificador $h_1$ utilizando $x$
+%		\State Usar $L$ para entrenar un clasificador $h_2$ utilizando $y$
+%		\State $h_1$ clasifica $U'$
+%		\State $h_2$ clasifica $U'$
+%		\State Seleccionar las $p$ y $n$ instancias con mayor intervalo de confianza de cada clasificador
+%		\State Añadirlas a $L$ y eliminarlas de $U'$
+%		\State Elegir aleatoriamente $2p+2n$ instancias de $U$ y añadirlas a $U'$
+%	\EndFor
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
 \subsection{\textit{Tri-Training}}
 Zhou~\cite{zhou2005tri} en 2005 propuso una modificación sobre el algoritmo de \textit{Co-Training} de Blum~\cite{blum1998combining} el cual requería de dos <<vistas significativas>>. Dasgupta~\textit{et al.}~\cite{dasgupta2002pac} demostraron que cuando los requerimientos del conjunto de datos se cumplían, se podían producir un menor número de errores de generalización al maximizar la clasificación de los prototipos sin etiquetar, aunque no es aplicable a cualquier conjunto de datos.
 
 El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Training}. \textit{Tri-Training} no necesita varias <<vistas significas>> de los datos, tampoco requiere el empleo de múltiples algoritmos de aprendizaje supervisado cuyas hipótesis dividen el espacio de instancias en un conjunto de clases de equivalencia. El \textit{Tri-Training} por tanto emplea tres clasificadores, a diferencia de los dos utilizados anteriormente, esta opción resuelve la dificultad de determinar cómo etiquetar las instancias no etiquetadas y generar la hipótesis final, lo que mejora enormemente la eficiencia del algoritmo. Junto con la capacidad de generalización resultante de la combinación de los tres clasificadores.
 
-\begin{algorithm}
-\caption{\textit{Tri-Training}.}\label{alg:Tri-Training}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente
-\Require \textit{Learn}: algoritmo de aprendizaje
-\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
-\Statex
-\Procedure{\textit{Tri-Training}}{$L,U,Learn$}
-	\For{$i \in \lbrace 1 .. 3 \rbrace$}
-		\State $S_i \leftarrow BootstrapSample(L)$
-		\State $h_i \leftarrow Learn(S_i)$
-		\State $e'_i \leftarrow 0.5$
-		\State $l'_i \leftarrow 0$
-	\EndFor
-	\Repeat
-		\For{$i \in \lbrace 1..3\rbrace$}
-			\State $L_i \leftarrow \emptyset$
-			\State $update_i \leftarrow$ \textbf{False}
-			\State $e_i \leftarrow MeasureError\left(h_j \& h_k \right)$ $\left(j\text{,}k \not= i \right)$
-			\If{$e_i < e'_i$}
-				\ForAll{$x \in U$}
-					\If{$h_j\left( x\right) = h_k \left(x\right)$ $\left(j\text{,}k \not= i \right)$}
-						\State $L_i \leftarrow L_i \cup \lbrace \left( x\text{,} h_j\left(x\right)\right)\rbrace$
-					\EndIf
-				\EndFor
-				\If{$l'_i = 0$}
-					\State $l'_i \leftarrow \left\lfloor \frac{e_i}{e'_i-e_i} + 1 \right\rfloor$
-				\EndIf
-				\If{$l'_i < \left| L_i \right|$}
-					\State $update_i \leftarrow$ \textbf{True}
-				\ElsIf{$l'_i > \frac{e_i}{e'_i-e_i}$}
-					\State $L_i \leftarrow Subsample\left( L_i\text{,} \left\lceil \frac{e'_il'_i}{e_i} - 1 \right\rceil \right)$
-					\State $update_i \leftarrow$ \textbf{True}
-				\EndIf
-			\EndIf
-		\EndFor
-		\For{$i \in \lbrace 1 .. 3 \rbrace$}
-			\If{$update_i =$ \textbf{True}}
-				\State $h_i \leftarrow Learn\left( L \cup L_i\right)$
-				\State $e'_i \leftarrow e_i$
-				\State $l'_i \leftarrow \left|L_i\right|$
-			\EndIf
-		\EndFor
-	\Until{ningún $h_i \left(i \in \lbrace 1..3\rbrace\right)$ cambie}
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{\textit{Tri-Training}.}\label{alg:Tri-Training}
+%\begin{algorithmic}[1]
+%\Require Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente
+%\Require \textit{Learn}: algoritmo de aprendizaje
+%\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
+%\Statex
+%\Procedure{\textit{Tri-Training}}{$L,U,Learn$}
+%	\For{$i \in \lbrace 1 .. 3 \rbrace$}
+%		\State $S_i \leftarrow BootstrapSample(L)$
+%		\State $h_i \leftarrow Learn(S_i)$
+%		\State $e'_i \leftarrow 0.5$
+%		\State $l'_i \leftarrow 0$
+%	\EndFor
+%	\Repeat
+%		\For{$i \in \lbrace 1..3\rbrace$}
+%			\State $L_i \leftarrow \emptyset$
+%			\State $update_i \leftarrow$ \textbf{False}
+%			\State $e_i \leftarrow MeasureError\left(h_j \& h_k \right)$ $\left(j\text{,}k \not= i \right)$
+%			\If{$e_i < e'_i$}
+%				\ForAll{$x \in U$}
+%					\If{$h_j\left( x\right) = h_k \left(x\right)$ $\left(j\text{,}k \not= i \right)$}
+%						\State $L_i \leftarrow L_i \cup \lbrace \left( x\text{,} h_j\left(x\right)\right)\rbrace$
+%					\EndIf
+%				\EndFor
+%				\If{$l'_i = 0$}
+%					\State $l'_i \leftarrow \left\lfloor \frac{e_i}{e'_i-e_i} + 1 \right\rfloor$
+%				\EndIf
+%				\If{$l'_i < \left| L_i \right|$}
+%					\State $update_i \leftarrow$ \textbf{True}
+%				\ElsIf{$l'_i > \frac{e_i}{e'_i-e_i}$}
+%					\State $L_i \leftarrow Subsample\left( L_i\text{,} \left\lceil \frac{e'_il'_i}{e_i} - 1 \right\rceil \right)$
+%					\State $update_i \leftarrow$ \textbf{True}
+%				\EndIf
+%			\EndIf
+%		\EndFor
+%		\For{$i \in \lbrace 1 .. 3 \rbrace$}
+%			\If{$update_i =$ \textbf{True}}
+%				\State $h_i \leftarrow Learn\left( L \cup L_i\right)$
+%				\State $e'_i \leftarrow e_i$
+%				\State $l'_i \leftarrow \left|L_i\right|$
+%			\EndIf
+%		\EndFor
+%	\Until{ningún $h_i \left(i \in \lbrace 1..3\rbrace\right)$ cambie}
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
 Los tres clasificadores, $h_1\text{, } h_2 \text{ y } h_3$, son entrenados inicialmente con todo el conjunto de datos etiquetado. Seguidamente, a cualquier instancia no etiquetada, se la podrá asignar una etiqueta siempre y cuando hay al menos dos clasificadores de acuerdo con la asignación, i.e. $label(x) = h_i(x) =  h_j(x)$, ver~ algoritmo~\ref{alg:Tri-Training}. Puede darse el caso de que dos clasificadores acierten en la predicción y la etiqueta sea considerada correcta, pero para el tercer clasificador sea ruido, incluso en el peor caso, el aumento del ruido en el proceso de clasificación puede mitigarse si el número de instancias recién etiquetadas es significativo (bajo condiciones específicas)~\cite{zhou2005tri}
 
@@ -183,75 +183,75 @@ Una instancia $x$ nunca será etiquetada por la decisión única de un clasifica
 
 Finalmente el algoritmo, ver algoritmo~\ref{alg:Democratic-Co-2}, finaliza con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
 
-\begin{algorithm}
-\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente
-\Require $A_1,\dots , A_n$ los $n$ algoritmos de aprendizaje supervisado
-\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
-\Statex
-\Procedure{\textit{Democratic Co-Learning}}{$L,U$}
-	\For{$i = i,\dots , n$}
-		\State $L_i \leftarrow L$
-		\State $e_i \leftarrow 0$ 
-	\EndFor
-	\Repeat
-		\For{$i = 1,\dots , n$}
-			\State Calcular las hip $H_i$ con los datos $L_i$ para cada clasificador $A_i$
-		\EndFor
-		\ForAll{$x \in U$}
-			\For{$j = 1, \dots, r$}\Comment{Posibles etiquetas}
-				\State $c_j \leftarrow \left|\lbrace H_i | H_i\left(x\right) = j \rbrace\right|$
-			\EndFor
-			\State $k \leftarrow arg max_j \lbrace c_j\rbrace$
-		\EndFor
-		\For{$i = 1, \dots ,  n$}\Comment{$x$ propuestos para etiquetar}
-			\State Utilizar $L$ para calcular el int. de conf. 95\% $\left[l_i, h_i\right]$ para $H_i$
-			\State $w_i \leftarrow \left(l_i + h_i \right)/2$
-			\For{$i = 1, \dots , n$}
-				\State $L'_i = \emptyset$
-			\EndFor
-			\If{$\sum_{H_j(x) = c_k} w_j > max_{c'_k \not= c_k}\sum_{H_j(x) = c'_k} w_j$}
-				\State $L'_i \leftarrow L'_i \cup \lbrace\left(x, c_k\right)\rbrace$, $\forall i$ tal que $H_i(x) \not= c_k$
-			\EndIf
-		\EndFor
-		\LineComment{Comprobar si añadir $L'_i$ a $L$ mejora la precisión}
-		\For{$i = 1, \dots , n$}
-			\State $q_i \leftarrow \left| L_i\right| \left(1-2\left(\frac{e_i}{\left|L_i\right|}\right)\right)^2$\Comment{est. del error}
-			\State $e'_i \leftarrow \left(1-\frac{\sum_{i=1}^{d}l_i}{d}\right) \left|L'_i\right|$\Comment{est. del nuevo error}
-			\State $q'_i \leftarrow \left| L_i \cup L'_i \right| \left(1-\frac{2\left(e_i+e'_i\right)}{\left|L_i \cup L'_i\right|}\right)^2$\Comment{si $L'_i$ es añadida}			
-		\EndFor
-		\If{$q'_i > q_i$}
-			\State $e_i \leftarrow e_i + e'_i$
-		\EndIf
-	\Until{Ningún $L_1, \dots , L_n$ cambie}
-\algstore{alg:democratic}
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[h]
-\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co-2}
-\begin{algorithmic}[1]
-\algrestore{alg:democratic}
-	\For{$i=1,\dots , n$}
-		\State Calcular el int. de conf. 95\% $\left[ l_i, h_i\right]$ para $H_i$ usando $L$
-		\State $w_i \leftarrow \left( l_i + h_i\right)/2$
-	\EndFor
-	\ForAll{$x \in \left(L \cup U \right)$}
-		\For{$i = 1, \dots, n$}
-			\If{$H_i(x)$ predice $c_j$ y $w_i > 0.5$}
-				\State Asociar $H_i$ al grupo $G_j$
-			\EndIf
-		\EndFor
-		\For{$j = 1, \dots,r$}
-			\State $\overline{C}_{G_{j}} \leftarrow \frac{\left|G_j\right| + 0.5}{\left|G_j\right| + 1} \times \frac{\sum_{H_i\in G_j}w_i}{\left| G_j\right|}$
-		\EndFor
-	\EndFor
-	\State Predicciones $H$ con $Gk$ para $k = argmax_j\left(\overline{C}_{G_{j}}\right)$
-	\State \textbf{return} $H$
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co}
+%\begin{algorithmic}[1]
+%\Require Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente
+%\Require $A_1,\dots , A_n$ los $n$ algoritmos de aprendizaje supervisado
+%\Ensure Conjunto etiquetado $S \subset \lbrace L,U \rbrace$
+%\Statex
+%\Procedure{\textit{Democratic Co-Learning}}{$L,U$}
+%	\For{$i = i,\dots , n$}
+%		\State $L_i \leftarrow L$
+%		\State $e_i \leftarrow 0$ 
+%	\EndFor
+%	\Repeat
+%		\For{$i = 1,\dots , n$}
+%			\State Calcular las hip $H_i$ con los datos $L_i$ para cada clasificador $A_i$
+%		\EndFor
+%		\ForAll{$x \in U$}
+%			\For{$j = 1, \dots, r$}\Comment{Posibles etiquetas}
+%				\State $c_j \leftarrow \left|\lbrace H_i | H_i\left(x\right) = j \rbrace\right|$
+%			\EndFor
+%			\State $k \leftarrow arg max_j \lbrace c_j\rbrace$
+%		\EndFor
+%		\For{$i = 1, \dots ,  n$}\Comment{$x$ propuestos para etiquetar}
+%			\State Utilizar $L$ para calcular el int. de conf. 95\% $\left[l_i, h_i\right]$ para $H_i$
+%			\State $w_i \leftarrow \left(l_i + h_i \right)/2$
+%			\For{$i = 1, \dots , n$}
+%				\State $L'_i = \emptyset$
+%			\EndFor
+%			\If{$\sum_{H_j(x) = c_k} w_j > max_{c'_k \not= c_k}\sum_{H_j(x) = c'_k} w_j$}
+%				\State $L'_i \leftarrow L'_i \cup \lbrace\left(x, c_k\right)\rbrace$, $\forall i$ tal que $H_i(x) \not= c_k$
+%			\EndIf
+%		\EndFor
+%		\LineComment{Comprobar si añadir $L'_i$ a $L$ mejora la precisión}
+%		\For{$i = 1, \dots , n$}
+%			\State $q_i \leftarrow \left| L_i\right| \left(1-2\left(\frac{e_i}{\left|L_i\right|}\right)\right)^2$\Comment{est. del error}
+%			\State $e'_i \leftarrow \left(1-\frac{\sum_{i=1}^{d}l_i}{d}\right) \left|L'_i\right|$\Comment{est. del nuevo error}
+%			\State $q'_i \leftarrow \left| L_i \cup L'_i \right| \left(1-\frac{2\left(e_i+e'_i\right)}{\left|L_i \cup L'_i\right|}\right)^2$\Comment{si $L'_i$ es añadida}			
+%		\EndFor
+%		\If{$q'_i > q_i$}
+%			\State $e_i \leftarrow e_i + e'_i$
+%		\EndIf
+%	\Until{Ningún $L_1, \dots , L_n$ cambie}
+%\algstore{alg:democratic}
+%\end{algorithmic}
+%\end{algorithm}
+%
+%\begin{algorithm}[h]
+%\caption{\textit{Democratic Co-Learning}.}\label{alg:Democratic-Co-2}
+%\begin{algorithmic}[1]
+%\algrestore{alg:democratic}
+%	\For{$i=1,\dots , n$}
+%		\State Calcular el int. de conf. 95\% $\left[ l_i, h_i\right]$ para $H_i$ usando $L$
+%		\State $w_i \leftarrow \left( l_i + h_i\right)/2$
+%	\EndFor
+%	\ForAll{$x \in \left(L \cup U \right)$}
+%		\For{$i = 1, \dots, n$}
+%			\If{$H_i(x)$ predice $c_j$ y $w_i > 0.5$}
+%				\State Asociar $H_i$ al grupo $G_j$
+%			\EndIf
+%		\EndFor
+%		\For{$j = 1, \dots,r$}
+%			\State $\overline{C}_{G_{j}} \leftarrow \frac{\left|G_j\right| + 0.5}{\left|G_j\right| + 1} \times \frac{\sum_{H_i\in G_j}w_i}{\left| G_j\right|}$
+%		\EndFor
+%	\EndFor
+%	\State Predicciones $H$ con $Gk$ para $k = argmax_j\left(\overline{C}_{G_{j}}\right)$
+%	\State \textbf{return} $H$
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
 \vfill
 \section{Minería de datos}
@@ -386,7 +386,7 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 	Algoritmo \textit{Iterative Case Filtering} (ICF)                   &~\cite{brighton2002advances}\\ \midrule
 	Algoritmo Subconjunto Selectivo Modificado (MSS)                 &~\cite{barandela2005decision}\\ \midrule
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo \textit{Drecremental Reduction Optimization Procedure} &~\cite{wilson2000reduction} \\ \bottomrule
+	Algoritmo \textit{Drecremental Reduction Optimization Procedure} (DROP) &~\cite{wilson2000reduction} \\ \bottomrule
 	\end{tabular}
 \end{center}
 \caption{Algunos métodos de selección de instancias.}
@@ -413,22 +413,18 @@ Con todas estas premisas Wilson propone un algoritmo basado en clasificación in
 Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} posibles clases y, sea \textit{k} el número de vecinos cercanos,el algoritmo de Wilson se puede formular de la siguiente manera:
 
 \begin{algorithm}[H]
-\caption{Algoritmo de edición de Wilson, \textit{ENN}.}\label{alg:Wilson-ENN}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento, $X=\left\{(x_1,y_1)...(x_n,y_n)\right\}$, $k$ vecinos.
-\Ensure Conjunto editado $S \subset X$.
-\Statex
-\Procedure{ENN}{$X, k$}
-	\State $S\leftarrow X$
-	\ForAll{$x \in S$}
-		\State Find x.$N_{1...k+1}$, the $k+1$ nearest neighbors of $x \in X - \{x\}$
-		\If{$\delta_{k-NN}\left(x_i\right)\neq \theta_i$}
-			\State Remove $x$ of $S$
-		\EndIf
-	\EndFor
-	\State return $S$
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X = \lbrace\left( x_1, y_1 ,\right)\dots \left(x_n, y_n\right)\rbrace$, $k$ vecino.}
+	\KwOut{Conjunto editado $S \subset X$}
+  	\BlankLine
+  	$S \leftarrow X$\\
+  	\ForAll{$x \in S$}{
+		Encontrar x.$N_{1\dots k+1}$, los $k$ + 1 vecinos más cercanos de $x \in X - \lbrace x \rbrace$\\
+		\If{$\delta_{k-NN}\left(x_i\right)\neq \theta_i$}{
+			Eliminar $x$ de $S$		
+		}
+  	}
+  	\Return{$S$}
+  \caption{Algoritmo de edición de Wilson, \textit{ENN}}\label{alg:Wilson-ENN}
 \end{algorithm}
 
 El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas (siempre y cuando haya un nivel significativo de ruido).
@@ -439,21 +435,18 @@ El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una
 Hart~\cite{hart1968condensed} en 1968 propuso la que se considera la primera regla formal de condensador para NN. El algoritmo de condensado de Hart, \textit{CNN --- Condensed Nearest Neighbor}. Está basado en técnicas de consistencia y reducción. Sea $X \not= \emptyset$ y $S \subseteq X$, podremos decir que el subconjunto $S$ es consistente respecto al conjunto $X$ si al utilizar a $S$ como conjunto de aprendizaje, se puede clasificar correctamente a todo el conjunto $X$.
 
 \begin{algorithm}[H]
-\caption{Algoritmo Condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $X$
-\Ensure Conjunto editado $S \subset X$
-\Statex
-\Procedure{CNN}{$X$}
-	\State $S \leftarrow \left\lbrace x_1 \right\rbrace$
-	\ForAll{$x \in X$}
-		\If {$x$ no se clasifica correctamente usando $S$}
-			\State Añadir $x$ a $S$
-			\State Restart		
-		\EndIf
-	\EndFor
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X$}
+	\KwOut{Conjunto editado $S \subset X$}
+  	\BlankLine
+  $S \leftarrow \left\lbrace x_1 \right\rbrace$\\
+  	\ForAll{$x \in S$}{
+		\If {$x$ no se clasifica correctamente usando $S$}{
+			Añadir $x$ a $S$\\
+			Reiniciar
+		}
+  	}
+  	\Return{$S$}
+	\caption{Algoritmo Condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
 \end{algorithm}
 
 El algoritmo de Hart es una técnica ascendente, a partir de las primeras instancias que se añadan a $S$ se clasificarán y añadirán, o no, a $S$. Consiste en encontrar entre todas las instancias de $T$ un subconjunto $S$ tal que cada instancia de $T$ sea más cercano a las instancias en $S$ de su misma clase que a las instancias de otras clases, permitiendo utilizar $S$ como conjunto de clasificación de $T$. Para el correcto funcionamiento se asume que el conjunto $T$ es consistente, no posee dos instancias idénticas con pertenencia a diferentes clases.
@@ -476,62 +469,56 @@ El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN
 De igual manera que en \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución~$S$.
 
 \begin{algorithm}[H]
-\caption{Algoritmo Condensado Reducido, \textit{RNN}.}\label{alg:Gates-RNN}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $X$
-\Ensure Conjunto editado $S \subset X$
-\Statex
-\Procedure{RNN}{$X$}
-	\State $S \leftarrow \left\lbrace x_1 \right\rbrace$
-	\ForAll{$x \in S$}
-		\If {$x$ no se clasifica correctamente usando $S$}
-			\State Añadir $x$ a $S$
-			\State Reiniciar 
-		\EndIf
-	\EndFor
-	\ForAll {$x \in S$}
-		\State Remove $x$ de $S$
-		\If {$\exists x_i$ incorrectamente clasificada usando $S$}	
-			\State Añadir $x$ a $S$
-		\EndIf
-	\EndFor
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X$}
+	\KwOut{Conjunto editado $S \subset X$}
+  	\BlankLine
+  $S \leftarrow \left\lbrace x_1 \right\rbrace$\\
+  	\ForAll{$x \in S$}{
+		\If {$x$ no se clasifica correctamente usando $S$}{
+			Añadir $x$ a $S$\\
+			Reiniciar
+		}
+  	}
+  	\ForAll {$x \in S$}{
+			Eliminar $x$ de $S$\\
+		\If {$\exists x_i$ incorrectamente clasificada usando $S$}{
+			Añadir $x$ a $S$
+		}
+	}
+  	\Return{$S$}
+	\caption{Algoritmo Condensado Reducido, \textit{RNN}.}\label{alg:Gates-RNN}
 \end{algorithm}
-
-
-
 
 \paragraph{Algoritmo \textit{Iterative Case Filtering}}\label{subsubsub:ICF}
 \hfill \break
 Brighton~\cite{brighton2002advances} en 2002 propuso el algoritmo iterativo de filtrado, \textit{ICF}, bajo la premisa de predecir la clase de una instancia con la misma precisión, o mayor si fuera el caso, que el $T$ original. Uno de los objetivos principales del propio algoritmo es mantener en el subconjunto $S$ únicamente aquellas instancias que sean críticas para la decisión.
 
 \begin{algorithm}[H]
-\caption{Algoritmo \textit{Iterative Case Filtering}, \textit{ICF}.}\label{alg:Brighton-ICF}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $X$
-\Ensure Conjunto editado $S \subset X$
-\Statex
-\Procedure{ICF}{$X$}	
-	\State $T \leftarrow ENN(X,k)$ \Comment Filtro de ruido en función de la regla \textit{k-NN}
-	\Repeat
-		\ForAll {$x \in T$}
-			\State Calcular $coverage(x)$
-			\State Calcular $reachable(x)$		
-		\EndFor
-		\State $progress \leftarrow$ \textbf{false}
-		\ForAll {$x \in T$}
-			\If {$\left| reachable(x) \right| > \left| coverage(x) \right|$}
-				\State Marcar $x$ para eliminar
-				\State $progress \leftarrow $ \textbf{true}
-			\EndIf
-		\EndFor
-		\ForAll {$X \in T$}
-			\State Eliminar $x$ de $T$
-		\EndFor
-	\Until no $progress$
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X$}
+	\KwOut{Conjunto editado $T \subset X$}
+  	\BlankLine
+  \tcc{Filtro de ruido en función de la regla \textit{k-NN}}
+  $T \leftarrow ENN(X,k)$\\  	
+  \Repeat{no $progress$}{
+  		\ForAll {$x \in T$}{  
+  			Calcular $coverage(x)$\\
+  			Calcular $reachable(x)$
+  		}
+  		$progress \leftarrow$ \textbf{false}\\
+  		\ForAll {$x \in T$}{
+			\If {$\left| reachable(x) \right| > \left| coverage(x) \right|$}{
+				Marcar $x$ para eliminar\\
+				$progress \leftarrow $ \textbf{true}
+			}
+		}
+		\ForAll {$x \in T$}{
+			\If{$x$ marcada para eliminar}{
+				Eliminar $x$ de $T$
+			}
+		}
+  }
+  	\Return{$T$}
+	\caption{\textit{Iterative Case Filtering}, \textit{ICF}.}\label{alg:Brighton-ICF}
 \end{algorithm}
 
 \textit{ICF} utiliza una estrategia decremental, i.e. de manera iterativa va borrando instancias del conjunto de datos inicial, inicialmente realiza un filtrado y posteriormente la reducción~\cite{brighton2002advances} Al reducir el tamaño de $T$ los tiempos de respuesta para el proceso de clasificación mejorarán, ya que se examinarán un menor número de instancias para realizar la clasificación; por contrapartida al eliminar muestras que se creen que son dañinas para el proceso, se pueden estar eliminando algunas que sean clave y por lo tanto teniendo una degradación de la calidad del clasificador.
@@ -576,31 +563,27 @@ El objetivo principal de esta modificación es reforzar la condición que debe c
 El criterio que sigue \textit{MSS} para determinar la frontera de decisión es la distancia al enemigo más cercano. Con esta medida se puede definir el mejor subconjunto selectivo como aquel que contiene el mejor vecino relacionado para cada instancia en el $TS$. (Mejor $\iff$ Menor distancia a su enemigo más cercano).
 
 \begin{algorithm}[H]
-\caption{Algoritmo \textit{Modified Selective Subset}, \textit{MSS}.}\label{alg:Barandela-MSS}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $X$
-\Ensure Conjunto editado $S \subset X$
-\Statex
-\Procedure{MSS}{$X$}	
-	\State $S \leftarrow \emptyset$
-	\State Ordenar las instancias $\lbrace x_i \rbrace^{n}_{i=1}$ en función de $D_i$ a su enemigo más cercano
-	\For {$i = 1$ hasta $n$}
-		\State $add \leftarrow$ \textbf{false}
-		\For {$j=i$ hasta $n$}
-			\If {$x_j \in T \bigwedge d\left( x_i, x_j \right) < D_j$}
-				 \State Eliminar $x_j$ de $T$
-				 \State $add \leftarrow$ \textbf{true}
-			\EndIf
-		\EndFor
-		\If {$add$}
-			\State Añadir $x_i$ a $S$
-		\EndIf 
-		\If {$T = \emptyset$}
-			\State \textbf{return} $S$
-		\EndIf
-	\EndFor
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X$}
+	\KwOut{Conjunto editado $S \subset X$}
+  	\BlankLine
+  $S \leftarrow \emptyset$\\  	
+  Ordenar las instancias $\lbrace x_i \rbrace^{n}_{i=1}$ en función de $D_i$ a su enemigo más cercano\\
+  \For {$i = 1$ hasta $n$}{
+		$add \leftarrow$ \textbf{false}\\
+		\For {$j=i$ hasta $n$}{
+			\If {$x_j \in T \bigwedge d\left( x_i, x_j \right) < D_j$}{
+				 Eliminar $x_j$ de $T$\\
+				 $add \leftarrow$ \textbf{true}
+			}
+		}
+		\If {$add$}{
+			Añadir $x_i$ a $S$
+		} 
+		\If {$T = \emptyset$}{
+			\textbf{return} $S$
+		}
+	}
+	\caption{\textit{Modified Selective Subset}, \textit{MSS}.}\label{alg:Barandela-MSS}
 \end{algorithm}
 
 \paragraph{\textit{Decremental Reduction Optimization Procedure}}\label{paragraph:DROP}
@@ -614,34 +597,29 @@ Bajo el nombre de \textit{Decremental Reduction Optimization Procedure, DROP}~\c
 Volviendo sobre los conceptos de \textit{coverage} y \textit{reachable} vistos en el algoritmo \textit{Iterative Case Filtering}, (ICF), podemos relacionar todos los conceptos de la siguiente manera: los asociados de un prototipo $P$ se pueden ver como el conjunto formado por el \textit{reachable} de $P$, y con el \textit{coverage} se pueden obtener los socios del prototipo $P$.
 
 \begin{algorithm}[H]
-\caption{Algoritmo \textit{Decremental Reduction Optimization Procedure 3}, \textit{DROP3}.}\label{alg:DROP3}
-\begin{algorithmic}[1]
-\Require Conjunto de entrenamiento $X$ y número de vecinos más cercanos a considerar, $k$
-\Ensure Conjunto editado $S \subset X$
-\Statex
-\Procedure{DROP3}{$X, k$}
-	\State $T \leftarrow \text{Filtrado de ruido}(X)$ 
-	\State $S \leftarrow T$
-	\State Ordenar las instancias de $S$ por la distancia a su enemigo más próximo \Comment de mayor a menor
-	\ForAll{$x \in S$}
-		\State Encontrar los $x.N_{1\dots k+1}$, los $k+1$ vecinos más cercanos de $x$ en $S$
-		\State Añadir $x$ a la lista de asociados de cada uno de sus vecinos
-	\EndFor
-	\ForAll{$x \in S$}
-		\State $with \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{con} $x$ como vecino
-		\State $without \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{sin} $x$ como vecino
-		\If{$without \geq with$}
-			\State Eliminar $x$ de $S$
-			\ForAll{Asociado $a$ de $x$}
-				\State Eliminar $x$ de la lista de vecinos de $a$
-				\State Encontrar nuevo vecino para $a$
-				\State Añadir $a$ en la lista de asociados del nuevo vecino
-			\EndFor
-		\EndIf
-	\EndFor
-	\State \textbf{return} $S$
-\EndProcedure
-\end{algorithmic}
+	\KwIn{Conjunto de entrenamiento $X$ y número de vecinos más cercanos a considerar, $k$}
+	\KwOut{Conjunto editado $S \subset X$}
+  	\BlankLine
+  $S \leftarrow \text{Filtrado de ruido}(X)$ \\
+	Ordenar las instancias de $S$ por la distancia a su enemigo más próximo \tcc*{de mayor a menor}
+	\ForAll{$x \in S$}{
+		Encontrar los $x.N_{1\dots k+1}$, los $k+1$ vecinos más cercanos de $x$ en $S$\\
+		Añadir $x$ a la lista de asociados de cada uno de sus vecinos
+	}
+	\ForAll{$x \in S$}{
+		$with \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{con} $x$ como vecino\\
+		$without \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{sin} $x$ como vecino\\
+		\If{$without \geq with$}{
+			Eliminar $x$ de $S$\\
+			\ForAll{Asociado $a$ de $x$}{
+				Eliminar $x$ de la lista de vecinos de $a$\\
+				Encontrar nuevo vecino para $a$\\
+				Añadir $a$ en la lista de asociados del nuevo vecino
+			}
+		}
+	}
+	\Return{$S$}
+	\caption{\textit{Decremental Reduction Optimization Procedure 3}, \textit{DROP3}.}\label{alg:DROP3}
 \end{algorithm}
 
 Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo algoritmo~\cite{wilson2000reduction} pero con modificaciones en las técnicas de pre-procesado de los prototipos. Sus diferencias son:
