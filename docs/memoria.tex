@@ -9,10 +9,7 @@
 \usepackage{microtype}
 \usepackage{placeins}
 \usepackage{amssymb} %  Mathematical symbols
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{hologo}
-
+\usepackage[longend, noline, ruled, linesnumbered, resetcount, spanish, spanishkw]{algorithm2e}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -22,6 +19,17 @@
 \usepackage{booktabs}
 
 
+% Algoritmos
+\makeatletter
+\newcommand{\AlgoResetCount}{\renewcommand{\@ResetCounterIfNeeded}{\setcounter{AlgoLine}{0}}}
+\newcommand{\AlgoNoResetCount}{\renewcommand{\@ResetCounterIfNeeded}{}}
+\newcounter{AlgoSavedLineCount}
+\newcommand{\AlgoSaveLineCount}{\setcounter{AlgoSavedLineCount}{\value{AlgoLine}}}
+\newcommand{\AlgoRestoreLineCount}{\setcounter{AlgoLine}{\value{AlgoSavedLineCount}}}
+\SetKwInput{KwIn}{Entrada}
+\SetKwInput{KwOut}{Salida}
+\makeatother
+
 % Links
 \PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
 \hypersetup{
@@ -30,13 +38,6 @@
 
 % Ecuaciones
 \usepackage{amsmath}
-
-% Algoritmos
-\algrenewcomment[1]{\(\triangleright\) #1}
-\algnewcommand{\LineComment}[1]{\Statex \(\triangleright\) #1}
-\algnewcommand\LeftComment[2]{%
-\hspace{#1\algindent}$\triangleright$ \eqparbox{COMMENT}{#2} \hfill %
-}
 
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
