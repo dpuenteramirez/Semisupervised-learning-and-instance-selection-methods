@@ -273,7 +273,7 @@ def self_training_hypothesis(datasets):
 
 
 if __name__ == "__main__":
-    yag = yagmail.SMTP(user=<SENDER EMAIL>, password=<SENDER PASSWORD>)
+    yag = yagmail.SMTP(user='ntoolsecure@gmail.com', password='@Qwerty1009')
     try:
         logging.info('--- Starting ---')
         precisions = [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5]
@@ -284,7 +284,7 @@ if __name__ == "__main__":
 
         logging.info('--- Process completed ---')
         attach = [csv_path]
-        yag.send(to=<RECIPIENT EMAIL>, subject='self_training_validation '
+        yag.send(to='dpr1005@alu.ubu.es', subject='self_training_validation '
                                                   'COMPLETED',
                  contents='self_training_validation has been completed.',
                  attachments=attach)
