@@ -29,8 +29,8 @@ def plot_bar_line(name, metric, precision, data_df, save_path):
     plt.xticks(x_ticks, [str(x) for x in precision])
 
     ax.legend(['Before Filtering', 'After Filtering'], loc="upper left")
-    ax2.legend(['Samples Before Filtering', 'Samples After Self Training',
-                'Samples After Filtering'],
+    ax2.legend(['Original dataset', 'After Self Training',
+                'Samples ENN'],
                loc="lower right")
     plt.savefig(save_path)
     plt.show()
