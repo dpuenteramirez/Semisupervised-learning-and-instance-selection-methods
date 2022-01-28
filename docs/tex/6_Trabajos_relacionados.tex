@@ -1,23 +1,25 @@
 \capitulo{6}{Trabajos relacionados}
 
-Entre los trabajos relacionados con este Trabajo de Fin de Grado, se distinguen las bibliotecas y \textit{frameworks} enfocadas en \textit{Machine Learning} y los \textit{Machine Learning as a Service} (MLaaS) más relevantes.
+Entre los trabajos relacionados con este Trabajo de Fin de Grado, se distinguen las bibliotecas y \textit{frameworks} enfocadas al \textit{Machine Learning} y los \textit{Machine Learning as a Service} (MLaaS) más relevantes.
 
 \section{\textit{Frameworks} y bibiotecas}\label{related:frameworks}
-Aunque está categorizado con dos términos, se puede entender un \textit{framework} de \textit{Machine Learning} como una herramienta, librería o interfaz que proporciona a los desarrolladores facilidades para crear modelos de aprendizaje automático.
+Aunque está categorizado con dos términos, se puede entender un \textit{framework} de \textit{Machine Learning} como una herramienta, biblioteca o interfaz que proporciona a los desarrolladores facilidades para crear modelos de aprendizaje automático.
 
 \begin{enumerate}
 \item \textit{\textbf{Scikit-Learn}.}
-Coloquialmente conocido como <<Sklearn>>, es la librería más útil y robusta para aprendizaje automático implementada en Python. Se trata de un \textit{software open source}. Entre la multitud de algoritmos que provee, destacan varios para problemas de clasificación, regresión y \textit{clustering}; incluyéndose además máquinas de soporte vectorial (SVM), \textit{random forests}, \textit{gradient boosting}, \textit{k-means} y DBSCAN.
+Coloquialmente conocido como <<Sklearn>>, es la biblioteca más útil y robusta para aprendizaje automático implementada en Python. Se trata de un \textit{software open source}. Entre la multitud de algoritmos que provee, destacan varios para problemas de clasificación, regresión y \textit{clustering}; incluyéndose además máquinas de soporte vectorial (SVM), \textit{random forests}, \textit{gradient boosting}, \textit{k-means} y DBSCAN.
 
-A pesar de estar escrito en su mayor parte en Python, y el uso que le da a la librería de NumPy\footnote{Librería de Python que da soporte al uso de vectores y matrices con una gran dimensionalidad. Además proporciona una gran colección de funciones matemáticas de alto nivel para operar con ellas.} para el cálculo de operaciones algebraicas en entornos de alto rendimiento, el \textit{core} de la librería está escrito en Cython para mejorar el rendimiento. 
+Si bien proporciona soporte para el aprendizaje semisupervisado, este es mínimo, pudiendo encontrar únicamente \textit{Self-Trainig} entre los clasificadores disponibles.
+
+A pesar de estar escrito en su mayor parte en Python, y el uso que le da a la librería de NumPy\footnote{Librería de Python que da soporte al uso de vectores y matrices con una gran dimensionalidad. Además proporciona una gran colección de funciones matemáticas de alto nivel para operar con ellas.} para el cálculo de operaciones algebraicas en entornos de alto rendimiento, el \textit{core} de la librería está escrito en Cython\footnote{Compilador estático optimizado tanto para Python como para el lenguaje Cython extendido, (basado en Pyrex). Permitiendo escribir extensiones de C para Python de manera tan sencilla que casi parece Python.} para mejorar el rendimiento. 
 
 \item \textbf{\textit{Tensor Flow}.}
-Bajo el desarrollo de Google, es una biblioteca \textit{open source} para computación numérica, utiliza gráficos de flujo de datos. En las gráficas los nodos representan operaciones matemáticas mientras que los bordes representan las matrices de datos multidimensionales.
+Biblioteca desarrollada por Google, sigue una filosofía \textit{open source}. Tensor Flow es utilizada para el cálculo numérico utilizando gráficos de flujo. En las gráficas los nodos representan operaciones matemáticas mientras que los bordes representan las matrices de datos multidimensionales.
 
 Mediante su arquitectura flexible permite la implementación del cálculo en una o varias CPU o GPU, en servidores, o equipos móviles, todo con una sola API\footnote{Conjunto de definiciones y protocolos que se utiliza para desarrollar e integrar el \textit{software} de  las aplicaciones, permitiendo la comunicación entre dos aplicaciones a través deun conjunto de reglas.}. Su diseño esta principalmente enfocado para la resolución de problemas mediante redes neuronales, pero es lo suficientemente general como para ser aplicable a una amplia variedad de dominios.
 
 \item \textbf{\textit{Torch}.}
-Marco de cálculo científico con amplio soporte para algoritmos de aprendizaje automático el cual da prioridad al uso de GPU sobre CPU, se trata de un \textit{software open source}. Una de sus características principales es el rendimiento y eficiencia que proporciona, esto se debe a que escrito en LuaJIT y una implementación subyacente de C/CUDA.
+Marco de cálculo científico con amplio soporte para algoritmos de aprendizaje automático el cual da prioridad al uso de GPU sobre CPU, se trata de un \textit{software open source}. Una de sus características principales es el rendimiento y eficiencia que proporciona, esto se debe a que está escrito en LuaJIT y una implementación subyacente de C/CUDA.
 
 \item \textbf{\textit{Theano}.}
 Librería de Python la cual da soporte a la definición  de expresiones matemáticas empleadas en aprendizaje automático, la optimzación de estas expresiones y la evaluación de la eficiencia con el uso de GPU. Siendo capaz de rivalizar implementaciones escritas en C. Theano está distribuida bajo licencia BSD\footnote{Licencia de \textit{software} libre permisiva, de igual manera que la licencia MIT, posee menos restricciones que GPL, siendo muy cercana al dominio público.}.
@@ -28,20 +30,20 @@ Escrito en C++, sus aplicaciones se encuentran dentro del marco del aprendizaje 
 Veles permite entrenar redes convolucionales, redes recurrentes, redes totalmente conectadas y otras topologías populares.
 
 \item \textbf{\textit{H2O}.}
-Marco de aprendizaje automático, \textit{open source}. Orientado principalmente a negocios, implementa análisis predictivo para ayudar a la toma de decisiones basadas en datos y conocimientos. Proporciona herramientas únicas como el soporte agnóstico de bases de datos, una interfaz WebUI. 
+Marco de aprendizaje automático \textit{open source}. Orientado principalmente a negocios, implementa análisis predictivo para ayudar a la toma de decisiones basadas en datos y conocimientos. Proporciona herramientas únicas como el soporte agnóstico de bases de datos, una interfaz WebUI. 
 
 H2O provee de modelos y soporte para Python, R, Java, JSON, Scala, JavaScript. Su \textit{core} está escrito en Java.
 
 \end{enumerate}
 
 \section{\textit{Machine Learning as a Service}}\label{related:MLaaS}
-El Aprendizaje Automático como servicio (MLaaS por sus siglas en inglés), es una tecnología de aprendizaje automático que es habitualmente adquirida de un tercero. Su funcionamiento es similar a SaaS (\textit{Software as a Service}) o PaaS (\textit{Platform as a Service}), i.e. un usuario utiliza los servicios de una empresa en lugar de los suyos propios.
+El Aprendizaje Automático como servicio (MLaaS por sus siglas en inglés), es una tecnología de aprendizaje automático que es habitualmente adquirida de un tercero. Su funcionamiento es similar a SaaS (\textit{Software as a Service}) o PaaS (\textit{Platform as a Service}), \textit{i.e.} un usuario utiliza los servicios de un tercero en lugar de los suyos propios.
 
 \begin{enumerate}
 \item \textbf{\textit{Amazon Machine Learning}.}
 Servicio ofrecido por Amazon el cual proporciona todas las herramientas necesarias para utilizar modelos de aprendizaje automático sin necesidad de conocer todos los detalles y configuraciones de estos. No quedándose ahí, proporciona herramientas de análisis de datos y modelos pre-entrenados para casos de uso habituales como detección de fraude en aplicaciones móviles.
 
-Encaja a la perfección con proyectos o necesidades que necesitan interacción en tiempo real. A pesar de que únicamente proporciona soporte a problemas de clasificación binaria o multi-etiqueta, y regresión; posee la potente funcionalidad de que es el propio servicio el que decide qué algoritmo utilizar para el problema dado.
+Encaja a la perfección con proyectos o necesidades que necesitan interacción en tiempo real. A pesar de que únicamente proporciona soporte a problemas de clasificación binaria o multi-etiqueta, y regresión; una de sus funcionalidades más <<potentes>> viene dada por la capacidad del propio servicio de seleccionar el algoritmo que mejor se adecua al problema dado.
 
 \item \textbf{\textit{SageMaker}.}
 Entorno de aprendizaje automático con el objetivo de simplificar el trabajo a los científicos de datos, para ello proporciona herramientas que permiten la creación y despliegue de forma rápida de modelos.
@@ -61,10 +63,14 @@ Aporta una interfaz de procesamiento de datos y creación de modelos totalmente 
 
 La parte automatizada es capaz de resolver problemas de clasificación binaria y multi-etiqueta, y regresión. Permitiendo la opción de que el usuario elija el modelo de \textit{Machine Learning} deseado o que sea el propio sistema el que infiera el que considera mejor a partir de los datos.
 
+\item \textbf{\textit{UBUMLaaS}}. La Universidad de Burgos también dispone de su propio servicio de \textit{MLaaS}, ver~\ref{UBUMLaaS}
+
 \end{enumerate}
 \clearpage
 \section{Comparativa entre MLaaS y UBUMLaaS}
-Tal y como se puede apreciar en la tabla~\ref{table:Comp-MLaaS}, existen numerosos servicios soportados por los principales proveedores de \textit{Machine Learning as a Service}, e.g. todos ellos permiten el etiquetado de datos con técnicas de clasificación y regresión. 
+Tal y como se puede apreciar en la tabla~\ref{table:Comp-MLaaS}, existen numerosos servicios soportados por los principales proveedores de \textit{Machine Learning as a Service}, \textit{e.g.} todos ellos permiten el etiquetado de datos con técnicas de clasificación y regresión. 
+
+Todas las herramientas anteriormente descritas han sido comparadas contra \textit{UBUMLaaS}. 
 
 \begin{table}[b]
 \centering
