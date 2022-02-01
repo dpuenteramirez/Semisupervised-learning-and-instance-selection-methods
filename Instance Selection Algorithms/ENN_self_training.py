@@ -11,7 +11,7 @@ from sklearn.neighbors import NearestNeighbors
 from ENN import ENN
 
 
-def ENN_for_self_training(original, complete, k, without=True):
+def ENN_for_self_training(original, complete, k=3, without=True):
     """
     Modification of the Wilson Editing algorithm.
 
