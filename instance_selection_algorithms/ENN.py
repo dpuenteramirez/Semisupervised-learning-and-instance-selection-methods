@@ -8,10 +8,7 @@
 import copy
 
 import numpy as np
-from sklearn.datasets import load_iris
 from sklearn.neighbors import NearestNeighbors
-
-from graficas import grafica_2D
 
 
 def ENN(X, k):
@@ -54,11 +51,3 @@ def ENN(X, k):
     S['target'] = s_targets
 
     return S
-
-
-if __name__ == '__main__':
-    iris = load_iris()
-    print(f'Input samples: {len(iris.data)}')
-    S = ENN(iris, 3)
-    print(f'Output samples: {len(S.data)}')
-    grafica_2D(S)

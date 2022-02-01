@@ -8,10 +8,10 @@ import copy
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-from ENN import ENN
+from instance_selection_algorithms.ENN import ENN
 
 
-def ENN_for_self_training(original, complete, k=3, without=True):
+def ENN_self_training(original, complete, k=3, without=True):
     """
     Modification of the Wilson Editing algorithm.
 

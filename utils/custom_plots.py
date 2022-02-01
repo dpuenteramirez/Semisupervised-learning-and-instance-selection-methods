@@ -15,7 +15,7 @@ def plot_bar_line(name, metric, precision, data_df, save_path):
     else:
         title += 'with deletion'
     ax = data_df.plot.bar(
-        x='% labeled', y=['Before Filtering', 'After Filtering'],
+        x='% labeled', y=['SVC', 'Before Filtering', 'After Filtering'],
         ylabel='Precision', xlabel='% labeled', figsize=(12, 6),
         title=title
     )
@@ -28,7 +28,7 @@ def plot_bar_line(name, metric, precision, data_df, save_path):
                  ylabel='Nº Samples', ax=ax2)
     plt.xticks(x_ticks, [str(x) for x in precision])
 
-    ax.legend(['Before Filtering', 'After Filtering'], loc="upper left")
+    ax.legend(['SVC', 'Before Filtering', 'After Filtering'], loc="upper left")
     ax2.legend(['Original dataset', 'After Self Training',
                 'Samples ENN'],
                loc="lower right")
