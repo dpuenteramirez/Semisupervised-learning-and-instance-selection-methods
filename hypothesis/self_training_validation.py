@@ -37,11 +37,11 @@ logging.basicConfig(level=logging.DEBUG,
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
-sys.path.append(os.path.join(parent, "Instance Selection Algorithms"))
 
 from utils.arff2dataset import arff_data
-from ENN import *
-from ENN_self_training import *
+from instance_selection_algorithms import ENN
+from instance_selection_algorithms.ENN_self_training \
+    import ENN_for_self_training
 
 
 def working_datasets(folder):
