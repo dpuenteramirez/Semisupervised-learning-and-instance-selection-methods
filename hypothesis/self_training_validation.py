@@ -39,8 +39,8 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from utils.arff2dataset import arff_data
-from instance_selection_algorithms.ENN import ENN
-from instance_selection_algorithms.ENN_self_training \
+from instance_selection.ENN import ENN
+from instance_selection.ENN_self_training \
     import ENN_self_training
 
 
