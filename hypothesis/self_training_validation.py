@@ -37,11 +37,11 @@ logging.basicConfig(level=logging.DEBUG,
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
-sys.path.append(os.path.join(parent, "Instance Selection Algorithms"))
 
 from utils.arff2dataset import arff_data
-from ENN import *
-from ENN_self_training import *
+from instance_selection.ENN import ENN
+from instance_selection.ENN_self_training \
+    import ENN_self_training
 
 
 def working_datasets(folder):
@@ -58,6 +58,9 @@ def working_datasets(folder):
         'dataset',
         'percent labeled',
         'fold',
+        'f1-score SVC',
+        'mean squared error SVC',
+        'accuracy score SVC',
         'f1-score before',
         'mean squared error before',
         'accuracy score before',
@@ -108,7 +111,7 @@ def training_model(x_train, y_train, x_test, y_test, csv_output, pre):
             f'\t{"pre" if pre else "post"} f1 {f1:.2f} - mse {mse:.2f} - '
             f'acc {acc:.2f}')
     else:
-        f1 = mse = acc = ''
+        f1 = mse = acc = -1
         y_proba = None
 
     csv_output += f1, mse, acc
@@ -118,7 +121,7 @@ def training_model(x_train, y_train, x_test, y_test, csv_output, pre):
 
 def self_training_hypothesis(datasets):
     logging.info('Starting hypothesis testing')
-    skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
+    skf = StratifiedKFold(n_splits=2, random_state=42, shuffle=True)
     for dataset, (X, y) in datasets.items():
         logging.info(f'Current dataset: {dataset} - Total samples: {len(X)}')
         if len(X) != len(set([tuple(i) for i in X])):
@@ -126,11 +129,25 @@ def self_training_hypothesis(datasets):
 
         for precision in precisions:
             for fold, (train_index, test_index) in enumerate(skf.split(X, y)):
+                t_start = time.time()
                 csv_output = [dataset, precision, fold]
                 logging.info(f'\tprecision {precision} - iter {fold + 1}')
                 x_train, x_test = X[train_index], X[test_index]
                 y_train, y_test = y[train_index], y[test_index]
 
+                # SVC
+                logging.debug('\t\tStarting SVC')
+                svc = SVC(probability=True, gamma="auto")
+                svc.fit(x_train, y_train)
+                y_pred_svc = svc.predict(x_test)
+                f1_svc = f1_score(y_true=y_test, y_pred=y_pred_svc,
+                                  average="weighted")
+                f1_mse = mean_squared_error(y_true=y_test, y_pred=y_pred_svc)
+                f1_acc = accuracy_score(y_true=y_test, y_pred=y_pred_svc)
+                logging.debug('\t\tSVC - done')
+                csv_output += f1_svc, f1_mse, f1_acc
+
+                # Semi Supervised
                 unlabeled_indexes = np.random.choice(len(x_train), floor(len(
                     x_train) * (1 - precision)), replace=False)
                 labeled_indexes = [i for i in [*range(len(x_train))] if i
@@ -148,7 +165,7 @@ def self_training_hypothesis(datasets):
 
                 if not fit_ok:
                     logging.warning(f'Fold {fold} failed with this precision.')
-                    csv_output += ['', '', '', '', '', '',
+                    csv_output += [-1, -1, -1, -1, -1, -1,
                                    samples_before, '', '', '']
 
                     with open(csv_path, 'a') as save:
@@ -168,7 +185,8 @@ def self_training_hypothesis(datasets):
                             samples_after_sl += 1
                             y_labeled = np.concatenate((y_labeled, [index1]))
                             x_labeled = np.concatenate((x_labeled, [x_train[
-                                                                        index0]]))
+                                                                        index0]]
+                                                        ))
                             break
 
                 logging.debug(f'\t\tSamples after SL: {samples_after_sl}')
@@ -192,7 +210,7 @@ def self_training_hypothesis(datasets):
                                     f'n_neighbors = {k}')
 
                 logging.debug('\t\tFiltering without deletion')
-                dataset_filtered_no_deleting = ENN_for_self_training(
+                dataset_filtered_no_deleting = ENN_self_training(
                     Bunch(data=x_labeled_before, target=y_labeled_before),
                     Bunch(data=x_labeled, target=y_labeled), k
                 ) if len(x_labeled) > len(x_labeled_before) else None
@@ -211,7 +229,6 @@ def self_training_hypothesis(datasets):
 
                     indexes = []
                     for index0, x_sample in enumerate(x_train):
-                        label_remains = False
                         for index1, y_sample in enumerate(x_samples_filtered):
                             if np.array_equal(x_sample, y_sample):
                                 indexes.append(index0)
@@ -241,7 +258,6 @@ def self_training_hypothesis(datasets):
 
                     indexes = []
                     for index0, x_sample in enumerate(x_train):
-                        label_remains = False
                         for index1, y_sample in enumerate(x_samples_filtered):
                             if np.array_equal(x_sample, y_sample):
                                 indexes.append(index0)
@@ -269,11 +285,14 @@ def self_training_hypothesis(datasets):
                     save.close()
 
                 logging.debug('\t\tWritten to file.')
+                t_end = time.time()
+                logging.info(
+                    f'\t\tElapsed: {(t_end - t_start) / 60:.2f} minutes')
                 logging.info('\n\n')
 
 
 if __name__ == "__main__":
-    yag = yagmail.SMTP(user='ntoolsecure@gmail.com', password='@Qwerty1009')
+    yag = yagmail.SMTP(user='<email>', password='<passwd>')
     try:
         logging.info('--- Starting ---')
         precisions = [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5]
@@ -284,7 +303,7 @@ if __name__ == "__main__":
 
         logging.info('--- Process completed ---')
         attach = [csv_path]
-        yag.send(to='dpr1005@alu.ubu.es', subject='self_training_validation '
+        yag.send(to='<email>', subject='self_training_validation '
                                                   'COMPLETED',
                  contents='self_training_validation has been completed.',
                  attachments=attach)

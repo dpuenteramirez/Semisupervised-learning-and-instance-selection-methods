@@ -57,6 +57,12 @@ if __name__ == '__main__':
             np.nanmean(x) for x in rows['samples after self-training'][::folds]
         ]
 
+        data_svc = DatasetResult(name, precision, folds,
+                                 rows['initial samples'],
+                                 rows['f1-score SVC'],
+                                 rows['mean squared error SVC'],
+                                 rows['accuracy score SVC'])
+
         data_before = DatasetResult(name, precision, folds,
                                     rows['initial samples'],
                                     rows['f1-score before'],
@@ -83,23 +89,28 @@ if __name__ == '__main__':
 
         if metric == 'f1':
             metric_name = 'f1-score'
+            svc = data_svc.f1
             before_filtering = data_before.f1
             after_with_deletion = data_after_with_deletion.f1
             after_without_deletion = data_after_without_deletion.f1
         elif metric == 'mse':
             metric_name = 'mean squared error'
+            svc = data_svc.mse
             before_filtering = data_before.mse
             after_with_deletion = data_after_with_deletion.mse
             after_without_deletion = data_after_without_deletion.mse
         elif metric == 'acc':
             metric_name = 'accuracy score'
+            svc = data_svc.acc
             before_filtering = data_before.acc
             after_with_deletion = data_after_with_deletion.acc
             after_without_deletion = data_after_without_deletion.acc
         else:
             raise ValueError(f'{metric} Metric not supported.')
 
-        data = {'% labeled': x, 'Before Filtering': before_filtering,
+        data = {'% labeled': x,
+                'SVC': svc,
+                'Before Filtering': before_filtering,
                 'After Filtering': after_with_deletion,
                 'Samples Before Filtering': data_before.n_samples,
                 'Samples After Self Training': samples_after_sl,

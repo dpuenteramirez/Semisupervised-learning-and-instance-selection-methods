@@ -37,15 +37,21 @@ def arff2sk_dataset(dataset_path):
     return dataset
 
 
-def arff_data(dataset_path):
+def arff_data(dataset_path, attr=False):
     file = open(dataset_path, 'r')
     data = []
+    attrs = []
     start = False
     while True:
         next_line = file.readline()
         if not next_line:
             break
         if next_line[0] == '%':
+            continue
+        if '@attribute' in next_line.strip().lower():
+            n = next_line.strip().split(' ')
+            attrs.append(n[1] if '\t' not in n[1] else n[1].split(sep='\t')[0])
+
             continue
         if '@DATA' in next_line.strip().upper():
             start = True
@@ -62,4 +68,7 @@ def arff_data(dataset_path):
     le.fit(labels)
     labels = le.transform(labels)
 
-    return Bunch(data=data, target=labels)
+    if not attr:
+        return Bunch(data=data, target=labels)
+    else:
+        return Bunch(data=data, target=labels, attr=attrs)
