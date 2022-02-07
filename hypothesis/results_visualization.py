@@ -5,16 +5,20 @@
 # @Time:        25/1/22 16:01
 
 import os
-import numpy as np
-import pandas as pd
 from os import walk
 from os.path import join
-from utils.reading_tests import DatasetResult
+
+import numpy as np
+import pandas as pd
+
 from utils.custom_plots import plot_bar_line
+from utils.reading_tests import DatasetResult
 
 if __name__ == '__main__':
     metric = 'f1'  # 'mse' or 'acc'
+    header = ['dataset', '% labeled', 'original', 'self training', 'ENN']
     folder = join('.', 'tests')
+    ranks = 'ranks'
     plots = 'plots'
     training_method = 'self_training'
     results_found = next(walk(folder), (None, None, []))[2]
@@ -26,6 +30,14 @@ if __name__ == '__main__':
             print(f'Created main folder for plots. {join(folder, plots)}')
         else:
             print(f'Create manually the folder \'{plots}\' inside {folder} and '
+                  f'rerun.')
+
+    if not os.path.isdir(join(folder, ranks)):
+        os.mkdir(join(folder, ranks))
+        if os.path.isdir(join(folder, ranks)):
+            print(f'Created main folder for ranks. {join(folder, ranks)}')
+        else:
+            print(f'Create manually the folder \'{ranks}\' inside {folder} and '
                   f'rerun.')
 
     working_results = [r for r in results_found if training_method in r]
@@ -47,9 +59,12 @@ if __name__ == '__main__':
     datasets_names = file_df.dataset.unique()
     bar_width = 0.35
 
-    for name in datasets_names:
+    mean_stats = []
+
+    for index, name in enumerate(datasets_names):
         rows = file_df.loc[file_df['dataset'] == name]
         precision = rows['percent labeled'].unique()
+        stats = np.array([[name, pre] for pre in precision])
         folds = rows['fold'].max() + 1
         name = name.split('.')[0]
 
@@ -108,6 +123,22 @@ if __name__ == '__main__':
         else:
             raise ValueError(f'{metric} Metric not supported.')
 
+        if index != 0:
+            mean_stats = np.concatenate(
+                (mean_stats, np.concatenate(
+                    (stats, np.array([svc]).T,
+                     np.array([before_filtering]).T,
+                     np.array([after_without_deletion]).T),
+                    axis=1)),
+                axis=0
+            )
+        else:
+            mean_stats = np.concatenate(
+                (stats, np.array([svc]).T,
+                 np.array([before_filtering]).T,
+                 np.array([after_without_deletion]).T),
+                axis=1)
+
         data = {'% labeled': x,
                 'SVC': svc,
                 'Before Filtering': before_filtering,
@@ -128,3 +159,8 @@ if __name__ == '__main__':
         plot_bar_line(name, metric_name, precision, data_df,
                       join(folder, plots, working_results[date].split('.')[0],
                            f'Dataset_{name}_{metric}_without_deletion'))
+
+    pd.DataFrame(mean_stats, columns=header).to_csv(
+        join(folder, ranks, working_results[date]),
+        index=False
+    )
