@@ -29,7 +29,7 @@ csv_path = os.path.join('tests', file_name + '_' + time_str
                         + '.csv')
 
 logging.basicConfig(level=logging.DEBUG,
-                    format="%(asctime)s [%(levelname)s] %(message)s",
+                    format=' %(asctime)s :: %(levelname)-8s :: %(message)s',
                     handlers=[logging.FileHandler(log_file),
                               logging.StreamHandler(sys.stdout)]
                     )
@@ -111,7 +111,7 @@ def training_model(x_train, y_train, x_test, y_test, csv_output, pre):
             f'\t{"pre" if pre else "post"} f1 {f1:.2f} - mse {mse:.2f} - '
             f'acc {acc:.2f}')
     else:
-        f1 = mse = acc = -1
+        f1 = mse = acc = ''
         y_proba = None
 
     csv_output += f1, mse, acc
@@ -121,7 +121,7 @@ def training_model(x_train, y_train, x_test, y_test, csv_output, pre):
 
 def self_training_hypothesis(datasets):
     logging.info('Starting hypothesis testing')
-    skf = StratifiedKFold(n_splits=2, random_state=42, shuffle=True)
+    skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
     for dataset, (X, y) in datasets.items():
         logging.info(f'Current dataset: {dataset} - Total samples: {len(X)}')
         if len(X) != len(set([tuple(i) for i in X])):
@@ -135,37 +135,42 @@ def self_training_hypothesis(datasets):
                 x_train, x_test = X[train_index], X[test_index]
                 y_train, y_test = y[train_index], y[test_index]
 
-                # SVC
-                logging.debug('\t\tStarting SVC')
-                svc = SVC(probability=True, gamma="auto")
-                svc.fit(x_train, y_train)
-                y_pred_svc = svc.predict(x_test)
-                f1_svc = f1_score(y_true=y_test, y_pred=y_pred_svc,
-                                  average="weighted")
-                f1_mse = mean_squared_error(y_true=y_test, y_pred=y_pred_svc)
-                f1_acc = accuracy_score(y_true=y_test, y_pred=y_pred_svc)
-                logging.debug('\t\tSVC - done')
-                csv_output += f1_svc, f1_mse, f1_acc
-
-                # Semi Supervised
                 unlabeled_indexes = np.random.choice(len(x_train), floor(len(
                     x_train) * (1 - precision)), replace=False)
                 labeled_indexes = [i for i in [*range(len(x_train))] if i
                                    not in unlabeled_indexes]
 
                 samples_before = len(labeled_indexes)
-                logging.debug(f'\t\tSamples before: {samples_before}')
                 y_modified = np.copy(y_train)
                 x_labeled = x_train[labeled_indexes]
                 y_labeled = y_modified[labeled_indexes]
                 y_modified[unlabeled_indexes] = -1
 
+                # SVC
+                logging.debug('\t\tStarting SVC')
+                svc = SVC(probability=True, gamma="auto")
+                try:
+                    svc.fit(x_labeled, y_labeled)
+                    y_pred_svc = svc.predict(x_test)
+                    svc_f1 = f1_score(y_true=y_test, y_pred=y_pred_svc,
+                                      average="weighted")
+                    svc_mse = mean_squared_error(y_true=y_test,
+                                                 y_pred=y_pred_svc)
+                    svc_acc = accuracy_score(y_true=y_test, y_pred=y_pred_svc)
+                    logging.debug('\t\tSVC - done')
+                except ValueError:
+                    logging.exception('SVC failed.')
+                    svc_f1 = svc_mse = svc_acc = ''
+                csv_output += svc_f1, svc_mse, svc_acc
+
+                # Semi Supervised
+                logging.debug(f'\t\tSamples before: {samples_before}')
                 y_proba, fit_ok, csv_output = training_model(
                     x_train, y_modified, x_test, y_test, csv_output, True)
 
                 if not fit_ok:
                     logging.warning(f'Fold {fold} failed with this precision.')
-                    csv_output += [-1, -1, -1, -1, -1, -1,
+                    csv_output += ['', '', '', '', '', '',
                                    samples_before, '', '', '']
 
                     with open(csv_path, 'a') as save:
@@ -194,8 +199,8 @@ def self_training_hypothesis(datasets):
                 try:
                     assert len(x_labeled) == len(y_labeled)
                 except AssertionError:
-                    logging.fatal(f'len(x_labeled) != len(y_labeled) -'
-                                  f' {len(x_labeled)} != {len(y_labeled)}')
+                    logging.exception(f'len(x_labeled) != len(y_labeled) -'
+                                      f' {len(x_labeled)} != {len(y_labeled)}')
                     exit(1)
 
                 logging.debug('\t\tFiltering with deletion')
@@ -205,15 +210,19 @@ def self_training_hypothesis(datasets):
                     logging.debug('\t\tFiltered')
                 except ValueError:
                     dataset_filtered_deleting = None
-                    logging.warning(f'Expected n_neighbors <= n_samples,  '
-                                    f'but n_samples = {len(x_labeled)}, '
-                                    f'n_neighbors = {k}')
+                    logging.exception(f'Expected n_neighbors <= n_samples,  '
+                                      f'but n_samples = {len(x_labeled)}, '
+                                      f'n_neighbors = {k}')
 
                 logging.debug('\t\tFiltering without deletion')
-                dataset_filtered_no_deleting = ENN_self_training(
-                    Bunch(data=x_labeled_before, target=y_labeled_before),
-                    Bunch(data=x_labeled, target=y_labeled), k
-                ) if len(x_labeled) > len(x_labeled_before) else None
+                try:
+                    dataset_filtered_no_deleting = ENN_self_training(
+                        Bunch(data=x_labeled_before, target=y_labeled_before),
+                        Bunch(data=x_labeled, target=y_labeled), k
+                    ) if len(x_labeled) > len(x_labeled_before) else 0
+                except ValueError:
+                    dataset_filtered_no_deleting = None
+                    logging.exception('Failed filtering without deletion')
 
                 if dataset_filtered_no_deleting is not None:
                     logging.debug('\t\tFiltered')
@@ -246,7 +255,8 @@ def self_training_hypothesis(datasets):
                     csv_output += ['', '', '']
                     samples_after_filtering_with_deletion = ''
 
-                if dataset_filtered_no_deleting is not None:
+                if dataset_filtered_no_deleting != 0 and \
+                        dataset_filtered_no_deleting is not None:
                     logging.debug('\t\tStarting with the non deletion model')
                     y_after_filtering = np.copy(y_train)
                     samples_after_filtering_without_deletion = len(
@@ -270,6 +280,13 @@ def self_training_hypothesis(datasets):
                     _, _, csv_output = training_model(
                         x_train, y_after_filtering, x_test, y_test,
                         csv_output, False)
+
+                elif dataset_filtered_no_deleting == 0:
+                    logging.debug('\t\tDataset ready to train the new model')
+                    _, _, csv_output = training_model(
+                        x_train, y_modified, x_test, y_test,
+                        csv_output, False)
+                    samples_after_filtering_without_deletion = samples_after_sl
 
                 else:
                     csv_output += ['', '', '']
@@ -304,13 +321,13 @@ if __name__ == "__main__":
         logging.info('--- Process completed ---')
         attach = [csv_path]
         yag.send(to='<email>', subject='self_training_validation '
-                                                  'COMPLETED',
+                                       'COMPLETED',
                  contents='self_training_validation has been completed.',
                  attachments=attach)
     except Exception as e:
         content = f'FATAL ERROR - Check the attached log'
 
-        yag.send(to='dpr1005@alu.ubu.es', subject='self_training_validation '
+        yag.send(to='<email>', subject='self_training_validation '
                                                   'ERROR',
                  contents=content, attachments=[log_file])
         logging.exception('--- Process has broken ---')
