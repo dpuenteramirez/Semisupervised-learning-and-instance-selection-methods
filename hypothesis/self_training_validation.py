@@ -29,7 +29,7 @@ csv_path = os.path.join('tests', file_name + '_' + time_str
                         + '.csv')
 
 logging.basicConfig(level=logging.DEBUG,
-                    format=' %(name)s :: %(levelname)-8s :: %(message)s',
+                    format=' %(asctime)s :: %(levelname)-8s :: %(message)s',
                     handlers=[logging.FileHandler(log_file),
                               logging.StreamHandler(sys.stdout)]
                     )
@@ -327,7 +327,7 @@ if __name__ == "__main__":
     except Exception as e:
         content = f'FATAL ERROR - Check the attached log'
 
-        yag.send(to='dpr1005@alu.ubu.es', subject='self_training_validation '
+        yag.send(to='<email>', subject='self_training_validation '
                                                   'ERROR',
                  contents=content, attachments=[log_file])
         logging.exception('--- Process has broken ---')
