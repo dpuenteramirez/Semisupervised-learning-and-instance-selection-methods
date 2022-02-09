@@ -79,7 +79,7 @@ if __name__ == '__main__':
                                  rows['accuracy score SVC'])
 
         data_before = DatasetResult(name, precision, folds,
-                                    rows['initial samples'],
+                                    rows['samples after self-training'],
                                     rows['f1-score before'],
                                     rows['mean squared error before'],
                                     rows['accuracy score before']
@@ -153,6 +153,8 @@ if __name__ == '__main__':
                       join(folder, plots, working_results[date].split('.')[0],
                            f'Dataset_{name}_{metric}_with_deletion'))
 
+        data_df['After Filtering'] = \
+            after_without_deletion
         data_df['Samples After Filtering'] = \
             data_after_without_deletion.n_samples
 
