@@ -22,13 +22,13 @@ if __name__ == '__main__':
     check_dir(join(folder, ranked))
 
     working_results = [r for r in results_found if training_method in r]
-    if len(working_results) > 9:
+    if len(working_results) > 1:
         print('Select the date to visualize:')
         for i, result in enumerate(working_results):
             print(f'{i}.', result.split('.')[0].split('_')[-1])
         date = int(input(f'Select [0-{len(working_results) - 1}]'))
     else:
-        date = 3
+        date = 0
 
     results_dir = join(folder, ranked, working_results[date].split('.')[0])
     check_dir(results_dir)
