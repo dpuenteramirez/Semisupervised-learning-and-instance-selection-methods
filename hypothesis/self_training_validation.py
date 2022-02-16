@@ -157,6 +157,9 @@ def self_training_hypothesis(datasets):
                     svc_mse = mean_squared_error(y_true=y_test,
                                                  y_pred=y_pred_svc)
                     svc_acc = accuracy_score(y_true=y_test, y_pred=y_pred_svc)
+                    logging.info(
+                        f'\t{"svc"} f1 {svc_f1:.2f} - mse {svc_mse:.2f} - '
+                        f'acc {svc_acc:.2f}')
                     logging.debug('\t\tSVC - done')
                 except ValueError:
                     logging.exception('SVC failed.')
