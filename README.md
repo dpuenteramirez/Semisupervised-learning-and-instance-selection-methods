@@ -12,6 +12,8 @@ alt="ISMSSL by DNX"></a>
 <h4 align="center">Instance selection methods for semi-supervised learning.</h4>
 
 
+ [![codebeat badge](https://codebeat.co/badges/e2f032d4-5205-4ece-8756-05b77a8d62cf)](https://codebeat.co/projects/github-com-dpr1005-semisupervised-learning-and-instance-selection-methods-main)
+
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
