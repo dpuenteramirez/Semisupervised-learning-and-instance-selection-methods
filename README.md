@@ -13,6 +13,7 @@ alt="ISMSSL by DNX"></a>
 
 
  [![codebeat badge](https://codebeat.co/badges/e2f032d4-5205-4ece-8756-05b77a8d62cf)](https://codebeat.co/projects/github-com-dpr1005-semisupervised-learning-and-instance-selection-methods-main)
+ [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpr1005_Semisupervised-learning-and-instance-selection-methods&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpr1005_Semisupervised-learning-and-instance-selection-methods)
 
 
 <p align="center">
