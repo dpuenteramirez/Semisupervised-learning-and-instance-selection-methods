@@ -25,7 +25,7 @@ class SemiSupervisedSelfTraining:
                  filtering=False,
                  classifier=None
                  ):
-        self.y = None
+        """Semi Supervised Algorithm based on Density Peaks."""
         self.dc = dc
         self.distance_metric = distance_metric
         self.gauss_cutoff = gauss_cutoff
@@ -38,6 +38,7 @@ class SemiSupervisedSelfTraining:
     def build_distance(self):
         """
         Calculate distance dict.
+
         :return: distance dict, max distance, min distance
         """
         from scipy.spatial.distance import pdist, squareform
@@ -153,7 +154,14 @@ class SemiSupervisedSelfTraining:
                                                              'label']) \
             .transpose()
 
-    def _fit_without(self, l, u, y):
+    def __step_a(self):
+        samples_labeled = self.structure.loc[self.structure['label'] != -1]
+        l = samples_labeled['sample'].to_list()
+        self.y = samples_labeled['label'].to_list()
+        self.classifier.fit(l, self.y)
+        return samples_labeled
+
+    def _fit_without(self, l, u):
         self.data = np.concatenate((l, u), axis=0)
         self.n_id = self.data.shape[0]
         self.distances, self.max_dis, self.min_dis = self.build_distance()
@@ -169,10 +177,7 @@ class SemiSupervisedSelfTraining:
         # Step 2
         while True:
             # 2.a
-            samples_labeled = self.structure.loc[self.structure['label'] != -1]
-            l = samples_labeled['sample'].to_list()
-            self.y = samples_labeled['label'].to_list()
-            self.classifier.fit(l, self.y)
+            samples_labeled = self.__step_a()
 
             # 2.b
             next_rows = samples_labeled['next'].to_numpy()
@@ -195,10 +200,7 @@ class SemiSupervisedSelfTraining:
         # Step 3
         while True:
             # 3.a
-            samples_labeled = self.structure.loc[self.structure['label'] != -1]
-            l = samples_labeled['sample'].to_list()
-            self.y = samples_labeled['label'].to_list()
-            self.classifier.fit(l, self.y)
+            samples_labeled = self.__step_a()
 
             # 3.b
             prev_rows = samples_labeled['previous'].to_numpy()
@@ -220,7 +222,7 @@ class SemiSupervisedSelfTraining:
                 self.structure.at[pos, 'label'] = new_label
 
     def fit(self, l, u, y):
-        """Fit method"""
+        """Fit method."""
         if len(l) != len(y):
             raise ValueError(
                 f'The dimension of the labeled data must be the same as the '
@@ -232,7 +234,7 @@ class SemiSupervisedSelfTraining:
         y = le.transform(y)
         self.y = y
         if self.filtering is False:
-            self._fit_without(l, u, y)
+            self._fit_without(l, u)
 
     def predict(self, src):
         return self.classifier.predict(src)
