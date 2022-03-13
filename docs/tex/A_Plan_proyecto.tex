@@ -238,9 +238,11 @@ Todo el trabajo que se ha realizado en este \textit{sprint} podría haber sido r
 
 A falta de realizar las correspondientes pruebas de validación de los algoritmos implementados, para comprobar que son correctas las implementaciones, ya se encontrarían finalizados todos los algoritmos de selección de instancias.
 
+\end{itemize}
 \subsubsection{\textit{Sprint} 6: Bert}
 \begin{itemize}
 \item \textbf{\textit{Planning meeting}}
+
 Objetivos del sexto \textit{sprint}:
 \begin{enumerate}
 \item Verificación de la correcta implementación del algoritmo de selección de instancias DROP3. Se realizará como se ha venido trabajando anteriormente, contra los resultados propuestos para la misma parametrización, por Weka.
@@ -252,10 +254,257 @@ Objetivos del sexto \textit{sprint}:
 Este es un \textit{sprint} relativamente corto, puesto que es de verificación de que el trabajo realizado hasta el momento es correcto, antes de pasar a otro <<bloque>> de trabajo. Comienza el martes once de enero de dos mil veintidós, y finaliza el lunes diecisiete de enero de dos mil veintidós.
 
 \item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint6}
+\caption{\textit{Burndown Chart Sprint 6.}}\label{fig:BD-Sprint6}
+\end{center}
+\end{figure}
+
+Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint6} referente al sexto \textit{sprint}, el ritmo de trabajo ha sido constante a lo largo de la primera semana, torciéndose al final del \textit{sprint} debido a la complejidad sobrellevada de aprender la librería \textit{Flask} y sus dependencias. Es por ello que dos \textit{issues} se cerraron un día más tarde de la planificación.
+El número de horas aproximado que se han invertido han sido de 50h, permitido en gran medida con que todavía no hay clases del segundo cuatrimestre.
 
 \item \textbf{\textit{Sprint review meeting}}
 
+El trabajo realizado en este \textit{sprint} ha ido de acuerdo a lo que se comentó en la anterior reunión. Si bien ha sido un \textit{sprint} más enfocado a <<cerrar>> una parte de trabajo que se llevaba realizada para poder comenzar con el mejor pie posible la segunda etapa.
+
+Un punto de inflexión realizado en este \textit{sprint} ha sido la refactorización de gran parte del repositorio, dejándolo en un formato de paquetes.
 \end{itemize}
+
+\subsubsection{\textit{Sprint} 7: Felix The Cat}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del séptimo \textit{sprint}:
+\begin{enumerate}
+\item Modificar el algoritmo ENN para poder utilizarlo con Semi-Supervisado según el método de borrado de instancias.
+\item Preparar \textit{scripts} para la experimentación y posterior visualización de hipótesis.
+\item Modificar la memoria en función de los comentarios de Alvar.
+\item Añadir a los trabajos relacionados UBUMLaaS. Aunque es parte del propio Trabajo de Fin de Grado, no deja de ser una herramienta de MLaaS.
+\item Añadir \textit{Self Training} a UBUMLaaS.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el veinticinco de enero de dos mil veintidós y el dos de febrero de dos mil veintidós. Es un \textit{sprint} muy rápido de preparación para poder comenzar con la parte de UBUMLaaS.
+
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint7}
+\caption{\textit{Burndown Chart Sprint 7.}}\label{fig:BD-Sprint7}
+\end{center}
+\end{figure}
+
+El \textit{Burndown} de este \textit{sprint} representa un ritmo de trabajo <<adelantado>> a la velocidad óptima, esto se debe a que como en el \textit{sprint} anterior no se cerraron todas las \textit{issues} previa la finalización del mismo, pero sí fueron cerradas previo el inicio de este nuevo \textit{sprint}, el gráfico queda por debajo siempre. El número de horas invertido ha rondado las 35h. Un \textit{sprint} de menor tamaño.
+
+\item \textbf{\textit{Sprint review meeting}}
+
+Este \textit{sprint} si bien es como el anterior muy corto, y se ajusta a la temporarización del proyecto, ha tenido una carga de trabajo un poco más alta de lo esperado, esto se debe a que la integración de nuevos algoritmos a UBUMLaaS parecía en un primer momento muy directo, pero se han requerido hacer modificaciones con las que no se contaba en un primer momento.
+
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 8: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del octavo \textit{sprint}:
+\begin{enumerate}
+\item Crear una nueva selección en <<Nuevo Experimento>> en UBUMLaaS para los algoritmos de aprendizaje Semi-Supervisado.
+\item Integrar los algoritmos implementados de Semi-Supervisado en la plataforma UBUMLaaS.
+\item Comenzar a traducir parte de la interfaz como parte de un trabajo paralelo. (Puede que la versión final soporte varios idiomas, decisión de diseño aún por tomar.)
+\item Crear los rankings con Python de las experimentaciones realizadas, principalmente de 3-NN sin borrado.
+\item Hacer un \textit{refactor} general al proyecto. Inicialmente tenía una estructura de carpetas, se desea una estructura de paquetes.
+\item Hacer el proyecto accesible desde PIP\footnote{Sistema de gestión de paquetes utilizado para instalar y administrar paquetes de \textit{software} escritos en Python.}.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el tres de febrero de dos mil veintidós y el ocho de febrero de dos mil veintidós. Nos encontramos ante otro \textit{sprint} ya con la nueva dinámica de trabajo, de duración aproximada a una semana.
+
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint8}
+\caption{\textit{Burndown Chart Sprint 8.}}\label{fig:BD-Sprint8}
+\end{center}
+\end{figure}
+
+Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint8} se aprecia que el ritmo de trabajo en este \textit{sprint} ha sido muy escalonado, el número de \textit{issues} no ha sido muy elevado, pero la complejidad de estas sí que lo ha sido, es por ello que se planificó 90 puntos de historia. Seguidamente podemos apreciar como entre el cuatro y el siete de febrero, coincidiendo con el fin de semana, no ha habido trabajo finalizado, se debe a unas mini-vacaciones que se tomó el equipo de desarrollo.
+
+\item \textbf{\textit{Sprint review meeting}}
+Con el \textit{sprint} finalizado se ha visto como lo que parecía una planificación para una o dos semanas, ha quedado resuelta dentro del propio \textit{sprint}. El equipo de desarrollo comienza a familiarizarse con el \textit{backend} de UBUMLaaS propiciando un desarrollo más eficaz de las tareas que se van encomiando.
+
+Destacar que no se finalizan todas las tareas en tiempo, sino que se finaliza una en la noche del martes ocho, ya casi de madrugada, entrando técnicamente en el siguiente \textit{sprint}.
+
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 9: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del noveno \textit{sprint}:
+\begin{enumerate}
+\item Continuar con la traducción del \textit{frontend} en los <<tiempos muertos>>, aún no se ha decidido si finalmente pasará a producción o no.
+\item Crear un nuevo conjunto de gráficas y relanzar experimentaciones con SVC como referencia. El método de eliminación de instancias con etiqueta conocida queda descartado, únicamente se trabajará para la experimentación con la aproximación que no las elimina.
+\item Crear los nuevos rankings basados en la precisión. 
+\item Comprobar la implementación de los algoritmos \textit{Co-Training}, \textit{Tri-Training} y \textit{Democratic Co-Learning} contra los implementados por Jose Luis Garrido Labrador (Investigador del grupo ADMIRABLE).
+\item Añadir a UBUMLaaS los filtros implementados en los anteriores \textit{sprints}.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el nueve de febrero de dos mil veintidós y el dieciséis de febrero de dos mil veintidós.
+
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint9}
+\caption{\textit{Burndown Chart Sprint 9.}}\label{fig:BD-Sprint9}
+\end{center}
+\end{figure}
+
+Este \textit{sprint} tiene una duración de una semana, tal y como se desea (aproximadamente) que sean a partir de febrero. A este \textit{sprint} se le asignó una gran carga en cuanto a puntos de historia se refiere con un total de 102, las horas invertidas por el equipo de desarrollo no han llegado a las 55, hay una desviación de los puntos de historia y las horas invertidas, se comentará más adelante.
+
+Quedando el trabajo finalizado un par de días antes de la fecha de finalización del \textit{sprint}, dando al equipo de desarrollo tiempo para planear futuras tareas y aproximaciones a problemas conocidos.
+
+\item \textbf{\textit{Sprint review meeting}}
+
+En este \textit{sprint} se planificó <<tirando a lo alto>> en los puntos de historia, se debe a que se requería comprobar la implementación de los tres algoritmos de aprendizaje Semi-Supervisado, y en caso de que alguno (o todos) tuviera una implementación incorrecta, realizar los ajustes pertinentes para que fuera correcta. Debido a la experiencia del equipo de desarrollo un mes atrás con el filtro ICF, el cual tuvo que ser re-programado y revisado en más de una ocasión debido a su inconsistencia, se aventuró un futuro similar con éstos algoritmos ya que son más grandes y con una complejidad superior. La realidad en este caso superó las expectativas del equipo de desarrollo, cuando los tres algoritmos tuvieron una desviación menor al 1\% en comparación con los de Jose Luis. (En futuros \textit{sprints} se ha propuesto ser más críticos con la asignación de puntos de historia para no tener diferencias de este calibre).
+
+Con todo y con ello, la implementación de los filtros en UBUMLaaS incurrió en múltiples modificaciones a la estructura base de la propia plataforma, pero con un resultado satisfactorio.
+
+Los rankings creados no han convencido en estructura y formato, es por ello que en siguiente \textit{sprint} tendrán que ser repetidos.
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 10: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+Objetivos del décimo \textit{sprint}:
+\begin{enumerate}
+\item Rehacer las gráficas de rankings en la experimentación.
+\item Comenzar con la parte de administración de UBUMLaaS.
+\begin{enumerate}
+\item Crear una nueva interfaz que de soporte a esta nueva funcionalidad que va a poseer la aplicación.
+\item Integrar nuevos campos en el registro de usuarios, tales como su país de origen y el uso deseado que se le va a dar a aplicación.
+\item Crear una interfaz de administración de usuarios (añadir usuarios, activarlos, hacerlos administradores o eliminarlos).
+\item Crear una primera interfaz básica de \textit{dashboard analytics} del sistema.
+\end{enumerate}
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el dieciséis de febrero de dos mil veintidós y el veintiuno de febrero de dos mil veintidós.
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint10}
+\caption{\textit{Burndown Chart Sprint 10.}}\label{fig:BD-Sprint10}
+\end{center}
+\end{figure}
+
+Este \textit{sprint} ha sido más ajustado el número de horas invertidas en el desarrollo de las tareas marcadas en comparación los puntos de historia. Se han marcado un total de 46 puntos de historia y se han invertido 35 horas de trabajo. Siguiendo un poco más la tónica de otros \textit{sprints}. En los primeros días, tal y como se aprecia en la Figura~\ref{fig:BD-Sprint10}, sí que hubo \textit{commits} pero no se cerraron tareas debido a que se trabajó en <<paralelo>> sobre varias \textit{issues} a la vez, ya que toda la parte de crear la interfaz de administración y las páginas que la iban a comenzar a formar parte de la misma, se encuentran fuertemente inter-relacionadas.
+
+\item \textbf{\textit{Sprint review meeting}}
+
+El trabajo realizado durante este \textit{sprint} ha sido más duro que el de \textit{sprints} anteriores. Esto se debe a la poca experiencia del equipo de desarrollo con aplicaciones que poseen un \textit{frontend}, el uso de JavaScript, jQuery, AJAX, ... es algo que hasta la fecha no se había utilizado en gran medida y ahora es con lo que más se está trabajando, entonces ha requerido de un esfuerzo extra.
+
+La parte de administración de UBUMLaaS ha sido creada con una base más moderna, sencilla y clara. Siguiendo el esquema de colores de la Universidad de Burgos. Es por ello que ahora mismo parecen dos aplicaciones diferentes, (la parte de administración en comparación con la parte de funcionalidad de MLaaS propiamente dicha).
+
+Durante la realización del \textit{sprint} fueron surgiendo pequeños \textit{bugs} en la interfaz gráfica que se fueron solventando, todos ellos originados por descuidos (debido a la falta de experiencia) del propio equipo de desarrollo con el uso de las nuevas librarías.
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 11: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del undécimo \textit{sprint}:
+\begin{enumerate}
+\item Con~\cite{LI2019104895} se desea comprobar con 16 de los 18 conjuntos de datos utilizados en sus experimentos los resultados esperados para comprobar si merece la pena continuar la línea de investigación con el enfoque inicial.
+
+\item Montar un servidor con Jenkins, se desea incorporar a UBUMLaaS y a la librería $IS\_SSL$ dentro de CI/CD~\footnote{Método de distribución de aplicaciones a los clientes con una cierta frecuencia mediante el uso de la automatización en las etapas del desarrollo de aplicaciones. Se trata de una solución para los problemas que se pueden generar en la integración del código nuevo en producción.}
+\item Añadir al \textit{dashboard analytics} gráficos de carta con el número de experimentos de cada tipo que se han ejecutado. Así como los tiempos de uso de cada algoritmo.
+\item Crear una pantalla de carga para el \textit{dashboard} de forma que la recuperación de datos sea asíncrona.
+\item Permitir al usuario añadir más datos personales dentro de su perfil (Institución, RRSS, ...)
+\item Realizar una nueva página de usuarios con la nueva distribución.
+\item Permitir al usuario ver sus propias estadísticas de uso. 
+\item Pantalla tipo \textit{dashboard} con el estado en directo del sistema.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el veintidós de febrero de dos mil veintidós y el uno de marzo de dos mil veintidós.
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint11}
+\caption{\textit{Burndown Chart Sprint 11.}}\label{fig:BD-Sprint11}
+\end{center}
+\end{figure}
+
+Con una duración de algo más de una semana, se han planificado un total de 58 puntos de historia para estos días. Las horas de trabajo han sido cercanas a las 45. La sensación del equipo de desarrollo después de haber finalizado el \textit{sprint} es de un trabajo a ritmo constante finalizando tarea tras tarea, esta sensación se puede comprobar como en efecto ha sido así en la Figura~\ref{fig:BD-Sprint11}.
+
+\item \textbf{\textit{Sprint review meeting}}
+
+En este \textit{sprint} no se han podido terminar todas las tareas, si bien en el servidor local en el que corre UBUMLaaS se ha podido desplegar Jenkins, el \textit{pipeline} para que funcione correctamente no se ha podido terminar. Igual se buscan otras alternativas que además den soporte a elementos como las \textit{badges} de GitHub y visualización de si pasan o no los tests en los propios \textit{commits}.
+
+Las principales pantallas de administración van quedando mejor con cada \textit{sprint}, más retoques se las van haciendo y el equipo de desarrollo poco a poco comienza a sentirse más cómodo trabajando con lenguajes de marcas como es HTML, o de programación como JavaScript.
+
+El número de horas invertidas en las que no se está programando como tal, sino que se requieren de aprendizaje previo a poder escribir código y hacer la tarea X que toque, sigue siendo alto en esta parte del proyecto.
+
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 12: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del duodécimo \textit{sprint}:
+\begin{enumerate}
+\item Se ha decidido dejar <<en pausa>> la traducción de UBUMLaaS a idiomas como el castellano o el francés. No se descarta retomarlo en un futuro o que sean líneas de trabajo futuro.
+\item Con la parte de administración ya más avanzada y con una cohesión mayor, se ha tomado la decisión de dar un <<lavado de cara>> a toda la aplicación, esto implica rehacer \textbf{todas} las páginas del \textit{frontend} con el fin de que se adapten a la nueva guía de estilo de la aplicación.
+\item Realizar pequeños ajustes a ejes de gráficos.
+\item Decidir e implementar una forma de toma de datos en tiempo real del sistema anfitrión para en posteriores \textit{sprints} visualizar esa información.
+\item Implementación del algoritmo de aprendizaje Semi-Supervisado basado en picos de densidad, ver~\cite{WU2018180}
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el uno de marzo de dos mil veintidós y el ocho de marzo de dos mil veintidós.
+\item \textbf{\textit{Burndown chart}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint12}
+\caption{\textit{Burndown Chart Sprint 12.}}\label{fig:BD-Sprint12}
+\end{center}
+\end{figure}
+
+El trabajo realizado en este \textit{sprint} tal y como en la Figura~\ref{fig:BD-Sprint12} se aprecia, ha sido superior a los anteriores, con un total de 83 puntos de historia y cerca de 45 horas invertidas. En esta ocasión el trabajo ha vuelto ha ser planificado <<por lo alto>> debido a la suposición de complejidad de implementación del algoritmo de aprendizaje Semi-Supervisado. 
+
+\item \textbf{\textit{Sprint review meeting}}
+En este \textit{sprint} el equipo de desarrollo ha tenido la sensación que no <<llegaba>> a todo lo planificado, las reuniones llegan a un punto en el cuál se comenta trabajo, queda apuntado, y se intenta meter todo en tiempo y forma. Generando un cierto agobio en algunas situaciones que han impedido continuar con el trabajo al ritmo deseado.
+
+En líneas generales se puede afirmar que el \textit{frontend} ha sido rehecho entero, se han reutilizado formatos o formularios existentes por facilidad de uso a todos aquellos usuarios que ya la conocieran, pero a nivel de código prácticamente es nueva. Con un estilo mucho más moderno, fino y elegante.
+
+La integración de CI/CD finalmente ha quedado hecha con elementos \textit{cloud}, entre ellos se encuentran Travis-CI, Codebeat, SonarCloud y Codacy. Debido a que se ha rehecho toda la interfaz web de la aplicación, los tests existentes no pasan, es por ello que se tendrán que rehacer poco a poco, aunque no es uno de los elementos de mayor prioridad por el momento.
+
+\end{itemize}
+
+\subsubsection{\textit{Sprint} 13: Name}
+\begin{itemize}
+\item \textbf{\textit{Planning meeting}}
+
+Objetivos del decimotercero \textit{sprint}:
+\begin{enumerate}
+\item Implementación del algoritmo de aprendizaje Semi-Supervisado basado en picos de densidad con filtrado, ver~\cite{LI2019104895}
+\item Mejora inicial de la calidad del código.
+\item Panel \textit{dashboard} de visualización de estado del sistema en tiempo real.
+\item Dar soporte a que el usuario pueda cambiar su foto de perfil.
+\item Realizar algunas pruebas de estrés para detectar puntos de rotura de la interfaz.
+\item Comenzar a escribir los Requisitos.
+\item Comenzar a escribir dentro del Diseño, el diagrama de casos de uso.
+\item Añadir a los aspectos relevantes los métodos que se están haciendo a sí como los cambios en la interfaz.
+\item Revisar comentarios hechos por Alvar en la memoria.
+\end{enumerate}
+\item \textbf{Marcas temporales}
+
+Este \textit{sprint} se desarrolla entre el ocho de marzo de dos mil veintidós y el quince de marzo de dos mil veintidós.
+\item \textbf{\textit{Burndown chart}}
+
+\item \textbf{\textit{Sprint review meeting}}
 
 \end{itemize}
 
