@@ -11,7 +11,7 @@ alt="ISMSSL by DNX"></a>
 
 <h4 align="center">Instance selection methods for semi-supervised learning.</h4>
 
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c336db4b8f9b4196bc802a544a18b83b)](https://www.codacy.com/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dpr1005/Semisupervised-learning-and-instance-selection-methods&amp;utm_campaign=Badge_Grade)
  [![codebeat badge](https://codebeat.co/badges/e2f032d4-5205-4ece-8756-05b77a8d62cf)](https://codebeat.co/projects/github-com-dpr1005-semisupervised-learning-and-instance-selection-methods-main)
  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpr1005_Semisupervised-learning-and-instance-selection-methods&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpr1005_Semisupervised-learning-and-instance-selection-methods)
 
