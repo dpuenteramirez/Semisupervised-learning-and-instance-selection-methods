@@ -1,11 +1,75 @@
 \apendice{Especificación de Requisitos}
 
 \section{Introducción}
+Este anexo recoge las necesidades funcionales que deberán ser soportadas por el sistema que va a ser desarrollado. Con el fin de obtener una buena documentación se deben identificar y describir los requisitos que debe el sistema satisfacer, pero sin entrar en cómo los va a resolver.
 
+A día de hoy, no existe una autoridad que indique cómo se deben de realizar las especificaciones de requisitos \textit{sfotware}, SRS. La comunidad se encuentra dividida entre <<la vieja escuela>> siguiendo guías de buenas prácticas (IEEE 830-1998~\cite{720574} ó 12207-2-2020~\cite{IEEE1220722020}), en contraposición con el \textit{Agile Manifiesto}, donde no se hace una especificación formal de toda la aplicación sino que cada 2-4 semanas se revisa y <<rehace>> en función de las necesidades del cliente.
+
+Se va a realizar una combinación de ambos, por un lado se trabaja a lo largo del proyecto con una planificación ágil, y por otro se va a tener como referencia una especificación de requisitos que va a seguir la guía de buenas prácticas IEEE 830-1998. Ésta última recoge los siguientes puntos como referencias a una buena especificación de requisitos \textit{software}~\cite{ingenieriasoftwareytiemporeal_2020}.
+\begin{itemize}
+\item \textbf{Correcto.} Será correcto si, y sólo si, cada requisito declarado se encuentra en el \textit{software} entregado.
+\item \textbf{Inequívoco.} Será inequívoco si, y solo si, cada requisitos declarado tiene sólo una interpretación. Cada característica de la última versión del producto se deberá describir con un único término.
+\item \textbf{Completo.} Será completo si, y sólo si, incluye:
+\begin{enumerate}
+\item Los requisitos están relacionados a la funcionalidad, el desarrollo, las restricciones del diseño, los atributos y las interfaces externas. En particular debe reconocerse cualquier requisito externo impuesta por una especificación del sistema y debe tratarse.
+\item La definición de las respuestas del \textit{software} a todos los posibles datos de la entrada del sistema y a toda clase de situaciones.
+\item Tener todas las etiquetas llenas y referencias a todas las figuras, tablas, diagramas en el SRS y definición de todas las condiciones y unidades de medida.
+\end{enumerate}
+\item \textbf{Consistente.} Si un SRS <<choca>> con algún documento de nivel superior (~\textit{i.e.} una especificación de requisitos de sistema), entonces no será consistente.
+\item \textbf{Comprobable.} Será comprobable si, y sólo si, cada requisito declarado es comprobable. A su vez un requisito será comprobable si, y sólo si, allí existe un proceso rentable finito con que una persona o la máquina puede verificar que el producto del \textit{software} reúne el requisito. Cualquier requisito ambiguo no es comprobable.
+\item \textbf{Modificable}. Será modificable si, y sólo si, su estructura y estilo son tales que puede hacerse cualquier cambio a los requisitos fácilmente, completamente y de forma consistente mientras conserva la estructura y estilo.
+\item \textbf{Identificable.} Será identificable si el origen de cada uno de los requisitos está claro y facilita de igual manera las referencias de cada requisito de desarrollo futuro o documentación del mismo.
+\end{itemize}
+
+\newpage
 \section{Objetivos generales}
+Los objetivos del proyecto se pueden separar en dos ramas.
+\begin{enumerate}
+\item Realización de un estudio de los métodos de selección de instancias más relevantes en la literatura y su aportación en problemas de aprendizaje Semi-Supervisado. Como producto final se desean tener dos bibliotecas con los principales algoritmos de filtrado y los principales algoritmos de aprendizaje Semi Supervisado, respectivamente.
+\item Integración de las librerías anteriormente expuestas en la plataforma de MLaaS de la Universidad de Burgos (UBUMLaaS).
+\item Rediseño completo de UBUMLaaS, modernización de la interfaz gráfica, crear una parte de administración desde la WebUI.
+\end{enumerate}
 
+En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training}, ... Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
+
+Las interfaces a diseñar se requieren que sean intuitivas, fáciles de entender y utilizar. Deberán de ser transparentes al usuario, impidiendo que este conozca la lógica de diseño de la aplicación, así como los posibles fallos internos que se puedan producir por acciones del sistema, del usuario, o de terceros.
+
+\newpage
+\section{Usuarios Participantes}
+En la fase de análisis han participado diversos usuarios, entre los que se han repartido los principales <<papeles>>.
+\begin{itemize}
+\item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de multiples papeles a lo largo de esta fase:
+\begin{itemize}
+\item \textit{Cliente}. Descripción de las funcionalidades deseadas de la aplicación y el comportamiento que debe de tener.
+\item \textit{Técnico}. Aportando conocimientos acerca de las técnicas de selección de instancias y su relación con la minería de datos. Junto con ello ha compartido sus conocimientos en el uso de librerías tales como Weka, Scikit-Learn, o el lenguaje de marcas \LaTeX. Así como el aporte de grandes cantidades de documentación en forma de \textit{papers} o documentación web. 
+\end{itemize}
+\item Multitud de compañeros del grado han aportado sus experiencias a la hora de tratar con aplicaciones de este tipo, comentando sus principales dificultades que encuentran habitualmente y lo que esperarían encontrarse en una nueva aplicación. Lo que permite hacer un diseño de la interfaz más intuitivo en función de lo que el usuario espera encontrar sin perder funcionalidades.
+\item \textit{Analista.} El alumno ha realizado el análisis (valga la redundancia) y descripción del problema planteado por el cliente y realización del diseño de la solución propuesta.
+\end{itemize}
+
+\newpage
+\section{Factores de riesgo}
+En esta sección se va a realizar un análisis de las `principales dificultades que se pueden encontrar a lo largo del desarrollo del proyecto \textit{software}. Mediante una identificación preventiva se podrá poner remedio a éstas de una manera más eficiente e impedir <<que vayan a más>>.
+
+Se identifican los siguientes factores de riesgo:
+\begin{enumerate}
+\item \textbf{Desconocimiento teórico.} Se posee una cantidad muy limitada de conocimiento en la materia en la que el proyecto transcurre. El proyecto tiene un enfoque fuertemente relacionado con la minería de datos, un área hasta ahora inexplorada. El proyecto ya en su base más pura va a suponer un reto en el día a día.
+\item \textbf{Documentación a utilizar.} Hasta ahora nunca se ha tratado con \textit{papers} o artículos científicos, mucho menos su lectura y comprensión, análisis y posterior implementación de los algoritmos propuestos. Puede suponer retrasos sin previo aviso un \textit{paper} con una alta complejidad, bien por la condensación de información, bien por la encapsulación de información, o simplemente por los conocimientos que se  requieren para entender el documento.
+\item \textbf{Experiencia modificando un proyecto \textit{software}.} La experiencia personal dictamina que la modificación de proyectos incializados por terceros (como se trabaja en la industria) conlleva una etapa de adaptación la cual no suele ser linear, sino exponencial, en función de la complejidad de la aplicación que se desea asimilar.
+\item \textbf{Mínima experiencia con algunos lenguajes/bibliotecas.} El proyecto requiere del uso del lenguajes de programación como JavaScript, o lenguajes de marcas como son HTML, CSS, \LaTeX ... o librerías como Flask o Vue. Con las que no se tiene prácticamente experiencia real de uso. Supondrá un esfuerzo extra e impedirá que determinadas tareas sean tan cortas como deberían serlo.
+\item \textbf{Existencia del usuario final.} Se desconoce el usuario final de la aplicación, por lo que no se podrán realizar talleres, esto motivará a que el proyecto se creará como se cree que el usuario lo esperaría, pero sin su aprobación.
+\item \textbf{Motivación del equipo de desarrollo.} En un proyecto nuevo y de este tipo, la experiencia personal es que antes o después habrá una pérdida de motivación para mantener un ritmo de trabajo óptimo.
+\item \textbf{Compaginación con los estudios académicos. (Factor Tiempo).} El proyecto se desarrolla paralelamente al último curso de los estudios universitarios, debiendo ser correctamente compaginado para que <<nada pise a nada>> y no produzca retrasos. La escasez de tiempo puede suponer un problema en caso de que en los primeros \textit{sprints} de trabajo no se alcance un ritmo de desarrollo adecuado, la fecha límite es conocida desde el inicio del proyecto y se debe de tener en cuenta.
+\item \textbf{Corrupción del alcance.} En caso de que los objetivos del proyecto no estén claramente definidos. Una correcta hoja de ruta permitirá a todos los involucrados a conocer la parametrización deseada. Estando muy relacionado con la motivación (no <<ver el final>> del proyecto nunca) y por consecuencia con el ritmo de trabajo.
+\item \textbf{Coste de la infraestructura.} Se debe tener en cuenta que se va a desarrollar una aplicación web, pero por su naturaleza necesitará un servidor (distribuido o no) para su ejecución. A baja escala puede no ser un riesgo, pero se debe vigilar en caso de despliegue en las principales \textit{cloud}.
+\item \textbf{Falta de claridad.} La comunicación entre todas las partes implicadas debe de ser lo más fluida y natural posible, permitiendo minimizar los retrasos por tener que rehacer algo que se había especificado de una forma y no se había entendido correctamente (Inequívoco).
+\end{enumerate}
+
+\newpage
 \section{Catalogo de requisitos}
+En esta sección se van a definir de forma clara, completa, precisa y verificable todas las funcionalidades y restricciones del sistema.
 
+\newpage
 \section{Especificación de requisitos}
 
 
