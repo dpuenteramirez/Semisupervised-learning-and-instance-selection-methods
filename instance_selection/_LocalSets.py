@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    LocalSets.py
+# @Filename:    _LocalSets.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        18/3/22 11:14
 # @Version:     2.0
@@ -34,7 +34,7 @@ class LocalSets:
 
         for index, (sample, label) in enumerate(zip(instances, labels)):
             neighs = []
-            for index2, (sample2, label2) in enumerate(zip(instances, labels)):
+            for index2, (_, label2) in enumerate(zip(instances, labels)):
                 if index != index2 and label == label2 and \
                         distances[index][index2] < structure[index][3]:
                     neighs.append(index2)
