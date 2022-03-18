@@ -306,17 +306,17 @@ class DemocraticCoLearning:
             breakpoint()
 
         confidence = [0 for _ in range(self.n_labels)]
-        for j in range(len(gj)):
-            izq = (gj[j] + 0.5) / (gj[j] + 1)
-            div = True if gj[j] != 0 else False
+        for index, j in enumerate(gj):
+            izq = (j + 0.5) / (j + 1)
+            div = True if j != 0 else False
             if div:
-                der = [(gj_h[0][j] * self.w1) / gj[j],
-                       (gj_h[1][j] * self.w2) / gj[j],
-                       (gj_h[2][j] * self.w3) / gj[j]]
+                der = [(gj_h[0][index] * self.w1) / gj[index],
+                       (gj_h[1][index] * self.w2) / gj[index],
+                       (gj_h[2][index] * self.w3) / gj[index]]
             else:
                 der = [1 for _ in range(self.n_classifiers)]
 
-            confidence[j] = sum([izq * d for d in der]) / len(der)
+            confidence[index] = sum([izq * d for d in der]) / len(der)
 
         labels = []
         pred1 = self.h1.predict(samples)

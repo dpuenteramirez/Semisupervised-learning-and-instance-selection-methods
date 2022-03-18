@@ -91,7 +91,7 @@ class CoTraining:
                                             size=2 * self.p + 2 * self.n,
                                             replace=False, shuffle=False)
             except ValueError:
-                print(f'The model was incorrectly parametrized, k is to big.')
+                print('The model was incorrectly parametrized, k is to big.')
             try:
                 u_prime = np.concatenate((u_prime, u[u_random_index]))
             except IndexError:
