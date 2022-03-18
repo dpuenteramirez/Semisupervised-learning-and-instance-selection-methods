@@ -13,34 +13,35 @@ import pandas as pd
 from .utils import transform
 
 
+def __enemy_distance__(dat, tar):
+    """
+    Inner method which calculates the distance between each sample and its
+    nearest enemy.
+    :param dat: T samples.
+    :param tar: T classes.
+    :return: list of triplets: [sample, class, distance], sorted by the
+    smallest distance.
+    """
+    solution = []
+    for sample, x_class in zip(dat, tar):
+        distance = sys.maxsize
+        for sample_1, x1_class in zip(dat, tar):
+            if x1_class == x_class:
+                continue
+            else:
+                euc = np.linalg.norm(sample - sample_1)
+                if euc < distance:
+                    distance = euc
+        solution.append([sample, x_class, distance])
+
+    solution.sort(key=lambda x: x[2])
+
+    return solution
+
+
 class MSS:
     def __init__(self):
         self.x_attr = None
-
-    def __enemy_distance(self, dat, tar):
-        """
-        Inner method which calculates the distance between each sample and its
-        nearest enemy.
-        :param dat: T samples.
-        :param tar: T classes.
-        :return: list of triplets: [sample, class, distance], sorted by the
-        smallest distance.
-        """
-        solution = []
-        for sample, x_class in zip(dat, tar):
-            distance = sys.maxsize
-            for sample_1, x1_class in zip(dat, tar):
-                if x1_class == x_class:
-                    continue
-                else:
-                    euc = np.linalg.norm(sample - sample_1)
-                    if euc < distance:
-                        distance = euc
-            solution.append([sample, x_class, distance])
-
-        solution.sort(key=lambda x: x[2])
-
-        return solution
 
     def filter(self, samples, y):
         """
@@ -60,15 +61,14 @@ class MSS:
         """
         self.x_attr = samples.keys()
         samples = transform(samples, y)
-        triplets = self.__enemy_distance(samples['data'], samples['target'])
+        triplets = __enemy_distance__(samples['data'], samples['target'])
         dat = []
         tar = []
         remove_indexes = []
 
-        for index in range(len(triplets)):
+        for index, (sample, x_class, distance) in enumerate(triplets):
             if index in remove_indexes:
                 continue
-            (sample, x_class, distance) = triplets[index]
             add = False
             for index1 in range(index, len(triplets)):
                 if index1 in remove_indexes:

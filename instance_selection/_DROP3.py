@@ -8,11 +8,45 @@
 import copy
 from sys import maxsize
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 
 from .utils import transform
+
+
+def with_without(x_sample, samples_info):
+    index_a = 0
+    with_ = 0
+    without = 0
+    x_associates = samples_info[x_sample][1]
+    associates_targets = [samples_info[tuple(x)][2] for x in x_associates]
+    associates_neighs = [samples_info[tuple(x)][0] for x in x_associates]
+
+    for _, a_target, a_neighs in zip(x_associates,
+                                     associates_targets,
+                                     associates_neighs):
+
+        neighs_targets = np.ravel(np.array([samples_info[tuple(x)][2] for x
+                                            in a_neighs])).astype(int)
+        neighs_targets = neighs_targets.tolist()
+        # With
+        count = np.bincount(neighs_targets[:-1])
+        max_class = np.where(count == np.amax(count))[0][0]
+        if max_class == a_target:
+            with_ += 1
+
+        # Without
+        for index_a, neigh in enumerate(a_neighs):
+            if np.array_equal(neigh, x_sample):
+                break
+        count = np.bincount(neighs_targets[:index_a] + neighs_targets[
+                                                       index_a + 1:])
+        max_class = np.where(count == np.amax(count))[0][0]
+        if max_class == a_target:
+            without += 1
+
+    return with_, without
 
 
 class DROP3:
@@ -20,39 +54,6 @@ class DROP3:
         self.nearest_neighbors = nearest_neighbors
         self.power_parameter = power_parameter
         self.x_attr = None
-
-    def __with_without(self, x_sample, samples_info):
-        index_a = 0
-        with_ = 0
-        without = 0
-        x_associates = samples_info[x_sample][1]
-        associates_targets = [samples_info[tuple(x)][2] for x in x_associates]
-        associates_neighs = [samples_info[tuple(x)][0] for x in x_associates]
-
-        for a_associate, a_target, a_neighs in zip(x_associates,
-                                                   associates_targets,
-                                                   associates_neighs):
-
-            neighs_targets = np.ravel(np.array([samples_info[tuple(x)][2] for x
-                                                in a_neighs])).astype(int)
-            neighs_targets = neighs_targets.tolist()
-            # With
-            count = np.bincount(neighs_targets[:-1])
-            max_class = np.where(count == np.amax(count))[0][0]
-            if max_class == a_target:
-                with_ += 1
-
-            # Without
-            for index_a, neigh in enumerate(a_neighs):
-                if np.array_equal(neigh, x_sample):
-                    break
-            count = np.bincount(neighs_targets[:index_a] + neighs_targets[
-                                                           index_a + 1:])
-            max_class = np.where(count == np.amax(count))[0][0]
-            if max_class == a_target:
-                without += 1
-
-        return with_, without
 
     def filter(self, samples, y):
         """
@@ -117,7 +118,7 @@ class DROP3:
         for index_x in range(size):
             x_sample = initial_distances[index_x - removed][0]
 
-            with_, without = self.__with_without(tuple(x_sample), samples_info)
+            with_, without = with_without(tuple(x_sample), samples_info)
 
             if without >= with_:
                 initial_distances = initial_distances[:index_x - removed] + \

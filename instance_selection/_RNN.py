@@ -41,7 +41,7 @@ class RNN:
         data = deque([x for x in samp_set['data']])
         target = deque([x for x in samp_set['target']])
 
-        for index, instance in enumerate(zip(samp_set.data, samp_set.target)):
+        for instance in zip(samp_set.data, samp_set.target):
             (sample, class_sample) = instance
             data.popleft()
             target.popleft()
