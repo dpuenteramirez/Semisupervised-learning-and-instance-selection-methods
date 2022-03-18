@@ -3,7 +3,7 @@
 # @Filename:    DemocraticCoLearning.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/12/21 15:39
-# @Version:     2.0
+# @Version:     3.0
 
 import copy
 from math import sqrt
@@ -13,6 +13,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
+
+from .utils import split
 
 
 def check_bounds(wi):
@@ -36,7 +38,7 @@ class DemocraticCoLearning:
         Intelligence (pp. 594-602). IEEE.
     """
 
-    def __init__(self, random_state=None):
+    def __init__(self, n_neighbors=3, random_state=None):
         self.const = 1.96  # 95%
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
@@ -48,14 +50,16 @@ class DemocraticCoLearning:
         self.w3 = 0
 
         self.h1 = MultinomialNB()
-        self.h2 = KNeighborsClassifier(n_neighbors=3, n_jobs=-1, p=2)
+        self.h2 = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=-1, p=2)
         self.h3 = DecisionTreeClassifier(random_state=self.random_state)
 
-    def fit(self, L, U, y):
-        if len(L) != len(y):
+    def fit(self, samples, y):
+        labeled, u, y = split(samples, y)
+
+        if len(labeled) != len(y):
             raise ValueError(
                 f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(L)} != {len(y)}'
+                f'number of labels given. {len(labeled)} != {len(y)}'
             )
 
         le = LabelEncoder()
@@ -63,27 +67,27 @@ class DemocraticCoLearning:
         y = le.transform(y)
         self.n_labels = max(np.unique(y))+1
 
-        unlabeled_data = U
-        self.n_attributes = len(L[0])
+        unlabeled_data = u
+        self.n_attributes = len(labeled[0])
 
-        L1_data = copy.deepcopy(list(L))
-        L1_labels = copy.deepcopy(list(y))
+        l1_data = copy.deepcopy(list(labeled))
+        l1_labels = copy.deepcopy(list(y))
         e_1 = 0
-        L2_data = copy.deepcopy(list(L))
-        L2_labels = copy.deepcopy(list(y))
+        l2_data = copy.deepcopy(list(labeled))
+        l2_labels = copy.deepcopy(list(y))
         e_2 = 0
-        L3_data = copy.deepcopy(list(L))
-        L3_labels = copy.deepcopy(list(y))
+        l3_data = copy.deepcopy(list(labeled))
+        l3_labels = copy.deepcopy(list(y))
         e_3 = 0
 
         while True:
-            L1_hash = L1_data.__hash__
-            L2_hash = L2_data.__hash__
-            L3_hash = L3_data.__hash__
+            l1_hash = l1_data.__hash__
+            l2_hash = l2_data.__hash__
+            l3_hash = l3_data.__hash__
 
-            self.h1.fit(L1_data, L1_labels)
-            self.h2.fit(L2_data, L2_labels)
-            self.h3.fit(L3_data, L3_labels)
+            self.h1.fit(l1_data, l1_labels)
+            self.h2.fit(l2_data, l2_labels)
+            self.h3.fit(l3_data, l3_labels)
 
             new_labels = []
             probas = []
@@ -100,18 +104,20 @@ class DemocraticCoLearning:
                 new_labels.append(labels[np.where(proba == np.amax(proba))])
                 probas.append(np.array([c1_t, c2_t, c3_t]))
 
-            L1_prime_data = []
-            L1_prime_label = []
-            L2_prime_data = []
-            L2_prime_label = []
-            L3_prime_data = []
-            L3_prime_label = []
+            l1_prime_data = []
+            l1_prime_label = []
+            l2_prime_data = []
+            l2_prime_label = []
+            l3_prime_data = []
+            l3_prime_label = []
 
-            pred = self.h1.predict(L)
+            pred = self.h1.predict(labeled)
             error = len([0 for p, tar in zip(pred, y) if p !=
                          tar]) / len(pred)
-            w1 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-                  error + self.const * sqrt((error * (1 - error)) / len(L))]
+            w1 = [error - self.const * sqrt((error * (1 - error)) /
+                                            len(labeled)),
+                  error + self.const * sqrt((error * (1 - error)) /
+                                            len(labeled))]
             w1 = sum(check_bounds(w1)) / 2
 
             for index, proba in enumerate(probas):
@@ -127,14 +133,16 @@ class DemocraticCoLearning:
 
                 if sum_der > max(sum_izq) and np.where(proba[0] == np.amax(
                         proba[0]))[0][0] != c_k:
-                    L1_prime_data.append(unlabeled_data[index])
-                    L1_prime_label.append(c_k)
+                    l1_prime_data.append(unlabeled_data[index])
+                    l1_prime_label.append(c_k)
 
-            pred = self.h2.predict(L)
+            pred = self.h2.predict(labeled)
             error = len([0 for p, tar in zip(pred, y) if p !=
                          tar]) / len(pred)
-            w2 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-                  error + self.const * sqrt((error * (1 - error)) / len(L))]
+            w2 = [error - self.const * sqrt((error * (1 - error)) /
+                                            len(labeled)),
+                  error + self.const * sqrt((error * (1 - error)) /
+                                            len(labeled))]
             w2 = sum(check_bounds(w2)) / 2
 
             for index, proba in enumerate(probas):
@@ -150,14 +158,16 @@ class DemocraticCoLearning:
 
                 if sum_der > max(sum_izq) and np.where(proba[1] == np.amax(
                         proba[1]))[0][0] != c_k:
-                    L2_prime_data.append(unlabeled_data[index])
-                    L2_prime_label.append(c_k)
+                    l2_prime_data.append(unlabeled_data[index])
+                    l2_prime_label.append(c_k)
 
-            pred = self.h3.predict(L)
+            pred = self.h3.predict(labeled)
             error = len([0 for p, tar in zip(pred, y) if p !=
                          tar]) / len(pred)
-            w3 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-                  error + self.const * sqrt((error * (1 - error)) / len(L))]
+            w3 = [error - self.const * sqrt((error * (1 - error)) /
+                                            len(labeled)),
+                  error + self.const * sqrt((error * (1 - error)) /
+                                            len(labeled))]
             w3 = sum(check_bounds(w3)) / 2
 
             for index, proba in enumerate(probas):
@@ -173,18 +183,18 @@ class DemocraticCoLearning:
 
                 if sum_der > max(sum_izq) and np.where(proba[2] == np.amax(
                         proba[2]))[0][0] != c_k:
-                    L3_prime_data.append(unlabeled_data[index])
-                    L3_prime_label.append(c_k)
+                    l3_prime_data.append(unlabeled_data[index])
+                    l3_prime_label.append(c_k)
 
             try:
-                pred = self.h1.predict(L1_prime_data)
+                pred = self.h1.predict(l1_prime_data)
             except ValueError:
                 try:
-                    pred = self.h1.predict([L1_prime_data])
+                    pred = self.h1.predict([l1_prime_data])
                 except ValueError as e:
                     print(repr(e))
             error = len(
-                [0 for p, tar in zip(pred, L1_prime_label) if p !=
+                [0 for p, tar in zip(pred, l1_prime_label) if p !=
                  tar]) / len(pred)
             ci_1 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
@@ -192,23 +202,23 @@ class DemocraticCoLearning:
             ci_1 = check_bounds(ci_1)
             q_1 = len(pred) * pow((1 - 2 * (e_1 / len(pred))), 2)
             e_prime_1 = (1 - (ci_1[0] * len(pred)) / len(pred)) * len(pred)
-            q_prime_1 = (len(L1_data) + len(pred)) * pow(
-                1 - (2 * (e_1 + e_prime_1)) / (len(L1_data) + len(pred)), 2)
+            q_prime_1 = (len(l1_data) + len(pred)) * pow(
+                1 - (2 * (e_1 + e_prime_1)) / (len(l1_data) + len(pred)), 2)
 
             if q_prime_1 > q_1:
-                L1_data.append(L1_prime_data)
-                L1_labels.append(L1_prime_label)
+                l1_data.append(l1_prime_data)
+                l1_labels.append(l1_prime_label)
                 e_1 += e_prime_1
 
             try:
-                pred = self.h2.predict(L2_prime_data)
+                pred = self.h2.predict(l2_prime_data)
             except ValueError:
                 try:
-                    pred = self.h2.predict([L2_prime_data])
+                    pred = self.h2.predict([l2_prime_data])
                 except ValueError as e:
                     print(repr(e))
             error = len(
-                [0 for p, tar in zip(pred, L2_prime_label) if p !=
+                [0 for p, tar in zip(pred, l2_prime_label) if p !=
                  tar]) / len(pred)
             ci_2 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
@@ -216,23 +226,23 @@ class DemocraticCoLearning:
             ci_2 = check_bounds(ci_2)
             q_2 = len(pred) * pow((1 - 2 * (e_2 / len(pred))), 2)
             e_prime_2 = (1 - (ci_2[0] * len(pred)) / len(pred)) * len(pred)
-            q_prime_2 = (len(L2_data) + len(pred)) * pow(
-                1 - (2 * (e_2 + e_prime_2)) / (len(L2_data) + len(pred)), 2)
+            q_prime_2 = (len(l2_data) + len(pred)) * pow(
+                1 - (2 * (e_2 + e_prime_2)) / (len(l2_data) + len(pred)), 2)
 
             if q_prime_2 > q_2:
-                L2_data.append(L2_prime_data)
-                L2_labels.append(L2_prime_label)
+                l2_data.append(l2_prime_data)
+                l2_labels.append(l2_prime_label)
                 e_2 += e_prime_2
 
             try:
-                pred = self.h3.predict(L3_prime_data)
+                pred = self.h3.predict(l3_prime_data)
             except ValueError:
                 try:
-                    pred = self.h3.predict([L3_prime_data])
+                    pred = self.h3.predict([l3_prime_data])
                 except ValueError as e:
                     print(repr(e))
             error = len(
-                [0 for p, tar in zip(pred, L3_prime_label) if p !=
+                [0 for p, tar in zip(pred, l3_prime_label) if p !=
                  tar]) / len(pred)
             ci_3 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
@@ -240,36 +250,36 @@ class DemocraticCoLearning:
             ci_3 = check_bounds(ci_3)
             q_3 = len(pred) * pow((1 - 2 * (e_3 / len(pred))), 2)
             e_prime_3 = (1 - (ci_3[0] * len(pred)) / len(pred)) * len(pred)
-            q_prime_3 = (len(L3_data) + len(pred)) * pow(
-                1 - (2 * (e_3 + e_prime_3)) / (len(L3_data) + len(pred)), 2)
+            q_prime_3 = (len(l3_data) + len(pred)) * pow(
+                1 - (2 * (e_3 + e_prime_3)) / (len(l3_data) + len(pred)), 2)
 
             if q_prime_3 > q_3:
-                L3_data.append(L3_prime_data)
-                L3_labels.append(L3_prime_label)
+                l3_data.append(l3_prime_data)
+                l3_labels.append(l3_prime_label)
                 e_3 += e_prime_3
 
-            if L1_data.__hash__ == L1_hash and L2_data.__hash__ == L2_hash and \
-                    L3_data.__hash__ == L3_hash:
+            if l1_data.__hash__ == l1_hash and l2_data.__hash__ == l2_hash and \
+                    l3_data.__hash__ == l3_hash:
                 break
 
-        pred = self.h1.predict(L)
+        pred = self.h1.predict(labeled)
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
-        w1 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-              error + self.const * sqrt((error * (1 - error)) / len(L))]
+        w1 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
+              error + self.const * sqrt((error * (1 - error)) / len(labeled))]
         self.w1 = sum(check_bounds(w1)) / 2
-        pred = self.h2.predict(L)
+        pred = self.h2.predict(labeled)
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
-        w2 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-              error + self.const * sqrt((error * (1 - error)) / len(L))]
+        w2 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
+              error + self.const * sqrt((error * (1 - error)) / len(labeled))]
         self.w2 = sum(check_bounds(w2)) / 2
-        pred = self.h3.predict(L)
+        pred = self.h3.predict(labeled)
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
-        w3 = [error - self.const * sqrt((error * (1 - error)) / len(L)),
-              error + self.const * sqrt((error * (1 - error)) / len(L))]
+        w3 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
+              error + self.const * sqrt((error * (1 - error)) / len(labeled))]
         self.w3 = sum(check_bounds(w3)) / 2
 
-    def predict(self, X):
-        all_instances = X
+    def predict(self, samples):
+        all_instances = samples
 
         gj = [0 for _ in range(self.n_labels)]
         gj_h = [[0 for _ in range(self.n_labels)] for _ in
@@ -308,14 +318,10 @@ class DemocraticCoLearning:
 
             confidence[j] = sum([izq * d for d in der]) / len(der)
 
-        classifiers = [self.h1, self.h2, self.h3]
-        confidence = np.array(confidence)
-        classifier = np.where(confidence == np.amax(confidence))[0][0]
-
         labels = []
-        pred1 = self.h1.predict(X)
-        pred2 = self.h2.predict(X)
-        pred3 = self.h3.predict(X)
+        pred1 = self.h1.predict(samples)
+        pred2 = self.h2.predict(samples)
+        pred3 = self.h3.predict(samples)
 
         for p in zip(pred1, pred2, pred3):
             count = np.bincount(p)

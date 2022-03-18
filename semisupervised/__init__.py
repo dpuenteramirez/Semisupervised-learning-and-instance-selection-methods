@@ -14,3 +14,11 @@ the literature.
 
 __version__ = "0.1.3"
 __author__ = 'Daniel Puente Ramírez'
+
+from .CoTraining import CoTraining
+from .TriTraining import TriTraining
+from .DemocraticCoLearning import DemocraticCoLearning
+
+__all__ = ["CoTraining",
+           "TriTraining",
+           "DemocraticCoLearning"]
