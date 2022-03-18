@@ -3,7 +3,7 @@
 # @Filename:    DensityPeaks.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        5/3/22 09:55
-# @Version:     3.0
+# @Version:     3.1
 
 import math
 from collections import defaultdict
@@ -16,7 +16,7 @@ from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
 
 
-class SemiSupervisedSelfTraining:
+class STDPNF:
 
     def __init__(self,
                  dc=None,
