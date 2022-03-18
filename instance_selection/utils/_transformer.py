@@ -1,10 +1,10 @@
 from sklearn.utils import Bunch
 
 
-def transform(X, y):
-    X_transformed = X.to_numpy()
+def transform(samples, y):
+    x_transformed = samples.to_numpy()
     y_transformed = y.to_numpy()
-    return Bunch(data=X_transformed, target=y_transformed)
+    return Bunch(data=x_transformed, target=y_transformed)
 
 
 def delete_multiple_element(list_object, indices, reverse=True):
