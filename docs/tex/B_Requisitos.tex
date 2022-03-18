@@ -22,12 +22,14 @@ Se va a realizar una combinación de ambos, por un lado se trabaja a lo largo de
 \end{itemize}
 
 \newpage
-\section{Objetivos generales}
+\section{Objetivos generales}\label{objetivos-generales}
 Los objetivos del proyecto se pueden separar en dos ramas.
 \begin{enumerate}
-\item Realización de un estudio de los métodos de selección de instancias más relevantes en la literatura y su aportación en problemas de aprendizaje Semi-Supervisado. Como producto final se desean tener dos bibliotecas con los principales algoritmos de filtrado y los principales algoritmos de aprendizaje Semi Supervisado, respectivamente.
+\item Realización de un estudio de los métodos de selección de instancias más relevantes en la literatura y su aportación en problemas de aprendizaje Semi-Supervisado. Como producto final se desean tener dos bibliotecas con los principales algoritmos de selección de instancias y una de los principales algoritmos de aprendizaje Semi-Supervisado.
 \item Integración de las librerías anteriormente expuestas en la plataforma de MLaaS de la Universidad de Burgos (UBUMLaaS).
-\item Rediseño completo de UBUMLaaS, modernización de la interfaz gráfica, crear una parte de administración desde la WebUI.
+\item Rediseño completo de UBUMLaaS, modernización de la interfaz gráfica, de forma que sea más intuitivo su uso.
+\item Nuevas funcionalidades para el usuario.
+\item Administración integral del sistema por parte de los administradores.
 \end{enumerate}
 
 En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training}, ... Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
@@ -35,7 +37,7 @@ En la biblioteca referida a los algoritmos de filtrado más comunes se implement
 Las interfaces a diseñar se requieren que sean intuitivas, fáciles de entender y utilizar. Deberán de ser transparentes al usuario, impidiendo que este conozca la lógica de diseño de la aplicación, así como los posibles fallos internos que se puedan producir por acciones del sistema, del usuario, o de terceros.
 
 \newpage
-\section{Usuarios Participantes}
+\section{Usuarios Participantes}\label{usuarios-participantes}
 En la fase de análisis han participado diversos usuarios, entre los que se han repartido los principales <<papeles>>.
 \begin{itemize}
 \item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de multiples papeles a lo largo de esta fase:
@@ -48,14 +50,14 @@ En la fase de análisis han participado diversos usuarios, entre los que se han 
 \end{itemize}
 
 \newpage
-\section{Factores de riesgo}
+\section{Factores de riesgo}\label{factores-de-riesgo}
 En esta sección se va a realizar un análisis de las `principales dificultades que se pueden encontrar a lo largo del desarrollo del proyecto \textit{software}. Mediante una identificación preventiva se podrá poner remedio a éstas de una manera más eficiente e impedir <<que vayan a más>>.
 
 Se identifican los siguientes factores de riesgo:
 \begin{enumerate}
 \item \textbf{Desconocimiento teórico.} Se posee una cantidad muy limitada de conocimiento en la materia en la que el proyecto transcurre. El proyecto tiene un enfoque fuertemente relacionado con la minería de datos, un área hasta ahora inexplorada. El proyecto ya en su base más pura va a suponer un reto en el día a día.
 \item \textbf{Documentación a utilizar.} Hasta ahora nunca se ha tratado con \textit{papers} o artículos científicos, mucho menos su lectura y comprensión, análisis y posterior implementación de los algoritmos propuestos. Puede suponer retrasos sin previo aviso un \textit{paper} con una alta complejidad, bien por la condensación de información, bien por la encapsulación de información, o simplemente por los conocimientos que se  requieren para entender el documento.
-\item \textbf{Experiencia modificando un proyecto \textit{software}.} La experiencia personal dictamina que la modificación de proyectos incializados por terceros (como se trabaja en la industria) conlleva una etapa de adaptación la cual no suele ser linear, sino exponencial, en función de la complejidad de la aplicación que se desea asimilar.
+\item \textbf{Experiencia modificando un proyecto \textit{software}.} La experiencia personal dictamina que la modificación de proyectos que han sido iniciados por terceros (como se trabaja en la industria) conlleva una etapa de adaptación la cual no suele ser linear, sino exponencial, en función de la complejidad de la aplicación que se desea asimilar.
 \item \textbf{Mínima experiencia con algunos lenguajes/bibliotecas.} El proyecto requiere del uso del lenguajes de programación como JavaScript, o lenguajes de marcas como son HTML, CSS, \LaTeX ... o librerías como Flask o Vue. Con las que no se tiene prácticamente experiencia real de uso. Supondrá un esfuerzo extra e impedirá que determinadas tareas sean tan cortas como deberían serlo.
 \item \textbf{Existencia del usuario final.} Se desconoce el usuario final de la aplicación, por lo que no se podrán realizar talleres, esto motivará a que el proyecto se creará como se cree que el usuario lo esperaría, pero sin su aprobación.
 \item \textbf{Motivación del equipo de desarrollo.} En un proyecto nuevo y de este tipo, la experiencia personal es que antes o después habrá una pérdida de motivación para mantener un ritmo de trabajo óptimo.
@@ -66,8 +68,56 @@ Se identifican los siguientes factores de riesgo:
 \end{enumerate}
 
 \newpage
-\section{Catalogo de requisitos}
+\section{Catalogo de requisitos}\label{catalogo-de-riquisitos}
 En esta sección se van a definir de forma clara, completa, precisa y verificable todas las funcionalidades y restricciones del sistema.
+
+A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la parte de bibliotecas, los requisitos funcionales y no funcionales se van a desglosar juntos, siguiendo el orden en el que aparecen en este texto.
+
+\subsection{Requisitos funcionales}\label{requisitos-funcionales}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{RF-1 Uso de algoritmos de Semi-Supervisado.} La aplicación debe de ser capaz de entrenar un modelo entrenado con un algoritmo de aprendizaje Semi-Supervisado y posteriormente utilizar dicho modelo para predecir sobre un conjunto de datos.
+
+\begin{itemize}
+\tightlist
+\item \textbf{RF-1.1 Entrenar el modelo.} El usuario debe poder elegir si quiere utilizar algoritmos de Semi-Supervisado para clasificación o no.
+    \begin{itemize}
+    \tightlist
+    \item \textbf{RF-1.1.1 Elección del algoritmo.} El usuario debe de ser capaz de elegir el algoritmo que considere oportuno de entre todos los posibles.
+     \item \textbf{RF-1.1.2 Parametrización del algoritmo.} El usuario debe poder parametrizar el algoritmo cómo considere oportuno para su problema.
+     \item \textbf{RF-1.1.3 Conjuntos de datos especiales.} El usuario podrá utilizar únicamente conjuntos de datos aceptados por la aplicación para Semi-Supervisado.
+    \end{itemize}
+    \item \textbf{RF-1.2 Descarga del modelo.} El usuario debe de ser capaz de descargar el modelo para poder usarlo en otros sistemas.
+    \item \textbf{RF-1.3 Reutilización del modelo.} El usuario debe de ser capaz de crear un modelo  utilizando una parametrización base de otro modelo existente en el sistema.
+    \item \textbf{RF-1.4 Predicción de nuevos prototipos.} El usuario debe de ser capaz de utilizar un modelo ya entrenado para predecir nuevos conjuntos de datos que posean la misma relación de atributos.
+    \item \textbf{RF-1.5 Estadísticas del entrenamiento.} El usuario debe de ser capaz de visualizar las estadísticas del experimento ejecutado, independientemente de si el entrenamiento ha sido mediante validación cruzada o con partición mediante porcentajes para entrenamiento y pruebas.
+  \end{itemize}
+\item \textbf{RF-2 Uso de algoritmos de selección de instancias.} El usuario deberá poder elegir si usar o no, para cualquier experimento independientemente de su naturaleza, los algoritmos de selección de instancias codificados.
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-2.1 Parametrización del algoritmo.} El usuario debe poder parametrizar el algoritmo cómo considere oportuno para su problema.
+\end{itemize}
+\item \textbf{RF-3 Administración de usuarios.}
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-3.1 Dar de alta nuevos usuarios.} El administrador debe poder crear un nuevo usuario con la información básica.
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-3.1.1 Activación del usuario.} El sistema debe mandar el correspondiente correo de activación al nuevo usuario.
+	\item \textbf{RF-3.1.2 Contraseña del usuario.} Se generará una contraseña complaciente con la política de seguridad de la plataforma. En ningún momento dicha contraseña podrá ser conocida por ningún administrador o miembro del sistema. El usuario deberá de restaurar la contraseña antes de iniciar sesión por primera vez.
+	\end{itemize}
+	\item \textbf{RF-3.2 Activación de usuarios.} El administrador debe de poder activar o desactivar a un usuario en concreto.
+	\item \textbf{RF-3.3 Hacer administrador a un usuario.} El administrador debe de poder hacer nuevos usuarios administradores.
+	\item \textbf{RF-3.4 Eliminar a un usuario.} El administrador debe de poder eliminar a un usuario cualquiera del sistema, independientemente de si este usuario es administrador o no.
+	\item \textbf{RF-3.5 Auto-Modificación del administrador.} El administrador no debe de poder desactivarse, quitarse de administrador o eliminarse a sí mismo.
+	\end{itemize}
+\item \textbf{RF-4 Modificación de datos del usuario.}
+
+\item \textbf{RF-5 Administración del sistema en tiempo real.}
+
+\item \textbf{RF-6 Estadísticas de uso.}
+\end{itemize}
 
 \newpage
 \section{Especificación de requisitos}
