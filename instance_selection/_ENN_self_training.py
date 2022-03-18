@@ -8,10 +8,10 @@ import copy
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-from instance_selection.ENN import ENN
+from instance_selection import ENN
 
 
-def ENN_self_training(original, complete, k=3, without=True):
+def enn_self_training(original, complete, k=3, without=True):
     """
     Modification of the Wilson Editing algorithm.
 
@@ -33,7 +33,7 @@ def ENN_self_training(original, complete, k=3, without=True):
     if not without:
         return ENN(complete, k)
 
-    S = copy.deepcopy(complete)
+    s = copy.deepcopy(complete)
     size = len(complete['data'])
     s_samples = list(complete['data'])
     s_targets = list(complete['target'])
@@ -63,7 +63,7 @@ def ENN_self_training(original, complete, k=3, without=True):
                 s_samples = samples_not_x
                 s_targets = targets_not_x
 
-    S['data'] = np.array(s_samples)
-    S['target'] = s_targets
+    s['data'] = np.array(s_samples)
+    s['target'] = s_targets
 
-    return S
+    return s
