@@ -113,10 +113,53 @@ A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la par
 	\item \textbf{RF-3.5 Auto-Modificación del administrador.} El administrador no debe de poder desactivarse, quitarse de administrador o eliminarse a sí mismo.
 	\end{itemize}
 \item \textbf{RF-4 Modificación de datos del usuario.}
-
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-4.1 Datos básicos.} El usuario debe de poder modificar sus datos básicos, pero nunca pudiendo dejarlos <<en blanco>>.
+	\item \textbf{RF-4.2 Datos adicionales.} El usuario debe de poder añadir, modificar o eliminar, una serie de datos adicionales.
+	\item \textbf{RF.4.3 Imagen de perfil.} El usuario debe de poder actualizar su foto de perfil, cumpliendo con una serie de requisitos de tamaño y formato.
+	\item \textbf{RF-4.4 Actualización de contraseña.} El usuario deberá de poder actualizar su contraseña en caso de considerarlo necesario.
+	\end{itemize}
+	\pagebreak
 \item \textbf{RF-5 Administración del sistema en tiempo real.}
-
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-5.1 Información de red.} El administrador debe de poder visualizar la configuración actual de red en la que la plataforma está desplegada.
+	\item \textbf{RF-5.2 Información de carga.} El administrador debe de poder visualizar la carga del actual del sistema en términos de uso de procesador y memoria.
+	\item \textbf{RF-5.3 Información adicional.} El administrador debe de poder visualizar datos adicionales como el uso de red, almacenamiento disponible, \dots
+	\end{itemize}
 \item \textbf{RF-6 Estadísticas de uso.}
+	\begin{itemize}
+	\tightlist
+	\item \textbf{RF-6.1 Estadísticas de uso para usuarios.}
+	\begin{itemize}
+	\tightlist
+		\item \textbf{RF-6.1.1 Uso últimos 7 días.} El usuario debe de poder visualizar unas estadísticas generales de su uso particular en los últimos 7 días naturales.
+		\item \textbf{RF-6.1.2 Uso de cada tipo de algoritmo.} El usuario debe de poder visualizar qué y cuántos algoritmos de cada tipo ha ejecutado. Además del tiempo de ejecución global de cada tipo.
+		\item \textbf{RF-6.1.3 Estadísticas generales.} El usuario debe de poder conocer cuántos experimentos ha ejecutado en total y cuántos conjuntos de datos tiene alojados en el sistema.
+	\end{itemize}
+	\item \textbf{RF-6.2 Estadísticas de uso para administradores.}
+	\begin{itemize}
+		\item \textbf{RF-6.2.1 Estadísticas generales}. El administrador debe de poder de un vistazo conocer el uso general que se le está dando al sistema. (Número de experimentos, número de usuarios, tipo de experimentos, \dots)
+		\item \textbf{RF-6.2.2 Uso últimos 7 días.} El administrador debe de poder conocer el número de experimentos que se han ejecutado cada día de los últimos 7 días naturales.
+		\item \textbf{RF-6.2.3 Distribución de los usuarios.} El administrador debe de poder conocer las estadísticas generales de uso y países de origen de los usuarios del sistema.
+	\end{itemize}
+	\end{itemize}
+\end{itemize}
+\pagebreak
+\subsection{Requisitos no funcionales}\label{requisitos-no-funcionales}
+\begin{itemize}
+\item \textbf{RNF-1 Usabilidad.} La plataforma debe de ser fácil tanto de aprender a utilizar como clara a la hora de reportar los errores que se puedan cometer. La interfaz debe ser intuitiva.
+\item \textbf{RNF-2 Rendimiento.} La interfaz web no se puede quedar <<colgada>>, además debe de tener unos tiempos de carga razonables.
+\item \textbf{RNF-3 Escalabilidad.} La plataforma debe soportar que se le añadan nuevas funcionalidades con relativa facilidad.
+\item \textbf{RNF-4 Disponibilidad.} La plataforma debe de ser accesible a través de Internet sin importar la geolocalización del cliente.
+\item \textbf{RNF-5 Fiabilidad.} La plataforma debe de garantizar que los modelos calculados son precisos. Además de en caso de pérdidas de conexión, que no ocurran peérdidas de datos.
+\item \textbf{RNF-6 Seguridad.} La plataforma debe gestionar correctamente \textit{tokens}, contraseñas, así como el control de administradores o no.
+\item \textbf{RNF-7 Mantenibilidad.} La plataforma debe cumplir los estándares de código de cada uno de los lenguajes en los que se desarrolla. 
+\item \textbf{RNF-8 Soporte.} La plataforma debe dar soporte a ficheros CSV y ARFF como mínimo. Así como ser compatible con HTML5.
+\item \textbf{RNF-9 Monitorización.} La plataforma debe ser fácilmente monitorizable por un administrador.
+\item \textbf{RNF-10 Internacionalización.} La plataforma debe de estar desarrollada en un inglés sencillo y fácil de comprender por todo tipo de usuarios no nativos.
+\item \textbf{RNF-11 Respuesta autónoma.} En caso de inicio o reinicio, el tiempo empleado por la plataforma hasta estar al 100\% de operatibilidad de nuevo debe ser inferior a los 3 minutos.
 \end{itemize}
 
 \newpage
