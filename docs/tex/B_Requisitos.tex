@@ -29,7 +29,7 @@ Los objetivos del proyecto se pueden separar en dos ramas.
 \item Integración de las librerías anteriormente expuestas en la plataforma de MLaaS de la Universidad de Burgos (UBUMLaaS).
 \item Rediseño completo de UBUMLaaS, modernización de la interfaz gráfica, de forma que sea más intuitivo su uso.
 \item Nuevas funcionalidades para el usuario.
-\item Administración integral del sistema por parte de los administradores.
+\item Administración integral del sistema a cargo del nuevo rol de administrador.
 \end{enumerate}
 
 En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training}, ... Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
@@ -92,6 +92,7 @@ A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la par
     \item \textbf{RF-1.3 Reutilización del modelo.} El usuario debe de ser capaz de crear un modelo  utilizando una parametrización base de otro modelo existente en el sistema.
     \item \textbf{RF-1.4 Predicción de nuevos prototipos.} El usuario debe de ser capaz de utilizar un modelo ya entrenado para predecir nuevos conjuntos de datos que posean la misma relación de atributos.
     \item \textbf{RF-1.5 Estadísticas del entrenamiento.} El usuario debe de ser capaz de visualizar las estadísticas del experimento ejecutado, independientemente de si el entrenamiento ha sido mediante validación cruzada o con partición mediante porcentajes para entrenamiento y pruebas.
+	\item \textbf{RF-1.6 Consulta de experimentos.} El usuario debe de poder consultar aquellos experimentos que ha lanzado.
   \end{itemize}
 \item \textbf{RF-2 Uso de algoritmos de selección de instancias.} El usuario deberá poder elegir si usar o no, para cualquier experimento independientemente de su naturaleza, los algoritmos de selección de instancias codificados.
 	\begin{itemize}
@@ -176,6 +177,8 @@ Dentro de esta sección se desarrolla el Diagrama de Casos de Uso, ver Figura~\r
 Actuarán dos actores con el sistema, un usuario (el actor general) y un administrador (actor especializado heredado del usuario).
 
 \subsection{Casos de uso}\label{casos-de-uso}
+
+% Caso de Uso 1 -> Consultar Experimentos.
 \begin{longtable}[H]{@{}ll@{}}
 \toprule
 \begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
@@ -198,7 +201,7 @@ Daniel Puente Ramírez\strut
 \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
 \textbf{Requisitos asociados}\strut
 \end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
-RF-1.1.2, RF-1.1.3, RF-1.2, RF-1.3, RF-1.4, RF-1.5\strut
+RF-1.3, RF-1.5, RF-1.6\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
 \textbf{Descripción}\strut
@@ -219,7 +222,6 @@ El sistema de colas se encuentra en ejecución.\strut
 \item El usuario entra en la plataforma.
 \item Hace \textit{click} en <<Mis Experimentos>>.
 \item Por cada experimento lanzado se da la opción de ver detalle, reutilizar o eliminar.
-\item Dentro de ver en detalle puede predecir nuevas instancias o descargar el modelo.
 \end{enumerate}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
@@ -242,4 +244,229 @@ Alta\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \caption{CU-1 Consultar Experimentos.}
+\end{longtable}
+
+% Caso de Uso 1.1 -> Consultar Experimento
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-1.1}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Consultar Experimento}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-1.2, RF-1.3, RF-1.4, RF-1.5\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al usuario consultar un experimento en concreto, si ha finalizado, junto con las métricas reportadas.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item El experimento existe.
+\item En caso de haber finalizado y tener métricas de rendimiento, se cargan.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Mis Experimentos>>.
+\item Por cada experimento lanzado se da la opción de ver detalle, reutilizar o eliminar.
+\item Dentro de ver en detalle puede predecir nuevas instancias o descargar el modelo, así como consultar las métricas resultantes. En caso de haber fallado se muestra el motivo del fallo.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+El identificador del experimento no varía independientemente de lo que el usuario haga con él.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item No existen excepciones posibles.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Media\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-1.1 Consultar Experimento.}
+\end{longtable}
+
+% Caso de Uso 1.1.1 -> Predecir Nuevas Instancias
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-1.1.1}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Predecir Nuevas Instancias}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-1.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al usuario predecir nuevas instancias en función a un modelo previamente entrenado.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item El experimento existe y ha finalizado.
+\item Las nuevas instancias a predecir tienen los mismos atributos que con las que se entrenó el modelo.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Mis Experimentos>>.
+\item Por cada experimento lanzado se da la opción de ver detalle, reutilizar o eliminar.
+\item Dentro de ver en detalle hace \textit{click} en <<Predict>>.
+\item Sube el conjunto de datos a predecir.
+\item Se le muestra al usuario el resultado de la predicción.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+El modelo no se ha visto afectado por el proceso de predicción.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item El conjunto de datos pasado no cumple con los requisitos para el modelo.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Alta\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-1.1.1 Predecir Nuevas Instancias.}
+\end{longtable}
+
+% Caso de Uso 1.1.2 -> Reutilizar Experimento
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-1.1.1}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Reutilizar Experimento}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-1, RF-1.1, RF-1.1.1, RF-1.1.2, RF-1.1.3, RF-1.3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al usuario reutilizar el experimento que ya había creado.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item El experimento base existe.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Mis Experimentos>>.
+\item Busca el experimento del que desea obtener la parametrización para uno nuevo.
+\item Hace \textit{click} en <<Reuse>>.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\tightlist
+\item El modelo base no se ha visto afectado.
+\item El usuario se encuentra en la pantalla <<Nuevo Experimento>> con la configuración <<nueva>>.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{itemize}
+\tightlist
+\item Algún parámetro interno ha cambiado y ya no se puede reutilizar el experimento.
+\item Solo se puede recuperar parte de la configuración.
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Media\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-1.1.2 Reutilizar Experimento.}
 \end{longtable}
