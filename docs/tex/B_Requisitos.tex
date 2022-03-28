@@ -169,7 +169,7 @@ Dentro de esta sección se desarrolla el Diagrama de Casos de Uso, ver Figura~\r
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{../img/anexos/requisitos/casos_de_uso}
+	\includegraphics[scale=0.5]{../img/anexos/requisitos/Casos-de-uso}
 	\caption{Diagrama de casos de uso.}\label{img:diagrama-casos-uso}
 \end{figure}
 
@@ -418,10 +418,7 @@ Permite al usuario reutilizar el experimento que ya había creado.\strut
 \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
 \textbf{Precondiciones}\strut
 \end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
-\begin{itemize}
-\tightlist
-\item El experimento base existe.
-\end{itemize}\strut
+El experimento base existe.\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
 \textbf{Acciones}\strut
@@ -460,4 +457,485 @@ Media\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \caption{CU-1.1.2 Reutilizar Experimento.}
+\end{longtable}
+
+% Caso de Uso 2 -> Crear Experimento
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-2}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Crear Experimento}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-1, RF-1.1, RF-1.1.1, RF-1.1.2, RF-1.1.3, RF-2, RF-2.1\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al usuario crear un nuevo experimento.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+La parametrización es correcta.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Nuevo Experimento>>.
+\item Rellena el formulario en función de un conjunto de datos y una técnica de aprendizaje automático.
+\item Hace \textit{click} en <<Crear>>.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\tightlist
+\item El experimento ha sido añadido a las colas de ejecución.
+\item El usuario recibe un correo electrónico con la finalización del experimento.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+El experimento ha sido incorrectamente parametrizado y se ha levantado una excepción al intentar ejecutarlo.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Alta\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-2 Crear Experimento.}
+\end{longtable}
+
+% Caso de Uso 3 -> Modificar Usuario
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-3}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Modificar Usuario}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-4, RF-4.1, RF-4.2, RF-4.3, RF-4.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al usuario modificar sus datos personales dentro de la plataforma.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Los datos del usuarios son recuperados de la base de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Mis Experimentos>>.
+\item Hace \textit{click} en <<Editar Perfil>>.
+\item Modifica los datos como considere oportuno.
+\item Hace \textit{click} en <<Guardar>>.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\tightlist
+\item Todos los campos son validados de forma que individualmente cumplan sus respectivas restricciones de formato.
+\item Para aquellos campos que deben ser únicos, se garantiza su unicidad.
+\item Los datos actualizados son visibles desde el momento en el que se actualiza la página para el usuario.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Modificación concurrente en la base de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Baja\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-3 Modificar Usuario.}
+\end{longtable}
+
+% Caso de Uso 4 -> Registro de Usuario
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-4}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Registro de Usuario}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-3, RF-3.1, RF-3.1.1, RF-3.1.2\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al administrador crear un nuevo usuario, o a un cliente registrarse en la plataforma y convertirse en administrador.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen precondiciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones} (para el administrador)\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El administrador entra en la plataforma.
+\item Hace \textit{click} en <<Usuarios>> en el panel lateral de administración.
+\item Hace \textit{click} en <<Nuevo Usuario>>.
+\item Introduce los datos del nuevo usuario.
+\item Hace \textit{click} en <<Guardar>>.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\tightlist
+\item Todos los campos son validados de forma que individualmente cumplan sus respectivas restricciones de formato.
+\item Para aquellos campos que deben ser únicos, se garantiza su unicidad.
+\item El nuevo usuario recibe un correo electrónico con el \textit{token} de activación de la cuenta.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Modificación concurrente en la base de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Baja\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-4 Registro de Usuario.}
+\end{longtable}
+
+% Caso de Uso 5 -> Administrar Usuarios
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-5}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Administrar Usuarios}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-3, RF-3.1, RF-3.1.1, RF-3.1.2, RF-3.2, RF-3.3, RF-3.4, RF-3.5\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al administrador crear, (de)activar, hacer (o quitar de) administrador, o eliminar a un usuario.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+El usuario a modificar no es el mismo usuario que está modificando.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones} (para el administrador)\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El administrador entra en la plataforma.
+\item Hace \textit{click} en <<Usuarios>> en el panel lateral de administración.
+\item Puede buscar si así lo desea al usuario en cuestión.
+\item Realiza las modificaciones pertinentes.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+La modificación ha sido correcta.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Modificación concurrente en la base de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Media\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-5 Administrar Usuarios.}
+\end{longtable}
+
+% Caso de Uso 6 -> Consultar Analíticas de Uso
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-6}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Consultar Analíticas de Uso}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-6, RF-6.1, RF-6.1.1, RF-6.1.2, RF-6.1.3, RF-6.2, RF-6.2.1, RF-6.2.2, RF-6.2.3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite a un usuario comprobar sus estadísticas de uso. Y si es administrador, las del la plataforma.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Existen estadísticas que mostrar.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones} (para el usuario)\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El usuario entra en la plataforma.
+\item Hace \textit{click} en <<Mis Experimentos>>.
+\item Hace \textit{click} en <<Estadísticas>>.
+\item Puede visualizar las estadísticas generales de la plataforma.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones} (para el administrador)\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El administrador entra en la plataforma.
+\item Hace \textit{click} en \textit{<<Dashboard>>} en el panel lateral de administración.
+\item Puede visualizar las estadísticas generales de la plataforma.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen postcondiciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen excepciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Alta\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-6 Consultar Analíticas de Uso.}
+\end{longtable}
+
+% Caso de Uso 7 -> Monitorización del Sistema en Tiempo Real
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-7}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Monitorización del Sistema en Tiempo Real}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-5, RF-5.1, RF-5.2, RF-5.3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Permite al administrador comprobar el estado de carga actual del sistema.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Existen registros de datos para calcular las estadísticas que mostrar.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item El administrador entra en la plataforma.
+\item Hace \textit{click} en \textit{<<Live Monitor>>} en el panel lateral de administración.
+\item Puede visualizar las estadísticas generales de la plataforma.
+\end{enumerate}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen postcondiciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Si no existen datos que mostrar aún.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Alta\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-7 Monitorización del Sistema en Tiempo Real.}
+\end{longtable}
+
+% Caso de Uso 7.1 -> Monitor del Sitema
+\begin{longtable}[H]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+\textbf{CU-7.1}\strut
+\end{minipage} & \begin{minipage}[b]{0.71\columnwidth}\raggedright\strut
+\textbf{Monitor del Sitema}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Versión}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+1.0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Autor}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Daniel Puente Ramírez\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Requisitos asociados}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+RF-5.1, RF-5.2, RF-5.3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Descripción}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Proceso de recolección de información de uso del sistema.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Precondiciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Glances está instalado en el sistema.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Acciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Ninguna, ejecución en paralelo en el sistema.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Postcondición}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen postcondiciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Excepciones}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+No existen excepciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+\textbf{Importancia}\strut
+\end{minipage} & \begin{minipage}[t]{0.71\columnwidth}\raggedright\strut
+Alta\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\caption{CU-7.1 Monitor del Sitema.}
 \end{longtable}
