@@ -23,6 +23,7 @@ class STDPNF:
                  distance_metric='euclidean',
                  k=3,
                  gauss_cutoff=True,
+                 percent=2.0,
                  density_threshold=None,
                  distance_threshold=None,
                  anormal=True,
@@ -34,6 +35,7 @@ class STDPNF:
         self.distance_metric = distance_metric
         self.k = k
         self.gauss_cutoff = gauss_cutoff
+        self.percent = percent
         self.density_threshold = density_threshold
         self.distance_threshold = distance_threshold
         self.anormal = anormal
@@ -97,8 +99,7 @@ class STDPNF:
         if self.dc == 'auto':
             dc = self.__auto_select_dc()
         else:
-            percent = 2.0
-            position = int(self.n_id * (self.n_id + 1) / 2 * percent / 100)
+            position = int(self.n_id * (self.n_id + 1) / 2 * self.percent / 100)
             dc = np.sort(list(self.distances.values()))[
                 position * 2 + self.n_id]
 
@@ -110,9 +111,9 @@ class STDPNF:
 
         :return: local density vector that index is the point index
         """
-        guass_func = lambda dij, dc: math.exp(- (dij / dc) ** 2)
+        gauss_func = lambda dij, dc: math.exp(- (dij / dc) ** 2)
         cutoff_func = lambda dij, dc: 1 if dij < dc else 0
-        func = guass_func if self.gauss_cutoff else cutoff_func
+        func = gauss_func if self.gauss_cutoff else cutoff_func
         rho = [0] * self.n_id
         for i in range(self.n_id):
             for j in range(i + 1, self.n_id):
