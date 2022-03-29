@@ -1,8 +1,9 @@
 \capitulo{6}{Trabajos relacionados}
 
-Entre los trabajos relacionados con este Trabajo de Fin de Grado, se distinguen las bibliotecas y \textit{frameworks} enfocadas al \textit{Machine Learning} y los \textit{Machine Learning as a Service} (MLaaS) más relevantes.
+En esta Sección se van a comentar los trabajos relacionados desde dos ópticas, la primera de ellas desde el \textit{Machine Learning As A Service}, MLaaS; y la segunda es desde el punto de vista del Aprendizaje Semi-Supervisado Seguro (\textit{Safe-SSL}).
 
-\section{\textit{Frameworks} y bibiotecas}\label{related:frameworks}
+\section{\textit{Machine Learning As A Service}}
+\subsection{\textit{Frameworks} y bibiotecas}\label{related:frameworks}
 Aunque está categorizado con dos términos, se puede entender un \textit{framework} de \textit{Machine Learning} como una herramienta, biblioteca o interfaz que proporciona a los desarrolladores facilidades para crear modelos de aprendizaje automático.
 
 \begin{enumerate}
@@ -36,7 +37,7 @@ H2O provee de modelos y soporte para Python, R, Java, JSON, Scala, JavaScript. S
 
 \end{enumerate}
 
-\section{\textit{Machine Learning as a Service}}\label{related:MLaaS}
+\subsection{\textit{Proveedores de MLaaS}}\label{related:MLaaS}
 El Aprendizaje Automático como servicio (MLaaS por sus siglas en inglés), es una tecnología de aprendizaje automático que es habitualmente adquirida de un tercero. Su funcionamiento es similar a SaaS (\textit{Software as a Service}) o PaaS (\textit{Platform as a Service}), \textit{i.e.} un usuario utiliza los servicios de un tercero en lugar de los suyos propios.
 
 \begin{enumerate}
@@ -67,7 +68,7 @@ La parte automatizada es capaz de resolver problemas de clasificación binaria y
 
 \end{enumerate}
 \clearpage
-\section{Comparativa entre MLaaS y UBUMLaaS}
+\subsection{Comparativa entre MLaaS y UBUMLaaS}
 Tal y como se puede apreciar en la tabla~\ref{table:Comp-MLaaS}, existen numerosos servicios soportados por los principales proveedores de \textit{Machine Learning as a Service}, \textit{\textit{e.g.}} todos ellos permiten el etiquetado de datos con técnicas de clasificación y regresión. 
 
 Todas las herramientas anteriormente descritas han sido comparadas contra \textit{UBUMLaaS}. 
@@ -91,3 +92,25 @@ Recomendaciones                                                                 
 \end{tabular}
 \caption{Comparativa general entre proveedores de MLaaS}\label{table:Comp-MLaaS}
 \end{table}
+\clearpage
+\section{Aprendizaje Semi-Supervisado Seguro}
+A pesar de que se han hecho multitud de aproximaciones y estudios sobre Clasificación Semi-Supervisada, los prototipos son habitualmente clasificados dependiendo de diferentes suposiciones relacionadas con la distribución de los ejemplos etiquetados y no etiquetados. Habitualmente los modelos se basan en la suposición de existencia de matrices y/o \textit{clusters}. Si los datos corresponden a un colector de menor dimensaionalidad que el espacio de entrada, es adecuado para suposición de colector~\cite{wang2011solution}.
+
+Siguiendo con esta idea en mente, la construcción de grafos permite determinar el comportamiento de los modelos, ya que dos prototipos conectados por una aritsta fuerte probablemente indique que ambos prototipos poseen la misma etiqueta~\cite{wang2013semi}. La suposición de \textit{cluster} supone que prototipos <<similares>> debería tener las mismas etiquetas.
+
+La aplicación de técnicas de técnicas de <<autoetiquetado>> son aquellas que aprovechan un clasificador supervisado para etiquetar la clase desconocida y no hacen suposiciones específicas acerca de los datos de entrada~\cite{triguero2015self}. Para ello lo habitual es entrenar un clasificador o un conjunto de ellos y posteriormente aprovechar el conocimiento adquirido por este (o estos) clasificador(es) para entrenar uno nuevo que produzca mejores resultados~\cite{blum1998combining, zhou2005tri}.
+
+Todos los modelos con los que habitualmente se trabaja se basan únicamente en el uso de aquellas instancias que se encuentran etiquetadas para obtener una mayor diversidad en los clasificadores, sin pararse a utilizar la gran y abundante información que se encuentra dentro de los prototipos no etiquetados~\cite{zhao2021safe}. Pero es aquí donde surge el problema real, no se tiene en cuenta que estos clasificadores iterativos también introducen ruido en el conjunto de datos etiquetados, es decir, clasifican mejor o peor pero no son seguros; todo ello propicia que en determinadas ocasiones el rendimiento empeore.
+
+Con el fin de trabajar con aprendizaje semi-supervisado seguro~\cite{zhao2021safe} propone una nueva forma de trabajar con clasificadores supervisados en un \textit{ensemble}, los cuales a partir de múltiples iteraciones y pasadas sobre el conjunto de datos etiquetados lo acabarán etiquetando de forma segura. Para ello los clasificadores son entrenados con conjuntos de datos extraídos de los prototipos etiquetados y los cuales han sido seleccionados entre aquellos que poseen una baja ambigüedad. Posteriormente se etiquetas aquellos prototipos para los cuales los clasificadores acuerdan mediante mayoría de la clase a la que corresponde y se reentrenan los modelos.
+
+De la misma forma que se acaba de ver cómo hay trabajos en la literatura acerca de mejorar los métodos ya existentes de clasificación semi-supervisada, también existen métodos basados en \textit{clusters} los cuáles eran brevemente introducidos al principio de esta sección. Uno de los mayores problemas que se encontraban éstos métodos era el poder generalizar para cualquier conjunto de datos independientemente de cuál fuese su distribución~\cite{adankon2011help, gan2013using}.
+
+Gracias al trabajo de~\cite{rodriguez2014clustering} en el cual propone que para todo prototipo del conjunto de datos global (etiquetado y no etiquetado) el algoritmo calcula dos valores, su densidad local y la distancia a los puntos de mayor densidad local. Permitiendo descubrir la estructura real del espacio de datos, sin importar si la distribución de los datos es esférica o no, puede ser descubierta haciendo que cada prototipo apunte a su prototipo más cercano con una densidad local más alta.
+
+Con base esta última aproximación, en~\cite{wu2018self} se propone una aproximación que integra la estructura descubierta basada en picos de densidad junto con el proceso de entrenamiento semi-supervisado, mediante el entrenamiento iterativo de un clasificador supervisado. Obteniendo las ventajas de:
+\begin{itemize}
+\item No se encuentra limitado por la distribución inicial de los datos etiquetados y del conjunto de datos general.
+\item Es un modelo constrictivo sin condiciones anteriores.
+\item Es un modelo adecuado para mejorar el rendimiento de cualquier algoritmo supervisado mediante el uso de grandes cantidades de datos.
+\end{itemize}
