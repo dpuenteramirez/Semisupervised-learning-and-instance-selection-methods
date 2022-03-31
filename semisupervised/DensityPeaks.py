@@ -14,9 +14,20 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
+from .utils import split
+from instance_selection import ENN
 
 
 class STDPNF:
+    """
+    Li, J., Zhu, Q., & Wu, Q. (2019). A self-training method based on density
+        peaks and an extended parameter-free local noise filter for k nearest
+        neighbor. Knowledge-Based Systems, 184, 104895.
+
+    Wu, D., Shang, M., Luo, X., Xu, J., Yan, H., Deng, W., & Wang, G. (2018).
+     Self-training semi-supervised classification based on density peaks of
+      data. Neurocomputing, 275, 180-191.
+    """
 
     def __init__(self,
                  dc=None,
