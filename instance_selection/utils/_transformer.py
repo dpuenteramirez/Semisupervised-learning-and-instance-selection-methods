@@ -7,6 +7,10 @@ def transform(samples, y):
     return Bunch(data=x_transformed, target=y_transformed)
 
 
+def transform_original_complete(original, original_y, complete, complete_y):
+    return transform(original, original_y), transform(complete, complete_y)
+
+
 def delete_multiple_element(list_object, indices, reverse=True):
     indices = sorted(indices, reverse=reverse)
     for idx in indices:

@@ -18,6 +18,9 @@ class CNN:
 
     def filter(self, samples, y):
         """
+        Hart, P. (1968). The condensed nearest neighbor rule (corresp.). IEEE
+            transactions on information theory, 14(3), 515-516.
+
         Implementation of The Condensed Nearest Neighbor Rule
 
         The first sample of each class is placed in *store*. Thus we only have

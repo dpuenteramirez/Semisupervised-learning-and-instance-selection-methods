@@ -57,6 +57,10 @@ class DROP3:
 
     def filter(self, samples, y):
         """
+        Wilson, D. R., & Martinez, T. R. (2000). Reduction techniques for
+            instance-based learning algorithms. Machine learning, 38(3),
+            257-286.
+
         Implementation of DROP3.
 
         The Decremental Reduction Optimization Procedure (DROP) algorithms base
