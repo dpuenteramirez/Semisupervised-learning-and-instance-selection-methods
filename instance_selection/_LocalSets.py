@@ -96,7 +96,7 @@ class LSSm(LocalSets):
                 s_samples.append(instances[index])
                 s_labels.append(labels[index])
 
-        x = pd.DataFrame(s_samples)
+        x = pd.DataFrame(s_samples, columns=names)
         y = pd.DataFrame(s_labels)
         return x, y
 

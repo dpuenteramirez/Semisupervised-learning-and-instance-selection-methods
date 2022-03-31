@@ -3,7 +3,7 @@
 # @Filename:    ENN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        16/11/21 17:14
-# @Version:     5.0
+# @Version:     6.0
 
 import numpy as np
 import pandas as pd
@@ -17,6 +17,20 @@ class ENN:
         self.nearest_neighbors = nearest_neighbors
         self.power_parameter = power_parameter
         self.x_attr = None
+
+    def neighs(self, s_samples, s_targets, index, removed):
+        x_sample = s_samples[index - removed]
+        x_target = s_targets[index - removed]
+        knn = NearestNeighbors(n_jobs=-1,
+                               n_neighbors=self.nearest_neighbors, p=2)
+        samples_not_x = s_samples[:index - removed] + s_samples[
+                                                      index - removed + 1:]
+        targets_not_x = s_targets[:index - removed] + s_targets[
+                                                      index - removed + 1:]
+        knn.fit(samples_not_x)
+        _, neigh_ind = knn.kneighbors([x_sample])
+
+        return x_sample, x_target, targets_not_x, samples_not_x, neigh_ind
 
     def filter(self, samples, y):
         """
@@ -42,17 +56,8 @@ class ENN:
         removed = 0
 
         for index in range(size):
-            x_sample = s_samples[index - removed]
-            x_target = s_targets[index - removed]
-            knn = NearestNeighbors(
-                n_jobs=1, n_neighbors=self.nearest_neighbors,
-                p=self.power_parameter)
-            samples_not_x = s_samples[:index - removed] + s_samples[
-                                                          index - removed + 1:]
-            targets_not_x = s_targets[:index - removed] + s_targets[
-                                                          index - removed + 1:]
-            knn.fit(samples_not_x)
-            _, neigh_ind = knn.kneighbors([x_sample])
+            _, x_target, targets_not_x, samples_not_x, neigh_ind = self.neighs(
+                s_samples, s_targets, index, removed)
             y_targets = np.ravel(
                 np.array([targets_not_x[x] for x in neigh_ind[0]])).astype(int)
             count = np.bincount(y_targets)
@@ -94,16 +99,8 @@ class ENN:
         removed = 0
 
         for index in range(size):
-            x_sample = s_samples[index - removed]
-            x_target = s_targets[index - removed]
-            knn = NearestNeighbors(n_jobs=-1,
-                                   n_neighbors=self.nearest_neighbors, p=2)
-            samples_not_x = s_samples[:index - removed] + s_samples[
-                                                          index - removed + 1:]
-            targets_not_x = s_targets[:index - removed] + s_targets[
-                                                          index - removed + 1:]
-            knn.fit(samples_not_x)
-            _, neigh_ind = knn.kneighbors([x_sample])
+            x_sample, x_target, targets_not_x, samples_not_x, neigh_ind = \
+                self.neighs(s_samples, s_targets, index, removed)
             y_targets = [targets_not_x[x] for x in neigh_ind[0]]
             count = np.bincount(y_targets)
             max_class = np.where(count == np.amax(count))[0][0]
