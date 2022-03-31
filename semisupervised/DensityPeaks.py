@@ -14,8 +14,6 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
-from .utils import split
-from instance_selection import ENN
 
 
 class STDPNF:
