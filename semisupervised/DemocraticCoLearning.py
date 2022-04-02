@@ -3,7 +3,7 @@
 # @Filename:    DemocraticCoLearning.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/12/21 15:39
-# @Version:     3.0
+# @Version:     4.0
 
 import copy
 from math import sqrt
@@ -38,7 +38,10 @@ class DemocraticCoLearning:
         Intelligence (pp. 594-602). IEEE.
     """
 
-    def __init__(self, n_neighbors=3, random_state=None):
+    def __init__(self, random_state=None,
+                 c1=None, c1_params=None,
+                 c2=None, c2_params=None,
+                 c3=None, c3_params=None):
         self.const = 1.96  # 95%
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
@@ -49,9 +52,21 @@ class DemocraticCoLearning:
         self.w2 = 0
         self.w3 = 0
 
-        self.h1 = MultinomialNB()
-        self.h2 = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=-1, p=2)
-        self.h3 = DecisionTreeClassifier(random_state=self.random_state)
+        classifiers = [c1, c2, c3]
+        classifiers_params = [c1_params, c2_params, c3_params]
+        default_classifiers = [MultinomialNB, KNeighborsClassifier,
+                               DecisionTreeClassifier]
+        configs = []
+        for index, (c, cp) in enumerate(zip(classifiers, classifiers_params)):
+            if c is not None:
+                if cp is not None:
+                    configs.append(c(**cp))
+                else:
+                    configs.append(c())
+            else:
+                configs.append(default_classifiers[index]())
+
+        self.h1, self.h2, self.h3 = configs
 
     def fit(self, samples, y):
         labeled, u, y = split(samples, y)

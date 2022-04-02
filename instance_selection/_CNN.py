@@ -3,12 +3,22 @@
 # @Filename:    CNN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        19/11/21 07:13
-# @Version:     3.0
+# @Version:     4.0
 
 import numpy as np
 import pandas as pd
 
 from .utils import transform, delete_multiple_element
+
+
+def check_store(store, sample, store_classes):
+    euc = []
+    for s in store:
+        euc.append(np.linalg.norm(s - sample))
+    euc = np.array(euc)
+    euc_nn = np.amin(euc)
+    index_nn = np.ravel(np.where(euc == euc_nn))
+    return store_classes[index_nn[0]]
 
 
 class CNN:
@@ -18,6 +28,9 @@ class CNN:
 
     def filter(self, samples, y):
         """
+        Hart, P. (1968). The condensed nearest neighbor rule (corresp.). IEEE
+            transactions on information theory, 14(3), 515-516.
+
         Implementation of The Condensed Nearest Neighbor Rule
 
         The first sample of each class is placed in *store*. Thus we only have
@@ -48,13 +61,7 @@ class CNN:
         handbag = []
 
         for sample_class, sample in zip(samples.target, samples.data):
-            euc = []
-            for s in store:
-                euc.append(np.linalg.norm(s - sample))
-            euc = np.array(euc)
-            euc_nn = np.amin(euc)
-            index_nn = np.ravel(np.where(euc == euc_nn))
-            nn_class = store_classes[index_nn[0]]
+            nn_class = check_store(store, sample, store_classes)
 
             if nn_class == sample_class:
                 handbag.append((sample_class, sample))
@@ -68,13 +75,7 @@ class CNN:
             indexes = []
             for index, s2 in enumerate(handbag):
                 sample_class, sample = s2
-                euc = []
-                for s in store:
-                    euc.append(np.linalg.norm(s - sample))
-                euc = np.array(euc)
-                euc_nn = np.amin(euc)
-                index_nn = np.ravel(np.where(euc == euc_nn))
-                nn_class = store_classes[index_nn[0]]
+                nn_class = check_store(store, sample, store_classes)
                 if nn_class != sample_class:
                     store.append(sample)
                     store_classes.append(sample_class)

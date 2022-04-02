@@ -11,6 +11,12 @@ from sklearn.metrics import pairwise_distances
 
 
 class LocalSets:
+    """
+    Leyva, E., González, A., & Pérez, R. (2015). Three new instance selection
+        methods based on local sets: A comparative study with several approaches
+        from a bi-objective perspective. Pattern Recognition, 48(4), 1523-1537.
+    """
+
     def __init__(self):
         self.local_sets = None
         self.n_id = 0
@@ -67,6 +73,8 @@ class LSSm(LocalSets):
     def filter(self, instances, labels):
         names = instances.keys()
         instances = instances.to_numpy()
+        import numpy as np
+        instances = [np.ravel(i) for i in instances]
         if len(instances) != len(labels):
             raise ValueError(
                 f'The dimension of the labeled data must be the same as the '

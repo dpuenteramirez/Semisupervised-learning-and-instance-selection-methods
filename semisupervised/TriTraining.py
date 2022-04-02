@@ -3,14 +3,13 @@
 # @Filename:    TriTraining.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        27/12/21 10:25
-# @Version:     3.0
+# @Version:     4.0
 
 from math import floor, ceil
 
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier
@@ -27,23 +26,31 @@ def measure_error(classifier_j, classifier_k, labeled_data):
 
 
 class TriTraining:
-    def __init__(self, learn, random_state=None):
-        if learn == '3-NN':
-            self.hj = KNeighborsClassifier(n_neighbors=3, n_jobs=-1, p=2)
-            self.hk = KNeighborsClassifier(n_neighbors=3, n_jobs=-1, p=2)
-            self.hi = KNeighborsClassifier(n_neighbors=3, n_jobs=-1, p=2)
-        elif learn == 'DecisionTree Classifier':
-            self.hj = DecisionTreeClassifier(random_state=random_state)
-            self.hk = DecisionTreeClassifier(random_state=random_state)
-            self.hi = DecisionTreeClassifier(random_state=random_state)
-        elif learn == 'RandomForest Classifier':
-            self.hj = RandomForestClassifier(random_state=random_state)
-            self.hk = RandomForestClassifier(random_state=random_state)
-            self.hi = RandomForestClassifier(random_state=random_state)
-        else:
-            self.hj = GaussianNB()
-            self.hk = GaussianNB()
-            self.hi = GaussianNB()
+    """Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
+        using three classifiers. IEEE Transactions on knowledge and Data
+        Engineering, 17(11), 1529-1541.
+    """
+
+    def __init__(self, random_state=None,
+                 c1=None, c1_params=None,
+                 c2=None, c2_params=None,
+                 c3=None, c3_params=None):
+
+        classifiers = [c1, c2, c3]
+        classifiers_params = [c1_params, c2_params, c3_params]
+        default_classifiers = [KNeighborsClassifier, DecisionTreeClassifier,
+                               RandomForestClassifier]
+        configs = []
+        for index, (c, cp) in enumerate(zip(classifiers, classifiers_params)):
+            if c is not None:
+                if cp is not None:
+                    configs.append(c(**cp))
+                else:
+                    configs.append(c())
+            else:
+                configs.append(default_classifiers[index]())
+
+        self.hj, self.hk, self.hi = configs
 
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]

@@ -3,7 +3,7 @@
 # @Filename:    CoTraining.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        22/12/21 09:27
-# @Version:     3.0
+# @Version:     4.0
 
 from math import ceil, floor
 
@@ -14,16 +14,35 @@ from .utils import split
 
 
 class CoTraining:
+    """Blum, A., & Mitchell, T. (1998, July). Combining labeled and unlabeled
+        data with co-training. In Proceedings of the eleventh annual conference
+        on Computational learning theory (pp. 92-100).
+     """
 
-    def __init__(self, p=1, n=3, k=30, u=75, random_state=None):
+    def __init__(self, p=1, n=3, k=30, u=75, random_state=None,
+                 c1=None, c1_params=None,
+                 c2=None, c2_params=None,
+                 ):
         self.p = p
         self.n = n
         self.k = k
         self.u = u
         self.random_state = random_state
         self.size_x1 = 0
-        self.h1 = GaussianNB()
-        self.h2 = GaussianNB()
+
+        classifiers = [c1, c2]
+        classifiers_params = [c1_params, c2_params]
+        configs = []
+        for c, cp in zip(classifiers, classifiers_params):
+            if c is not None:
+                if cp is not None:
+                    configs.append(c(**cp))
+                else:
+                    configs.append(c())
+            else:
+                configs.append(GaussianNB())
+
+        self.h1, self.h2 = configs
 
     def fit(self, samples, y):
         labeled, u, y = split(samples, y)

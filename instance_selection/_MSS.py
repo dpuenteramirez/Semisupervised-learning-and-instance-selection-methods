@@ -45,7 +45,12 @@ class MSS:
 
     def filter(self, samples, y):
         """
-        Implementation of Modified Selective Subset
+        Barandela, R., Ferri, F. J., & Sánchez, J. S. (2005). Decision boundary
+            preserving prototype selection for nearest neighbor classification.
+            International Journal of Pattern Recognition and Artificial
+            Intelligence, 19(06), 787-806.
+
+        Implementation of Modified Selective Subset.
 
         It starts with two empty arrays *dat* and *tar*, which will contain the
         instances selected. The first approach is to sort based on Dj all the

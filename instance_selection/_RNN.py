@@ -21,7 +21,10 @@ class RNN:
 
     def filter(self, samples, y):
         """
-        Implementation of The Reduced Nearest Neighbor
+        Gates, G. (1972). The reduced nearest neighbor rule (corresp.).
+            IEEE transactions on information theory, 18(3), 431-433.
+
+        Implementation of The Reduced Nearest Neighbor.
 
         RNN is an extension of CNN. Firstly CNN will be executed in order to
         have S-CCN. It will perform iterative sample removal from S, and

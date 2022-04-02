@@ -236,7 +236,45 @@ Finalmente el algoritmo, ver algoritmo~\ref{alg:Democratic-Co-2}, finaliza con l
 	\caption{\textit{Democratic Co-Learning}}\label{alg:Democratic-Co-2}
 \end{algorithm}
 
-\vfill
+\subsection{\textit{Self-Training} basado en picos de densidad}
+Wu~\cite{wu2018self} en 2018 presentó un \textit{framework} para clasificación utilizando \textit{self-training}. En este caso a diferencia de los métodos estudiados anteriormente, se utilizan técnicas de \textit{clustering} (agrupación) para obtener mejores resultados. Con éste método se descubre la  estructura del espacio de datos, para ello se integra la densidad de los datos en el proceso de \textit{self-training}, de manera que se entrene iterativamente un clasificador. 
+
+El proceso por el cuál se consigue este nuevo clasificador <<mejorado>> es el siguiente:
+\begin{enumerate}
+\item Encontrar los picos de densidad de los datos para aprender la estructura subyacente de todo el espacio de datos de entrenamiento. Y se integra esta estructura en el proceso de entrenamiento iterativo de un clasificador.
+\item Se entrena un clasificador con los datos etiquetados. Se clasifican los ejemplos siguientes de los ya etiquetados hasta que no haya más, se predicen, y, se añaden y eliminan de los datos etiquetados y no etiquetados, respectivamente.
+\item Se repite el paso anterior pero con los puntos anteriores.
+\end{enumerate}
+
+El algoritmo se encuentra disponible, ver Algoritmo~\ref{alg:Wu-DensityPeaks}.
+
+\begin{algorithm}[H]
+	\KwIn{Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente}
+	\KwOut{Clasificador entrenado}
+  	\BlankLine
+	Calcular $\rho_i$ para cada instancia $x_i \in L \cup U$\\
+	Calcular $\delta_i$ para cada instancia $x_i \in L \cup U$\\
+	Descubrir la estructura del espacio de datos haciendo que cada $x_i$ <<apunte>> a su 1-NN con mayor $\rho_i$\\
+	Entrenar un clasificador $C$ con $L$\\	
+	\Repeat{todos los puntos <<siguientes>> de $x_i \in L$ son seleccionados de $U$}{
+		Seleccionar un $T$ de $U$ donde cada $x_j$ es un punto <<siguiente>> de los $x_i \in L$
+		Etiquetar $x_t \in T$ con $C$\\
+		$L \leftarrow L\cup T$\\
+		$U \leftarrow U - T$\\
+	}
+  	Reentrenar $C$ con $L$\\
+  	\Repeat{$size:U == 0$}{
+		Seleccionar un $T$ de $U$ donde cada $x_j$ es un punto <<anterior>> de los $x_i \in L$
+		Etiquetar $x_t \in T$ con $C$\\
+		$L \leftarrow L\cup T$\\
+		$U \leftarrow U - T$\\
+	}
+ 	Reentrenar $C$ con $L$\\
+	\caption{\textit{Self-Training based on Density Peaks}}\label{alg:Wu-DensityPeaks}
+\end{algorithm}
+
+
+\clearpage
 \section{Minería de datos}
 
 Según IBM~\cite{IBM-WhatisDataMining}, podemos definir la minería de datos, o descubrimiento de conocimiento

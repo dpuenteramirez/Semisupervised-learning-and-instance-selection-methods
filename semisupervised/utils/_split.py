@@ -5,6 +5,7 @@
 # @Time:        4/2/22 11:54
 
 import numpy as np
+import pandas as pd
 
 
 def split(samples, y):
@@ -20,10 +21,13 @@ def split(samples, y):
         y {Numpy array} -- real labels
     """
 
+    if isinstance(y, pd.DataFrame):
+        y = y.to_numpy()
+
     labeled_indexes = y != (-1 or np.NaN or None)
 
-    L = samples[labeled_indexes].to_numpy()
-    U = samples[~labeled_indexes].to_numpy()
+    L = samples.iloc[labeled_indexes].to_numpy()
+    U = samples.iloc[~labeled_indexes].to_numpy()
     y = y[labeled_indexes]
 
     assert len(L) == len(y), f"L {len(L)} != {len(y)} y"

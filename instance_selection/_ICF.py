@@ -80,7 +80,11 @@ class ICF:
 
     def filter(self, samples, y):
         """
-        Implementation of Iterative Case Filtering
+        Brighton, H., & Mellish, C. (2002). Advances in instance selection for
+            instance-based learning algorithms. Data mining and knowledge
+            discovery, 6(2), 153-172.
+
+        Implementation of Iterative Case Filtering.
 
         ICF is based on coverage and reachable, due to this two concepts it
         performs deletion of samples based on the rule: "If the reachability
