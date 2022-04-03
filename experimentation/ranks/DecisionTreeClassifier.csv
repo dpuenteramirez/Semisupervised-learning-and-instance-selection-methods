@@ -1,0 +1,10 @@
+,,ENN,LSSm,ENANE
+0.05,f1-score,2,3,1
+0.05,mean squared error,3,1,2
+0.05,accuracy score,2,1,2
+0.1,f1-score,2,3,1
+0.1,mean squared error,3,1,2
+0.1,accuracy score,2,1,2
+0.15,f1-score,2,3,1
+0.15,mean squared error,3,1,2
+0.15,accuracy score,2,1,2
