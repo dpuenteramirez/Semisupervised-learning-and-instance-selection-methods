@@ -1,11 +1,64 @@
 \apendice{Documentación técnica de programación}
 
 \section{Introducción}
+En cada una de las secciones de este anexo se va a describir con detalle la documentación técnica de programación. Se describirá la estructura de directorios que posee, la instalación del propio entorno de desarrollo, cómo llevar a cabo su compilación, instalación y ejecución; además de las pruebas que se han realizado.
+
+Debemos recordar que el proyecto posee dos repositorios diferenciados, UBUMLaaS e IS-SSL (biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado), por lo que en cada sección se describirán cada uno de ellos de manera individual.
 
 \section{Estructura de directorios}
+A continuación se comenta brevemente el árbol de directorios de cada repositorio, en orden alfabético.
+\subsection{UBUMLaaS}
+La estructura del repositorio es la siguiente:
+\begin{itemize}
+\tightlist
+\item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD), junto con los ficheros de requisitos para \texttt{conda} y \texttt{pyenv}. 
+\item \texttt{/lib/}: librerías utilizadas por el sistema.
+\item \texttt{/lib/is\_ssl}: librería propia de métodos de selección de instancias y aprendizaje semi-supervisado.
+\item \texttt{/lib/scikit\_ml\_learn\_data/meka/meka-release-1.9.2/}: librería \texttt{Meka} en su versión 1.9.2.
+\item \texttt{/lib/skmultilearn/}: librería \texttt{scikit-multilearn}.
+\item \texttt{/lib/unofficial\_weka\_packages/}: algoritmos de ADMIRABLE.
+\item \texttt{/lib/wekafiles/}: algoritmos concretos de \texttt{weka}.
+\item \texttt{/test/*}: ficheros de prueba CI-CD.
+\item \texttt{/ubumlaas/}: directorio principal de la plataforma.
+\item \texttt{/ubumlaas/admin/}: contiene toda la parte de \textit{backend} de administración.
+\item \texttt{/ubumlaas/core/}: contiene el \textit{backend} de las vistas de índice y acerca de.
+\item \texttt{/ubumlaas/default\_datasets/}: conjuntos de datos por defecto que se añaden a los nuevos usuarios.
+\item \texttt{/ubumlaas/error\_pages/}: contiene el \textit{backend} de las vistas de error.
+\item \texttt{/ubumlaas/experiments/}: contiene el \textit{backend} para la realización de experimentos.
+\end{itemize}
+
+\subsection{IS-SSL}
+La estructura del repositorio es la siguiente:
+\begin{itemize}
+\tightlist
+\item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de PIP, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD); y, el fichero de requisitos.
+\item \texttt{/datasets/*}: conjuntos de datasets en formatos \texttt{csv} y \texttt{arff}, normalizados y no normalizados.
+\item \texttt{/docs/}: documentación del proyecto.
+\item \texttt{/docs/img/}: imágenes utilizadas en la documentación.
+\item \texttt{/docs/img/anexos/*}: imágenes utilizadas en los anexos.
+\item \texttt{/docs/img/draws/}: diagramas en su formato original.
+\item \texttt{/docs/img/memoria/*}: imágenes utilizadas en la memoria.
+\item \texttt{/hypothesis/*}: primera aproximación a la investigación realizada.
+\item \texttt{/implementation\_tests/}: conjunto de pruebas de validación sobre los algoritmos implementados.
+\item \texttt{/instance\_selection/}: algoritmos implementados de selección de instancias.
+\item \texttt{/instance\_selection/utils/}: métodos de apoyo comunes a los algoritmos de selección de instancias.
+\item \texttt{/misc/}: contiene archivos varios de formato para el repositorio (cabeceras, logos, etc.).
+\item \texttt{/semisupervised/}: algoritmos implementados de aprendizaje semi-supervisado.
+\item \texttt{/semisupervised/utils/}: métodos de apoyo comunes a los algoritmos de aprendizaje semi-supervisado.
+\item \texttt{/utils/}: diferentes clases y métodos de apoyo comunes tanto a selección de instancias como a semi-supervisado.
+\end{itemize}
 
 \section{Manual del programador}
+\subsection{UBUMLaaS}
+
+\subsection{IS-SSL}
 
 \section{Compilación, instalación y ejecución del proyecto}
+\subsection{UBUMLaaS}
+
+\subsection{IS-SSL}
 
 \section{Pruebas del sistema}
+\subsection{UBUMLaaS}
+
+\subsection{IS-SSL}
