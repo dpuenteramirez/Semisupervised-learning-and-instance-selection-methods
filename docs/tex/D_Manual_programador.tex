@@ -1,13 +1,13 @@
 \apendice{Documentación técnica de programación}
 
 \section{Introducción}
-En cada una de las secciones de este anexo se va a describir con detalle la documentación técnica de programación. Se describirá la estructura de directorios que posee, la instalación del propio entorno de desarrollo, cómo llevar a cabo su compilación, instalación y ejecución; además de las pruebas que se han realizado.
+En este anexo se va a describir con detalle la documentación técnica de programación. Se describirá la estructura de directorios que posee, la instalación del propio entorno de desarrollo, cómo llevar a cabo su compilación, instalación y ejecución; además de las pruebas que se han realizado.
 
-Debemos recordar que el proyecto posee dos repositorios diferenciados, UBUMLaaS e IS-SSL (biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado), por lo que en cada sección se describirán cada uno de ellos de manera individual.
+Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL~\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
 
-\section{Estructura de directorios}
-A continuación se comenta brevemente el árbol de directorios de cada repositorio, en orden alfabético.
-\subsection{UBUMLaaS}
+\section{UBUMLaaS}
+
+\subsection{Estructura de directorios}
 La estructura del repositorio es la siguiente:
 \begin{itemize}
 \tightlist
@@ -25,9 +25,34 @@ La estructura del repositorio es la siguiente:
 \item \texttt{/ubumlaas/default\_datasets/}: conjuntos de datos por defecto que se añaden a los nuevos usuarios.
 \item \texttt{/ubumlaas/error\_pages/}: contiene el \textit{backend} de las vistas de error.
 \item \texttt{/ubumlaas/experiments/}: contiene el \textit{backend} para la realización de experimentos.
+\item \texttt{/ubumlaas/experiments/algorithm/}: contiene las métricas para el análisis del modelo entrenado.
+\item \texttt{/ubumlaas/experiments/execute\_algorithm/}: contiene opciones de ejecución para cada librería.
+\item \texttt{/ubumlaas/experiments/views/}: control de las vistas relacionadas con los experimentos.
+\item \texttt{/ubumlaas/jobs/}: descripción de \textit{RQ Worker Builder}.
+\item \texttt{/ubumlaas/static/}: contiene los ficheros estáticos de la plataforma.
+\item \texttt{/ubumlaas/static/avatars/}: contiene las imágenes de perfil de cada usuario.
+\item \texttt{/ubumlaas/static/css/}: contiene el código \texttt{CSS} del \textit{frontend}.
+\item \texttt{/ubumlaas/static/img/}: contiene las imágenes que aparecen en la pltaforma.
+\item \texttt{/ubumlaas/static/js/}: contiene el código \texttt{JavaScript} del \textit{frontend}.
+\item \texttt{/ubumlaas/templates/}: ficheros \texttt{HTML}.
+\item \texttt{/ubumlaas/templates/admin/}: ficheros web de administración.
+\item \texttt{/ubumlaas/templates/blocks/}: ficheros web de bloques que se añaden sobre otros documentos web.
+\item \texttt{/ubumlaas/templates/error\_pages/}: ficheros web de errores (403, 404, \dots)
+\item \texttt{/ubumlaas/templates/modals/}: ficheros para la representación de modales.
+\item \texttt{/ubumlaas/users/}: contiene el \textit{backend} de las actividades relacionadas con el usuario.
+\item \texttt{/ubumlaas/weka/}: contiene los ficheros de configuración de \texttt{Weka} y su \texttt{VM}.
+
 \end{itemize}
 
-\subsection{IS-SSL}
+\subsection{Manual del programador}
+
+\subsection{Compilación, instalación y ejecución del proyecto}
+
+\subsection{Pruebas del sistema}
+
+\section{IS-SSL}
+
+\subsection{Estructura de directorios}
 La estructura del repositorio es la siguiente:
 \begin{itemize}
 \tightlist
@@ -48,17 +73,8 @@ La estructura del repositorio es la siguiente:
 \item \texttt{/utils/}: diferentes clases y métodos de apoyo comunes tanto a selección de instancias como a semi-supervisado.
 \end{itemize}
 
-\section{Manual del programador}
-\subsection{UBUMLaaS}
+\subsection{Manual del programador}
 
-\subsection{IS-SSL}
+\subsection{Compilación, instalación y ejecución del proyecto}
 
-\section{Compilación, instalación y ejecución del proyecto}
-\subsection{UBUMLaaS}
-
-\subsection{IS-SSL}
-
-\section{Pruebas del sistema}
-\subsection{UBUMLaaS}
-
-\subsection{IS-SSL}
+\subsection{Pruebas del sistema}
