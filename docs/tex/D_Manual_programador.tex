@@ -3,7 +3,7 @@
 \section{Introducción}
 En este anexo se va a describir con detalle la documentación técnica de programación. Se describirá la estructura de directorios que posee, la instalación del propio entorno de desarrollo, cómo llevar a cabo su compilación, instalación y ejecución; además de las pruebas que se han realizado.
 
-Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL~\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
+Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
 
 \section{UBUMLaaS}
 
@@ -74,7 +74,184 @@ La estructura del repositorio es la siguiente:
 \end{itemize}
 
 \subsection{Manual del programador}
+En esta subsección se describen todos aquellos métodos seguidos por el equipo de desarrollo para, valga la redundancia, desarrollar el proyecto. De tal forma que  un futuro desarrollador no tenga inconvenientes a la hora de retomar el proyecto.
+
+\subsubsection{Entorno de desarrollo}
+Para poder continuar con el desarrollo del proyecto, se requiere tener instalado el siguiente \textit{software} en el equipo:
+\begin{itemize}
+\tightlist
+\item Python 3.7+.
+\item Bibliotecas Python.
+\item Git
+\item VSCode/PyCharm/\dots.
+\end{itemize}
+
+En los siguientes apartados se detalla la instalación de cada uno de los componentes anteriormente citados.
+
+\subsubsection{Python 3.7+}
+El desarrollo se ha realizado siguiendo las últimas formas de programación disponibles a partir de la versión 3.7 de Python. El desarrollo se comenzó después de que se dejara de mantener Python 2, por lo que se trabajó desde el inicio con versiones de Python 3. Se puede obtener la última versión disponible de Python desde~\cite{pythonGetIt}. Es importante que el desarrollador se asegure que los binarios han sido añadidos al \texttt{path} del sistema que esté utilizando.
+
+\subsubsection{Bibliotecas Python}
+Esta sección es la más importante de todas junto con la anterior, debido a que el proyecto depende de (está construido utilizando) bibliotecas de $3^{os}$. Y en especial, determinadas versiones de las mismas. 
+
+En la Tabla~\ref{tab:bibliotecas-python} se detallan las bibliotecas necesarias para utilizar el proyecto tal y como se encuentra en el repositorio. Para el uso en exclusiva de las librerías de \texttt{IS-SSL} se deben utilizar aquellas que se encuentran en negrita.
+
+\begin{table}[]
+\centering
+\begin{tabular}{c|c}
+	Biblioteca & Versión \\
+	\toprule
+	\rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{NumPy}}    & \textbf{1.20.3}      \\  \midrule
+	\textbf{\texttt{Scikit-learn}}    & \textbf{0.24.2}      \\ \midrule
+	\rowcolor[HTML]{EFEFEF}
+	\texttt{Matplotlib}    & 3.4.3      \\  \midrule
+	\textbf{\texttt{Pandas}}    & \textbf{1.3.4}      \\ \midrule
+	\rowcolor[HTML]{EFEFEF}
+	\texttt{YagMail}    & 0.15.277      \\  \midrule
+	\textbf{\texttt{Scipy}}    & \textbf{1.7.1}      \\ 
+	\rowcolor[HTML]{EFEFEF}
+	\bottomrule
+\end{tabular}
+\caption{Bibliotecas utilizadas y sus versiones.}\label{tab:bibliotecas-python}
+\end{table}
+
+Se recomienda el uso de un entorno de desarrollo de \texttt{Conda}, se facilitan ficheros de configuración tanto para \texttt{Conda} como para instalación con \texttt{PIP}.
+
+\subsubsection{Git}
+\imagenRuta{../img/anexos/manual-programador/gitkraken}{Interfaz de \texttt{GitKraken}.}{gitkraken}
+Para poder utilizar el repositorio ha de utilizarse el gestor de versiones \texttt{Git}. Se recomienda utilizar GUI con soporte a VC\footnote{Control de versiones (\textit{Version Control}).} tales que no requieran de una interfaz de comandos para su utilización, pero eso se deja a decisión del futuro desarrollador.
+
+En la Figura~\ref{fig:gitkraken} se aprecia como el \textit{software} \texttt{GitKraken} permite, de forma intuitiva y sencilla, el uso de \texttt{Git} y todo su potencial. Se puede obtener desde~\cite{gitkraken}.
+
+\subsubsection{VSCode/Pycharm/\dots}
+El desarrollo propio del producto puede ser realizado en cualquier editor de textos, incluso en \texttt{Vi} si así se desea. La ventaja de herramientas como \texttt{Visual Studio Code} o \texttt{PyCharm}, es que permiten el uso de \textit{plugins} añadidos a los complementos del propio IDE, lo cual permite la generación de código un proceso mucho más sencillo y directo, reduciendo el número de errores ocasionados y permitiendo una depuración o refactorización del código fuente mucho más eficiente y sencilla.
+
+Se puede obtener cada una de las herramientas desde~\cite{VSCode, PyCharm}, respectivamente.
 
 \subsection{Compilación, instalación y ejecución del proyecto}
+En esta subsección se va a detallar el proceso a seguir para poder hacer uso del proyecto en local, modificarlo y/o utilizarlo. 
+
+\subsubsection{Adquisición del código fuente}
+Lo primero que se necesita es obtener el código en el equipo, para ello podemos seguir una de las siguientes aproximaciones:
+\begin{itemize}
+\item Mediante el uso de la terminal.
+\begin{enumerate}
+\tightlist
+\item Apertura de la terminal.
+\item Desplazarse al directorio en donde se desee clonar el repositorio (usando \texttt{cd} en Unix o \texttt{dir} en Windows).
+\item Hacer uso del siguiente comando:\\
+\texttt{git clone https://github.com/dpr1005/\\Semisupervised-learning-and-instance-selection-\\methods.git}
+\item Se dispone de una copia idéntica a la alojada en el repositorio de \texttt{GitHub}.
+\end{enumerate}
+
+\item Descarga desde el navegador.
+\begin{itemize}
+\tightlist
+\item Apertura del navegador preferido.
+\item Introducir en la barra de búsqueda la siguiente dirección:\\
+\texttt{https://github.com/dpr1005/\\Semisupervised-learning-and-instance-selection-methods/\\archive/refs/heads/main.zip}
+\item Aceptar la descarga en caso de tener habilitada la comprobación.
+\item Navegar con el Explorador de archivos del sistema hasta el directorio de descarga.
+\end{itemize}
+
+\item Uso de \texttt{GitKraken}.
+\begin{itemize}
+\tightlist
+\item Apertura de la aplicación.
+\item Hacer \textit{click} en \textit{Clone a repo}.
+\item En \textit{Repository Management} $\rightarrow$ \textit{Clone} $\rightarrow$ \textit{Clone with URL}: 
+\begin{itemize}
+\item Indicar la ruta local en la que nos interesa que se clone el repositorio.
+\item En URL introducir:\\
+\texttt{git clone https://github.com/dpr1005/\\Semisupervised-learning-and-instance-selection-\\methods.git}
+\end{itemize}
+\item Hacer \textit{click} en \textit{Clone the repo!}.
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Importar proyecto en PyCharm}
+Importar un proyecto en \texttt{PyCharm} es tan sencillo como:
+\begin{enumerate}
+\tightlist
+\item Apertura de \texttt{PyCharm}.
+\item Hacer \textit{click} en \textit{Open.} (Notar que también podríamos clonar el proyecto en este momento haciendo \textit{click} en \textit{Get from VCS}).
+\item Seleccionar la ruta en el equipo dónde se encuentra el directorio raíz del proyecto.
+\end{enumerate}
+
+\subsubsection{Crear entorno virtual de trabajo}
+Como se ha comentado previamente, para poder trabajar con este proyecto se requieren de una serie de bibliotecas de Python. El proyecto está preparado para crear un entorno de \texttt{Conda} propio, de forma que no interfiera con otros proyectos y sea más sencillo de mantener y actualizar.
+
+Se recomienda que los binarios de anaconda o miniconda estén configurados en el \texttt{path} del sistema para poder utilizar el comando \texttt{conda} desde la línea de comandos.
+
+El proceso de creación del entrono virtual con \texttt{Conda} es el siguiente:
+\begin{enumerate}
+\tightlist
+\item Apertura de la terminal.
+\item Navegar hasta la raíz del proyecto.
+\item Crear el entorno con:\\
+\texttt{conda env create -f is-ssl.yml}
+\item Cuando se desee utilizar se debe activar:\\
+\texttt{conda activate is-ssl}
+\end{enumerate}
+
+En caso de que se desee añadir al entorno (\texttt{venv}) actual en el que se encuentre el usuario:
+\begin{enumerate}
+\tightlist
+\item Apertura de la terminal.
+\item Navegar hasta la raíz del proyecto.
+\item Instalar los requerimientos del proyecto con:\\
+\texttt{pip install -r requeriments.txt}
+\end{enumerate}
+
+\subsubsection{Uso del proyecto}
+La forma de usar la biblioteca es muy sencilla, todo \texttt{IS-SSL} ha sido codificado siguiendo la misma guía de estilo (PEP 8), de forma que cualquier programador habituado con el uso de bibliotecas en Python lo encuentre intuitivo y sencillo.
+
+Todos los métodos de selección de instancias y algoritmos de aprendizaje semi-supervisado son clases de Python, de manera que para utilizarlo hay que hacer una importación del paquete y de la clase.
+
+Un ejemplo del uso completo de este \textit{software} es lo encontramos en Listing~\ref{lst:ejemplo}, donde se detallan los tipos de datos de entrada.
+
+Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la librería de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
+
+\pagebreak
+\begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
+from ssl_dnx import TriTraining
+from is_dnx import ENN
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_iris
+	
+if __name__ == "__main__":
+	model = TriTraining(
+		random_state = 42,
+		c1 = GaussianNB, c1_params = None,
+		c2 = KNeighborsClassifier, c2_params = {n_neighbors: 2},
+		c3 = DecisionTreeClassifier, c3_params = None	
+	)
+	filter_model = ENN(nearest_neighbors = 5, power_parameter = 2)
+	
+	iris = load_iris()
+	X = iris['data']
+	y = iris['target']
+
+	X = pd.DataFrame(X)
+	y = pd.DataFrame(y)
+	X, y = filter_model.filter(X, y)
+
+	val = [True if i % 2 == 0 else False for i in range(len(y))]
+	y[val] = -1
+
+	X, X_test, y, y_test = train_test_split(X.to_numpy(), y.to_numpy())
+
+	X = pd.DataFrame(X)
+	y = pd.DataFrame(y)
+
+	model.fit(X, y)
+	y_pred = model.predict(X_test)
+	print(accuracy_score(y_true=y_test, y_pred=y_pred))
+	
+\end{lstlisting}
+\pagebreak
 
 \subsection{Pruebas del sistema}
