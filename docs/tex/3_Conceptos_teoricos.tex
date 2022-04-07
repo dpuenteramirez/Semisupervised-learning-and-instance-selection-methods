@@ -3,11 +3,11 @@
 El proyecto tiene una relación directa con la minería de datos y los conceptos que lo rodean. 
 
 \section{Aprendizaje automático (\textit{machine learning})}\label{sec:machine-learning}
-En~\cite{sanchez_2020} se define el aprendizaje automático (\textit{machine learning}) como una rama dentro del campo de la Inteligencia Artificial que proporciona a los sistemas la capacidad de aprender y mejorar de manera automática, a partir de la experiencia. Estos sistemas transforman los datos en información, y con esta información pueden tomar decisiones. Este tipo de modelos se crean a base del uso masivo de datos. Cuando se dispone de los datos suficientes para entrenar un modelo comienza el proceso de aprendizaje. El objetivo de este aprendizaje es descubrir patrones ocultos en los datos. En muchas ocasiones el resultado del aprendizaje, el modelo, es una función que dadas unos datos de entrada clasifica o predice correctamente una salida. Como se puede ver en la Figura~\ref{fig:../img/memoria/Machine-learning-overview.pdf} el aprendizaje automático, \textit{machine learning}, posee diferentes aproximaciones, cada una de ellas con una aproximación diferente en cuanto al uso de instancias.
-\imagenflotante{../img/memoria/Machine-learning-overview.pdf}{\textit{Machine learning overview}~\cite{technovert_2020}}.
+En~\cite{sanchez_2020} se define el aprendizaje automático (\textit{machine learning}) como una rama dentro del campo de la Inteligencia Artificial que proporciona a los sistemas la capacidad de aprender y mejorar de manera automática, a partir de la experiencia. Estos sistemas transforman los datos en información, y con esta información pueden tomar decisiones. Este tipo de modelos se crean a base del uso masivo de datos. Cuando se dispone de los datos suficientes para entrenar un modelo comienza el proceso de aprendizaje. El objetivo de este aprendizaje es descubrir patrones ocultos en los datos. En muchas ocasiones el resultado del aprendizaje, el modelo, es una función que dadas unos datos de entrada clasifica o predice correctamente una salida. Como se puede ver en la Figura~\ref{fig:../img/memoria/Machine-learning-overview.pdf} el aprendizaje automático, \textit{machine learning}, posee diferentes aproximaciones, siendo la interfaz diferenciadora entre ellas la forma de uso de las instancias.
+\imagenflotante{../img/memoria/Machine-learning-overview.pdf}{\textit{Machine learning overview}~\cite{technovert_2020}}
 
 \subsection{Aprendizaje supervisado}\label{subsec:Aprendizaje-Supervisado}
-El aprendizaje automático puede ser resumido como <<aprender de ejemplos>>. Al programa se le proporcionan dos conjuntos de datos, uno de entrenamiento y otro de validación~\cite{learned2014introduction} El objetivo es simple, debe de <<aprender>> en función del conjunto de datos etiquetado proporcionado como entrenamiento para posteriormente identificar las correspondientes etiqueta/s de cada instancia del conjunto de validación con la mayor precisión posible. 
+El aprendizaje automático puede ser resumido como <<aprender de ejemplos>>. Al programa se le proporcionan dos conjuntos de datos, uno de entrenamiento y otro de validación~\cite{learned2014introduction}. El objetivo es simple, debe de <<aprender>> en función del conjunto de datos etiquetado proporcionado como entrenamiento para posteriormente identificar las correspondientes etiqueta/s de cada instancia del conjunto de validación con la mayor precisión posible. 
 
 Dependiendo del tipo de etiqueta, en el aprendizaje supervisado hay dos modelos~\cite{supervised_learning_mathworks_inc}.
 \begin{enumerate}
@@ -51,15 +51,15 @@ Principalmente existen dos técnicas de aprendizaje no supervisado.
 \begin{enumerate}
 	\item \textbf{\textit{Clustering}}~\cite{unsupervised_learning_clustering}. Proceso por el cual se dividen los datos no clasificados en grupos aparentemente similares. Cuando se identifican datos con algún parecido entre sí, son agrupados. Permite clasificar e identificar atributos únicos de los datos con los que clasificarlos. 
 	
-	Un proceso habitual de agrupamiento es el uso de \textit{K-means}, $K\in\mathbb{R}$, donde se indica en $K$ cuántos \textit{clusters} o grupos se han de hacer con los datos. 
+	Un proceso habitual de agrupamiento es el uso de \textit{K-means}, $K\in\mathbb{R}$, donde se indica en $K$ cuántos \textit{clusters} o grupos se han de identificar en los datos.
 	
 	Con los datos agrupados el proceso de análisis de éstos puede comenzar. En ocasiones si el número de grupos detectados es muy alto, se pueden encontrar grupos o \textit{clusters} irrelevantes, permitiendo a los científicos de datos eliminar esos datos que los forman, reduciendo la dimensionalidad~\cite{boutsidis2014randomized}.
 	
-	\item \textbf{Reducción de la dimensionalidad.}El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
+	\item \textbf{Reducción de la dimensionalidad}. El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
 \end{enumerate}
 
 \subsection{Aprendizaje semi-supervisado}\label{subsec:Aprendizaje-Semi-Supervisado}
-Según~\cite{zhou2014semi} \textit{Semi-Supervised Learning} se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, \textit{i.e.} si no sería un aprendizaje supervisado, Sección~\ref{subsec:Aprendizaje-Supervisado}, o no supervisado, Sección~\ref{subsec:Aprendizaje-No-Supervisado}. 
+Según~\cite{zhou2014semi} \textit{Semi-Supervised Learning} se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, \textit{i.e.} si no sería un aprendizaje supervisado, o no supervisado. 
 
 El uso de aprendizaje semi-supervisado se caracteriza por ser menos costoso que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es largo y costoso. Luego, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado. 
 Conseguir datos sin etiquetar es una tarea muy sencilla, mientras que conseguir conjuntos de datos etiquetados es un proceso complejo y actualmente no hay <<de todo>>.
@@ -75,10 +75,10 @@ Dentro de las \textit{best practices} en \textit{semi-supervised learning} se en
 
 
 \section{Algoritmos en el aprendizaje semi-sepervisado}\label{sec_alg:semi-supervised}
-A continuación se van a presentar los algoritmos tratados en este trabajo.
+A continuación se van a presentar los algoritmos tratados en este trabajo dentro del aprendizaje semi-supervisado.
 
 \subsection{\textit{Self-training}}
-Los métodos de auto-entrenamiento (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self} Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador se encuentra siendo entrenado constantemente con datos etiquetados conocidos y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{condifence level}~\cite{jesper2020survey}.
+Los métodos de auto-entrenamiento (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{condifence level}~\cite{jesper2020survey}.
 
 Yarowsky~\cite{yarowsky1995unsupervised} en 1995 propuso la primera versión de \textit{Self-training}, desde entonces numerosas aproximaciones han sido realizadas, modificando la utilización del conjunto de datos etiquetado, los nuevos datos, etcétera. El diseño que se le puede dar y los campos de aplicación del mismo son muy variados.
 
@@ -107,7 +107,7 @@ Las dos características del problema mencionadas anteriormente, disponibilidad 
 \end{algorithm}
 
 \subsection{\textit{Tri-Training}}
-Zhou~\cite{zhou2005tri} en 2005 propuso una modificación sobre el algoritmo de \textit{Co-Training} de Blum~\cite{blum1998combining} el cual requería de dos <<vistas significativas>>. Dasgupta~\textit{et al.}~\cite{dasgupta2002pac} demostraron que cuando los requerimientos del conjunto de datos se cumplían, se podían producir un menor número de errores de generalización al maximizar la clasificación de los prototipos sin etiquetar, aunque no es aplicable a cualquier conjunto de datos.
+Zhou~\cite{zhou2005tri} en 2005 propuso una modificación sobre el algoritmo de \textit{Co-Training} de Blum~\cite{blum1998combining}. Dasgupta~\textit{et al.}~\cite{dasgupta2002pac} demostraron que cuando los requerimientos del conjunto de datos se cumplían, se podían producir un menor número de errores de generalización al maximizar la clasificación de los prototipos sin etiquetar, aunque no es aplicable a cualquier conjunto de datos.
 
 El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Training}. \textit{Tri-Training} no necesita varias <<vistas significas>> de los datos, tampoco requiere el empleo de múltiples algoritmos de aprendizaje supervisado cuyas hipótesis dividen el espacio de instancias en un conjunto de clases de equivalencia. El \textit{Tri-Training} por tanto emplea tres clasificadores, a diferencia de los dos utilizados anteriormente, esta opción resuelve la dificultad de determinar cómo etiquetar las instancias no etiquetadas y generar la hipótesis final, lo que mejora enormemente la eficiencia del algoritmo. Junto con la capacidad de generalización resultante de la combinación de los tres clasificadores.
 
@@ -169,7 +169,7 @@ El algoritmo es por tanto enfocado para el uso en casos donde no existen dos con
 
 Es por ello que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
 
-Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ \dfrac{(l + h)}{2}
+Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ (l + h)/2
 $ para $l$ y $h$ definidas por el intervalo de confianza del 95\% $\left[l,h\right]$.
 
 Finalmente el algoritmo, ver algoritmo~\ref{alg:Democratic-Co-2}, finaliza con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
@@ -242,7 +242,7 @@ Wu~\cite{wu2018self} en 2018 presentó un \textit{framework} para clasificación
 El proceso por el cuál se consigue este nuevo clasificador <<mejorado>> es el siguiente:
 \begin{enumerate}
 \item Encontrar los picos de densidad de los datos para aprender la estructura subyacente de todo el espacio de datos de entrenamiento. Y se integra esta estructura en el proceso de entrenamiento iterativo de un clasificador.
-\item Se entrena un clasificador con los datos etiquetados. Se clasifican los ejemplos siguientes de los ya etiquetados hasta que no haya más, se predicen, y, se añaden y eliminan de los datos etiquetados y no etiquetados, respectivamente.
+\item Se entrena un clasificador con los datos etiquetados. Se clasifican los ejemplos siguientes de los ya etiquetados hasta que no haya más, se predicen y, se añaden y eliminan de los datos etiquetados y no etiquetados, respectivamente.
 \item Se repite el paso anterior pero con los puntos anteriores.
 \end{enumerate}
 
@@ -295,14 +295,14 @@ Uno de los marcos de referencia más importantes en el proceso de minado de dato
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{./img/memoria/CRISP-DM}
-\caption{Enfoque CRISP de la minería de datos~\cite{KOTU201517}}.
+\includegraphics[width=0.7\textwidth]{./img/memoria/CRISP-DM}
+\caption{Enfoque CRISP de la minería de datos~\cite{KOTU201517}.}
 \label{./img/memoria/CRISP-DM}
 \end{figure}
 
 En~\cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o pasos principales: establecimiento de los objetivos y comprensión del problema, recopilación y preparación de los datos, desarrollo del modelo, aplicación del modelo y la evaluación de los resultados y despliegue en producción. Ver Figura~\ref{fig:./img/memoria/machine-learning-pipeline}.
 
-\imagen{./img/memoria/machine-learning-pipeline}{\textit{Machine Learning Pipeline}~\cite{mlpipeline2018}}.
+\imagen{./img/memoria/machine-learning-pipeline}{\textit{Machine Learning Pipeline}~\cite{mlpipeline2018}.}
 
 \begin{enumerate}
    \item \textbf{Establecer los objetivos y comprensión del problema.}
@@ -404,14 +404,15 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 	\begin{tabular}{lc}
 	\toprule
 	\rowcolor[HTML]{EFEFEF} 
-	\textbf{Método}    & \textbf{Referencia} \\ \midrule
-	Algoritmo de edición de Wilson (ENN)              &~\cite{wilson1972asymptotic}\\ \midrule
+	\textbf{Método}    & \textbf{Referencia} \\
+	\toprule
+	Algoritmo de edición de Wilson (ENN)              &~\cite{wilson1972asymptotic}\\ 
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo Condensado de Hart (CNN)              &~\cite{hart1968condensed}\\ \midrule
-	Algoritmo Condensado Reducido (RNN)              &~\cite{gates1972reduced}  \\ \midrule
+	Algoritmo Condensado de Hart (CNN)              &~\cite{hart1968condensed}\\ 
+	Algoritmo Condensado Reducido (RNN)              &~\cite{gates1972reduced}  \\ 
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo \textit{Iterative Case Filtering} (ICF)                   &~\cite{brighton2002advances}\\ \midrule
-	Algoritmo Subconjunto Selectivo Modificado (MSS)                 &~\cite{barandela2005decision}\\ \midrule
+	Algoritmo \textit{Iterative Case Filtering} (ICF)                   &~\cite{brighton2002advances}\\ 
+	Algoritmo Subconjunto Selectivo Modificado (MSS)                 &~\cite{barandela2005decision}\\ 
 	\rowcolor[HTML]{EFEFEF} 
 	Algoritmo \textit{Drecremental Reduction Optimization Procedure} (DROP) &~\cite{wilson2000reduction} \\ \bottomrule
 	\end{tabular}
@@ -423,7 +424,7 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 En la Tabla~\ref{tab:instance-selection-methods} se aprecian aquellos algoritmos implementados en primera instancia para la reducción de instancias dentro de $T$, el objetivo de todos ellos es que el subconjunto generado, $S$, sea capaz de clasificar correctamente  $T$ en su totalidad prácticamente.
 
 \subsubsection{Algoritmos de selección de instancias}\label{subsubsec:Instance-Selection-Algorithms}
-Existen multitud de algoritmos a día de hoy que son capaces de reducir el número de instancias de $T$, en este trabajo se van a comentar los pertenecientes a la Tabla~\ref{tab:instance-selection-methods}. Cada uno de ellos tiene sus ventajas y sus desventajas como cabe esperar, en la literatura no apreciamos un ``este es mejor que aquel'' o similar.
+Existen multitud de algoritmos a día de hoy que son capaces de reducir el número de instancias de $T$, en este trabajo se van a comentar los pertenecientes a la Tabla~\ref{tab:instance-selection-methods}. Cada uno de ellos tiene sus ventajas y sus desventajas como cabe esperar, en la literatura no apreciamos un <<este es mejor que aquel>> o similar.
 
 \paragraph{Algoritmo de edición de Wilson}\label{paragraph:ENN}
 \hfill \break
@@ -438,6 +439,8 @@ Wilson~\cite{wilson1972asymptotic} (1972) publicó la regla del vecino más cerc
 Con todas estas premisas Wilson propone un algoritmo basado en clasificación incorrecta en función de sus vecinos más cercanos. Cuando una instancia resulta mal clasificada por sus \textit{k} vecinos más cercanos, \textit{k}-NN, esa instancia es descartada. Finalmente obtendremos como resultado un conjunto $S$ con las instancias correctamente clasificadas por sus vecinos.
 
 Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} posibles clases y, sea \textit{k} el número de vecinos cercanos,el algoritmo de Wilson se puede formular de la siguiente manera:
+
+El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas (siempre y cuando haya un nivel significativo de ruido).
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X = \lbrace\left( x_1, y_1 ,\right)\dots \left(x_n, y_n\right)\rbrace$, $k$ número de vecinos.}
@@ -454,12 +457,19 @@ Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} 
   \caption{Algoritmo de edición de Wilson, \textit{ENN}}\label{alg:Wilson-ENN}
 \end{algorithm}
 
-El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas (siempre y cuando haya un nivel significativo de ruido).
-
-
 \paragraph{Algoritmo Condensado de Hart}\label{paragraph:CNN}
 \hfill \break
 Hart~\cite{hart1968condensed} en 1968 propuso la que se considera la primera regla formal de condensador para NN. El algoritmo de condensado de Hart, \textit{CNN --- Condensed Nearest Neighbor}. Está basado en técnicas de consistencia y reducción. Sea $X \not= \emptyset$ y $S \subseteq X$, podremos decir que el subconjunto $S$ es consistente respecto al conjunto $X$ si al utilizar a $S$ como conjunto de aprendizaje, se puede clasificar correctamente a todo el conjunto $X$.
+
+El algoritmo de Hart es una técnica ascendente, a partir de las primeras instancias que se añadan a $S$ se clasificarán y añadirán, o no, a $S$. Consiste en encontrar entre todas las instancias de $T$ un subconjunto $S$ tal que cada instancia de $T$ sea más cercano a las instancias en $S$ de su misma clase que a las instancias de otras clases, permitiendo utilizar $S$ como conjunto de clasificación de $T$. Para el correcto funcionamiento se asume que el conjunto $T$ es consistente, no posee dos instancias idénticas con pertenencia a diferentes clases.
+
+El algoritmo propuesto por Hart~\cite{hart1968condensed}, ver algoritmo~\ref{alg:Hart-CNN}, posee una complejidad computacional de $O(n^2)$. El conjunto obtenido a partir de $T$, \textit{i.e.} $S$, operando con grandes conjuntos de datos demuestra poseer un tamaño considerablemente menor respecto a $T$. 
+
+Si bien es una técnica utilizada por su efectividad, posee una serie de puntos negativos a su vez.
+\begin{itemize}
+\item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestran no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
+\item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
+\end{itemize}
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$}
@@ -476,18 +486,13 @@ Hart~\cite{hart1968condensed} en 1968 propuso la que se considera la primera reg
 	\caption{Algoritmo Condensado de Hart, \textit{CNN}.}\label{alg:Hart-CNN}
 \end{algorithm}
 
-El algoritmo de Hart es una técnica ascendente, a partir de las primeras instancias que se añadan a $S$ se clasificarán y añadirán, o no, a $S$. Consiste en encontrar entre todas las instancias de $T$ un subconjunto $S$ tal que cada instancia de $T$ sea más cercano a las instancias en $S$ de su misma clase que a las instancias de otras clases, permitiendo utilizar $S$ como conjunto de clasificación de $T$. Para el correcto funcionamiento se asume que el conjunto $T$ es consistente, no posee dos instancias idénticas con pertenencia a diferentes clases.
-
-El algoritmo propuesto por Hart~\cite{hart1968condensed}, ver algoritmo~\ref{alg:Hart-CNN}, posee una complejidad computacional de $O(n^2)$. El conjunto obtenido a partir de $T$, \textit{i.e.} $S$, operando con grandes conjuntos de datos demuestra poseer un tamaño considerablemente menor respecto a $T$. 
-
-Si bien es una técnica utilizada por su efectividad, posee una serie de puntos negativos a su vez.
-\begin{itemize}
-\item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestran no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
-\item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
-\end{itemize}
-
 \paragraph{Algoritmo Condensado Reducido}\label{paragraph:RNN}
 \hfill \break
+Gates~\cite{gates1972reduced} en 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver algoritmo~\ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
+El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo~\ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia para el algoritmo de clasificación que posteriormente se utilice, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
+
+De igual manera que en \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución~$S$.
+
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$}
 	\KwOut{Conjunto editado $S \subset X$}
@@ -508,14 +513,20 @@ Si bien es una técnica utilizada por su efectividad, posee una serie de puntos 
   	\Return{$S$}
 	\caption{Algoritmo Condensado Reducido, \textit{RNN}.}\label{alg:Gates-RNN}
 \end{algorithm}
-Gates~\cite{gates1972reduced} en 1972 propuso el algoritmo del conjunto reducido, basado en las reglas \textit{NN}. El algoritmo propuesto es una modificación del algoritmo \textit{CNN}, ver algoritmo~\ref{alg:Hart-CNN}. No es una nueva regla de decisión puesto que se sigue eligiendo la clase del vecino más cercano para la clasificación. 
-El algoritmo se basa en un procedimiento para seleccionar el subconjunto $T_{CNN}$, el cual debe comportarse igual de bien que $T_{NN}$ ante clasificaciones de instancias desconocidas. Como se puede apreciar en el propio algoritmo~\ref{alg:Gates-RNN}, puede existir una disminución del rendimiento, a cambio se obtiene una mejora de la eficiencia para el algoritmo de clasificación que posteriormente se utilice, tanto en la cantidad de memoria utilizada como en el tiempo de computación.
-
-De igual manera que en \textit{CNN}, posee la problemática de la minimalidad, si bien el conjunto resultante $S \subset T$ será consistente, no se puede asegurar que sea mínimo; y diferentes ejecuciones del algoritmo sobre el mismo conjunto de datos $T$, pueden obtener diferentes subconjuntos solución~$S$.
 
 \paragraph{Algoritmo \textit{Iterative Case Filtering}}\label{subsubsub:ICF}
 \hfill \break
 Brighton~\cite{brighton2002advances} en 2002 propuso el algoritmo iterativo de filtrado, \textit{ICF}, bajo la premisa de predecir la clase de una instancia con la misma precisión, o mayor si fuera el caso, que el $T$ original. Uno de los objetivos principales del propio algoritmo es mantener en el subconjunto $S$ únicamente aquellas instancias que sean críticas para la decisión.
+
+\textit{ICF} utiliza una estrategia decremental, \textit{i.e.} de manera iterativa va borrando instancias del conjunto de datos inicial, inicialmente realiza un filtrado y posteriormente la reducción~\cite{brighton2002advances} Al reducir el tamaño de $T$ los tiempos de respuesta para el proceso de clasificación mejorarán, ya que se examinarán un menor número de instancias para realizar la clasificación; por contrapartida al eliminar muestras que se creen que son dañinas para el proceso, se pueden estar eliminando algunas que sean clave y por lo tanto teniendo una degradación de la calidad del clasificador.
+
+\textit{ICF} se basa en dos categorías para la decisión de si una instancia debe permanecer o no en $S$, ver algoritmo~\ref{alg:Brighton-ICF}, estas son \textit{Coverage} y \textit{Reachable}. Definidas de la siguiente manera para el caso base $\mathcal{CB} = \lbrace x_1, x_2, ..., x_n\rbrace$.
+\begin{align*}
+Coverage (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x, x')\rbrace  \\
+Reachable (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x',x)\rbrace
+\end{align*}
+
+Una instancia $x$ podrá estar en el conjunto adaptable de $x'$ sí y solo si $x$ es una instancia relevante para la solución de $x'$, \textit{i.e.} $x \in k-NN(x)$. La problemática surge en el momento en el cual una instancia con clase diferente no permite la correcta clasificación de $x'$, es por ello que el vecindario de $x'$ viene definido por todas las instancias antes de la primera instancia de diferente clase, utilizando \textit{sets} descritos por Wilson y Martinez. La propiedad \textit{Reachable} no está fijada desde el principio del algoritmo, sino que es dinámica siendo fijada cada vez en función de la instancia de clase diferente más cercana. El criterio seguido para realizar la eliminación de una muestras es: si el \textit{set} formado por el $reachable(x)$ es mayor que el $coverage(x)$, \textit{i.e.} una instancia $x$ es eliminada cuando más instancias pueden resolver $x$ que las que $x$ puede resolver por sí misma.
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$}
@@ -544,16 +555,6 @@ Brighton~\cite{brighton2002advances} en 2002 propuso el algoritmo iterativo de f
   	\Return{$T$}
 	\caption{\textit{Iterative Case Filtering}, \textit{ICF}.}\label{alg:Brighton-ICF}
 \end{algorithm}
-
-\textit{ICF} utiliza una estrategia decremental, \textit{i.e.} de manera iterativa va borrando instancias del conjunto de datos inicial, inicialmente realiza un filtrado y posteriormente la reducción~\cite{brighton2002advances} Al reducir el tamaño de $T$ los tiempos de respuesta para el proceso de clasificación mejorarán, ya que se examinarán un menor número de instancias para realizar la clasificación; por contrapartida al eliminar muestras que se creen que son dañinas para el proceso, se pueden estar eliminando algunas que sean clave y por lo tanto teniendo una degradación de la calidad del clasificador.
-
-\textit{ICF} se basa en dos categorías para la decisión de si una instancia debe permanecer o no en $S$, ver algoritmo~\ref{alg:Brighton-ICF}, estas son \textit{Coverage} y \textit{Reachable}. Definidas de la siguiente manera para el caso base $\mathcal{CB} = \lbrace x_1, x_2, ..., x_n\rbrace$.
-\begin{align*}
-Coverage (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x, x')\rbrace  \\
-Reachable (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x',x)\rbrace
-\end{align*}
-
-Una instancia $x$ podrá estar en el conjunto adaptable de $x'$ sí y solo si $x$ es una instancia relevante para la solución de $x'$, \textit{i.e.} $x \in k-NN(x)$. La problemática surge en el momento en el cual una instancia con clase diferente no permite la correcta clasificación de $x'$, es por ello que el vecindario de $x'$ viene definido por todas las instancias antes de la primera instancia de diferente clase, utilizando \textit{sets} descritos por Wilson y Martinez. La propiedad \textit{Reachable} no está fijada desde el principio del algoritmo, sino que es dinámica siendo fijada cada vez en función de la instancia de clase diferente más cercana. El criterio seguido para realizar la eliminación de una muestras es: si el \textit{set} formado por el $reachable(x)$ es mayor que el $coverage(x)$, \textit{i.e.} una instancia $x$ es eliminada cuando más instancias pueden resolver $x$ que las que $x$ puede resolver por sí misma.
 
 \paragraph{Algoritmo Subconjunto Selectivo}\label{paragraph:SS}
 \hfill \break
@@ -612,6 +613,25 @@ El criterio que sigue \textit{MSS} para determinar la frontera de decisión es l
 
 \paragraph{\textit{Decremental Reduction Optimization Procedure}}\label{paragraph:DROP}
 \hfill \break
+Bajo el nombre de \textit{Decremental Reduction Optimization Procedure, DROP}~\cite{wilson2000reduction} nos encontramos con hasta 5 aproximaciones para la resolución del mismo problema. Todas ellas seleccionan prototipos en función de \textit{socio} y \textit{asociado}. Definidos como:
+\begin{itemize}
+\item Socio. Sea $X \not= \emptyset$, el socio de un objeto $P$ el cual pertenece al conjunto $X$, es aquél objeto que tiene a $P$ como uno de sus $k$ vecinos más cercanos.
+\item Asociado. Todo prototipo que contenga a $P$ como a uno de sus $k$ vecinos más cercanos, será denominado asociado de $P$, denotado con la expresión $P.A_{1,\dots,a}$ donde $a$ es el número de asociados de $P$.
+\end{itemize}
+
+Volviendo sobre los conceptos de \textit{coverage} y \textit{reachable} vistos en el algoritmo \textit{Iterative Case Filtering}, (ICF), podemos relacionar todos los conceptos de la siguiente manera: los asociados de un prototipo $P$ se pueden ver como el conjunto formado por el \textit{reachable} de $P$, y con el \textit{coverage} se pueden obtener los socios del prototipo $P$.
+
+Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo algoritmo~\cite{wilson2000reduction} pero con modificaciones en las técnicas de pre-procesado de los prototipos. Sus diferencias son:
+\begin{itemize}
+\item \textit{DROP1}. Eliminará un objeto $P$ de $S$ si sus socios en $S$ se clasifican correctamente sin $P$, \textit{i.e.} la ausencia de $P$ no impide la correcta clasificación del resto de prototipos.
+\item \textit{DROP2}. Eliminará un objeto $P$ de $S$ si los socios que tiene $P$ en $TS$ se clasifican correctamente sin $P$, \textit{i.e.}, verificará el efecto que causa esta eliminación sobre la muestra original. Previo al proceso de eliminación de objetos $P$, ordena los prototipos a tratar en orden a su enemigo más cercano, permitiendo que los primeros prototipos que se van a tratar serán aquellos más alejados de las fronteras de decisión, ergo las más prescindibles.
+\item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, para ello aplica la edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}
+\item \textit{DROP4}. Aplica un filtro de ruido diferente, en este casos consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
+\item \textit{DROP5}. Modificación sobre \textit{DROP2}, en este algoritmo el proceso de eliminación de objetos comienza por aquellos más cercanos a sus enemigos. 
+\end{itemize}
+
+El concepto \textit{with} permite recoger el número de asociados correctamente clasificados teniendo en cuenta un prototipo $x$ como vecino, en cambio \textit{without} tiene en cuenta el número de asociados correctamente clasificados los cuales no tienen el prototipo $x$ como vecino. En los casos en los que $without > with$ se está tratando con un prototipo el cual no aporta información sobre el conjunto $S$ permitiendo su eliminación.
+
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$ y número de vecinos más cercanos a considerar, $k$}
 	\KwOut{Conjunto editado $S \subset X$}
@@ -637,24 +657,6 @@ El criterio que sigue \textit{MSS} para determinar la frontera de decisión es l
 	\Return{$S$}
 	\caption{\textit{Decremental Reduction Optimization Procedure 3}, \textit{DROP3}.}\label{alg:DROP3}
 \end{algorithm}
-Bajo el nombre de \textit{Decremental Reduction Optimization Procedure, DROP}~\cite{wilson2000reduction} nos encontramos con hasta 5 aproximaciones para la resolución del mismo problema. Todas ellas seleccionan prototipos en función de \textit{socio} y \textit{asociado}. Definidos como:
-\begin{itemize}
-\item Socio. Sea $X \not= \emptyset$, el socio de un objeto $P$ el cual pertenece al conjunto $X$, es aquél objeto que tiene a $P$ como uno de sus $k$ vecinos más cercanos.
-\item Asociado. Todo prototipo que contenga a $P$ como a uno de sus $k$ vecinos más cercanos, será denominado asociado de $P$, denotado con la expresión $P.A_{1,\dots,a}$ donde $a$ es el número de asociados de $P$.
-\end{itemize}
-
-Volviendo sobre los conceptos de \textit{coverage} y \textit{reachable} vistos en el algoritmo \textit{Iterative Case Filtering}, (ICF), podemos relacionar todos los conceptos de la siguiente manera: los asociados de un prototipo $P$ se pueden ver como el conjunto formado por el \textit{reachable} de $P$, y con el \textit{coverage} se pueden obtener los socios del prototipo $P$.
-
-Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo algoritmo~\cite{wilson2000reduction} pero con modificaciones en las técnicas de pre-procesado de los prototipos. Sus diferencias son:
-\begin{itemize}
-\item \textit{DROP1}. Eliminará un objeto $P$ de $S$ si sus socios en $S$ se clasifican correctamente sin $P$, \textit{i.e.} la ausencia de $P$ no impide la correcta clasificación del resto de prototipos.
-\item \textit{DROP2}. Eliminará un objeto $P$ de $S$ si los socios que tiene $P$ en $TS$ se clasifican correctamente sin $P$, \textit{i.e.}, verificará el efecto que causa esta eliminación sobre la muestra original. Previo al proceso de eliminación de objetos $P$, ordena los prototipos a tratar en orden a su enemigo más cercano, permitiendo que los primeros prototipos que se van a tratar serán aquellos más alejados de las fronteras de decisión, ergo las más prescindibles.
-\item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, para ello aplica la edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}
-\item \textit{DROP4}. Aplica un filtro de ruido diferente, en este casos consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
-\item \textit{DROP5}. Modificación sobre \textit{DROP2}, en este algoritmo el proceso de eliminación de objetos comienza por aquellos más cercanos a sus enemigos. 
-\end{itemize}
-
-El concepto \textit{with} permite recoger el número de asociados correctamente clasificados teniendo en cuenta un prototipo $x$ como vecino, en cambio \textit{without} tiene en cuenta el número de asociados correctamente clasificados los cuales no tienen el prototipo $x$ como vecino. En los casos en los que $without > with$ se está tratando con un prototipo el cual no aporta información sobre el conjunto $S$ permitiendo su eliminación.
 
 \section{Función distancia entre instancias}
 Una función distancia proporciona información sobre la proximidad entre dos instancias en función de todos sus parámetros. Si la distancia que separa dos instancias es cero, ambas instancias son idénticas. Se tiende a trabajar con conjuntos de datos normalizados, \textit{i.e.} todos los datos son ajustados a una escala común, independientemente de la escala en la que hayan sido medidos, para evitar que atributos/características con mucha varianza puedan <<despistar>> a los algoritmos.
