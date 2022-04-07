@@ -68,7 +68,7 @@ A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a deta
 \begin{table}[H]
 \centering
 \begin{tabular}{c|c}
-	Biblioteca & Versión \\
+	\textbf{Biblioteca} & \textbf{Versión} \\
 	\toprule
 	\rowcolor[HTML]{EFEFEF} 
 	flask & 1.1.1 \\ \midrule
@@ -96,7 +96,7 @@ A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a deta
 	flask-migrate & 2.5.2 \\ \midrule
 	python-weka-wrapper3 & 0.1.7 \\ \midrule \rowcolor[HTML]{EFEFEF} 
 	liac-arff & 2.2.1 \\ \midrule
-	email-validator & 1.1.1 \\ \midrule \rowcolor[HTML]{EFEFEF} 
+	email-validator & 1.1.1 \\
 	\bottomrule
 \end{tabular}
 \caption{Bibliotecas utilizadas y sus versiones.}\label{tab:bibliotecas-python-ubumlaas}
@@ -239,6 +239,8 @@ conda activate UBUMLaaS
 \end{lstlisting}
 \textbf{Nota.} Es importante asegurarnos que todos los ficheros de las librerías y el lanzador del proyecto poseen permisos de ejecución necesarios (en instalaciones <<por defecto>> de Debian, CentOS, SUSE, no debería de ser necesario más que dar permisos de ejecución al lanzador).
 
+El usuario administrador por defecto es \texttt{Admin@AdminUBUMLaaS.es} y su contraseña es \texttt{admin4123!UBUMLaaS}.
+
 \subsection{Pruebas del sistema}
 
 \clearpage
@@ -291,18 +293,14 @@ En la Tabla~\ref{tab:bibliotecas-python-is-ssl} se detallan las bibliotecas nece
 \begin{table}[]
 \centering
 \begin{tabular}{c|c}
-	Biblioteca & Versión \\
+	Biblioteca & Versión \\ \rowcolor[HTML]{EFEFEF} 
 	\toprule
-	\rowcolor[HTML]{EFEFEF} 
-	\textbf{\texttt{NumPy}}    & \textbf{1.20.3}      \\  \midrule
-	\textbf{\texttt{Scikit-learn}}    & \textbf{0.24.2}      \\ \midrule
-	\rowcolor[HTML]{EFEFEF}
-	\texttt{Matplotlib}    & 3.4.3      \\  \midrule
-	\textbf{\texttt{Pandas}}    & \textbf{1.3.4}      \\ \midrule
-	\rowcolor[HTML]{EFEFEF}
-	\texttt{YagMail}    & 0.15.277      \\  \midrule
+	\textbf{\texttt{NumPy}}    & \textbf{1.20.3}      \\  \midrule 
+	\textbf{\texttt{Scikit-learn}}    & \textbf{0.24.2}      \\ \midrule \rowcolor[HTML]{EFEFEF} 
+	\texttt{Matplotlib}    & 3.4.3      \\  \midrule 
+	\textbf{\texttt{Pandas}}    & \textbf{1.3.4}      \\ \midrule \rowcolor[HTML]{EFEFEF} 
+	\texttt{YagMail}    & 0.15.277      \\  \midrule 
 	\textbf{\texttt{Scipy}}    & \textbf{1.7.1}      \\ 
-	\rowcolor[HTML]{EFEFEF}
 	\bottomrule
 \end{tabular}
 \caption{Bibliotecas utilizadas y sus versiones.}\label{tab:bibliotecas-python-is-ssl}
@@ -402,7 +400,6 @@ Un ejemplo del uso completo de este \textit{software} es lo encontramos en Listi
 
 Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la librería de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
 
-\pagebreak
 \begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
 from ssl_dnx import TriTraining
 from is_dnx import ENN
