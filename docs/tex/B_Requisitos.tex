@@ -3,7 +3,7 @@
 \section{Introducción}
 Este anexo recoge las necesidades funcionales que deberán ser soportadas por el sistema que va a ser desarrollado. Con el fin de obtener una buena documentación se deben identificar y describir los requisitos que debe el sistema satisfacer, pero sin entrar en cómo los va a resolver.
 
-A día de hoy, no existe una autoridad que indique cómo se deben de realizar las especificaciones de requisitos \textit{sfotware}, SRS. La comunidad se encuentra dividida entre <<la vieja escuela>> siguiendo guías de buenas prácticas (IEEE 830-1998~\cite{720574} ó 12207-2-2020~\cite{IEEE1220722020}), en contraposición con el \textit{Agile Manifiesto}, donde no se hace una especificación formal de toda la aplicación sino que cada 2-4 semanas se revisa y <<rehace>> en función de las necesidades del cliente.
+A día de hoy, no existe una autoridad que indique cómo se deben de realizar las especificaciones de requisitos \textit{software}, SRS. La comunidad se encuentra dividida entre <<la vieja escuela>> siguiendo guías de buenas prácticas (IEEE 830-1998~\cite{720574} ó 12207-2-2020~\cite{IEEE1220722020}), en contraposición con el \textit{Agile Manifiesto}, donde no se hace una especificación formal de toda la aplicación sino que cada 2-4 semanas se revisa y <<rehace>> en función de las necesidades del cliente.
 
 Se va a realizar una combinación de ambos, por un lado se trabaja a lo largo del proyecto con una planificación ágil, y por otro se va a tener como referencia una especificación de requisitos que va a seguir la guía de buenas prácticas IEEE 830-1998. Ésta última recoge los siguientes puntos como referencias a una buena especificación de requisitos \textit{software}~\cite{ingenieriasoftwareytiemporeal_2020}.
 \begin{itemize}
@@ -21,7 +21,7 @@ Se va a realizar una combinación de ambos, por un lado se trabaja a lo largo de
 \item \textbf{Identificable.} Será identificable si el origen de cada uno de los requisitos está claro y facilita de igual manera las referencias de cada requisito de desarrollo futuro o documentación del mismo.
 \end{itemize}
 
-\newpage
+
 \section{Objetivos generales}\label{objetivos-generales}
 Los objetivos del proyecto se pueden separar en dos ramas.
 \begin{enumerate}
@@ -32,24 +32,24 @@ Los objetivos del proyecto se pueden separar en dos ramas.
 \item Administración integral del sistema a cargo del nuevo rol de administrador.
 \end{enumerate}
 
-En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training}, ... Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
+En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training},\dots Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
 
 Las interfaces a diseñar se requieren que sean intuitivas, fáciles de entender y utilizar. Deberán de ser transparentes al usuario, impidiendo que este conozca la lógica de diseño de la aplicación, así como los posibles fallos internos que se puedan producir por acciones del sistema, del usuario, o de terceros.
 
-\newpage
-\section{Usuarios Participantes}\label{usuarios-participantes}
-En la fase de análisis han participado diversos usuarios, entre los que se han repartido los principales <<papeles>>.
+
+\section{Usuarios del \textit{software}}\label{usuarios-participantes}
+Cualquier persona podrá hacer uso de la aplicación UBUMLaaS, siendo únicamente necesarios una serie de datos básicos para su registro dentro de ella. 
+
+Dentro de la aplicación se encuentra el usuario base y una generalización del mismo en forma de administrador. 
 \begin{itemize}
-\item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de multiples papeles a lo largo de esta fase:
-\begin{itemize}
-\item \textit{Cliente}. Descripción de las funcionalidades deseadas de la aplicación y el comportamiento que debe de tener.
-\item \textit{Técnico}. Aportando conocimientos acerca de las técnicas de selección de instancias y su relación con la minería de datos. Junto con ello ha compartido sus conocimientos en el uso de librerías tales como Weka, Scikit-Learn, o el lenguaje de marcas \LaTeX. Así como el aporte de grandes cantidades de documentación en forma de \textit{papers} o documentación web. 
-\end{itemize}
-\item Multitud de compañeros del grado han aportado sus experiencias a la hora de tratar con aplicaciones de este tipo, comentando sus principales dificultades que encuentran habitualmente y lo que esperarían encontrarse en una nueva aplicación. Lo que permite hacer un diseño de la interfaz más intuitivo en función de lo que el usuario espera encontrar sin perder funcionalidades.
-\item \textit{Analista.} El alumno ha realizado el análisis (valga la redundancia) y descripción del problema planteado por el cliente y realización del diseño de la solución propuesta.
+\item \textbf{Usuario.} El usuario será el modelo base, en la forma de una persona la cual tendrá las capacidades de: crear experimentos y todas las funcionalidades asociadas con los mismos. Así como editar sus datos personales, añadir nuevos, quitar,\dots Y conocer sus estadísticas de uso de la última semana.
+
+\item \textbf{Administrador.} Actor generalizado de usuario. Tiene todas las funcionalidades propias del usuario, pero además posee acceso a toda la parte de administración de la aplicación. En esta nueva parte posee acceso a la monitorización del sistema en tiempo real, a las estadísticas del mismo en cuanto a uso respecta, administración de todos los usuarios, etc. 
 \end{itemize}
 
-\newpage
+Un usuario es creado por una persona ajena que quiere registrarse en la aplicación, o por un administrador. Pero un administrador sólo puede ser <<creado>> (elevación de usuario a administrador) por otro administrador, y lo mismo para el caso contrario, pasar de administrador a usuario.
+
+
 \section{Factores de riesgo}\label{factores-de-riesgo}
 En esta sección se va a realizar un análisis de las `principales dificultades que se pueden encontrar a lo largo del desarrollo del proyecto \textit{software}. Mediante una identificación preventiva se podrá poner remedio a éstas de una manera más eficiente e impedir <<que vayan a más>>.
 
@@ -67,8 +67,7 @@ Se identifican los siguientes factores de riesgo:
 \item \textbf{Falta de claridad.} La comunicación entre todas las partes implicadas debe de ser lo más fluida y natural posible, permitiendo minimizar los retrasos por tener que rehacer algo que se había especificado de una forma y no se había entendido correctamente (Inequívoco).
 \end{enumerate}
 
-\newpage
-\section{Catalogo de requisitos}\label{catalogo-de-riquisitos}
+\section{Catálogo de requisitos}\label{catalogo-de-riquisitos}
 En esta sección se van a definir de forma clara, completa, precisa y verificable todas las funcionalidades y restricciones del sistema.
 
 A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la parte de bibliotecas, los requisitos funcionales y no funcionales se van a desglosar juntos, siguiendo el orden en el que aparecen en este texto.
@@ -141,7 +140,7 @@ A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la par
 	\end{itemize}
 	\item \textbf{RF-6.2 Estadísticas de uso para administradores.}
 	\begin{itemize}
-		\item \textbf{RF-6.2.1 Estadísticas generales}. El administrador debe de poder de un vistazo conocer el uso general que se le está dando al sistema. (Número de experimentos, número de usuarios, tipo de experimentos, \dots)
+		\item \textbf{RF-6.2.1 Estadísticas generales}. El administrador debe de poder de un vistazo conocer el uso general que se le está dando al sistema. (Número de experimentos, número de usuarios, tipo de experimentos,\dots)
 		\item \textbf{RF-6.2.2 Uso últimos 7 días.} El administrador debe de poder conocer el número de experimentos que se han ejecutado cada día de los últimos 7 días naturales.
 		\item \textbf{RF-6.2.3 Distribución de los usuarios.} El administrador debe de poder conocer las estadísticas generales de uso y países de origen de los usuarios del sistema.
 	\end{itemize}
