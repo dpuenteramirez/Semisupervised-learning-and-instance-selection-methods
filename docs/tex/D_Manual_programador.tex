@@ -65,38 +65,39 @@ Al comienzo del proyecto, muchas de sus funcionalidades eran compatibles con Pyt
 \subsubsection{Bibliotecas Python}
 A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a detallar uno de los puntos más importantes para poder <<hacer funcionar>> el proyecto, puesto que se van a necesitar versiones concretas de determinadas librerías para que todo se integre correctamente con todo y se pueda ver y utilizar como un sistema homogéneo.
 
-\begin{table}[H]
+\begin{table}[p]
 \centering
-\begin{tabular}{c|c}
-	\textbf{Biblioteca} & \textbf{Versión} \\
+\begin{tabular}{lcl}
+	\textbf{Biblioteca} & \textbf{Versión} & \textbf{Descripción}\\
 	\toprule
 	\rowcolor[HTML]{EFEFEF} 
-	flask & 1.1.1 \\ \midrule
-	werkzeug & 0.15.6 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	flask-login & 0.4.1 \\ \midrule
-	flask-wtf & 0.14.2 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	flask-sqlalchemy & 2.4.0 \\ \midrule
-	flask-redis & 0.4.0 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	rq & 1.1.0 \\ \midrule
-	scikit-learn & 0.24 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	pandas & 0.25.1 \\ \midrule
-	urllib3 & 1.25.6 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	requests & 2.22.0 \\ \midrule
-	future & 0.16.0 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	whichcraft & 0.4.1 \\ \midrule
-	pytest & 5.2.1 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	selenium & 3.141.0 \\ \midrule
-	imbalanced-learn & 0.5.0 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	itsdangerous & 1.1.0 \\ \midrule
-	flask-mail & 0.9.1 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	pycountry & 22.3.5\\ \midrule
-	geopy & 2.2.0\\ \midrule \rowcolor[HTML]{EFEFEF} 
-	psutil & 5.9.0\\ \midrule
-	glances & 3.2.4.2\\ \midrule \rowcolor[HTML]{EFEFEF} 
-	flask-migrate & 2.5.2 \\ \midrule
-	python-weka-wrapper3 & 0.1.7 \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	liac-arff & 2.2.1 \\ \midrule
-	email-validator & 1.1.1 \\
+	\texttt{email-validator} & 1.1.1 & Validar direcciones de correo electrónico.\\
+	\texttt{flask} & 1.1.1 & Web \textit{framework}.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-login} & 0.4.1 & Control usuarios y sesiones en Flask.\\
+	\texttt{flask-mail} & 0.9.1 & Envío de \textit{emails} con Flask.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-migrate} & 2.5.2 & Migrar SQLAchemy DB a Flask.\\
+	\texttt{flask-redis} & 0.4.0 & Soporte a Redis en Flask.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-sqlalchemy} & 2.4.0 & Soporte a SQLAchemy en Flask.\\
+	\texttt{flask-wtf} & 0.14.2 & Render, validar y CSRF formularios.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{future} & 0.16.0 & Soporte a Python 2 y 3.\\ 
+	\texttt{geopy} & 2.2.0 & Geocodificación.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{glances} & 3.2.4.2 & Monitorización del sistema.\\ 
+	\texttt{imbalanced-learn} & 0.5.0 & ML con datos desbalanceados.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{itsdangerous} & 1.1.0 & Paso de datos en entornos no seguros.\\
+	\texttt{liac-arff} & 2.2.1 & Escritura y lectura de ficheros ARFF.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{numpy} & 1.22.3 & Computación de \textit{arrays}.\\
+	\texttt{pandas} & 0.25.1 & Estructuras de datos.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{psutil} & 5.9.0 & Procesar y monitorizar sistemas.\\
+	\texttt{pycountry} & 22.3.5 & Datos de países.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{pytest} & 5.2.1 & Pruebas en Python.\\
+	\texttt{python-weka-wrapper3} & 0.1.7 & \textit{Wrapper} para Weka.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{requests} & 2.22.0 & \textit{Requests} para humanos.\\
+	\texttt{rq} & 1.1.0 & Crear y procesar trabajos <<de fondo>>.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{scikit-learn} & 0.24 & Módulos de minería de datos y ML.\\ 
+	\texttt{selenium} & 3.141.0 & Auto interacción con navegador web.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{urllib3} & 1.25.6 & Conexiones HTTP seguras.\\
+	\texttt{werkzeug} & 0.15.6 & Biblioteca de aplicaciones web WSGI.\footnote{\textit{Web Server Gateway Interface.}. Es una especificación que describe cómo un servidor web se comunica con las aplicaciones web, y cómo las aplicaciones web pueden encadenarse para procesar una solicitud.}\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{whichcraft} & 0.4.1 & Funcionalidad \textit{shutil.which}. \\
 	\bottomrule
 \end{tabular}
 \caption{Bibliotecas utilizadas y sus versiones.}\label{tab:bibliotecas-python-ubumlaas}
@@ -292,15 +293,16 @@ En la Tabla~\ref{tab:bibliotecas-python-is-ssl} se detallan las bibliotecas nece
 
 \begin{table}[]
 \centering
-\begin{tabular}{c|c}
-	Biblioteca & Versión \\ \rowcolor[HTML]{EFEFEF} 
+\begin{tabular}{lcl}
+	\textbf{Biblioteca} & \textbf{Versión} & \textbf{Descripción}\\ \rowcolor[HTML]{EFEFEF} 
 	\toprule
-	\textbf{\texttt{NumPy}}    & \textbf{1.20.3}      \\  \midrule 
-	\textbf{\texttt{Scikit-learn}}    & \textbf{0.24.2}      \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	\texttt{Matplotlib}    & 3.4.3      \\  \midrule 
-	\textbf{\texttt{Pandas}}    & \textbf{1.3.4}      \\ \midrule \rowcolor[HTML]{EFEFEF} 
-	\texttt{YagMail}    & 0.15.277      \\  \midrule 
-	\textbf{\texttt{Scipy}}    & \textbf{1.7.1}      \\ 
+	\rowcolor[HTML]{EFEFEF} 
+	\texttt{matplotlib}    & 3.4.3   & Representación gráfica.   \\  
+	\textbf{\texttt{numpy}}    & 1.20.3 &  Computación de \textit{arrays}.  \\ \rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{pandas}}    & 1.3.4  & Estructuras de datos    \\  
+	\textbf{\texttt{scikit-learn}}    & 0.24.2 & Módulos de minería de datos y ML.   \\ \rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{scipy}}    & 1.7.1  & Módulos científicos.    \\ 
+	\texttt{yagmail}    & 0.15.277  & Cliente de GMAIL.    \\ 
 	\bottomrule
 \end{tabular}
 \caption{Bibliotecas utilizadas y sus versiones.}\label{tab:bibliotecas-python-is-ssl}
