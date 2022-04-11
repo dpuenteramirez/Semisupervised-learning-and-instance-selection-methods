@@ -58,7 +58,7 @@ def search_datasets(folder):
         'percent labeled',
         'fold',
         'base',
-        'Filter',
+        'filter',
         'f1-score',
         'mean squared error',
         'accuracy score'
@@ -147,8 +147,8 @@ def main(datasets):
 
 
 if __name__ == '__main__':
-    mail = sys.argv[1]
-    passwd = sys.argv[2]
+    mail = 'ntoolsecure'
+    passwd = 'qfj3nfr_jnt7ATZ8jgh'
     yag = yagmail.SMTP(user=mail, password=passwd)
     t_start_g = time.time()
     try:

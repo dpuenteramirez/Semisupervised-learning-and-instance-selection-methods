@@ -13,11 +13,14 @@ import pandas as pd
 
 if __name__ == '__main__':
 
+    mse = 'mean squared error'
+    pl = 'percent labeled'
+
     folder = join('.', 'results', '')
     ranks_path = 'ranks'
     plots = 'plots'
     precisions = [0.05, 0.1, 0.15]
-    metrics = ['f1-score', 'mean squared error', 'accuracy score']
+    metrics = ['f1-score', mse, 'accuracy score']
     results_found = next(walk(folder), (None, None, []))[2]
     if len(results_found) != 3:
         print("This script only works with 3 results in the \'results\' "
@@ -27,51 +30,52 @@ if __name__ == '__main__':
     for index, r in enumerate(results_found):
         dfs.append(pd.read_csv(folder + results_found[index]))
 
-    # Fill NaN values?
     df = pd.concat(dfs, ignore_index=True)
     df.drop('fold', axis=1, inplace=True)
 
-    df = df.groupby(['base', 'filter', 'percent labeled']).mean()
-
     classifiers = dfs[0].base.unique()
-    filter_method = dfs[0]['filter'].unique()
+    filters = dfs[0]['filter'].unique()
+    datasets = dfs[0]['dataset'].unique()
 
     ranks = {}
+    vals = ['base', 'filter', pl, 'f1-score',
+            'mean squared error', 'accuracy score']
+
+    means = {}
     for classifier in classifiers:
-        values = {}
-        for precision in precisions:
-            temp = []
-            for fm in filter_method:
-                temp.append(df.loc[(classifier, fm, precision)].to_numpy())
+        cl = []
+        for dataset in datasets:
+            rows = df[df['dataset'] == dataset]
+            for precision in precisions:
+                temp = pd.DataFrame(index=filters, columns=metrics)
+                temp[pl] = precision
+                p_rows = rows.loc[
+                    (rows['base'] == classifier) & (rows[pl] == precision)]
+                vals = p_rows.groupby(['filter']).mean()
 
-            for index in range(len(metrics)):
-                vals = []
-                for index2 in range(len(filter_method)):
-                    vals.append(temp[index2][index])
-
-                if len(np.unique(vals)) + 2 == len(vals):
-                    r = [1, 1, 1]
-                elif len(np.unique(vals)) + 1 == len(vals):
-                    idx = np.where(vals == vals[0])
-                    if len(idx) == 1 and vals[0] > vals[1] and vals[0] > \
-                            vals[2]:
-                        r = [1, 2, 2]
+                for metric in metrics:
+                    dff = vals[metric].to_frame()
+                    if metric != mse:
+                        p = dff.rank(ascending=False)
                     else:
-                        if vals[0] == vals[2] and vals[1] > vals[0]:
-                            r = [2, 1, 2]
-                        else:
-                            r = [2, 2, 1]
-                else:
-                    vals = np.array(vals)
-                    r = vals.argsort()
-                    r = [x + 1 for x in r.argsort().tolist()]
-
-                values[precision, metrics[index]] = r
-
-        ranks[classifier] = values
+                        p = dff.rank(ascending=True)
+                    temp[metric] = p.to_numpy()
+                cl.append(temp)
+        means[classifier] = cl
 
     for classifier in classifiers:
-        df_fin = pd.DataFrame(ranks.get(classifier), index=filter_method). \
+        dff = pd.concat(means[classifier])
+        rks = {}
+        for metric in metrics:
+            for precision in precisions:
+                rows = dff.loc[dff[pl] == precision]
+                vals = rows[metric].to_frame()
+                vals = vals.groupby(level=0).mean()
+                rks[(precision, metric)] = np.ravel(vals.to_numpy())
+        ranks[classifier] = rks
+
+    for classifier in classifiers:
+        df_fin = pd.DataFrame(ranks.get(classifier), index=filters). \
             transpose()
 
         for metric in metrics:
@@ -82,7 +86,7 @@ if __name__ == '__main__':
             df_f.index = precisions
 
             df_f.plot(
-                title="Summary of experiments",
+                title=f"Summary of {classifier} with {metric}",
                 ylabel="Precision",
                 grid=True,
                 xticks=precisions
