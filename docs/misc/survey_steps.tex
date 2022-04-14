@@ -58,11 +58,11 @@ Este documento es una recopilación de la información asociada al proceso de pr
 
 El objetivo principal es conocer la interacción del usuario con la aplicación, recibir una retroalimentación tanto positiva como negativa de forma que sirva de entrada al proceso de calidad que se va a llevar a cabo. 
 
-Además, se aprovecha la oportunidad para recuperar información acerca de los posibles fallos que halla en el sistema que han ido pasando desapercibidos tanto en las pruebas automáticas como durante el proceso de desarrollo <<al ojo>>. 
+Además, se aprovecha la oportunidad para recuperar información acerca de los posibles fallos que haYa en el sistema que han ido pasando desapercibidos tanto en las pruebas automáticas como durante el proceso de desarrollo <<al ojo>>. 
 
 Los actores que se desea participen en esta encuesta han de ser lo más diversos posibles, tanto en estudios, formación, conocimientos técnicos sobre Aprendizaje Máquina (\textit{Machine Learning}). Así como la propia relación con el equipo de desarrollo, de forma que se eviten sesgos y con todo el conjunto de muestras se obtenga una visión suficientemente amplia del estado del proyecto.
 
-Todas las pruebas que se van a documentar a continuación son lo más sencillas posibles para que cualquier usuario, independientemente de sus conocimientos técnicos, sea capaz de llevarlas a cabo. Se deja a libertad del cliente la posibilidad de seguir probando cualquier funcionalidad de la plataforma de ML una vez haya finalizado estas pruebas.
+Todas las pruebas que se van a documentar a continuación son lo más sencillas posibles para que cualquier usuario, independientemente de sus conocimientos técnicos, sea capaz de llevarlas a cabo. Se deja a libertad del usuario la posibilidad de seguir probando cualquier funcionalidad de la plataforma de ML una vez haya finalizado estas pruebas.
 
 \clearpage
 \section{Pruebas de Registro e Inició de Sesión}
@@ -86,7 +86,7 @@ A continuación se detallan los pasos deseados a realizar.
 
 \clearpage
 \section{Pruebas de Uso de UBUMLaaS}
-A continuación se detalla el proceso de uso de la plataforma para crear nuevos experimentos. Se detalla el proceso general, se deja a libertad del cliente el indagar en las funcionalidades más específicas del proceso de Aprendizaje Máquina.
+A continuación se detalla el proceso de uso de la plataforma para crear nuevos experimentos. Se detalla el proceso general, se deja a libertad del usuario el indagar en las funcionalidades más específicas del proceso de Aprendizaje Máquina.
 
 \begin{enumerate}
 \item Una vez se encuentre en el índice \textbf{después} de haber iniciado sesión, encontrará un botón que indica la creación de un nuevo experimento. Este botón le llevará a una nueva página que deberá completar.
@@ -95,7 +95,7 @@ A continuación se detalla el proceso de uso de la plataforma para crear nuevos 
 El orden recomendado es el siguiente:
 \begin{enumerate}
 \item Seleccione el conjunto de datos que desea utilizar, puede también subir uno de su colección personal, tenga en cuenta que deberán de ser complacientes con el estándar esperado por la aplicación para cada tipo de algoritmos o de lo contrario el modelo puede no ser entrenado correctamente o incluso fallar. Al crear la cuenta se le proporcionaron 5 por defecto.
-\item Seleccione el tipo de algoritmo que desea utilizar, dispone entre Clasificación, Regresión, Clasificación Semi-Supervisada, Clustering, o Mixed (Algoritmos compatibles con clasificación y regresión).
+\item Seleccione el tipo de algoritmo que desea utilizar, dispone entre Clasificación, Regresión, Clasificación Semi-Supervisada, Multi-Clasificación, Clustering, o Mixed (Algoritmos compatibles con clasificación y regresión).
 \item Seleccione el algoritmo que desea utilizar.
 \item Parametrice el algoritmo tal y como considere apropiado para su problema.
 \item Seleccione un filtro en caso de desear utilizarlo. Son filtros de selección de instancias.
@@ -113,7 +113,7 @@ Cuando considere que ha finalizado, reporte los resultados en la sección corres
 \vfill
 
 
-\textbf{NOTA.} Es normal que experimentos fallen, en caso de que el usuario parametrice mal el experimento para el conjunto de datos con el que se encuentra trabajando. En este punto se recomienda a los usuarios con conocimientos más avanzados en ML y experiencia trabajando con \texttt{Weka} y \texttt{Scikit-Learn} pongan a prueba la funcionalidad esperada bajo sus correspondientes criterios.
+\textbf{NOTA.} Es normal que algunos experimentos fallen, en caso de que el usuario parametrice mal el experimento para el conjunto de datos con el que se encuentra trabajando. En este punto se recomienda a los usuarios con conocimientos más avanzados en ML y experiencia trabajando con \texttt{Weka} y \texttt{Scikit-Learn} pongan a prueba la funcionalidad esperada bajo sus correspondientes criterios.
 \pagebreak
 
 \section{Pruebas de Usuario}
