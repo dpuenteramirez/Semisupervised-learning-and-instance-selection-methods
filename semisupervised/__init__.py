@@ -18,7 +18,9 @@ __author__ = 'Daniel Puente Ramírez'
 from .CoTraining import CoTraining
 from .TriTraining import TriTraining
 from .DemocraticCoLearning import DemocraticCoLearning
+from .DensityPeaks import STDPNF
 
 __all__ = ["CoTraining",
            "TriTraining",
-           "DemocraticCoLearning"]
+           "DemocraticCoLearning",
+           "STDPNF"]
