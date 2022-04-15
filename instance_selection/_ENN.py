@@ -18,7 +18,7 @@ class ENN:
         self.power_parameter = power_parameter
         self.x_attr = None
 
-    def neighs(self, s_samples, s_targets, index, removed):
+    def __neighs(self, s_samples, s_targets, index, removed):
         x_sample = s_samples[index - removed]
         x_target = s_targets[index - removed]
         knn = NearestNeighbors(n_jobs=-1,
@@ -56,8 +56,8 @@ class ENN:
         removed = 0
 
         for index in range(size):
-            _, x_target, targets_not_x, samples_not_x, neigh_ind = self.neighs(
-                s_samples, s_targets, index, removed)
+            _, x_target, targets_not_x, samples_not_x, neigh_ind = \
+                self.__neighs(s_samples, s_targets, index, removed)
             y_targets = np.ravel(
                 np.array([targets_not_x[x] for x in neigh_ind[0]])).astype(int)
             count = np.bincount(y_targets)
@@ -100,9 +100,9 @@ class ENN:
 
         for index in range(size):
             x_sample, x_target, targets_not_x, samples_not_x, neigh_ind = \
-                self.neighs(s_samples, s_targets, index, removed)
+                self.__neighs(s_samples, s_targets, index, removed)
             y_targets = [targets_not_x[x] for x in neigh_ind[0]]
-            count = np.bincount(y_targets)
+            count = np.bincount(np.ravel(y_targets))
             max_class = np.where(count == np.amax(count))[0][0]
             if max_class != x_target:
                 delete = True

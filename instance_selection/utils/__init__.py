@@ -1,4 +1,4 @@
-from ._transformer import transform, transform_original_complete,\
+from ._transformer import transform, transform_original_complete, \
     delete_multiple_element
 
 __all__ = [

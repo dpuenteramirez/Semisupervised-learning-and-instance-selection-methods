@@ -6,6 +6,7 @@
 # @Version:     2.0
 import sys
 
+import numpy as np
 import pandas as pd
 from sklearn.metrics import pairwise_distances
 
@@ -65,6 +66,12 @@ class LocalSets:
     def get_local_sets(self):
         return self.local_sets
 
+    @staticmethod
+    def check_frame_to_numpy(y):
+        if isinstance(y, pd.DataFrame):
+            return np.ravel(y.to_numpy())
+        return y
+
 
 class LSSm(LocalSets):
     def __init__(self):
@@ -73,8 +80,8 @@ class LSSm(LocalSets):
     def filter(self, instances, labels):
         names = instances.keys()
         instances = instances.to_numpy()
-        import numpy as np
         instances = [np.ravel(i) for i in instances]
+        labels = self.check_frame_to_numpy(labels)
         if len(instances) != len(labels):
             raise ValueError(
                 f'The dimension of the labeled data must be the same as the '
@@ -113,6 +120,7 @@ class LSBo(LocalSets):
                 f'number of labels given. {len(instances)} != {len(labels)}'
             )
         self.n_id = len(instances)
+        labels = self.check_frame_to_numpy(labels)
         lssm = LSSm()
         instances, labels = lssm.filter(instances, labels)
         instances = instances.to_numpy()
