@@ -1,0 +1,157 @@
+\documentclass[
+	12pt,
+	spanish
+]{article}
+
+% Template-specific packages
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[spanish]{babel}
+\usepackage{cmbright}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{graphicx} % Required for including images
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+\usepackage{listings} % Required for insertion of code
+
+\usepackage{enumerate} % To modify the enumerate environment
+\newcommand{\direccion}{http://puenramihome.ddns.net:8081}
+\newcommand{\mailUBU}{mailto:dpr1005@alu.ubu.es}
+\newcommand{\mailPersonal}{mailto:dani.pr21@gmail.com}
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{../img/escudoInfor.pdf}
+\end{figure}
+Encuesta de funcionalidad de UBUMLaaS} % Assignment title
+
+\author{Daniel Puente Ramírez} % Student name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle 
+\thispagestyle{empty}
+\clearpage
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+\setcounter{page}{1}
+\section{Objetivo y actores involucrados}
+Este documento es una recopilación de la información asociada al proceso de pruebas que se realiza en UBUMLaaS por actores externos, los cuales deben de seguir esta documentación con el fin de realizar las pruebas más importantes y para las cuáles se ha diseñado una \href{https://forms.gle/yUoBxDyR3BaF7TjDA}{encuesta} de satisfacción.
+
+El objetivo principal es conocer la interacción del usuario con la aplicación, recibir una retroalimentación tanto positiva como negativa de forma que sirva de entrada al proceso de calidad que se va a llevar a cabo. 
+
+Además, se aprovecha la oportunidad para recuperar información acerca de los posibles fallos que haYa en el sistema que han ido pasando desapercibidos tanto en las pruebas automáticas como durante el proceso de desarrollo <<al ojo>>. 
+
+Los actores que se desea participen en esta encuesta han de ser lo más diversos posibles, tanto en estudios, formación, conocimientos técnicos sobre Aprendizaje Máquina (\textit{Machine Learning}). Así como la propia relación con el equipo de desarrollo, de forma que se eviten sesgos y con todo el conjunto de muestras se obtenga una visión suficientemente amplia del estado del proyecto.
+
+Todas las pruebas que se van a documentar a continuación son lo más sencillas posibles para que cualquier usuario, independientemente de sus conocimientos técnicos, sea capaz de llevarlas a cabo. Se deja a libertad del usuario la posibilidad de seguir probando cualquier funcionalidad de la plataforma de ML una vez haya finalizado estas pruebas.
+
+\clearpage
+\section{Pruebas de Registro e Inició de Sesión}
+A continuación se detallan los pasos deseados a realizar.
+\begin{enumerate}
+\item Navegar hasta la \href{\direccion}{dirección web} con el navegador de su elección.
+\item En caso de no disponer de una cuenta todavía, acceda al registro de nuevos usuarios.
+\begin{enumerate}
+\item Indique un nombre de usuario, deberá ser único en el sistema por lo que puede ser que se le mande repetir la operación hasta que dé con uno disponible.
+\item Se le solicitará un correo electrónico, de igual manera deberá ser un correo electrónico que no exista todavía. Importante que sea un correo electrónico al que tenga acceso pues más adelante deberá utilizarlo.
+\item Indique una contraseña, deberá ser de longitud mínima 8 caracteres, no hay longitud máxima, así como contener al menos una letra mayúscula y una minúscula, un carácter especial, y un número.
+\item Indique el uso que se le va a dar al sistema.
+\item Indique su país de origen o residencia actual.
+\item Una vez todos los campos sean correctos, podrá finalizar enviando el formulario.
+\item Se le enviará un correo electrónico para que verifique su identidad y active la cuenta que acaba de crear.
+\end{enumerate}
+\item Una vez que posee una cuenta y ya la ha activado, deberá de volver al \href{\direccion}{índice} y proceder con el inicio de sesión.
+\item Cuándo se encuentre en la pantalla correspondiente al inicio de sesión se encontrará con un formulario de nuevo, por favor indique en los correspondientes campos sus credenciales.
+\item Este conjunto de pruebas han finalizado, por favor reporte sus resultados en la sección correspondiente.
+\end{enumerate}
+
+\clearpage
+\section{Pruebas de Uso de UBUMLaaS}
+A continuación se detalla el proceso de uso de la plataforma para crear nuevos experimentos. Se detalla el proceso general, se deja a libertad del usuario el indagar en las funcionalidades más específicas del proceso de Aprendizaje Máquina.
+
+\begin{enumerate}
+\item Una vez se encuentre en el índice \textbf{después} de haber iniciado sesión, encontrará un botón que indica la creación de un nuevo experimento. Este botón le llevará a una nueva página que deberá completar.
+\item Ahora se encuentra en la página de creación de nuevos experimentos. Puede rellenar los campos en cualquier orden, pero debe de tener en cuenta que la elección de determinados valores propiciará cambios en otros campos. Por ejemplo, determinados algoritmos poseen filtros, otros no, etc.
+
+El orden recomendado es el siguiente:
+\begin{enumerate}
+\item Seleccione el conjunto de datos que desea utilizar, puede también subir uno de su colección personal, tenga en cuenta que deberán de ser complacientes con el estándar esperado por la aplicación para cada tipo de algoritmos o de lo contrario el modelo puede no ser entrenado correctamente o incluso fallar. Al crear la cuenta se le proporcionaron 5 por defecto.
+\item Seleccione el tipo de algoritmo que desea utilizar, dispone entre Clasificación, Regresión, Clasificación Semi-Supervisada, Multi-Clasificación, Clustering, o Mixed (Algoritmos compatibles con clasificación y regresión).
+\item Seleccione el algoritmo que desea utilizar.
+\item Parametrice el algoritmo tal y como considere apropiado para su problema.
+\item Seleccione un filtro en caso de desear utilizarlo. Son filtros de selección de instancias.
+\item Indique una semilla en caso de querer hacerlo con una no aleatoria. 
+\item Indique si desea utilizar validación cruzada o partición en entrenamiento y pruebas. E indique el número de \textit{folds} o los porcentajes de partición, respectivamente.
+\item Con todos los campos rellenos. Lance el experimento.
+\end{enumerate}
+\item Se le redirigirá a la página web dónde aparecerán los resultados una vez haya finalizado el experimento. También puede acceder desde su perfil.
+\item Se le notificará por correo electrónico cuándo el experimento haya finalizado.
+\end{enumerate}
+
+Este es el proceso de lanzar experimentos en la plataforma, se insta al usuario a que pruebe con distintos conjuntos de datos así como tipos de experimentos. 
+
+Cuando considere que ha finalizado, reporte los resultados en la sección correspondiente de la encuesta.
+\vfill
+
+
+\textbf{NOTA.} Es normal que algunos experimentos fallen, en caso de que el usuario parametrice mal el experimento para el conjunto de datos con el que se encuentra trabajando. En este punto se recomienda a los usuarios con conocimientos más avanzados en ML y experiencia trabajando con \texttt{Weka} y \texttt{Scikit-Learn} pongan a prueba la funcionalidad esperada bajo sus correspondientes criterios.
+\pagebreak
+
+\section{Pruebas de Usuario}
+En esta nueva sección se van a realizar pruebas muy sencillas sobre algunas de las funcionalidades que el usuario puede realizar sobre su propio perfil.
+
+\begin{enumerate}
+\item En caso de no haber iniciado sesión, por favor inicie sesión.
+\item Navegue hasta su perfil, lo puede encontrar como sus experimentos también.
+\item La primera de las pruebas que se desea que realice es actualizar su foto de perfil. La plataforma soporta la mayoría de los formatos de \textbf{imagen}.
+\item Seguidamente actualice sus datos personales, como por ejemplo podría ser su país.
+\item Añada algunos campos adicionales como su Twitter o GitHub.
+\item Si lo desea puede cambiar su contraseña.
+\end{enumerate} 
+
+\pagebreak
+\section{Pruebas de Administrador}
+No todos los usuarios participantes en esta encuesta tendrán acceso de administrador al sistema por razones más que obvias. En caso de estar entre los elegidos, por favor continue con esta sección, de no estarlo acuda a la sección~\ref{sec:fin}.
+
+Las pruebas que se van a realizar aquí son sencillas, principalmente de visualización. No se espera que conozca al detalle todo lo que aparece en pantalla o lo que hace cada botón. No tenga miedo a romper nada, no lo conseguirá, y de conseguirlo, mejor para el desarrollo de la aplicación, ¡indíquelo en la encuesta!
+
+\begin{enumerate}
+\item Con la sesión iniciada notará que hay una barra lateral con diferentes opciones, este es el panel de administración.
+\item En dicho panel seleccione el \textit{Dashboard}. Aquí podrá encontrar las estadísticas y analíticas generales de uso del sistema y algunos datos en concreto de uso de los últimos 7 días. ¿Observa algo extraño? ¿Entiende a qué hace referencia cada gráfico?
+\item Continúe navegando en el panel lateral a la monitorización del sistema en tiempo real. ¿Observa algo extraño? ¿Entiende a qué hace referencia cada gráfico?
+\item Navegue ahora a la administración de usuarios. Pruebe a (de)activar, hacer admin o quitar admin a los usuarios, incluso puede eliminar el usuario que desee. En caso de eliminar usuarios por favor revise la dirección de correo electrónico y elimine aquellas que parezcan falsas.
+\end{enumerate}
+
+Como habíamos prometido iban a ser pruebas sencillas.
+
+\pagebreak
+\section{Finalizando}\label{sec:fin}
+
+Con el proceso finalizado de insta a rellenar todos aquellos campos en la encuesta que todavía quedaran pendientes y a enviar el resultado. No dude en escribir de forma extensa en aquellos campos que así lo permiten, todo el \textit{feedback} recibido será utilizado en el proceso de mejora de la aplicación para hacerla más intuitiva, fácil de utilizar y por supuesto, libre de errores.
+
+En caso de querer comentar algún aspecto en concreto, por favor no dude en ponerse en contacto a través de cualquiera de los siguientes correos electrónicos.
+\begin{itemize}
+\item \href{\mailUBU}{Equipo de desarrollo} de la Universidad de Burgos.
+\item \href{\mailPersonal}{Dirección del proyecto.}
+\end{itemize}
+
+\end{document}

@@ -138,10 +138,6 @@ class DROP3:
                         if np.array_equal(neigh, x_sample):
                             break
                     a_neighs = a_neighs[:index_a] + a_neighs[index_a + 1:]
-                    try:
-                        assert len(a_neighs) == self.nearest_neighbors
-                    except AssertionError:
-                        breakpoint()
                     # Find a new neigh for the associate
                     remaining_samples = [x for x, _, _ in initial_distances]
                     knn = NearestNeighbors(
@@ -162,20 +158,12 @@ class DROP3:
                             a_neighs.append(pos_neigh)
                             break
 
-                    try:
-                        assert len(a_neighs) == self.nearest_neighbors + 1
-                    except AssertionError:
-                        print('Duplicated instances')
-
                     samples_info[tuple(a_associate_of_x)][0] = a_neighs
 
                     # Add a_associate to the associates list of the new neigh
                     new_neigh = a_neighs[-1]
-                    try:
-                        samples_info[tuple(new_neigh)][1].append(
-                            a_associate_of_x)
-                    except TypeError:
-                        pass
+                    samples_info[tuple(new_neigh)][1].append(
+                        a_associate_of_x)
 
         samples = pd.DataFrame([x for x, _, _ in initial_distances],
                                columns=self.x_attr)

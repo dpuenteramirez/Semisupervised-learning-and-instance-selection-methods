@@ -8,6 +8,7 @@
 \usepackage{lmodern} % scalable font
 \usepackage{microtype}
 \usepackage{placeins}
+\usepackage{tabularx}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -45,6 +46,31 @@
 % Evitar solapes en el header
 \nouppercaseheads
 
+% Code
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{red},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  captionpos=b
+}
+
+
 % Imagenes
 \usepackage{graphicx}
 \newcommand{\imagen}[2]{
@@ -56,6 +82,15 @@
 	\FloatBarrier
 }
 
+\newcommand{\imagenRuta}[3]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{#1}
+		\caption{#2}\label{fig:#3}
+	\end{figure}
+	\FloatBarrier
+}
+
 \newcommand{\imagenflotante}[2]{
 	\begin{figure}%[!h]
 		\centering
@@ -63,7 +98,6 @@
 		\caption{#2}\label{fig:#1}
 	\end{figure}
 }
-
 
 
 % El comando \figura nos permite insertar figuras comodamente, y utilizando
