@@ -84,6 +84,7 @@ class CNN:
             delete_multiple_element(handbag, indexes)
         del handbag
         samples = pd.DataFrame(store, columns=self.x_attr)
-        y = pd.DataFrame(np.array(store_classes).flatten().astype(int))
+        y = pd.DataFrame(np.array(store_classes, dtype=object).flatten().astype(
+            int))
 
         return samples, y
