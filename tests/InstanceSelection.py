@@ -17,7 +17,6 @@ from instance_selection import ENN, CNN, RNN, ICF, MSS, DROP3, LSSm, LSBo
 def to_dataframe(y):
     if not isinstance(y, pd.DataFrame):
         return pd.DataFrame(y)
-    return y
 
 
 @pytest.fixture

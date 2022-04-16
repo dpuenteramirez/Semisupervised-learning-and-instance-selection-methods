@@ -66,13 +66,10 @@ class TriTraining:
         return Bunch(data=samples, target=targets)
 
     def fit(self, samples, y):
-        labeled, u, y = split(samples, y)
-
-        if len(labeled) != len(y):
-            raise ValueError(
-                f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(labeled)} != {len(y)}'
-            )
+        try:
+            labeled, u, y = split(samples, y)
+        except IndexError:
+            raise ValueError('Dimensions do not match.')
 
         le = LabelEncoder()
         le.fit(y)

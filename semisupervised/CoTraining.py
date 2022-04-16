@@ -10,6 +10,7 @@ from math import ceil, floor
 import numpy as np
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import LabelEncoder
+
 from .utils import split
 
 
@@ -45,13 +46,10 @@ class CoTraining:
         self.h1, self.h2 = configs
 
     def fit(self, samples, y):
-        labeled, u, y = split(samples, y)
-
-        if len(labeled) != len(y):
-            raise ValueError(
-                f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(labeled)} != {len(y)}'
-            )
+        try:
+            labeled, u, y = split(samples, y)
+        except IndexError:
+            raise ValueError('Dimensions do not match.')
 
         le = LabelEncoder()
         le.fit(y)
@@ -61,8 +59,12 @@ class CoTraining:
         self.size_x1 = ceil(len(labeled[0]) / 2)
 
         rng = np.random.default_rng()
-        u_random_index = rng.choice(len(u), size=floor(self.u),
-                                    replace=False, shuffle=False)
+        try:
+            u_random_index = rng.choice(len(u), size=floor(self.u),
+                                        replace=False, shuffle=False)
+        except ValueError:
+            raise ValueError('The model was incorrectly parametrized, '
+                             'total between _p_ and _u_ is to big.')
 
         u_prime = u[u_random_index]
         u1, u2 = np.array_split(u_prime, 2, axis=1)
@@ -105,17 +107,16 @@ class CoTraining:
             u_prime = np.delete(u_prime, old_indexes, axis=0)
 
             u = np.delete(u, u_random_index, axis=0)
+
             try:
                 u_random_index = rng.choice(len(u),
                                             size=2 * self.p + 2 * self.n,
                                             replace=False, shuffle=False)
             except ValueError:
-                print('The model was incorrectly parametrized, k is to big.')
-            try:
-                u_prime = np.concatenate((u_prime, u[u_random_index]))
-            except IndexError:
-                print('The model was incorrectly parametrized, there are not '
-                      'enough unlabeled samples.')
+                raise ValueError('The model was incorrectly parametrized, '
+                                 'total between _p_ and _u_ is to big.')
+
+            u_prime = np.concatenate((u_prime, u[u_random_index]))
 
     def predict(self, samples):
         x1, x2 = np.array_split(samples, 2, axis=1)

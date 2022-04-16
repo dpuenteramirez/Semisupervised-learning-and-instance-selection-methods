@@ -6,20 +6,16 @@
 
 import random
 
-import pytest
 import numpy as np
 import pandas as pd
+import pytest
 from sklearn.datasets import load_iris as load_digits
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
+from instance_selection import ENN
 from semisupervised import STDPNF, CoTraining, TriTraining, \
     DemocraticCoLearning
-
-
-def to_dataframe(y):
-    if not isinstance(y, pd.DataFrame):
-        return pd.DataFrame(y)
-    return y
 
 
 @pytest.fixture
@@ -36,7 +32,7 @@ def digits_dataset_ss():
     y_train = pd.DataFrame(y_train)
     y_test = pd.DataFrame(y_test)
     li = list(set(range(x_train.shape[0])))
-    unlabeled = random.sample(li, int(x_train.shape[0] * 0.3))
+    unlabeled = random.sample(li, int(x_train.shape[0] * 0.55))
     y_train.loc[unlabeled] = -1
 
     return x_train, x_test, y_train, y_test, opt_labels
@@ -57,19 +53,68 @@ def base(x_train, x_test, y_train, y_test, opt_labels, algorithm, params=None):
 
 def test_co_training(digits_dataset_ss):
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
-    base(x_train, x_test, y_train, y_test, opt_labels, CoTraining)
+    base(x_train, x_test, y_train, y_test, opt_labels, CoTraining,
+         {'p': 1, 'n': 3, 'k': 1, 'u': 7})
+    base(x_train, x_test, y_train, y_test, opt_labels, CoTraining,
+         {'p': 1, 'n': 3, 'k': 1, 'u': 7,
+          'c1': KNeighborsClassifier, 'c1_params': {'n_neighbors': 3},
+          'c2': KNeighborsClassifier})
+
+    with pytest.raises(ValueError):
+        base(x_train, x_test, y_train, y_test, opt_labels, CoTraining)
+
+    with pytest.raises(ValueError):
+        base(x_train, x_test, y_train, y_test, opt_labels, CoTraining,
+             {'p': 1, 'n': 3, 'k': 100, 'u': 7})
+
+    with pytest.raises(ValueError):
+        base(x_train, x_test, y_train, y_test, opt_labels, CoTraining,
+             {'p': 5, 'n': 5, 'k': 100, 'u': 15})
 
 
 def test_tri_training(digits_dataset_ss):
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
-    base(x_train, x_test, y_train, y_test, opt_labels, TriTraining)
+    base(x_train, x_test, y_train, y_test, opt_labels, TriTraining,
+         {'c1': KNeighborsClassifier, 'c1_params': {'n_neighbors': 3},
+          'c2': KNeighborsClassifier})
 
 
 def test_demo_co_learning(digits_dataset_ss):
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(x_train, x_test, y_train, y_test, opt_labels, DemocraticCoLearning)
+    base(x_train, x_test, y_train, y_test, opt_labels, DemocraticCoLearning,
+         {'c1': KNeighborsClassifier, 'c1_params': {'n_neighbors': 3},
+          'c2': KNeighborsClassifier})
 
 
 def test_density_peaks(digits_dataset_ss):
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(x_train, x_test, y_train, y_test, opt_labels, STDPNF)
+
+
+def test_density_peaks_filtering(digits_dataset_ss):
+    x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
+    with pytest.raises(AttributeError):
+        base(x_train, x_test, y_train, y_test, opt_labels, STDPNF,
+             {'filtering': True})
+    base(x_train, x_test, y_train, y_test, opt_labels, STDPNF,
+         {'filtering': True, 'filter_method': 'ENANE'})
+
+    base(x_train, x_test, y_train, y_test, opt_labels, STDPNF,
+         {'filtering': True, 'filter_method': ENN, 'dc': 'auto',
+          'classifier': KNeighborsClassifier})
+
+
+def test_different_len(digits_dataset_ss):
+    x, _, y, _, _ = digits_dataset_ss
+    co = CoTraining()
+    tri = TriTraining()
+    demo_co = DemocraticCoLearning()
+    stdpnf = STDPNF()
+
+    models = [co, tri, demo_co, stdpnf]
+    y = y[:-1]
+
+    for model in models:
+        with pytest.raises(ValueError):
+            model.fit(x, y)
