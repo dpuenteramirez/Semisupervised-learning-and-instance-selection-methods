@@ -3,8 +3,8 @@
 # @Filename:    custom_plots.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        27/1/22 17:27
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_bar_line(name, metric, precision, data_df, save_path):

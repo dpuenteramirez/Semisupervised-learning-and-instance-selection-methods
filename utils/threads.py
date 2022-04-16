@@ -3,8 +3,8 @@
 # -python-thread/
 
 
-import threading
 import sys
+import threading
 
 
 class ReturnValueThread(threading.Thread):
