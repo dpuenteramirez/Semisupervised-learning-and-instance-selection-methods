@@ -5,6 +5,7 @@
 # @Time:        25/1/22 16:01
 
 from collections.abc import Iterable
+
 from numpy import nanmean
 
 
@@ -127,8 +128,8 @@ class DatasetResult:
 
     def __eq__(self, other):
         return isinstance(other, DatasetResult) and (
-            self.name() == other.name() and
-            self.precision() == other.precision()
+                self.name() == other.name() and
+                self.precision() == other.precision()
         )
 
     def __hash__(self):

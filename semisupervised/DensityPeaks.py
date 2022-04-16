@@ -3,7 +3,7 @@
 # @Filename:    DensityPeaks.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        5/3/22 09:55
-# @Version:     3.1
+# @Version:     4.0
 
 import math
 from collections import defaultdict
@@ -14,6 +14,9 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
+
+from instance_selection import ENN
+from .utils import split
 
 
 class STDPNF:
@@ -38,6 +41,8 @@ class STDPNF:
                  anormal=True,
                  filtering=False,
                  classifier=None,
+                 classifier_params=None,
+                 filter_method=None
                  ):
         """Semi Supervised Algorithm based on Density Peaks."""
         self.dc = dc
@@ -49,7 +54,19 @@ class STDPNF:
         self.distance_threshold = distance_threshold
         self.anormal = anormal
         self.filtering = filtering
-        self.classifier = classifier
+        if classifier is not None:
+            if isinstance(classifier_params, dict):
+                self.classifier = classifier(**classifier_params)
+            else:
+                self.classifier = classifier()
+        else:
+            self.classifier = None
+        if filter_method is not None and filter_method != 'ENANE':
+            self.filter = filter_method()
+        elif isinstance(filter_method, str) and filter_method == 'ENANE':
+            self.filter = filter_method
+        else:
+            self.filter = None
 
     def __build_distance(self):
         """
@@ -87,7 +104,7 @@ class STDPNF:
         while True:
             nneighs = sum(
                 [1 for v in self.distances.values() if v < dc]) / self.n_id ** 2
-            if 0.01 <= nneighs <= 0.002:
+            if 0.01 <= nneighs <= 0.02:
                 break
             # binary search
             if nneighs < 0.01:
@@ -333,18 +350,46 @@ class STDPNF:
 
         while count <= max(self.order.values()):
             unlabeled_rows = self.structure_stdnpf.loc[self.structure_stdnpf[
-                                                           'label'] == -1].\
+                                                           'label'] == -1]. \
                 index.to_list()
             unlabeled_indexes = []
             for row in unlabeled_rows:
                 if self.order[row] == count:
                     unlabeled_indexes.append(row)
 
-            filtered_indexes, filtered_labels = self.__enane(
-                unlabeled_indexes, nan, lambda_param)
+            if isinstance(self.filter, str) and self.filter == 'ENANE':
+                filtered_indexes, filtered_labels = self.__enane(
+                    unlabeled_indexes, nan, lambda_param)
+                self.structure_stdnpf.at[filtered_indexes, 'label'] = \
+                    filtered_labels
 
-            self.structure_stdnpf.at[filtered_indexes, 'label'] = \
-                filtered_labels
+            else:
+                labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
+                                                             'label'] != -1]
+                complete = labeled_data['sample']
+                complete_y = labeled_data['label']
+
+                if isinstance(self.filter, ENN):
+                    original = pd.DataFrame(self.l)
+                    original_y = pd.DataFrame(self.y)
+                    result, _ = self.filter.filter_original_complete(
+                        original, original_y, complete, complete_y)
+                else:
+                    result, _ = self.filter.filter(complete, complete_y)
+
+                results_to_unlabeled = []
+                for r in result.to_numpy():
+                    is_in = False
+                    for c in complete:
+                        if np.array_equal(r, c):
+                            is_in = True
+                    if not is_in:
+                        results_to_unlabeled.append(r)
+
+                for r in results_to_unlabeled:
+                    self.structure_stdnpf.at[
+                        np.array(self.structure_stdnpf['sample'],
+                                 r)]['label'] = -1
 
             labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
                                                          'label'] != -1]
@@ -358,13 +403,12 @@ class STDPNF:
         self.classifier_stdpnf.fit(
             labeled_data['sample'].tolist(), labeled_data['label'].tolist())
 
-    def fit(self, l, u, y):
+    def fit(self, samples, y):
         """Fit method."""
-        if len(l) != len(y):
-            raise ValueError(
-                f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(l)} != {len(y)}'
-            )
+        try:
+            l, u, y = split(samples, y)
+        except IndexError:
+            raise ValueError('Dimensions do not match.')
 
         le = LabelEncoder()
         le.fit(y)
