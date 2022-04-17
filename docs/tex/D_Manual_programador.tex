@@ -242,7 +242,56 @@ conda activate UBUMLaaS
 
 El usuario administrador por defecto es \texttt{Admin@AdminUBUMLaaS.es} y su contraseña es \texttt{admin4123!UBUMLaaS}.
 
+\subsection{Integración Continua}
+Con el objetivo de obtener como producto final un \textit{software} de calidad, se han desarrollado una serie de pruebas de integración continua, las cuales se comprueban y analiza su resultado en cada \textit{commit} y/o \textit{pull request.}
+
+Se han utilizado principalmente tres herramientas \textit{cloud} para medir los principios de calidad del \textit{software}.
+
+\subsubsection{Codacy}
+Herramienta la cual proporciona soporte a análisis automático del código fuente e identifica los problemas a medida que avanza. Su versatilidad permite desarrollar \textit{software} de manera eficiente, reduciendo el número de \textit{bugs} que se <<dejan para resolver>>. 
+
+A través del análisis estático de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
+
+\imagenRuta{../img/anexos/manual-programador/Codacy-UBUMLaaS}{Codacy.}{Codacy-UBUMLaaS}
+
+\subsubsection{Sonar Cloud}
+Herramienta \textit{open source} la cual permite hacer un análisis estático del código de un proyecto, entre sus fortalezas destaca su potente capacidad de ser parametrizada, entre las acciones que realiza por defecto encontramos la detección de malas prácticas, errores de código, así como problemas de seguridad que en el pasado se han visto relacionadas con alguna CVE\footnote{\textit{Common Vulnerabilities and Exposures}, lista de fallos \textit{software} (y \textit{hardware}) que en el pasado se han utilizado para ganar ventaja de alguna manera.}.
+
+A pesar de que sea un proyecto \textit{open source} no es gratuita, y como todas las herramientas de estas características incluye una versión \textit{community} (gratuita) para aquellos proyectos que sean \textit{open source}.
+
+\imagenRuta{../img/anexos/manual-programador/SonarCloud-UBUMLaaS}{SonarCloud.}{SonarCloud-UBUMLaaS}
+
+\subsubsection{Travis-CI}
+Herramienta \textit{cloud} desarrollada para la realización de pruebas de integración continua sobre proyectos alojados en GitHub (con soporte beta para BitBucket, Gitlab y Assembla). Permite realizar un \textit{build} del proyecto y ejecutar sobre ella una batería de pruebas de manera automática cada vez que se realiza un \textit{commit} y/o \textit{pull request}, permitiendo pruebas concurrentes, incluso sobre diferentes sistemas operativos (Linux, Windows, macOS y FreeBSD). 
+
+Con el proyecto configurado en \texttt{Travis-CI} se debe configurar un fichero \texttt{YAML} y debe de estar en el directorio raíz, será a partir del cual se ejecuten las pruebas.
+
+El fichero se encuentra dividido en:
+\begin{itemize}
+\tightlist
+\item \texttt{os:} sistema/s operativo/s sobre el cuál se va/n a realizar las pruebas.
+\item \texttt{dist:} distribución a utilizar.
+\item \texttt{language:} lenguaje de programación del proyecto.
+\item \texttt{python:} especificación de la versión de Python que necesita.
+\item \texttt{node\_js:} especificación de la versión de Node JS que necesita.
+\item \texttt{jdk:} especificación de la versión de JDK necesaria.
+\item \texttt{jobs:} parametrización de los trabajos que se van a ejecutar.
+\item \texttt{git:} profundidad del árbol de \texttt{git} que deseamos utilizar.
+\item \texttt{addons:} \textit{software} <<extra>> que se necesiten para las pruebas.
+\item \texttt{services:} especificación de los servicios que se van a utilizar.
+\item \texttt{before\_install:} definición de comandos a ejecutar antes de los incluidos en la sección \texttt{install}.
+\item \texttt{install:} definición de comandos de instalación de dependencias.
+\item \texttt{before\_script:} configuración de dependencias antes de ejecutar la sección \texttt{script}.
+\item \texttt{script:} pruebas a realizar.
+\end{itemize}
+
+Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaaS}.
+
+\imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
+
 \subsection{Pruebas del sistema}
+Intro \\
+Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales, debido a que únicamente comprobaban la interacción del usuario con la plataforma a través de un navegador.
 
 \clearpage
 \section{IS-SSL}
@@ -441,5 +490,39 @@ if __name__ == "__main__":
 	
 \end{lstlisting}
 \pagebreak
+
+\subsection{Integración Continua}
+Con el objetivo de diseñar un \textit{software} lo más robusto posible, la biblioteca cuenta con una serie de pruebas de integración continua, permitiendo que todos los cambios que se vayan realizando mantengan la biblioteca en un estado correcto, indicando tempranamente aquellos posibles problemas que puedan surgir.
+
+Este proceso se ha divido en dos etapas, una más <<adelantada>> y otra más <<tardía>>, la principal diferencia es el objetivo perseguido con cada una de las pruebas. 
+\begin{itemize}
+\item Inicial. Se configuró la segunda semana de febrero, con el objetivo de comenzar a tener una visión más amplia y razonada de la calidad del código, debido a que todavía no estaban desarrollados al 100\% todos los algoritmos y aún eran susceptibles de sufrir modificaciones en tanto en cuanto a sus entradas/salidas/optimización. 
+\item Posterior. Se configuró en Semana Santa, (segunda semana de abril), en esta fase se implementaron una batería de pruebas la cual cubre prácticamente la totalidad de \texttt{IS-SSL}, permitiendo obtener una base para futuras modificaciones que puedan ser necesarias realizar, asegurando que todo sigue funcionando como debería.
+\end{itemize}
+
+A pesar de que se han utilizado diferentes herramientas que se podría decir que cubren los mismos tópicos, cada una implementa las diferentes métricas de análisis de forma diferente, y por lo tanto se puede ganar en este proceso. El código cubierto no se ha configurado en cada herramienta por simplicidad, ya que ahí no hay <<medias tintas>> es un informe el que se genera y las herramientas lo único que proporcionan es un visor de ese fichero.
+
+Los recursos utilizados para la integración continua se detallan a continuación.
+
+\subsubsection{Codacy}
+Herramienta la cual proporciona soporte a análisis automático del código fuente e identifica los problemas a medida que avanza. Su versatilidad permite desarrollar \textit{software} de manera eficiente, reduciendo el número de \textit{bugs} que se <<dejan para resolver>>. 
+
+A través del análisis estático de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
+
+La integración es muy sencilla, basta con crearse una cuenta asociada con la de GitHub, y una vez que se ha verificado se añade la organización a la que se pertenece y el repositorio (público) que se desea comenzar a analizar. En caso de que el repositorio sea privado, pasados los 14 días de prueba se deberá actualizar la licencia de uso a una superior.
+
+\imagenRuta{../img/anexos/manual-programador/Codacy-IS-SSL}{Codacy.}{Codacy-IS-SSL}
+
+En la Figura~\ref{fig:Codacy-IS-SSL} se aprecia uno de los gráficos que muestra Codacy, en este caso referido al número de \textit{issues} detectados en el código analizado. Tal y como se muestra, se ha realizado un trabajo a lo largo del mes de febrero y marzo para obtener una librería sin fallos aumentando su mantenibiliad.
+
+\subsubsection{Sonar Cloud}
+
+Herramienta \textit{open source} la cual permite hacer un análisis estático del código de un proyecto, entre sus fortalezas destaca su potente capacidad de ser parametrizada, entre las acciones que realiza por defecto encontramos la detección de malas prácticas, errores de código, así como problemas de seguridad que en el pasado se han visto relacionadas con alguna CVE\footnote{\textit{Common Vulnerabilities and Exposures}, lista de fallos \textit{software} (y \textit{hardware}) que en el pasado se han utilizado para ganar ventaja de alguna manera.}.
+
+A pesar de que sea un proyecto \textit{open source} no es gratuita, y como todas las herramientas de estas características incluye una versión \textit{community} (gratuita) para aquellos proyectos que sean \textit{open source}.
+
+El proceso de integración es sencillo, una vez registrados y asociada la cuenta con una de GitHub, se selecciona sobre qué proyecto se desea comenzar a analizar el código. El siguiente paso es definir un conjunto de reglas (si no se quiere utilizar el que se proporciona por defecto), y en cada \textit{pull request} que se realice al repositorio, Sonar Cloud analizará todos los cambios y emitirá un informe consultable desde la web así como un comentario en la propia \textit{pull request} con los resultados encontrados.
+
+\imagenRuta{../img/anexos/manual-programador/SonarCloud-IS-SSL}{SonarCloud.}{SonarCloud-IS-SSL}
 
 \subsection{Pruebas del sistema}
