@@ -15,6 +15,11 @@ Los requisitos mínimos para poder hacer uso de \texttt{UBUMLaaS} son:
 \item Tener una cuenta en la plataforma.
 \end{itemize}
 \subsection{Instalación}
+Al tratarse de un producto web no se requiere de ningún tipo de instalación. Los navegadores Google Chrome, Mozilla Firefox, Safari y Microsfot Edge son soportados\footnote{Todos ellos han sido probados por el equipo de desarrollo y usuarios encuestados a  los que se les proporcionó un documento de uso básico y lo usaron en sus dispositivos cotidianos.}, siempre y cuando se encuentren en versiones compatibles con HTML5 y tengan activado el uso de JavaScript.
+
+Independientemente del dispositivo de uso (ordenador de sobremesa, portátil, tableta o móvil), se requiere de conexión a Internet como es lógico. Pero no necesita de permisos adicionales, ha sido desarrollada de tal manera que utiliza la sesión local del navegador sin necesidad del uso de \textit{cookies}.
+
+Aunque se hizo un intento de traducción a los lenguajes más comunes, finalmente se encuentra en inglés de forma única.
 
 \subsection{Manual del usuario}
 
@@ -26,11 +31,39 @@ Los requisitos mínimos para poder hacer uso de \texttt{UBUMLaaS} son:
 Los requisitos mínimos para poder hacer uso de \texttt{IS-SSL} son:
 \begin{itemize}
 \item Tener instalado Python 3.7+.
+\item Tener instalado y configurado \texttt{PIP} o \texttt{Conda}.
 \item Disponer de un editor de textos.
 \item Tener instaladas las bibliotecas necesarias para su correcto funcionamiento.
 \end{itemize}
 
 \subsection{Instalación}
+
+Por comodidad para el usuario, \texttt{IS-SSL} se ha dividido en dos bibliotecas, una formada por los algoritmos de selección de instancias, y una segunda por aquellos algoritmos de aprendizaje semi-supervisado.
+
+El proceso de instalación de cualquiera de las dos bibliotecas es muy sencillo, siendo integrable en cualquier fichero de requerimientos, ya sea para \texttt{PIP} o \texttt{Conda}.
+
+Las dos bibliotecas se encuentran publicadas en PyPI\footnote{\textit{Python Package Index} es un repositorio de \textit{software} para el lenguaje de programación de Python.} desde su versión 1.0, la cual fue una primea versión alpha estable con los primeros algoritmos publicados. 
+La versión 3.0 es la versión estable (la final) que se ha publicado.
+
+\imagenFlotante{../img/anexos/manual-usuario/PyPI-IS}{Vista de la biblioteca de algoritmos de selección de instancias en PyPI.}{PyPI-IS}
+\imagenFlotante{../img/anexos/manual-usuario/PyPI-SSL}{Vista de la biblioteca de algoritmos de aprendizaje semi-supervisado en PyPI.}{PyPI-SSL}
+
+Para realizar la instalación se deben seguir los siguientes pasos para cualquier LIB, LIB $\in \lbrace$ IS-DNX, SSL-DNX$\rbrace$.
+
+\begin{enumerate}
+\item Acceder a PyPi, desde~\cite{PyPI}.
+\item Introducir en el campo de búsqueda <<LIB>>.
+\item Seleccionar la biblioteca correspondiente de entre la lista mostrada.
+\item Copiar el comando de instalación.
+\item Abrir una terminal con soporte a Python y \texttt{PIP}.
+\item Introducir el comando copiado.
+\item En caso de que se nos pregunte si se quiere proceder con la descarga, indicar que sí con una S en caso de que esté en español, o con Y en el caso inglés/internacional.
+\item Cuando finaliza la instalación, la biblioteca se encontrará lista para su uso.
+\end{enumerate}
+
+\imagenFlotante{../img/anexos/manual-usuario/PIP-IS}{Instalación de la biblioteca de selección de instancias.}{PIP-IS}
+\imagenFlotante{../img/anexos/manual-usuario/PIP-SSL}{Instalación de la biblioteca de semi-supervisado.}{PIP-SSL}
+
 
 \subsection{Manual del usuario}
 
