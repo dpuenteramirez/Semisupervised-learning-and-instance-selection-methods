@@ -45,7 +45,7 @@ La estructura del repositorio es la siguiente:
 \end{itemize}
 
 \subsection{Manual del programador}
-En esta subsección se describen todos aquellos recursos seguidos por el equipo de desarrollo para, valga la redundancia, desarrollar el proyecto. De tal forma que un futuro desarrollador/mantenedor del proyecto no tenga inconvenientes a la hora de retomar el proyecto y conocerlo.
+En esta subsección se describen todos aquellos recursos utilizados por el equipo de desarrollo para, valga la redundancia, desarrollar el proyecto. De tal forma que un futuro desarrollador/mantenedor del proyecto no tenga inconvenientes a la hora de retomar el proyecto y conocerlo.
 
 \subsubsection{Entorno de desarrollo}
 Para poder continuar con el desarrollo del proyecto, se requiere tener instalado el siguiente \textit{software} en el equipo:
@@ -167,7 +167,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \begin{enumerate}
 \item Apertura de \texttt{Visual Studio Code}.
 \item Hacer \textit{click} en Abrir.
-\item Seleccionar el directorio raíz dónde lo hayamos alojado.
+\item Seleccionar el directorio raíz donde lo hayamos alojado.
 \end{enumerate}
 \item Importar el proyecto en una máquina y editarlo desde otra.
 \begin{enumerate}
@@ -188,7 +188,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \end{itemize}
 
 \subsubsection{Crear entorno virtual de trabajo}
-Para poder trabajar con este proyecto (independientemente de si es para desarrollo o producción) hacen falta una serie de bibliotecas concretas de Python, las cuales, como es lógico, deben estar en la máquina en la que se va a correr; dicho con otras palabras, en la que está el código. El proyecto está preparado para crear un entorno de \texttt{Conda} propio, de forma que no interfiera con otros proyectos y sea más sencillo de mantener y actualizar.
+Para poder trabajar con este proyecto (independientemente de si es para desarrollo o producción) hacen falta una serie de bibliotecas concretas de Python, las cuales, como es lógico, deben estar en la máquina en la que se va a ejecutar; dicho con otras palabras, en la que está el código. El proyecto está preparado para crear un entorno de \texttt{Conda} propio, de forma que no interfiera con otros proyectos y sea más sencillo de mantener y actualizar.
 
 Se recomienda que los binarios de anaconda o miniconda estén configurados en el \texttt{path} del sistema para poder utilizar el comando \texttt{conda} desde la línea de comandos.
 
@@ -233,7 +233,7 @@ sudo systemctl enable redis-server
 \end{enumerate}
 
 \subsubsection{Uso del proyecto}
-Lo primero de todo para poder tener el producto trabajando, es desplegarlo, para ello es requisito haber completado todos los pasos previos de esta sección. Activar el entorno virtual de \texttt{Conda}, correr el lanzador, y ya está en ejecución.
+Lo primero de todo para poder tener el producto trabajando, es desplegarlo, para ello es requisito haber completado todos los pasos previos de esta sección. Activar el entorno virtual de \texttt{Conda}, ejecutar el lanzador, y ya está en ejecución.
 \begin{lstlisting}[language=bash]
 conda activate UBUMLaaS
 ./run.sh
@@ -250,7 +250,7 @@ Se han utilizado principalmente tres herramientas \textit{cloud} para medir los 
 \subsubsection{Codacy}
 Herramienta la cual proporciona soporte a análisis automático del código fuente e identifica los problemas a medida que avanza. Su versatilidad permite desarrollar \textit{software} de manera eficiente, reduciendo el número de \textit{bugs} que se <<dejan para resolver>>. 
 
-A través del análisis estático de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
+A través del análisis de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
 
 \imagenRuta{../img/anexos/manual-programador/Codacy-UBUMLaaS}{Codacy.}{Codacy-UBUMLaaS}
 
