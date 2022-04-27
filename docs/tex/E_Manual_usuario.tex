@@ -53,6 +53,11 @@ El proceso de inicio de sesión es tan directo como hacer \textit{click} en cual
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/login}{Página de inicio de sesión}{login}
 
 \subsubsection{Recuperar contraseña}
+En caso de que el usuario necesite recuperar su contraseña, en la página de inicio de sesión, Figura~\ref{fig:login}, puede hacer \textit{click} en \textit{Forgot your password?}, en donde se redirigirá a la página de recuperación de contraseña, igual a la Figura~\ref{fig:recover-passwd}. 
+
+Introduciendo el correo electrónico y se le enviará un enlace al mismo para reestablecerla.
+
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/recover-passwd}{Página de recuperar contraseña}{recover-passwd}
 
 \subsubsection{Crear un nuevo experimento}
 La funcionalidad principal proporcionada por \texttt{UBUMLaaS} es la de crear experimentos de \texttt{ML}, para ello una vez se inicia sesión se llega al índice de la plataforma, tal y como aparece en la Figura~\ref{fig:index-login}. Para llegar a la vista de crear un nuevo experimento se debe de hacer \textit{click} o en el botón en mitad de la pantalla que indica \textit{Create a new experiment}, o en la parte superior derecha, en el botón \textit{New Experiment}. Cualquiera de los dos botones redirigirá al usuario a la vista deseada.
@@ -143,7 +148,79 @@ Cuando se decida qué se quiere modificar, se deberá hacer \textit{click} en el
 A continuación se detallan todas las funcionalidades añadidas que posee un administrador. Un administrador es un usuario en su base, por lo tanto, todas las funcionalidades descritas en la sección anterior también hacen referencia al administrador.
 
 \subsubsection{\texttt{NavBar} de administración}
-Tal y como se aprecia en la Figura XXX, el administrador posee una barra de navegación lateral en toda la aplicación, permitiendo acceder a esas funcionalidades en cualquier momento desde cualquier lugar. A su vez, en la parte superior derecha posee un acceso directo a la parte de administración, el botón \textit{Administration}.
+Tal y como se aprecia en la Figura~\ref{fig:index-admin}, el administrador posee una barra de navegación lateral en toda la aplicación, permitiendo acceder a esas funcionalidades en cualquier momento desde cualquier lugar. A su vez, en la parte superior derecha posee un acceso directo a la parte de administración, el botón \textit{Administration}.
+
+En caso de querer ocultar la barra lateral de administración, ya que no se va utilizar en ese momento, en la parte superior izquierda aparece una \texttt{X}, haciendo \textit{click} en ella se ocultará la barra lateral.
+
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/index-admin}{Vista de índice de administrador}{index-admin}
+
+En las siguientes secciones se comentarán cada una de las opciones disponibles para los administradores.
+
+\subsubsection{Analytics Dashboard}
+Accediendo a través del botón \textit{Dashboard} en el menú lateral, se accede a la vista de analíticas del sistema, en la que aparecen tanto estadísticas de los últimos 7 días, como globales del sistema, se puede apreciar en la Figura~\ref{fig:dashboard}.
+
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/dashboard}{Vista de \textit{Analytics Dashboard}}{dashboard}
+
+Se dispone de la siguiente información:
+\begin{itemize}
+\item Cartas superiores
+\begin{itemize}
+	\item Número total de experimentos (los modelos) que se encuentran almacenados en el sistema.
+	\item Número total de conjuntos de datos distintos almacenados en el sistema.
+	\item Número de usuarios registrados en el sistema.
+	\item Número total del países de los cuáles los usuarios han dicho ser.
+\end{itemize}
+\item \textit{Experiments performed in the last 7 days}. Igual que para el usuario, pero con las estadísticas de todos los usuarios. 
+\item \textit{Algorithm Type Usage Distribution}. Estadísticas globales del número de experimentos de cada tipo que se han ejecutado.
+\item \textit{Algorithm Type Time Used}. Distribución del tiempo de uso (ejecución) de los diferentes tipos de algoritmos.
+\item \textit{Desired Use}. Estadísticas del uso que los usuarios han indicado que le van a dar primordialmente a la aplicación.
+\item \textit{Country Distribution}. Representación de la ubicación geográfica de los usuarios. Siendo representado cada país por un único punto.
+\item \textit{Latests Experiments}. Últimos 10 experimentos lanzados, pueden estar \textit{In Progress}, o terminados, ya sea \textit{Finalized} o bien \textit{Error}. Mostrando la información mínima necesaria así como el usuario dueño del experimento.
+\item \textit{All Time Datasets Run}. Comparativa del tiempo de ejecución de algunos conjuntos de datos en comparación con el número de veces que han sido ejecutados. Se puede modificar la escala de tiempo.
+\end{itemize}
+
+\subsubsection{Users}
+Se accede a la página de administración de usuarios a través del botón \textit{Users} en la barra lateral. En este panel se pueden crear, (de)activar, dar/quitar privilegios de administración, o eliminar un usuario.
+
+Tal y como se puede ver en la Figura~\ref{fig:users-admin}, se soporta la búsqueda por cualquiera de los campos que se visualizan, permitiendo encontrar a aquellos usuarios que interese en <<un \textit{click}>>. 
+
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/users-admin}{Vista de administración de usuarios}{users-admin}
+
+Un usuario no puede quitarse a sí mismo privilegios de administrador, ni deactivarse la cuenta, o eliminarla, teniendo que ser otro administrador el que lo haga; de esta manera el sistema siempre tendrá como mínimo un administrador.
+
+A su vez se soporta crear un usuario haciendo \textit{click} en el botón verde \textit{New user}. Desplegándose un formulario y se deberán de rellenar los campos de correo electrónico, nombre de usuario, país y uso que se va a hacer; las restricciones de los campos existentes deben de seguir cumpliéndose. Al usuario se le generará una contraseña y al correo electrónico llega un correo, valga la redundancia, de activación de la cuenta, pero deberá de re-establecer la contraseña como si la hubiera olvidado antes de poder iniciar sesión por primera vez.
+
+\subsubsection{Live System Monitor}
+A la monitorización del sistema en tiempo real se accede a través del botón \textit{Live System Monitor} en la barra lateral. Cuando se hace \textit{click} se redirecciona a una vista similar a la que aparece en la Figura~\ref{fig:live-monitor}. En la parte superior derecha de la página a la que se llega hay un botón para activar si se quiere que la página se auto-recargue cada 60 segundos, desde el momento en el que se hace \textit{click}.
+
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/live-monitor}{Vista de \textit{Live System Monitor}}{live-monitor}
+
+\textbf{NOTA.} Es importante tener en cuenta que esta pantalla se ha diseñado para monitores de más de 23 pulgadas, por lo que su visualización en monitores de menor tamaño puede no ser óptima o encontrar ciertos solapamientos. En la Figura~\ref{fig:live-monitor} se aprecia la disposición correcta de todos los componentes.
+
+La información que se muestra es la siguiente (todas las unidades que se muestran son calculadas dinámicamente, seleccionando la mayor disponible):
+\begin{itemize}
+\item Las cartas superiores muestran, de izquierda a derecha:
+\begin{itemize}
+	\item \textit{CPU Load}. La carga de la CPU porcentualmente.
+	\item \textit{CPU Cores}. El número total de núcleos del sistema.
+	\item \textit{Memory Load}. EL uso total de la memoria en forma de gráfico.
+	\item \textit{Used Memory}. El valor total de memoria en uso en el sistema.
+	\item \textit{Storage in use}. Almacenamiento total del sistema en vista de gráfico.
+	\item \textit{Storaged Used}. El valor total de almacenamiento en uso.
+\end{itemize}
+\item \textit{System Load 1/5/15}. Cada gráfico representa la carga media del sistema en los últimos 1, 5 y 15 minutos, respectivamente.
+\item \textit{I/O Usage}. Interrupciones de tipo \textit{Input}/\textit{Output} de la CPU y del disco.
+\item \textit{Network Usage}. Tamaño total de información transmitida y recibida en el periodo de tiempo.
+\item Las cartas inferiores muestran, de izquierda a derecha:
+\begin{itemize}
+	\item \textit{Uptime}. Tiempo total desde que el sistema se inició. Formato: días:horas:minutos:segundos.
+	\item \textit{IP Address}. Dirección IP del equipo/servidor donde se encuentra la plataforma desplegada.
+	\item \textit{IP Public Address}. Dirección IP pública del sistema.
+	\item \textit{IP Mask CIDR}. Máscara de subred en formato CIDR.
+	\item \textit{Total Processes}. Número total de procesos que existen en el sistema en ejecución.
+	\item \textit{Total Threads}. Número total de hilos en el sistema.
+\end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
