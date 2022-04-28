@@ -9,6 +9,7 @@
 \usepackage{microtype}
 \usepackage{placeins}
 \usepackage{tabularx}
+\usepackage{placeins}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -91,11 +92,11 @@
 	\FloatBarrier
 }
 
-\newcommand{\imagenflotante}[2]{
+\newcommand{\imagenFlotante}[3]{
 	\begin{figure}%[!h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{#1}
-		\caption{#2}\label{fig:#1}
+		\caption{#2}\label{fig:#3}
 	\end{figure}
 }
 
@@ -396,7 +397,7 @@
 
 
 % Datos de portada
-\title{Estudio de métodos de selección de instancias en aprendizaje Semi-Supervisado\\Documentación Técnica}
+\title{Estudio de métodos de selección de instancias en aprendizaje Semi-Supervisado y aplicación web de MLaaS\\Documentación Técnica}
 \author{Daniel Puente Ramírez}
 \tutor{Dr. Álvar Arnaiz González}
 \date{\today}

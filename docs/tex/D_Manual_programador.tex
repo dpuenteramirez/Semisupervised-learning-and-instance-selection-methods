@@ -45,7 +45,7 @@ La estructura del repositorio es la siguiente:
 \end{itemize}
 
 \subsection{Manual del programador}
-En esta subsección se describen todos aquellos recursos seguidos por el equipo de desarrollo para, valga la redundancia, desarrollar el proyecto. De tal forma que un futuro desarrollador/mantenedor del proyecto no tenga inconvenientes a la hora de retomar el proyecto y conocerlo.
+En esta subsección se describen todos aquellos recursos utilizados por el equipo de desarrollo para, valga la redundancia, desarrollar el proyecto. De tal forma que un futuro desarrollador/mantenedor del proyecto no tenga inconvenientes a la hora de retomar el proyecto y conocerlo.
 
 \subsubsection{Entorno de desarrollo}
 Para poder continuar con el desarrollo del proyecto, se requiere tener instalado el siguiente \textit{software} en el equipo:
@@ -105,19 +105,6 @@ A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a deta
 
 Las versiones indicadas en la tabla~\ref{tab:bibliotecas-python-ubumlaas} son las que se han utilizado para el desarrollo del proyecto, se pueden actualizar a versiones futuras, siempre y cuando sean compatibles entre sí.
 
-\subsubsection{Git}
-\imagenRuta{../img/anexos/manual-programador/gitkraken}{Interfaz de \texttt{GitKraken}.}{gitkraken}
-Para poder utilizar el repositorio ha de utilizarse el gestor de versiones \texttt{Git}. Se recomienda utilizar GUI con soporte a VC\footnote{Control de versiones (\textit{Version Control}).} tales que no requieran de una interfaz de comandos para su utilización, pero eso se deja a decisión del futuro desarrollador.
-
-En la Figura~\ref{fig:gitkraken} se aprecia como el \textit{software} \texttt{GitKraken} permite, de forma intuitiva y sencilla, el uso de \texttt{Git} y todo su potencial. Se puede obtener desde~\cite{gitkraken}.
-
-El repositorio posee una serie diferente de ramas de trabajo, se recomienda para producción utilizar o el último \textit{release} o bien la rama principal.
-
-\subsubsection{Visual Studio Code}
-\texttt{Visual Studio Code} es una herramienta de amplia versatilidad la cual soporta todos los lenguajes de programación utilizados en este proyecto (y muchos más) de forma nativa; además, posee ciertos \textit{plugins} que facilitan el desarrollo proporcionando \textit{snippets} y similares. Se recomienda su uso ya que es un IDE <<todo-en-uno>>, facilitando las tareas de desarrollo. 
-
-Se puede obtener desde~\cite{VSCode}.
-
 \subsection{Compilación, instalación y ejecución del proyecto}
 En esta subsección se va a detallar el proceso a seguir para poder hacer uso del proyecto en local, modificarlo y/o utilizarlo. La forma de desarrollo del proyecto no ha sido estrictamente en local, sino que el proyecto se encontraba alojado en un equipo servidor y mediante SSH\footnote{\textit{Suite} de protocolos los cuales especifican estándares para operar los servicios de red de forma segura entre anfitriones para los que no existe una relación de confianza a través de redes no seguras. Las comunicaciones entre pares se encuentran encriptadas.} se realizaba la conexión y posterior edición de los ficheros.
 
@@ -167,7 +154,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \begin{enumerate}
 \item Apertura de \texttt{Visual Studio Code}.
 \item Hacer \textit{click} en Abrir.
-\item Seleccionar el directorio raíz dónde lo hayamos alojado.
+\item Seleccionar el directorio raíz donde lo hayamos alojado.
 \end{enumerate}
 \item Importar el proyecto en una máquina y editarlo desde otra.
 \begin{enumerate}
@@ -188,7 +175,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \end{itemize}
 
 \subsubsection{Crear entorno virtual de trabajo}
-Para poder trabajar con este proyecto (independientemente de si es para desarrollo o producción) hacen falta una serie de bibliotecas concretas de Python, las cuales, como es lógico, deben estar en la máquina en la que se va a correr; dicho con otras palabras, en la que está el código. El proyecto está preparado para crear un entorno de \texttt{Conda} propio, de forma que no interfiera con otros proyectos y sea más sencillo de mantener y actualizar.
+Para poder trabajar con este proyecto (independientemente de si es para desarrollo o producción) hacen falta una serie de bibliotecas concretas de Python, las cuales, como es lógico, deben estar en la máquina en la que se va a ejecutar; dicho con otras palabras, en la que está el código. El proyecto está preparado para crear un entorno de \texttt{Conda} propio, de forma que no interfiera con otros proyectos y sea más sencillo de mantener y actualizar.
 
 Se recomienda que los binarios de anaconda o miniconda estén configurados en el \texttt{path} del sistema para poder utilizar el comando \texttt{conda} desde la línea de comandos.
 
@@ -233,7 +220,7 @@ sudo systemctl enable redis-server
 \end{enumerate}
 
 \subsubsection{Uso del proyecto}
-Lo primero de todo para poder tener el producto trabajando, es desplegarlo, para ello es requisito haber completado todos los pasos previos de esta sección. Activar el entorno virtual de \texttt{Conda}, correr el lanzador, y ya está en ejecución.
+Lo primero de todo para poder tener el producto trabajando, es desplegarlo, para ello es requisito haber completado todos los pasos previos de esta sección. Activar el entorno virtual de \texttt{Conda}, ejecutar el lanzador, y ya está en ejecución.
 \begin{lstlisting}[language=bash]
 conda activate UBUMLaaS
 ./run.sh
@@ -250,7 +237,7 @@ Se han utilizado principalmente tres herramientas \textit{cloud} para medir los 
 \subsubsection{Codacy}
 Herramienta la cual proporciona soporte a análisis automático del código fuente e identifica los problemas a medida que avanza. Su versatilidad permite desarrollar \textit{software} de manera eficiente, reduciendo el número de \textit{bugs} que se <<dejan para resolver>>. 
 
-A través del análisis estático de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
+A través del análisis de código estático, notifica problemas de seguridad, cobertura del código, así como la duplicación y la complejidad de cada fichero en cada \textit{commit} y \textit{pull request}.
 
 \imagenRuta{../img/anexos/manual-programador/Codacy-UBUMLaaS}{Codacy.}{Codacy-UBUMLaaS}
 
@@ -290,7 +277,7 @@ Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaa
 \imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
 
 \subsection{Pruebas del sistema}
-Intro \\
+Intro \\ (En desarrollo)
 Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales, debido a que únicamente comprobaban la interacción del usuario con la plataforma a través de un navegador.
 
 \clearpage
@@ -299,7 +286,6 @@ Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufr
 \subsection{Estructura de directorios}
 La estructura del repositorio es la siguiente:
 \begin{itemize}
-\tightlist
 \item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de PIP, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD); y, el fichero de requisitos.
 \item \texttt{/datasets/*}: conjuntos de datasets en formatos \texttt{csv} y \texttt{arff}, normalizados y no normalizados.
 \item \texttt{/docs/}: documentación del proyecto.
@@ -452,8 +438,8 @@ Un ejemplo del uso completo de este \textit{software} es lo encontramos en Listi
 Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la librería de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
 
 \begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
-from ssl_dnx import TriTraining
-from is_dnx import ENN
+from SemiSupervisedLearningDNX import TriTraining
+from InstanceSelectionDNX import ENN
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
