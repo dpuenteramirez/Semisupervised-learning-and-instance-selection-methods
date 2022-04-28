@@ -105,19 +105,6 @@ A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a deta
 
 Las versiones indicadas en la tabla~\ref{tab:bibliotecas-python-ubumlaas} son las que se han utilizado para el desarrollo del proyecto, se pueden actualizar a versiones futuras, siempre y cuando sean compatibles entre sí.
 
-\subsubsection{Git}
-\imagenRuta{../img/anexos/manual-programador/gitkraken}{Interfaz de \texttt{GitKraken}.}{gitkraken}
-Para poder utilizar el repositorio ha de utilizarse el gestor de versiones \texttt{Git}. Se recomienda utilizar GUI con soporte a VC\footnote{Control de versiones (\textit{Version Control}).} tales que no requieran de una interfaz de comandos para su utilización, pero eso se deja a decisión del futuro desarrollador.
-
-En la Figura~\ref{fig:gitkraken} se aprecia como el \textit{software} \texttt{GitKraken} permite, de forma intuitiva y sencilla, el uso de \texttt{Git} y todo su potencial. Se puede obtener desde~\cite{gitkraken}.
-
-El repositorio posee una serie diferente de ramas de trabajo, se recomienda para producción utilizar o el último \textit{release} o bien la rama principal.
-
-\subsubsection{Visual Studio Code}
-\texttt{Visual Studio Code} es una herramienta de amplia versatilidad la cual soporta todos los lenguajes de programación utilizados en este proyecto (y muchos más) de forma nativa; además, posee ciertos \textit{plugins} que facilitan el desarrollo proporcionando \textit{snippets} y similares. Se recomienda su uso ya que es un IDE <<todo-en-uno>>, facilitando las tareas de desarrollo. 
-
-Se puede obtener desde~\cite{VSCode}.
-
 \subsection{Compilación, instalación y ejecución del proyecto}
 En esta subsección se va a detallar el proceso a seguir para poder hacer uso del proyecto en local, modificarlo y/o utilizarlo. La forma de desarrollo del proyecto no ha sido estrictamente en local, sino que el proyecto se encontraba alojado en un equipo servidor y mediante SSH\footnote{\textit{Suite} de protocolos los cuales especifican estándares para operar los servicios de red de forma segura entre anfitriones para los que no existe una relación de confianza a través de redes no seguras. Las comunicaciones entre pares se encuentran encriptadas.} se realizaba la conexión y posterior edición de los ficheros.
 
@@ -290,7 +277,7 @@ Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaa
 \imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
 
 \subsection{Pruebas del sistema}
-Intro \\
+Intro \\ (En desarrollo)
 Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales, debido a que únicamente comprobaban la interacción del usuario con la plataforma a través de un navegador.
 
 \clearpage
@@ -299,7 +286,6 @@ Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufr
 \subsection{Estructura de directorios}
 La estructura del repositorio es la siguiente:
 \begin{itemize}
-\tightlist
 \item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de PIP, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD); y, el fichero de requisitos.
 \item \texttt{/datasets/*}: conjuntos de datasets en formatos \texttt{csv} y \texttt{arff}, normalizados y no normalizados.
 \item \texttt{/docs/}: documentación del proyecto.
