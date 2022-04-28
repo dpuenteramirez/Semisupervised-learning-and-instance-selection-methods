@@ -7,6 +7,8 @@ This project has the following algorithms:
 - Density Peaks
   - STDPNF
 
+- Ensemble
+  - RUSSEL
 
 # Release Notes
 
