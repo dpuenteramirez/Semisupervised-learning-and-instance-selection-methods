@@ -100,6 +100,15 @@
 	\end{figure}
 }
 
+\newcommand{\imagenAncho}[4]{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#4\textwidth]{#1}
+		\caption{#2}\label{fig:#3}
+	\end{figure}
+	\FloatBarrier
+}
+
 
 % El comando \figura nos permite insertar figuras comodamente, y utilizando
 % siempre el mismo formato. Los parametros son:

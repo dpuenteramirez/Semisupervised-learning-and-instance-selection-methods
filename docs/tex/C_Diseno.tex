@@ -1,11 +1,131 @@
 \apendice{Especificación de diseño}
 
 \section{Introducción}
+En este anexo se va a exponer cómo se han resuelto los objetivos anteriormente comentados. Así como la definición de datos que se utilizan en la aplicación, procedimientos, etc. 
 
-\section{Diseño de datos}
+\section{UBUMLaaS}
+\subsection{Diseño de datos}
+La aplicación cuenta con las siguientes entidades:
+\begin{itemize}
+\item \textbf{Usuarios (Users).} Posee toda la información relacionada con los usuarios. Almacenando su identificador único en el sistema, su correo electrónico, usuario, contraseña \textit{hasheada}, país y uso que ha indicado que va a dar a ala aplicación, además de si se encuentra activo o no, o del tipo de usuario que es (administrador o usuario normal). 
 
-\section{Diseño procedimental}
+Como campos adicionales puede almacenar la página web del usuario, algunas redes sociales como son Twitter, LinkedIn, GitHub. Junto con la institución a la que pertenece y su Google Scholar.
 
-\section{Diseño arquitectónico}
+\item \textbf{Algoritmos (Algorithms).} Guarda la información relacionada con cada algoritmo que se puede utilizar, teniendo un identificador único, un nombre de algoritmo para uso interno, el nombre que se mostrará en la web, así como los parámetros de configuración y a qué librería pertenece.
 
+\item \textbf{Filtros (Filters).} Guarda la información relacionada con cada filtro que se puede utilizar, teniendo un identificador único, un nombre de filtro para uso interno, el nombre que se mostrará en la web, así como los parámetros de configuración y a qué librería pertenece.
 
+\item \textbf{Experimentos (Experiments).} Almacena toda la información de un experimento lanzado. Posee un identificador de experimento único, el identificador del usuario que lo lanzó, el nombre (interno) del algoritmo en cuestión, junto con la configuración de este, y forma homónima para los filtros (en caso de utilizar un filtro).  Referencia a los datos de entrenamiento, y en caso de haber terminado, los resultados del experimento. 
+
+Posee dos \textit{timestamps} representando la hora de inicio y fin del entrenamiento, un campo adicional representa el estado que tiene. Junto con todos estos datos se almacena la configuración del experimento.
+
+\item \textbf{Países (Countries).} Recoge toda la información que puede ser útil a la hora de trabajar con países. Posee el nombre oficial del país en cuestión, así como la representación en \texttt{Alpha 2}\footnote{Los códigos alfa-2 son códigos de dos letras definidos en la norma ISO 3166-1, utilizados para designar países territorios independientes y zonas geográficas especiales. Son utilizados principalmente en los dominios geográficos de primer nivel en Internet, además de direcciones postales.} y \texttt{3}, el número de identificación único de cada país, además, la longitud y latitud de la capital del país. 
+\end{itemize}
+
+\clearpage
+\begin{landscape}
+\subsubsection{Diagrama E/R}
+\imagenAncho{../img/anexos/design/ERD-C}{Diagrama entidad relación}{erd}{1.30}
+\end{landscape}
+
+\subsubsection{Diagrama Relacional}
+\imagenRuta{../img/anexos/design/relational}{Diagrama entidad relación}{relational}
+\FloatBarrier
+
+\subsection{Diseño procedimental}
+En esta sección interna se recogen los detalles más relevantes en cuanto a los procedimientos llevados a cabo por la plataforma en función de las acciones del usuario.
+
+A continuación se explican los diagramas de secuencia (DS):
+\begin{itemize}
+\item \textbf{DS para la monitorización del sistema en tiempo real.} Figura~\ref{fig:DSec-LiveMonitor}. Muestra el proceso seguido por el sistema en el momento en el que solicita la vista correspondiente. Es el único diagrama en el que se muestra la comprobación de si es administrador o no, por brevedad en el resto se indica en forma de texto nada más. 
+
+Cuando el sistema recoge la solicitud de visualización busca los datos necesarios en la base de datos, y en el caso de no haber pasado todavía 10 minutos (valor umbral) del inicio del sistema, buscará un fichero de histórico en el que se guardan los últimos 6 meses de datos como máximo. Se procesan los datos ya que existen muchos más de los que el sistema mostrará y se devolverá la página HTML.
+
+\item \textbf{DS para las estadísticas generales (System Analytics).} Figura~\ref{fig:DSec-SystemAnalytics}. Necesita privilegios de administrador, omitido en el diagrama por claridad. Debido a la multitud de operaciones que debe se deben realizar, posee una pantalla de carga que se muestra al usuario en lo que es sistema prepara la visualización. 
+
+Internamente se recorre prácticamente la base de datos en su totalidad y se obtienen las estadísticas correspondientes. En el momento en el que se tienen todos los valores calculados se guardarán en ficheros temporales que se leerán y al poco tiempo un recolector de basura los eliminará.
+
+\item \textbf{DS para crear un experimento.} Figura~\ref{fig:DSec-NewExpUser}. Cuando un usuario accede a la vista de crear un nuevo experimento, prácticamente cada botón y desplegable tienen repercusión directa en el sistema. 
+
+En la elección/subida de un conjunto de datos, se harán operaciones de lectura/escritura respectivamente sobre un directorio específico en el que se encuentran almacenados. 
+
+Para la selección de algoritmos y filtros, una vez se selecciona el tipo de algoritmo a utilizar, se leen de la base de datos aquellos algoritmos y filtros compatibles y se muestran al usuario para su elección. Una vez seleccionados se renderizan los parámetros de configuración particulares de cada uno de ellos.
+
+Finalmente el usuario mandará crear el experimento, pasando al lado del servidor la ejecución de este, ver Figura~\ref{fig:DSec-NewExpServer}.
+
+\item \textbf{DS para la ejecución de un experimento.} Figura~\ref{fig:DSec-NewExpServer}. En el momento en el que el usuario manda crear el experimento, se le muestra la pantalla en la cuál aparecerán los resultados pero con un GIF indicando que aún no ha terminado la ejecución. 
+
+El servidor recoge la configuración indicada por el usuario para realizar el experimento y lo encola en las colas de ejecución \texttt{high-ubumlaas}, en las que cuándo estén disponibles, realizarán el experimento según la configuración recibida. 
+
+En el momento en el que el experimento finalice, la cola pasará a ejecutar el siguiente experimento (de existir), y se le devolverá el control al sistema, este último se encargará de almacenar los resultados en la entrada correspondiente al experimento en la base de datos, de tal manera que cuando el usuario proceda a ver los resultados pueda visualizarlos. Finalmente mandará un correo electrónico al usuario <<dueño>> del experimento indicando que ha finalizado.
+
+\end{itemize}
+
+\clearpage
+\imagenRuta{../img/anexos/design/DSec-LiveMonitor.pdf}{Diagrama de secuencia de la monitorización en tiempo real.}{DSec-LiveMonitor}
+\imagenRuta{../img/anexos/design/DSec-SystemAnalytics.pdf}{Diagrama de secuencia de las estadísticas generales de la aplicación.}{DSec-SystemAnalytics}
+\imagenFlotante{../img/anexos/design/DSec-NewExpUser.pdf}{Diagrama de secuencia de la creación de un nuevo experimento por parte del usuario.}{DSec-NewExpUser}
+\begin{landscape}
+\imagenAncho{../img/anexos/design/DSec-NewExpServer.pdf}{Diagrama de secuencia de la ejecución de un nuevo experimento.}{DSec-NewExpServer}{1.5}
+\end{landscape}
+
+\subsection{Diseño arquitectónico}
+\imagenFlotante{../img/anexos/design/client-server}{Arquitectura cliente-servidor.}{client-server}
+La aplicación con el fin de cumplir con todos los requerimientos funcionales así como objetivos principales, y por ende, conseguir un bajo acoplamiento y una alta cohesión. Sigue una arquitectura de cliente servidor.
+
+En la Figura~\ref{fig:client-server} se aprecia un modelo simplificado de la arquitectura seguida, en la cuál los procesos se van a dividir en dos grupos. 
+\begin{itemize}
+\item Servidor. Implementa el servicio de \texttt{UBUMLaaS}.
+\item Cliente. Solicitará los servicios de proporcionados por el servidor.
+\end{itemize}
+
+\subsubsection{Arquitectura de tres capas}
+La aplicación sigue una arquitectura de tres capas (multicapa), siguiendo esta arquitectura el cliente implementa la lógica de presentación (es un cliente ligero); el servidor de aplicación implementa la lógica de negocio, y los datos residen en una base de datos de \texttt{SQLite}, por definición de la arquitectura de tres capas sería necesario que hubiera un servidor dedicado a la comunicación con la base de datos, pero ahí es donde reside una de las cualidades de \texttt{SQLite}, es \textit{serverless}, permitiendo una auto-gestión y soportando múltiples clientes realizando tareas en paralelo.
+
+UBUMLaaS sigue esta arquitectura por las siguientes razones:
+\begin{itemize}
+\item Desacoplamiento, cambios en la interfaz de usuario o en la lógica de la aplicación son independientes entre sí, favoreciendo la evolución de la aplicación hacia nuevos requerimientos.
+\item Se minimizan los cuellos de botella de la red, la información transmitida es únicamente la solicitada.
+\item El cliente está separado (aislado) de la base de datos, pudiendo acceder de manera sencilla a los recursos sin necesidad de conocer la ubicación de los datos.
+\end{itemize}
+
+\FloatBarrier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IS-SSL}
+\subsection{Diseño de datos}
+En esta sección se van a seleccionar las representaciones lógicas de los datos, las estructuras de datos utilizadas.
+
+Los algoritmos implementados se encuentran divididos en dos bibliotecas, la separación se realiza en base al criterio lógico de qué hacen los algoritmos de cada una de ellas. Por un lado están los algoritmos de selección de instancias, y por el otro, los algoritmos de aprendizaje semi-supervisado.
+
+Todos los algoritmos utilizan la clase auxiliar \textit{NearestNeighbors} de Scikit-Learn~\cite{NearestNeighbors} para el cálculo de los vecinos cercanos. Teniendo en cuenta que la distancia a sí misma es cero, se han codificado los algoritmos para evitar que un prototipo posea como vecino más cercano a sí mismo.
+
+\subsection{Diseño procedimental}
+A continuación se recogen los detalles para poder hacer uso de los algoritmos.
+
+Todos los algoritmos se pueden utilizar de la misma manera que se esperaría al utilizar los propios de la biblioteca de Scikit-Learn. Por lo tanto, una vez están importados los correspondientes se utilizarán:
+\begin{itemize}
+\item Algoritmos de selección de instancias.
+\begin{enumerate}
+	\item Instanciar el objeto a utilizar, pasando los parámetros de configuración deseados.
+	\item Pasar el conjunto de datos al método \texttt{filter} del modelo.
+	\item Recoger los resultados.
+\end{enumerate}
+\item Algoritmos de aprendizaje semi-supervisado.
+\begin{enumerate}
+\item Instanciar el objeto a utilizar, pasando los parámetros de configuración, así como referencias a algoritmos de clasificación si no se quieren utilizar los proporcionados <<por defecto>>.
+\item Pasar al método \texttt{fit} el conjunto de datos, indicando aquellas instancias para las que no se conoce la clase, con su clase a -1.
+\item Pasar al método \texttt{predict} el conjunto de datos a predecir. Obteniendo las etiquetas para el conjunto de datos pasado.
+\end{enumerate}
+\end{itemize}
+
+\textbf{NOTA.} Todas las entradas son objetos de tipo \texttt{DataFrame} de la biblioteca \texttt{Pandas}. Las salidas cuándo son vectores de una dimensión, son \textit{arrays} de \texttt{NumPy}, si son de más de una dimensión, \texttt{DataFrames}.
+
+\subsection{Diseño arquitectónico}
+Debido a que se trata de una serie de bibliotecas de algoritmos, no son lo suficientemente grandes como para aplicar patrones de diseño los cuales proporcionen algún tipo de ventaja significativa. 
+
+\subsubsection{Diseño en paquetes}
+Para la organización de los diferentes archivos que componen las bibliotecas se ha seguido la estrategia de \textit{package per feature approach} (paquete por característica).
+
+Esta estrategia permite agrupar todos los archivos en función de la funcionalidad que aportan, aumentando la legibilidad del árbol de paquetes, su modularización, así como su desarrollo desarrollo continuo y ampliación de algoritmos soportados.
+
+Ambas bibliotecas incluyen el directorio interno de \texttt{utils}. El cual proporciona clases y métodos necesarios, comunes a varios algoritmos de la biblioteca principal. 
