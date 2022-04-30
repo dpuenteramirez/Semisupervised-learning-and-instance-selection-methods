@@ -671,14 +671,207 @@ Objetivos del n \textit{sprint}:
 
 \newpage
 \section{Estudio de viabilidad}
+En esta sección se va a desarrollar el estudio de la viabilidad del proyecto, permitiendo tener una visión global de los beneficios en contraposición al coste que supone el desarrollo del proyecto.
 
-\newpage
+El desarrollo de cualquier producto \textit{software} conlleva una serie de riesgos, entre los que destacan la experiencia del equipo de desarrollo, el tamaño del proyecto, el tiempo del que se dispone para conseguirlo,\dots Influyendo todos ellos en el resultado final.
 \subsection{Viabilidad económica}
+Lo primero de todo que se va a calcular es la viabilidad económica del proyecto, reportando y analizando los costes/beneficios que habría supuesto el desarrollo del proyecto en el sector empresarial, en España\footnote{Se hace referencia al lugar de desarrollo puesto que se van a hacer referencias económicas en la moneda del país, así como uso de legislación vigente, la cuál varía en función del país en el que se encuentre asentada la empresa desarrolladora.}.
 
-\newpage
+\subsubsection{Costes}
+La realización de un proyecto de esta envergadura lleva asociados una serie de costes fijos y variables, a continuación se desglosan agrupados en \textit{hardware}, \textit{software}, personal, otros.
+
+\textbf{Costes \textit{hardware}}
+
+Para el desarrollo del proyecto es necesario más de un equipo \textit{hardware}, lo primero de todo es un equipo de tipo portátil. Se utilizará un MacBook Pro, con un procesador Inter Core i7 de 4 núcleos a 2.3~GHz, con 16~GB de memoria RAM, atendiendo a un precio de mercado de 2249~\officialeuro, se tiene en cuenta que la vida útil del equipo se encuentra en torno a los seis años, por lo que para los cálculos se usa la vida media del inmovilizado, es decir, 3 años. 
+
+A su vez se necesita un servidor para desplegar la aplicación y trabajar sobre esta, ya que el despliegue local no se considera una forma de trabajo óptima. Es por ello que se hace uso de un equipo con un AMD FX(tm)-4130 Quad-Core a 4.5~GHz, con 64~GB de memoria RAM. El coste aproximado del equipo es de 1500~\officialeuro. La vida útil estimada es de seis ocho años, se utilizará igual que con el equipo portatil, su vida media de inmovilizado, 4 años.
+
+La amortización para cada equipo es diferente, pero el tiempo de uso es el mismo, de noviembre de dos mil veintiuno a junio de dos mil veintidós, ambos incluidos, luego en total ocho meses. Se detallan todos los costes \textit{hardware} en la Tabla~\ref{tab:costes-hardware}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+	\toprule
+	\textbf{Concepto} & \textbf{Coste} & \textbf{Coste Amortizado}\\
+	\midrule
+	Macbook Pro & 2.249~\officialeuro & 499,78~\officialeuro \\
+	Servidor & 1.500~\officialeuro & 250~\officialeuro \\
+	\midrule
+	\textbf{Total} & 3.049~\officialeuro & 749,78~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Costes de \emph{hardware}.}\label{tab:costes-hardware}
+\end{table}
+
+\textbf{Costes \textit{software}}
+
+Para el desarrollo del proyecto y uso del \textit{software} necesario, es necesaria la adquisición de una serie de licencias, todas ellas se encuentran detalladas con su amortización en la Tabla~\ref{tab:costes-software}. Todas las licencias tienen un periodo de validez de un año.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+	\toprule
+	\textbf{Concepto} & \textbf{Coste} & \textbf{Coste Amortizado}\\
+	\midrule
+	Codacy & 170,76~\officialeuro & 113,84~\officialeuro \\
+	FileZilla & 0~\officialeuro & 0~\officialeuro \\
+	GitKraken & 59,4~\officialeuro & 36,27~\officialeuro \\
+	Codacy & 170,76~\officialeuro & 113,84~\officialeuro \\
+	Linux Mint 20.3 & 0~\officialeuro & 0~\officialeuro \\
+	MacOs Monterey & 0~\officialeuro & 0~\officialeuro \\
+	PyCharm & 240,79~\officialeuro & 160,53~\officialeuro \\
+	Selenium & 0~\officialeuro & 0~\officialeuro \\
+	SonarCloud & 120~\officialeuro & 80~\officialeuro \\
+	\TeX Maker & 0~\officialeuro & 0~\officialeuro \\
+	Travis-CI & 719,86~\officialeuro & 479,81~\officialeuro \\
+	Visual Paradigm & 93,89~\officialeuro & 62,59~\officialeuro \\
+	Visual Studio Code & 0~\officialeuro & 0~\officialeuro \\
+	\midrule
+	\textbf{Total} & 1.399,70~\officialeuro & 933,13~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Costes de \emph{software}.}\label{tab:costes-software}
+\end{table}
+
+\textbf{Coste de personal}
+El desarrollo del proyecto ha sido llevado a cabo por un desarrollador y el tutor del proyecto.
+\begin{itemize}
+\item El salario del desarrollador se calcula según~\cite{SalarioJunior}, siendo el salario medio anal del 20.123~\officialeuro brutos al año.
+\item El salario del tutor se calcula según~\cite{SalarioInvestigador}, siendo el salario medio anual de 22.784~\officialeuro brutos al año. Con una carga de trabajo de dos horas semanales.
+\end{itemize}
+
+La duración total del proyecto es de 31 semanas, por lo tanto, el tutor trabajará un total de 62 horas. Frente a las XXX del desarrollador.
+
+El IRPF es del XX\% y la retribución a la Seguridad Social, calculada tal cual se plantea en~\cite{ss_cotizacion} por el Ministerio de Empleo y Seguridad Social, se contribuye con un XX\% en total. Estando dividido en:
+\begin{itemize}
+\tightlist
+\item XX\% de contingencias comunes.
+\item XX\% por desempleo de tipo general.
+\item XX\% destinado al Fondo de Garantía Salarial.
+\item XX\% de formación profesional.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+	\toprule
+	\textbf{Concepto} & \textbf{Desarrollador} & \textbf{Tutor}\\
+	\midrule
+	Salario total neto & XX~\officialeuro & XX~\officialeuro \\
+	Retención IRPF & XX~\officialeuro & XX~\officialeuro \\
+	Seguridad Social & XX~\officialeuro & XX~\officialeuro \\
+	\midrule
+	\textbf{Total salario bruto} & XX~\officialeuro & XX~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Costes de personal.}\label{tab:costes-personal}
+\end{table}
+
+En la Tabla~\ref{tab:costes-personal} se desglosan punto por punto los costes de personal, resultando en:
+\[ XX\text{\officialeuro/desarrollador} + XX\text{\officialeuro/tutor} = XX\text{\officialeuro}\]
+
+Siendo el coste total en personal de XX~\officialeuro.
+
+\textbf{Otros costes}
+
+Costes no agrupables en los anteriores apartados pero a tener en cuenta, Tabla~\ref{tab:costes-otros}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lr}
+	\toprule
+	\textbf{Concepto} & \textbf{Coste} \\
+	\midrule
+	Dominio despliegue & 32~\officialeuro \\
+	Logos & 45~\officialeuro \\
+	Memoria impresa & 250~\officialeuro \\
+	Alquiler oficina & 1600~\officialeuro \\
+	Internet & 136~\officialeuro \\
+	Electricidad & 140~\officialeuro \\
+	Agua & 51~\officialeuro \\
+	Calefacción & 230~\officialeuro \\
+	\midrule
+	\textbf{Total} & 2484~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Otros costes.}\label{tab:costes-otros}
+\end{table}
+
+\textbf{Total de  costes}
+
+En la Tabla~\ref{tab:costes-totales} se puede ver un resumen de todos los costes comentados. Dejando el coste base total del proyecto en XX~\officialeuro.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lr}
+	\toprule
+	\textbf{Categoría} & \textbf{Coste} \\
+	\midrule
+	\textit{Hardware} & 3.049~\officialeuro \\
+	\textit{Software} & 1.399,70~\officialeuro \\
+	Personal & XX~\officialeuro \\
+	Otros & 2484~\officialeuro \\
+	\midrule
+	\textbf{Total} & 6.932,7+XX~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Costes totales.}\label{tab:costes-totales}
+\end{table}
+
+
+\textbf{Beneficios}
+El proyecto está compuesto de dos partes, las cuáles se pueden comercializar de forma independiente.
+\begin{itemize}
+\item \textbf{IS-SSL.} Las bibliotecas de algoritmos son distribuidas de forma pública, gratuita y sin publicidad, con el fin de aportar un <<granito de arena>> a la investigación en aprendizaje semi-supervisado y selección de instancias.
+\item \textbf{UBUMLaaS.} En el diseño existente no está planteada su monetización. Si se quisiera obtener un rédito económico de este \texttt{MLaaS}, se podría fácilmente crear niveles de usuarios para acceso, número de experimentos máximos a lanzar. También se podría plantear como servicio de suscripción. En la Tabla~\ref{tab:opciones-beneficio} se plantean algunas posibilidades de comercialización con sus posibles respectivos costes para los usuarios, todas las licencias son anuales, en caso de un usuario quedarse sin tiempo podría comprar más horas de ejecución.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcrcr}
+	\toprule
+	\textbf{Tipo}          &\textbf{Experimentos} &  \textbf{Precio} & \textbf{Tiempo (h)} & EUR/h\\
+	\midrule
+	\textit{Trial}        & 5 & 0~\officialeuro & 3 & X\\
+	Estudiante   & 25 & 10~\officialeuro & 20 & X\\
+	Investigador  & 120 & 40~\officialeuro & 250 & 0.4~\officialeuro/h \\
+	Equipo  & 300 & 150~\officialeuro & 1000 & 0.4~\officialeuro/h \\
+	Empresa & Ilimitados & 2000~\officialeuro & 5000 & 0.25~\officialeuro/h \\
+	Otros & \multicolumn{3}{c}{Contactar con soporte para obtener presupuesto} \\
+	\bottomrule
+\end{tabular}
+\caption{Opciones para obtener beneficio con UBUMLaaS.}\label{tab:opciones-beneficio}
+\end{table}
+
+Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<fronteras>> ya que el inglés es el idioma oficial de la investigación y la ciencia, se pueden alcanzar usuarios de todo el mundo. En la Tabla~\ref{tab:simulacion-clientes} se presenta un ejemplo real y viable de alcanzar la cuál permitiría recuperar la inversión del proyecto en el primer año.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcr}
+	\toprule
+	\textbf{Tipo}     & \textbf{Número de cuentas} & \textbf{Beneficios}\\
+	\midrule
+	\textit{Trial}        & Ilimitadas & 0~\officialeuro\\
+	Estudiante   & 4 & 40~\officialeuro\\
+	Investigador  & 15 & 600~\officialeuro\\
+	Equipo  & 40 & 6.000~\officialeuro\\
+	Empresa & 15 & 30.000~\officialeuro\\
+	Otros & \multicolumn{2}{c}{No computado} \\
+	\midrule
+	\textbf{Total} &&36.640~\officialeuro \\
+	\bottomrule
+\end{tabular}
+\caption{Simulación para recuperar la inversión con UBUMLaaS.}\label{tab:simulacion-clientes}
+\end{table}
+
+Debido a las funcionalidades ofrecidas y al precio competitivo de la plataforma, no sería difícil encontrar organizaciones que incorporen UBUMLaaS en su repertorio de herramientas, maximizando beneficios.
+
+\textbf{Conclusiones}
+
+Analizando los beneficios reportados en contraposción a los costes del desarrollo del proyecto, queda más que demostrada la viabilidad de desarrollo del proyecto. Se tiene en cuenta además que el proyecto una vez desarrollado no tiene necesidad de ser mantenido más allá de añadir nuevos algoritmos. Teniendo como costes fijos el mantenimiento de el(los) servidor(es) en donde esté desplegado.
+
 \subsection{Viabilidad legal}
 
-\newpage
 
 
 
