@@ -872,78 +872,107 @@ Analizando los beneficios reportados en contraposción a los costes del desarrol
 
 \subsection{Viabilidad legal}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+En esta sección principalmente se va a discutir el tema de licencias, ya que al ser un desarrollo \textit{software} es la temática más importante.
+
+Según~\cite{softwareLicense}, una licencia de \textit{software} es un contrato entre la entidad que ha creado y suministrado una aplicación, el código fuente subyacente o un producto relacionado con el mismo, y su usuario final.  La licencia es un documento, habitualmente de texto, diseñado para proteger la propiedad intelectual del desarrollador del \textit{software} y para limitar cualquier reclamación contra él que pueda surgir de su uso.
+
+Una licencia proporciona, además, definiciones legalmente vinculantes para la distribución y el uso del \textit{software}. Los derechos del usuario final, como la instalación,  las garantías y las responsabilidades, también se encuentran detallados en la licencia.
+
+
+\subsubsection{\textit{Software}}
+La licencia más importante es aquella bajo la cual se encuentra el \textit{software} desarrollado por el producto,  permitiendo el uso (sobretodo comercial y de distribución que se le puede dar). La principal limitación que se debe tener en cuenta es el orden jerárquico de licencias que se debe respetar. El proyecto utiliza una serie de dependencias externas, las cuáles poseen sus propias licencias, nunca pudiendo encontrarse bajo una licencia más permisiva.
+
+A continuación se exponen las licencias de las dependencias utilizadas tanto por UBUMLaaS, Tabla~\ref{tab:dependencias-ubumlaas}, como por IS-SSL, Tabla~\ref{tab:dependencias-is-ssl}. La descripción de cada una se encuentra en las Tablas~\ref{tab:bibliotecas-python-ubumlaas}~y~\ref{tab:bibliotecas-python-is-ssl}, respectivamente.
+
+\begin{table}[]
+\centering
+\begin{tabular}{lcl}
+	\toprule
+	\textbf{Dependencia} & \textbf{Versión} & \textbf{Licencia}\\
+	\midrule
+	\rowcolor[HTML]{EFEFEF} 
+	\texttt{email-validator} & 1.1.1 & CC0 1.0 Universal\\
+	\texttt{flask} & 1.1.1 & BSD 3 Clause\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-login} & 0.4.1 & MIT\\
+	\texttt{flask-mail} & 0.9.1 & BSD\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-migrate} & 2.5.2 & MIT\\
+	\texttt{flask-redis} & 0.4.0 & Blue Oak\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{flask-sqlalchemy} & 2.4.0 & BSD 3 Clause\\
+	\texttt{flask-wtf} & 0.14.2 & BSD 3 Clause\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{future} & 0.16.0 & MIT\\ 
+	\texttt{geopy} & 2.2.0 & MIT\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{glances} & 3.2.4.2 & GNU LGPLv3\\ 
+	\texttt{imbalanced-learn} & 0.5.0 & MIT\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{itsdangerous} & 1.1.0 & BSD 3 Clause\\
+	\texttt{liac-arff} & 2.2.1 & MIT \\ \rowcolor[HTML]{EFEFEF}
+	\texttt{numpy} & 1.22.3 &BSD\\
+	\texttt{pandas} & 0.25.1 & BSD 3 Clause\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{psutil} & 5.9.0 & BSD\\
+	\texttt{pycountry} & 22.3.5 & GNU LGPLv2\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{pytest} & 5.2.1 & MIT\\
+	\texttt{python-weka-wrapper3} & 0.1.7 & GNU GPLv3\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{requests} & 2.22.0 & Apache 2.0\\
+	\texttt{rq} & 1.1.0 & BSD \\ \rowcolor[HTML]{EFEFEF}
+	\texttt{scikit-learn} & 0.24 & BSD\\ 
+	\texttt{selenium} & 3.141.0 & Apache 2.0\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{urllib3} & 1.25.6 & MIT\\
+	\texttt{werkzeug} & 0.15.6 & BSD 3 Clause\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{whichcraft} & 0.4.1 & BSD \\
+	\bottomrule
+\end{tabular}
+\caption{Bibliotecas utilizadas y sus versiones.}\label{tab:dependencias-ubumlaas}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{lcl}
+	\toprule
+	\textbf{Biblioteca} & \textbf{Versión} & \textbf{Licencia}\\ \rowcolor[HTML]{EFEFEF} 
+	\midrule
+	\rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{numpy}}    & 1.20.3 &  BSD \\ \rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{pandas}}    & 1.3.4  & BSD 3 Clause  \\  
+	\textbf{\texttt{scikit-learn}}    & 0.24.2 & BSD  \\ \rowcolor[HTML]{EFEFEF} 
+	\textbf{\texttt{scipy}}    & 1.7.1  & BSD   \\ 
+	\bottomrule
+\end{tabular}
+\caption{Bibliotecas utilizadas y sus versiones.}\label{tab:dependencias-is-ssl}
+\end{table}
+
+Como se aprecia en las Tablas~\ref{tab:dependencias-ubumlaas}~y~\ref{tab:dependencias-ubumlaas}, cada proyecto de manera individual va a estar sujeto a diferentes restricciones en cuanto a licencias se refiere, siendo más laxo en IS-SSL y mucho más restrictivo en UBUMLaaS. Para la comparación de licencias se utiliza JLA,~\cite{JLA}, \textit{joinup Licensing Assisntant}.
+
+\imagenFlotante{../img/anexos/plan/Licencias}{Orden de permisividad/restricción de licencias.}{licencias}
+
+En la Figura~\ref{fig:licencias} se detalla una comparación de las diferentes licencias de las dependencias de cada parte del proyecto, estando más a la derecha aquella con mayor restricciones, y a la izquierda la más permisivas. El \textit{software} debe estar licenciado como mínimo, con la más restrictiva.
+
+\begin{itemize}
+\item \textbf{UBUMLaaS.} Estará licenciado bajo GNU v3.  Figura~\ref{fig:licencia-ubumlaas}. 
+
+Siendo una licencia perfecta para los objetivos de comercialización planteados. El \textit{software} se distribuye como \textit{open source} permitiendo que individuos lo usen de forma privada, pero en caso de que se quiera utilizar de cualquier manera de forma comercial deberá ser hecho \textit{open source}, permitiendo al equipo de desarrollo comprobar los cambios realizados, de forma que se puedan añadir al proyecto <<base>> u original.
+
+\item \textbf{IS-SSL.} Estará licenciado bajo BSD Cláusula 3.  Figura~\ref{fig:licencia-is-ssl}.  El objetivo de las bibliotecas que conforman IS-SSL es que puedan ser ampliadas en cualquier momento por cualquier desarrollador, ya sea mediante \textit{pull requests} al proyecto o mediante sus propias implementaciones a través de \textit{forks}.  El objetivo del proyecto no es obtener un beneficio económico mediante licencias de uso, por lo tanto, BSD 3 se ajusta a las necesidades y requerimientos del proyecto.
+\end{itemize}
+
+\imagenFlotante{../img/anexos/plan/licencia-ubumlaas}{Licencia GNU v3 para UBUMLaaS}{licencia-ubumlaas}
+\imagenFlotante{../img/anexos/plan/licencia-is-ssl}{Licencia BSD 3 Clause para IS-SSL}{licencia-is-ssl}
+
+\subsubsection{Documentación}
+La documentación del proyecto también se encuentra licenciada. En este caso no tiene sentido utilizar licencias similares a las anteriores puesto que no es un desarrollo \textit{software}, siendo más comunes y correctas licencias de tipo \textit{Creative Commons}. Se debe tener en cuenta el mismo principio anterior, todo aquel material de terceros que haya sido utilizado para la composición de la documentación, estará sujeto a licencias, no pudiendo ser distribuido con una licencia más permisiva que la que originalmente su autor lo distribuyó. 
+
+En la documentación únicamente se han utilizado imágenes de terceros (unas pocas), estado todas ellas licenciadas bajo dominio público (CC0~\cite{CC0}), permitiendo utilizar cualquier licencia superior de \textit{Creative Commons} para licenciar la documentación.
+
+Se ha decidido utilizar como licencia: \textit{Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International} (CC BY-NC-ND 4.0)~\cite{CCBYNCND40}.  En la Tabla~\ref{tab:licencia-documentacion} se resume lo que establece, así como acciones permitidas y prohibidas.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+	\toprule
+	\textbf{Libre de} & \textbf{Bajo los términos}\\
+	\midrule
+	\multirow{3}{*}{Compartir - Copiar y redistribuir}   &Atribución\\
+	    & No Comercial   \\  
+	   & Sin Derivadas  \\ 
+	\bottomrule
+\end{tabular}
+\caption{Bibliotecas utilizadas y sus versiones.}\label{tab:licencia-documentacion}
+\end{table}
