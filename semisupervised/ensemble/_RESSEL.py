@@ -13,10 +13,32 @@ class RESSEL:
     """
     de Vries, S., & Thierens, D. (2021). A reliable ensemble based approach
     to semi-supervised learning. Knowledge-Based Systems, 215, 106738.
+
+    Parameters
+    ----------
+    n : int, default=2
+        Batch size. Number of samples to take from the labeled ones.
+
+    m : int, default=5
+        Number of iterations for the self-training method.
+
+    k : int, default=25
+        The times the base estimator is duplicated.
+
+    unlabeled_sample_frac : float, default=0.75
+        Fraction of unlabeled data sampled.
+
+    random_state : int or list, default=None
+        Controls the randomness of the estimator.
+
+    reuse_samples : boolean, default=True
+        If True a base estimator k could label the same sample in different
+        iterations. If False, the labeled samples will be removed from the
+        unlabeled samples set.
     """
 
-    def __init__(self, n=10, m=10, k=8, unlabeled_sample_frac=0.75,
-                 random_state=42, reuse_samples=True):
+    def __init__(self, n=2, m=5, k=14, unlabeled_sample_frac=0.75,
+                 random_state=None, reuse_samples=True):
         self.n = n
         self.m = m
         self.k = k
@@ -52,6 +74,13 @@ class RESSEL:
 
         if base_estimator is None:
             raise AttributeError("The base estimator can not be None.")
+
+        if not isinstance(self.random_state, int) and \
+                not hasattr(self.random_state, '__iter__') and \
+                not isinstance(self.random_state, list):
+            raise AttributeError("The random state must be an integer, "
+                                 "iterable or list. Not "
+                                 f"{type(self.random_state)}")
 
         if estimator_params is None:
             for _ in range(self.k):
