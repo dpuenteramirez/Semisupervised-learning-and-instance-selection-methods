@@ -13,6 +13,7 @@ from .utils import transform, transform_original_complete
 
 
 class ENN:
+
     """
     Wilson, D. L. (1972). Asymptotic properties of nearest neighbor rules
     using edited data. IEEE Transactions on Systems, Man, and

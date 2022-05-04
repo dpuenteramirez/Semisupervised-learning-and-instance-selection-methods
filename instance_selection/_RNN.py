@@ -15,6 +15,7 @@ from .utils import transform
 
 
 class RNN:
+
     """
     Gates, G. (1972). The reduced nearest neighbor rule (corresp.).
     IEEE transactions on information theory, 18(3), 431-433.

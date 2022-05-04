@@ -12,6 +12,7 @@ from .utils import transform, delete_multiple_element
 
 
 class CNN:
+
     """
     Hart, P. (1968). The condensed nearest neighbor rule (corresp.). IEEE
     transactions on information theory, 14(3), 515-516.

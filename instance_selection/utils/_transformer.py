@@ -3,6 +3,8 @@ from sklearn.utils import Bunch
 
 def transform(samples, y):
     """
+    Transform pandas DataFrame to Sklearn Bunch
+
     It takes a pandas dataframe and a pandas series, converts them to numpy
     arrays, and returns a Bunch object with the data and target attributes
     set to the numpy arrays
