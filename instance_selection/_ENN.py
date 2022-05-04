@@ -3,7 +3,7 @@
 # @Filename:    ENN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        16/11/21 17:14
-# @Version:     6.0
+# @Version:     7.0
 
 import numpy as np
 import pandas as pd
@@ -13,12 +13,53 @@ from .utils import transform, transform_original_complete
 
 
 class ENN:
+
+    """
+    Wilson, D. L. (1972). Asymptotic properties of nearest neighbor rules
+    using edited data. IEEE Transactions on Systems, Man, and
+    Cybernetics, (3), 408-421.
+
+    Parameters
+    ----------
+    nearest_neighbors : int, default=3
+        Number to use as nearest neighbors when computing distances.
+
+    power_parameter : int, default=2
+        Power parameter for the Minkowski metric. When p = 1, this is
+        equivalent to using manhattan_distance (l1), and euclidean_distance (l2)
+        for p = 2. For arbitrary p, minkowski_distance (l_p) is used.
+
+    """
+
     def __init__(self, nearest_neighbors=3, power_parameter=2):
+        """
+        The function takes in two parameters, nearest_neighbors
+        and power_parameter, and assigns them to the attributes
+        nearest_neighbors and power_parameter
+
+        :param nearest_neighbors: The number of nearest neighbors to use when
+        calculating the weights, defaults to 3 (optional)
+        :param power_parameter: This is the exponent that is used to calculate
+        the weights, defaults to 2 (optional)
+        """
         self.nearest_neighbors = nearest_neighbors
         self.power_parameter = power_parameter
         self.x_attr = None
 
-    def __neighs(self, s_samples, s_targets, index, removed):
+    def _neighs(self, s_samples, s_targets, index, removed):
+        """
+        _neighs() takes in the samples and targets, the index of the sample to
+        be removed, and the number of samples already removed. It returns the
+        sample to be removed, its target, the targets of the samples not yet
+        removed, the samples not yet removed, and the indices of the nearest
+        neighbors of the sample to be removed.
+
+        :param s_samples: the samples that are being used to train the model
+        :param s_targets: the targets of the samples
+        :param index: the index of the sample to be removed
+        :param removed: the number of samples that have been removed from the
+        dataset
+        """
         x_sample = s_samples[index - removed]
         x_target = s_targets[index - removed]
         knn = NearestNeighbors(n_jobs=-1,
@@ -34,16 +75,13 @@ class ENN:
 
     def filter(self, samples, y):
         """
-        Wilson, D. L. (1972). Asymptotic properties of nearest neighbor rules
-            using edited data. IEEE Transactions on Systems, Man, and
-            Cybernetics, (3), 408-421.
-
         Implementation of the Wilson Editing algorithm.
 
         For each sample locates the *k* nearest neighbors and selects the
         number of different classes there are.
         If a sample results in a wrong classification after being classified
         with k-NN, that sample is removed from the TS.
+
         :param samples: DataFrame.
         :param y: DataFrame.
         :return: the input dataset with the remaining samples.
@@ -57,7 +95,7 @@ class ENN:
 
         for index in range(size):
             _, x_target, targets_not_x, samples_not_x, neigh_ind = \
-                self.__neighs(s_samples, s_targets, index, removed)
+                self._neighs(s_samples, s_targets, index, removed)
             y_targets = np.ravel(
                 np.array([targets_not_x[x] for x in neigh_ind[0]])).astype(int)
             count = np.bincount(y_targets)
@@ -82,6 +120,7 @@ class ENN:
         If a sample results in a wrong classification after being classified
         with k-NN, that sample is removed from the TS, only if the sample to be
         removed is not from the original dataset.
+
         :param original: DataFrame: dataset with the initial samples.
         :param original_y: DataFrame: labels.
         :param complete: DataFrame: dataset with the initial samples and the new
@@ -100,7 +139,7 @@ class ENN:
 
         for index in range(size):
             x_sample, x_target, targets_not_x, samples_not_x, neigh_ind = \
-                self.__neighs(s_samples, s_targets, index, removed)
+                self._neighs(s_samples, s_targets, index, removed)
             y_targets = [targets_not_x[x] for x in neigh_ind[0]]
             count = np.bincount(np.ravel(y_targets))
             max_class = np.where(count == np.amax(count))[0][0]

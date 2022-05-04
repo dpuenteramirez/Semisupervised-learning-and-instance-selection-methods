@@ -26,16 +26,41 @@ def measure_error(classifier_j, classifier_k, labeled_data):
 
 
 class TriTraining:
-    """Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
-        using three classifiers. IEEE Transactions on knowledge and Data
-        Engineering, 17(11), 1529-1541.
+    """
+    Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
+    using three classifiers. IEEE Transactions on knowledge and Data
+    Engineering, 17(11), 1529-1541.
+
+    Parameters
+    ----------
+    random_state : int, default=None
+        The random seed used to initialize the classifiers
+
+    c1 : base_estimator, default=KNeighborsClassifier
+        The first classifier to be used
+
+    c1_params : dict, default=None
+        Parameters for the first classifier
+
+    c2 : base_estimator, default=DecisionTreeClassifier
+        The second classifier to be used
+
+    c2_params : dict, default=None
+        Parameters for the second classifier
+
+    c3 : base_estimator, default=RandomForestClassifier
+        The third classifier to be used
+
+    c3_params : dict, default=None
+        Parameters for the third classifier
+
     """
 
     def __init__(self, random_state=None,
                  c1=None, c1_params=None,
                  c2=None, c2_params=None,
                  c3=None, c3_params=None):
-
+        """Tri-Training."""
         classifiers = [c1, c2, c3]
         classifiers_params = [c1_params, c2_params, c3_params]
         default_classifiers = [KNeighborsClassifier, DecisionTreeClassifier,
@@ -55,7 +80,7 @@ class TriTraining:
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
 
-    def subsample(self, l_t, s):
+    def _subsample(self, l_t, s):
         np.random.seed(self.random_state)
         rng = np.random.default_rng()
         data = np.array(l_t['data'])
@@ -119,8 +144,8 @@ class TriTraining:
                     if e_j * len(l_j['data']) < ep_j * lp_j:
                         update_j = True
                     elif lp_j > e_j / (ep_j - e_j):
-                        l_j = self.subsample(l_j, ceil(((ep_j * lp_j) / e_j)
-                                                       - 1))
+                        l_j = self._subsample(l_j, ceil(((ep_j * lp_j) / e_j)
+                                                        - 1))
                         update_j = True
 
             update_k = False
@@ -146,8 +171,8 @@ class TriTraining:
                     if e_k * len(l_k['data']) < ep_k * lp_k:
                         update_k = True
                     elif lp_k > e_k / (ep_k - e_k):
-                        l_k = self.subsample(l_k, ceil(((ep_k * lp_k) / e_k)
-                                                       - 1))
+                        l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k)
+                                                        - 1))
                         update_k = True
 
             update_i = False
@@ -173,8 +198,8 @@ class TriTraining:
                     if e_i * len(l_i['data']) < ep_i * lp_i:
                         update_i = True
                     elif lp_i > e_i / (ep_i - e_i):
-                        l_i = self.subsample(l_i, ceil(((ep_i * lp_i) / e_i)
-                                                       - 1))
+                        l_i = self._subsample(l_i, ceil(((ep_i * lp_i) / e_i)
+                                                        - 1))
                         update_i = True
 
             if update_j:

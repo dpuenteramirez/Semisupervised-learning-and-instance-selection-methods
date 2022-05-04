@@ -3,7 +3,7 @@
 # @Filename:    RNN.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        22/11/21 08:22
-# @Version:     2.0
+# @Version:     3.0
 
 from collections import deque
 
@@ -16,14 +16,21 @@ from .utils import transform
 
 class RNN:
 
+    """
+    Gates, G. (1972). The reduced nearest neighbor rule (corresp.).
+    IEEE transactions on information theory, 18(3), 431-433.
+
+    Parameters
+    ----------
+
+    """
+
     def __init__(self):
+        """A constructor for the class."""
         self.x_attr = None
 
     def filter(self, samples, y):
         """
-        Gates, G. (1972). The reduced nearest neighbor rule (corresp.).
-            IEEE transactions on information theory, 18(3), 431-433.
-
         Implementation of The Reduced Nearest Neighbor.
 
         RNN is an extension of CNN. Firstly CNN will be executed in order to

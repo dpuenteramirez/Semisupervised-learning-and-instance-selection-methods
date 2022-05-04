@@ -3,7 +3,7 @@
 # @Filename:    CoTraining.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        22/12/21 09:27
-# @Version:     4.0
+# @Version:     5 .0
 
 from math import ceil, floor
 
@@ -15,15 +15,46 @@ from .utils import split
 
 
 class CoTraining:
-    """Blum, A., & Mitchell, T. (1998, July). Combining labeled and unlabeled
-        data with co-training. In Proceedings of the eleventh annual conference
-        on Computational learning theory (pp. 92-100).
+    """
+    Blum, A., & Mitchell, T. (1998, July). Combining labeled and unlabeled
+    data with co-training. In Proceedings of the eleventh annual conference
+    on Computational learning theory (pp. 92-100).
+
+    Parameters
+    ----------
+    p : int, default=1
+        The number of positive samples.
+
+    n : int, default=3
+        The number of negative samples.
+
+    k : int, default=30
+        The number of iterations to train the classifiers.
+
+    u : int, default=75
+        The number of unlabeled samples to use in the training set
+
+    random_state : int, default=None
+        The random seed used to generate the initial population
+
+    c1 : base_estimator, default=GaussianNB
+        The first classifier to be used
+
+    c1_params : dict, default=None
+        Parameters for the first classifier
+
+    c2 : base_estimator, default=GaussianNB
+        The second classifier to be used
+
+    c2_params : dict, default=None
+        Parameters for the second classifier
+
      """
 
     def __init__(self, p=1, n=3, k=30, u=75, random_state=None,
                  c1=None, c1_params=None,
-                 c2=None, c2_params=None,
-                 ):
+                 c2=None, c2_params=None,):
+        """Co-Training."""
         self.p = p
         self.n = n
         self.k = k
@@ -46,10 +77,17 @@ class CoTraining:
         self.h1, self.h2 = configs
 
     def fit(self, samples, y):
-        try:
-            labeled, u, y = split(samples, y)
-        except IndexError:
-            raise ValueError('Dimensions do not match.')
+        """
+        The function takes in a set of labeled samples and unlabeled samples,
+        and then uses the labeled samples to train two classifiers, and then
+        uses the two classifiers to predict the unlabeled samples. The top n
+        samples with the highest confidence are then added to the labeled
+        samples, and the process is repeated k times
+
+        :param samples: the unlabeled data
+        :param y: the labels of the samples
+        """
+        labeled, rng, u, u_random_index, y = self._check_parameters(samples, y)
 
         le = LabelEncoder()
         le.fit(y)
@@ -57,14 +95,6 @@ class CoTraining:
         tot = self.n + self.p
 
         self.size_x1 = ceil(len(labeled[0]) / 2)
-
-        rng = np.random.default_rng()
-        try:
-            u_random_index = rng.choice(len(u), size=floor(self.u),
-                                        replace=False, shuffle=False)
-        except ValueError:
-            raise ValueError('The model was incorrectly parametrized, '
-                             'total between _p_ and _u_ is to big.')
 
         u_prime = u[u_random_index]
         u1, u2 = np.array_split(u_prime, 2, axis=1)
@@ -118,7 +148,38 @@ class CoTraining:
 
             u_prime = np.concatenate((u_prime, u[u_random_index]))
 
+    def _check_parameters(self, samples, y):
+        """
+        > The function checks the parameters of the model and returns the
+        labeled samples, the random number generator, the unlabeled samples,
+        the random index of the unlabeled samples, and the labels
+
+        :param samples: The samples to be labeled
+        :param y: the target variable
+        :return: the labeled, rng, u, u_random_index, y
+        """
+        try:
+            labeled, u, y = split(samples, y)
+        except IndexError:
+            raise ValueError('Dimensions do not match.')
+        rng = np.random.default_rng()
+        try:
+            u_random_index = rng.choice(len(u), size=floor(self.u),
+                                        replace=False, shuffle=False)
+        except ValueError:
+            raise ValueError('The model was incorrectly parametrized, '
+                             'total between _p_ and _u_ is to big.')
+        return labeled, rng, u, u_random_index, y
+
     def predict(self, samples):
+        """
+        If the predictions of the two classifiers are the same, return that
+        prediction. If they disagree, return the prediction of the classifier
+        with the highest probability
+
+        :param samples: the data to be predicted
+        :return: The labels of the samples.
+        """
         x1, x2 = np.array_split(samples, 2, axis=1)
         pred1, pred_proba1 = self.h1.predict(x1), self.h1.predict_proba(x1)
         pred2, pred_proba2 = self.h2.predict(x2), self.h2.predict_proba(x2)

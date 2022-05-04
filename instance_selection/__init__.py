@@ -1,5 +1,4 @@
-"""
-Instance Selection.
+"""Instance Selection.
 
 The package contains some of the most widely used instance selection algorithms
 in the literature.

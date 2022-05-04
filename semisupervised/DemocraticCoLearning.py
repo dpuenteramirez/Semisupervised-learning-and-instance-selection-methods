@@ -3,9 +3,10 @@
 # @Filename:    DemocraticCoLearning.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/12/21 15:39
-# @Version:     4.0
+# @Version:     5.0
 
 import copy
+import warnings
 from math import sqrt
 
 import numpy as np
@@ -17,31 +18,43 @@ from sklearn.tree import DecisionTreeClassifier
 from .utils import split
 
 
-def check_bounds(wi):
-    """Check upper and lower bounds. The left minimum value can be 0, and the
-    right minimum value can be 1.
-
-    :param wi: lower and upper mean confidence
-    :return: wi fixed
-    """
-    if wi[0] < 0:
-        wi[0] = 0
-    if wi[1] > 1:
-        wi[1] = 1
-    return wi
-
-
 class DemocraticCoLearning:
-    """Democratic Co-Learning Implementation. Based on:
-        Zhou, Y., & Goldman, S. (2004, November). Democratic co-learning.
-        In 16th IEEE International Conference on Tools with Artificial
-        Intelligence (pp. 594-602). IEEE.
+    """
+    Democratic Co-Learning Implementation. Based on:
+    Zhou, Y., & Goldman, S. (2004, November). Democratic co-learning.
+    In 16th IEEE International Conference on Tools with Artificial
+    Intelligence (pp. 594-602). IEEE.
+
+    Parameters
+    ----------
+    random_state : int, default=None
+        The random seed used to initialize the classifiers
+
+    c1 : base_estimator, default=MultinomialNB
+        The first classifier to be used
+
+    c1_params : dict, default=None
+        Parameters for the first classifier
+
+    c2 : base_estimator, default=KNeighborsClassifier
+        The second classifier to be used
+
+    c2_params : dict, default=None
+        Parameters for the second classifier
+
+    c3 : base_estimator, default=DecisionTreeClassifier
+        The third classifier to be used
+
+    c3_params : dict, default=None
+        Parameters for the third classifier
+
     """
 
     def __init__(self, random_state=None,
                  c1=None, c1_params=None,
                  c2=None, c2_params=None,
                  c3=None, c3_params=None):
+        """Democratic Co-Learning."""
         self.const = 1.96  # 95%
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
@@ -69,6 +82,17 @@ class DemocraticCoLearning:
         self.h1, self.h2, self.h3 = configs
 
     def fit(self, samples, y):
+        """
+        The function takes in a set of labeled and unlabeled data, and uses the
+        labeled data to train three classifiers. Then, it uses the three
+        classifiers to predict the labels of the unlabeled data. If the
+        prediction is correct, the data is not added to the training set. If
+        the prediction is incorrect, the data is added to the training set.
+        The process is repeated until the training set stops changing
+
+        :param samples: the training data
+        :param y: the labels of the samples
+        """
         try:
             labeled, u, y = split(samples, y)
         except IndexError:
@@ -130,7 +154,7 @@ class DemocraticCoLearning:
                                             len(labeled)),
                   error + self.const * sqrt((error * (1 - error)) /
                                             len(labeled))]
-            w1 = sum(check_bounds(w1)) / 2
+            w1 = sum(self.check_bounds(w1)) / 2
 
             for index, proba in enumerate(probas):
                 c_k = new_labels[index][0]
@@ -155,7 +179,7 @@ class DemocraticCoLearning:
                                             len(labeled)),
                   error + self.const * sqrt((error * (1 - error)) /
                                             len(labeled))]
-            w2 = sum(check_bounds(w2)) / 2
+            w2 = sum(self.check_bounds(w2)) / 2
 
             for index, proba in enumerate(probas):
                 c_k = new_labels[index][0]
@@ -180,7 +204,7 @@ class DemocraticCoLearning:
                                             len(labeled)),
                   error + self.const * sqrt((error * (1 - error)) /
                                             len(labeled))]
-            w3 = sum(check_bounds(w3)) / 2
+            w3 = sum(self.check_bounds(w3)) / 2
 
             for index, proba in enumerate(probas):
                 c_k = new_labels[index][0]
@@ -211,7 +235,7 @@ class DemocraticCoLearning:
             ci_1 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
                 error + self.const * sqrt((error * (1 - error)) / len(pred))]
-            ci_1 = check_bounds(ci_1)
+            ci_1 = self.check_bounds(ci_1)
             q_1 = len(pred) * pow((1 - 2 * (e_1 / len(pred))), 2)
             e_prime_1 = (1 - (ci_1[0] * len(pred)) / len(pred)) * len(pred)
             q_prime_1 = (len(l1_data) + len(pred)) * pow(
@@ -235,7 +259,7 @@ class DemocraticCoLearning:
             ci_2 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
                 error + self.const * sqrt((error * (1 - error)) / len(pred))]
-            ci_2 = check_bounds(ci_2)
+            ci_2 = self.check_bounds(ci_2)
             q_2 = len(pred) * pow((1 - 2 * (e_2 / len(pred))), 2)
             e_prime_2 = (1 - (ci_2[0] * len(pred)) / len(pred)) * len(pred)
             q_prime_2 = (len(l2_data) + len(pred)) * pow(
@@ -259,7 +283,7 @@ class DemocraticCoLearning:
             ci_3 = [
                 error - self.const * sqrt((error * (1 - error)) / len(pred)),
                 error + self.const * sqrt((error * (1 - error)) / len(pred))]
-            ci_3 = check_bounds(ci_3)
+            ci_3 = self.check_bounds(ci_3)
             q_3 = len(pred) * pow((1 - 2 * (e_3 / len(pred))), 2)
             e_prime_3 = (1 - (ci_3[0] * len(pred)) / len(pred)) * len(pred)
             q_prime_3 = (len(l3_data) + len(pred)) * pow(
@@ -278,19 +302,27 @@ class DemocraticCoLearning:
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
         w1 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
               error + self.const * sqrt((error * (1 - error)) / len(labeled))]
-        self.w1 = sum(check_bounds(w1)) / 2
+        self.w1 = sum(self.check_bounds(w1)) / 2
         pred = self.h2.predict(labeled)
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
         w2 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
               error + self.const * sqrt((error * (1 - error)) / len(labeled))]
-        self.w2 = sum(check_bounds(w2)) / 2
+        self.w2 = sum(self.check_bounds(w2)) / 2
         pred = self.h3.predict(labeled)
         error = len([0 for p, tar in zip(pred, y) if p != tar]) / len(pred)
         w3 = [error - self.const * sqrt((error * (1 - error)) / len(labeled)),
               error + self.const * sqrt((error * (1 - error)) / len(labeled))]
-        self.w3 = sum(check_bounds(w3)) / 2
+        self.w3 = sum(self.check_bounds(w3)) / 2
 
     def predict(self, samples):
+        """
+        For each sample, we get the predictions of the three classifiers, and
+        then we count the number of times each label appears in the
+        predictions. The label that appears the most is the one we return
+
+        :param samples: the samples to be classified
+        :return: The labels of the samples.
+        """
         all_instances = samples
 
         gj = [0 for _ in range(self.n_labels)]
@@ -315,7 +347,7 @@ class DemocraticCoLearning:
                     gj[p] += 1
                     gj_h[2][p] += 1
         except IndexError:
-            breakpoint()
+            warnings.warn("Retraining the model is advised.")
 
         confidence = [0 for _ in range(self.n_labels)]
         for index, j in enumerate(gj):
@@ -340,3 +372,18 @@ class DemocraticCoLearning:
             labels.append(np.where(count == np.amax(count))[0][0])
 
         return np.array(labels)
+
+    @staticmethod
+    def check_bounds(wi):
+        """
+        It checks that the lower bound is not less than 0 and the upper bound
+        is not greater than 1
+
+        :param wi: lower and upper mean confidence
+        :return: the fixed wi.
+        """
+        if wi[0] < 0:
+            wi[0] = 0
+        if wi[1] > 1:
+            wi[1] = 1
+        return wi
