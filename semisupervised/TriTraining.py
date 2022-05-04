@@ -3,7 +3,7 @@
 # @Filename:    TriTraining.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        27/12/21 10:25
-# @Version:     4.0
+# @Version:     5.0
 
 from math import floor, ceil
 
@@ -81,6 +81,16 @@ class TriTraining:
             np.random.randint(low=0, high=10e5, size=1)[0]
 
     def _subsample(self, l_t, s):
+        """
+        > The function takes in a Bunch object, which is a dictionary-like
+        object that contains the data and target arrays, and a sample size,
+        and returns a Bunch object with the data and target arrays sub-sampled
+        to the specified size
+
+        :param l_t: the labeled and unlabeled data
+        :param s: the number of samples to be drawn from the dataset
+        :return: A Bunch object with the data and target attributes.
+        """
         np.random.seed(self.random_state)
         rng = np.random.default_rng()
         data = np.array(l_t['data'])
@@ -91,6 +101,17 @@ class TriTraining:
         return Bunch(data=samples, target=targets)
 
     def fit(self, samples, y):
+        """
+        The function takes in the training data and the labels, and then splits
+         the data into three parts: labeled, unlabeled, and test. It then
+         creates three classifiers, h_i, h_j, and h_k, and trains them on the
+         labeled data. It then checks to see if the classifiers are accurate
+         enough, and if they are, it returns them. If they are not, it trains
+         them again on the labeled data, and then checks again
+
+        :param samples: The samples to train the classifier on
+        :param y: the labels
+        """
         try:
             labeled, u, y = split(samples, y)
         except IndexError:
@@ -121,114 +142,104 @@ class TriTraining:
             hash_j = h_j.__hash__()
             hash_k = h_k.__hash__()
 
-            update_j = False
-            l_j = Bunch(data=[], target=[])
-            e_j = measure_error(h_j, h_k, labeled)
+            e_j, l_j, update_j = self._train_classifier(ep_j, h_i, h_j, h_k,
+                                                        labeled, lp_j, u)
 
-            if e_j < ep_j:
-                for sample in u:
-                    sample_s = sample.reshape(1, -1)
-                    if h_j.predict(sample_s) == h_k.predict(sample_s):
-                        pred = h_i.predict(sample_s)
-                        prev_dat = list(l_j['data'])
-                        prev_tar = list(l_j['target'])
-                        prev_dat.append(sample)
-                        l_j['data'] = np.array(prev_dat)
-                        prev_tar.append(pred)
-                        l_j['target'] = np.array(prev_tar)
+            e_k, l_k, update_k = self._train_classifier(ep_k, h_i, h_j, h_k,
+                                                        labeled, lp_k, u)
 
-                if lp_j == 0:
-                    lp_j = floor(e_j / (ep_j - e_j) + 1)
+            e_i, l_i, update_i = self._train_classifier(ep_i, h_i, h_j, h_k,
+                                                        labeled, lp_i, u)
 
-                if lp_j < len(l_j['data']):
-                    if e_j * len(l_j['data']) < ep_j * lp_j:
-                        update_j = True
-                    elif lp_j > e_j / (ep_j - e_j):
-                        l_j = self._subsample(l_j, ceil(((ep_j * lp_j) / e_j)
-                                                        - 1))
-                        update_j = True
+            ep_j, h_j, lp_j = self._check_for_update(e_j, ep_j, h_j, l_j,
+                                                     labeled, lp_j, update_j, y)
+            ep_k, h_k, lp_k = self._check_for_update(e_k, ep_k, h_k, l_k,
+                                                     labeled, lp_k, update_k,
+                                                     y)
 
-            update_k = False
-            l_k = Bunch(data=np.array([]), target=np.array([]))
-            e_k = measure_error(h_j, h_k, labeled)
-
-            if e_k < ep_k:
-                for sample in u:
-                    sample_s = sample.reshape(1, -1)
-                    if h_j.predict(sample_s) == h_k.predict(sample_s):
-                        pred = h_i.predict(sample_s)
-                        prev_dat = list(l_k['data'])
-                        prev_tar = list(l_k['target'])
-                        prev_dat.append(sample)
-                        l_k['data'] = np.array(prev_dat)
-                        prev_tar.append(pred)
-                        l_k['target'] = np.array(prev_tar)
-
-                if lp_k == 0:
-                    lp_k = floor(e_k / (ep_k - e_k) + 1)
-
-                if lp_k < len(l_k['data']):
-                    if e_k * len(l_k['data']) < ep_k * lp_k:
-                        update_k = True
-                    elif lp_k > e_k / (ep_k - e_k):
-                        l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k)
-                                                        - 1))
-                        update_k = True
-
-            update_i = False
-            l_i = Bunch(data=np.array([]), target=np.array([]))
-            e_i = measure_error(h_j, h_k, labeled)
-
-            if e_i < ep_i:
-                for sample in u:
-                    sample_s = sample.reshape(1, -1)
-                    if h_j.predict(sample_s) == h_k.predict(sample_s):
-                        pred = h_i.predict(sample_s)
-                        prev_dat = list(l_i['data'])
-                        prev_tar = list(l_i['target'])
-                        prev_dat.append(sample)
-                        l_i['data'] = np.array(prev_dat)
-                        prev_tar.append(pred)
-                        l_i['target'] = np.array(prev_tar)
-
-                if lp_i == 0:
-                    lp_i = floor(e_i / (ep_i - e_i) + 1)
-
-                if lp_i < len(l_i['data']):
-                    if e_i * len(l_i['data']) < ep_i * lp_i:
-                        update_i = True
-                    elif lp_i > e_i / (ep_i - e_i):
-                        l_i = self._subsample(l_i, ceil(((ep_i * lp_i) / e_i)
-                                                        - 1))
-                        update_i = True
-
-            if update_j:
-                train = np.concatenate((labeled, l_j['data']), axis=0)
-                test = np.concatenate((y, np.ravel(l_j['target'])),
-                                      axis=0)
-                h_j = self.hj.fit(train, test)
-                ep_j = e_j
-                lp_j = len(l_j)
-            if update_k:
-                train = np.concatenate((labeled, l_k['data']), axis=0)
-                test = np.concatenate((y, np.ravel(l_k['target'])),
-                                      axis=0)
-                h_k = self.hk.fit(train, test)
-                ep_k = e_k
-                lp_k = len(l_k)
-            if update_i:
-                train = np.concatenate((labeled, l_i['data']), axis=0)
-                test = np.concatenate((y, np.ravel(l_i['target'])),
-                                      axis=0)
-                h_i = self.hi.fit(train, test)
-                ep_i = e_i
-                lp_i = len(l_i)
+            ep_i, h_i, lp_i = self._check_for_update(e_i, ep_i, h_i, l_i,
+                                                     labeled, lp_i, update_i, y)
 
             if h_i.__hash__() == hash_i and h_j.__hash__() == hash_j and \
                     h_k.__hash__() == hash_k:
                 break
 
+    def _check_for_update(self, e_j, ep_j, h_j, l_j, labeled, lp_j, update_j,
+                          y):
+        """
+        If the update_j flag is True, then we concatenate the labeled data with
+        the new data, and fit the model to the new data
+
+        :param e_j: the error of the current hypothesis
+        :param ep_j: the error of the previous iteration
+        :param h_j: the classifier for the jth class
+        :param l_j: the labeled data
+        :param labeled: the labeled data
+        :param lp_j: the number of labeled points in the current iteration
+        :param update_j: boolean, whether to update the model or not
+        :param y: the true labels of the data
+        :return: the error, the hypothesis, and the length of the labeled data.
+        """
+        if update_j:
+            train = np.concatenate((labeled, l_j['data']), axis=0)
+            test = np.concatenate((y, np.ravel(l_j['target'])),
+                                  axis=0)
+            h_j = self.hj.fit(train, test)
+            ep_j = e_j
+            lp_j = len(l_j)
+        return ep_j, h_j, lp_j
+
+    def _train_classifier(self, ep_k, h_i, h_j, h_k, labeled, lp_k, u):
+        """
+        If the error of the classifier is less than the error threshold, and the
+        number of samples in the labeled set is less than the number of samples
+        in the unlabeled set, then add the samples to the labeled set
+
+        :param ep_k: the error threshold for the classifier
+        :param h_i: the classifier that is being trained
+        :param h_j: the classifier that is being compared to h_k
+        :param h_k: the classifier we're training
+        :param labeled: the labeled data
+        :param lp_k: the number of samples that have been labeled by h_k
+        :param u: the unlabeled data
+        :return: The error, the new labeled data, and a boolean indicating
+        whether the classifier should be updated.
+        """
+        update_k = False
+        l_k = Bunch(data=np.array([]), target=np.array([]))
+        e_k = measure_error(h_j, h_k, labeled)
+        if e_k < ep_k:
+            for sample in u:
+                sample_s = sample.reshape(1, -1)
+                if h_j.predict(sample_s) == h_k.predict(sample_s):
+                    pred = h_i.predict(sample_s)
+                    prev_dat = list(l_k['data'])
+                    prev_tar = list(l_k['target'])
+                    prev_dat.append(sample)
+                    l_k['data'] = np.array(prev_dat)
+                    prev_tar.append(pred)
+                    l_k['target'] = np.array(prev_tar)
+
+            if lp_k == 0:
+                lp_k = floor(e_k / (ep_k - e_k) + 1)
+
+            if lp_k < len(l_k['data']):
+                if e_k * len(l_k['data']) < ep_k * lp_k:
+                    update_k = True
+                elif lp_k > e_k / (ep_k - e_k):
+                    l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k)
+                                                    - 1))
+                    update_k = True
+        return e_k, l_k, update_k
+
     def predict(self, samples):
+        """
+        For each sample, we predict the label using each of the three
+        classifiers, and then we take the majority vote of the three predictions
+
+        :param samples: the data to be classified
+        :return: The labels of the samples.
+        """
         labels = []
         pred1 = self.hi.predict(samples)
         pred2 = self.hj.predict(samples)

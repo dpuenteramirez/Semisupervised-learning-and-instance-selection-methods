@@ -22,12 +22,12 @@ from .utils import split
 class STDPNF:
     """
     Li, J., Zhu, Q., & Wu, Q. (2019). A self-training method based on density
-        peaks and an extended parameter-free local noise filter for k nearest
-        neighbor. Knowledge-Based Systems, 184, 104895.
+    peaks and an extended parameter-free local noise filter for k nearest
+    neighbor. Knowledge-Based Systems, 184, 104895.
 
     Wu, D., Shang, M., Luo, X., Xu, J., Yan, H., Deng, W., & Wang, G. (2018).
-     Self-training semi-supervised classification based on density peaks of
-      data. Neurocomputing, 275, 180-191.
+    Self-training semi-supervised classification based on density peaks of
+    data. Neurocomputing, 275, 180-191.
     """
 
     def __init__(self,
@@ -455,27 +455,9 @@ class STDPNF:
                 complete = labeled_data['sample']
                 complete_y = labeled_data['label']
 
-                if isinstance(self.filter, ENN):
-                    original = pd.DataFrame(self.l)
-                    original_y = pd.DataFrame(self.y)
-                    result, _ = self.filter.filter_original_complete(
-                        original, original_y, complete, complete_y)
-                else:
-                    result, _ = self.filter.filter(complete, complete_y)
+                result = self._if_filter(complete, complete_y)
 
-                results_to_unlabeled = []
-                for r in result.to_numpy():
-                    is_in = False
-                    for c in complete:
-                        if np.array_equal(r, c):
-                            is_in = True
-                    if not is_in:
-                        results_to_unlabeled.append(r)
-
-                for r in results_to_unlabeled:
-                    self.structure_stdnpf.at[
-                        np.array(self.structure_stdnpf['sample'],
-                                 r)]['label'] = -1
+                self._results_to_structure(complete, result)
 
             labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
                                                          'label'] != -1]
@@ -488,6 +470,46 @@ class STDPNF:
                                                      'label'] != -1]
         self.classifier_stdpnf.fit(
             labeled_data['sample'].tolist(), labeled_data['label'].tolist())
+
+    def _results_to_structure(self, complete, result):
+        """
+        > This function takes the results of the model and compares them to the
+        complete data set. If the result is not in the complete data set, it is
+        added to the structure data set.
+
+        :param complete: the complete dataset
+        :param result: the result of the clustering
+        """
+        results_to_unlabeled = []
+        for r in result.to_numpy():
+            is_in = False
+            for c in complete:
+                if np.array_equal(r, c):
+                    is_in = True
+            if not is_in:
+                results_to_unlabeled.append(r)
+        for r in results_to_unlabeled:
+            self.structure_stdnpf.at[
+                np.array(self.structure_stdnpf['sample'],
+                         r)]['label'] = -1
+
+    def _if_filter(self, complete, complete_y):
+        """
+        If the filter is an ENN, then filter the original data, otherwise
+        filter the complete data
+
+        :param complete: the complete dataframe
+        :param complete_y: the complete y values
+        :return: The result is a dataframe with the filtered data.
+        """
+        if isinstance(self.filter, ENN):
+            original = pd.DataFrame(self.l)
+            original_y = pd.DataFrame(self.y)
+            result, _ = self.filter.filter_original_complete(
+                original, original_y, complete, complete_y)
+        else:
+            result, _ = self.filter.filter(complete, complete_y)
+        return result
 
     def fit(self, samples, y):
         """Fit method."""

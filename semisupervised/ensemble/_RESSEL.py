@@ -76,12 +76,7 @@ class RESSEL:
 
         self._validate_params(base_estimator, labeled, unlabeled)
 
-        if estimator_params is None:
-            for _ in range(self.k):
-                self.ensemble.append(base_estimator())
-        else:
-            for _ in range(self.k):
-                self.ensemble.append(base_estimator(**estimator_params))
+        self._init_ensemble(base_estimator, estimator_params)
 
         labeled.columns = [*range(len(labeled.keys()))]
         unlabeled.columns = [*range(len(unlabeled.keys()))]
@@ -98,14 +93,7 @@ class RESSEL:
                                    ignore_index=True)
 
             oob_i = []
-            for sample in labeled.to_numpy():
-                is_in = False
-                for selected_sample in l_i.to_numpy():
-                    if np.array_equal(sample, selected_sample):
-                        is_in = True
-                        break
-                if not is_in:
-                    oob_i.append(sample)
+            self._fill_out_of_bag(l_i, labeled, oob_i)
 
             oob_i = pd.DataFrame(oob_i)
 
@@ -117,6 +105,42 @@ class RESSEL:
             self._robust_self_training(i, l_i, u_i, oob_i, d_class_i)
 
         return self.ensemble
+
+    @staticmethod
+    def _fill_out_of_bag(l_i, labeled, oob_i):
+        """
+        > For each sample in the labeled data, if it is not in the selected
+        labeled data, add it to the out of bag data
+
+        :param l_i: the labeled data for the ith iteration
+        :param labeled: the labeled data
+        :param oob_i: the out-of-bag samples for the i-th tree
+        """
+        for sample in labeled.to_numpy():
+            is_in = False
+            for selected_sample in l_i.to_numpy():
+                if np.array_equal(sample, selected_sample):
+                    is_in = True
+                    break
+            if not is_in:
+                oob_i.append(sample)
+
+    def _init_ensemble(self, base_estimator, estimator_params):
+        """
+        For each of the k estimators in the ensemble, append a new instance of
+        the base estimator to the ensemble
+
+        :param base_estimator: The base estimator to fit on random subsets of
+        the dataset
+        :param estimator_params: A dictionary of parameters to pass to the base
+        estimator
+        """
+        if estimator_params is None:
+            for _ in range(self.k):
+                self.ensemble.append(base_estimator())
+        else:
+            for _ in range(self.k):
+                self.ensemble.append(base_estimator(**estimator_params))
 
     def _validate_params(self, base_estimator, labeled, unlabeled):
         """
