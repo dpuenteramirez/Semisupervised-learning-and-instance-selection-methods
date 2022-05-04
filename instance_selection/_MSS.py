@@ -14,6 +14,7 @@ from .utils import transform
 
 
 class MSS:
+
     """
     Barandela, R., Ferri, F. J., & Sánchez, J. S. (2005). Decision boundary
     preserving prototype selection for nearest neighbor classification.
@@ -26,6 +27,7 @@ class MSS:
     """
 
     def __init__(self):
+        """A constructor for the class."""
         self.x_attr = None
 
     def filter(self, samples, y):

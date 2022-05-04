@@ -34,6 +34,16 @@ class DROP3:
     """
 
     def __init__(self, nearest_neighbors=3, power_parameter=2):
+        """
+        The function takes in two parameters, nearest_neighbors and
+        power_parameter, and assigns them to the attributes nearest_neighbors
+        and power_parameter
+
+        :param nearest_neighbors: The number of nearest neighbors to use when
+        calculating the weights, defaults to 3 (optional)
+        :param power_parameter: This is the exponent that is used to calculate
+        the weights, defaults to 2 (optional)
+        """
         self.nearest_neighbors = nearest_neighbors
         self.power_parameter = power_parameter
         self.x_attr = None

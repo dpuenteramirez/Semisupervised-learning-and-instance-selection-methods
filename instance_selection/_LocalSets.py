@@ -12,6 +12,7 @@ from sklearn.metrics import pairwise_distances
 
 
 class LocalSets:
+
     """
     Leyva, E., González, A., & Pérez, R. (2015). Three new instance selection
     methods based on local sets: A comparative study with several approaches
@@ -23,6 +24,7 @@ class LocalSets:
     """
 
     def __init__(self):
+        """A constructor for the class."""
         self.local_sets = None
         self.n_id = 0
 
@@ -117,6 +119,7 @@ class LSSm(LocalSets):
     """
 
     def __init__(self):
+        """A constructor for the class."""
         super().__init__()
 
     def filter(self, instances, labels):
@@ -170,6 +173,7 @@ class LSBo(LocalSets):
     """
 
     def __init__(self):
+        """A constructor for the class."""
         super(LSBo, self).__init__()
 
     def filter(self, instances, labels):

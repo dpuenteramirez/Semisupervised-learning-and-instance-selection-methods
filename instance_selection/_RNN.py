@@ -26,6 +26,7 @@ class RNN:
     """
 
     def __init__(self):
+        """A constructor for the class."""
         self.x_attr = None
 
     def filter(self, samples, y):
