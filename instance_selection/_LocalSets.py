@@ -43,12 +43,10 @@ class LocalSets:
         for index, (sample, label) in enumerate(zip(instances, labels)):
             closest_enemy_distance = sys.maxsize
             closest_enemy_sample = None
-            for index2, (_, label2) in enumerate(zip(instances, labels)):
-                if index == index2 or label == label2:
-                    continue
-                if distances[index][index2] < closest_enemy_distance:
-                    closest_enemy_distance = distances[index][index2]
-                    closest_enemy_sample = index2
+            closest_enemy_distance, closest_enemy_sample = \
+                self._find_enemy_distance(
+                    closest_enemy_distance, closest_enemy_sample, distances,
+                    index, instances, label, labels)
             structure[index] = [sample, [], None, closest_enemy_distance,
                                 closest_enemy_sample, label]
 
@@ -67,6 +65,17 @@ class LocalSets:
                                                          'LSC', 'LSR',
                                                          'enemy', 'label']) \
             .transpose()
+
+    @staticmethod
+    def _find_enemy_distance(closest_enemy_distance, closest_enemy_sample,
+                             distances, index, instances, label, labels):
+        for index2, (_, label2) in enumerate(zip(instances, labels)):
+            if index == index2 or label == label2:
+                continue
+            if distances[index][index2] < closest_enemy_distance:
+                closest_enemy_distance = distances[index][index2]
+                closest_enemy_sample = index2
+        return closest_enemy_distance, closest_enemy_sample
 
     def _sort_asc_lsc(self):
         """
