@@ -61,7 +61,6 @@ class TriTraining:
                  c2=None, c2_params=None,
                  c3=None, c3_params=None):
         """Tri-Training."""
-
         classifiers = [c1, c2, c3]
         classifiers_params = [c1_params, c2_params, c3_params]
         default_classifiers = [KNeighborsClassifier, DecisionTreeClassifier,
