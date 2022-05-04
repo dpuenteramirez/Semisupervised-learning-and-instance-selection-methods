@@ -80,7 +80,7 @@ class TriTraining:
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
 
-    def subsample(self, l_t, s):
+    def _subsample(self, l_t, s):
         np.random.seed(self.random_state)
         rng = np.random.default_rng()
         data = np.array(l_t['data'])
@@ -144,8 +144,8 @@ class TriTraining:
                     if e_j * len(l_j['data']) < ep_j * lp_j:
                         update_j = True
                     elif lp_j > e_j / (ep_j - e_j):
-                        l_j = self.subsample(l_j, ceil(((ep_j * lp_j) / e_j)
-                                                       - 1))
+                        l_j = self._subsample(l_j, ceil(((ep_j * lp_j) / e_j)
+                                                        - 1))
                         update_j = True
 
             update_k = False
@@ -171,8 +171,8 @@ class TriTraining:
                     if e_k * len(l_k['data']) < ep_k * lp_k:
                         update_k = True
                     elif lp_k > e_k / (ep_k - e_k):
-                        l_k = self.subsample(l_k, ceil(((ep_k * lp_k) / e_k)
-                                                       - 1))
+                        l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k)
+                                                        - 1))
                         update_k = True
 
             update_i = False
@@ -198,8 +198,8 @@ class TriTraining:
                     if e_i * len(l_i['data']) < ep_i * lp_i:
                         update_i = True
                     elif lp_i > e_i / (ep_i - e_i):
-                        l_i = self.subsample(l_i, ceil(((ep_i * lp_i) / e_i)
-                                                       - 1))
+                        l_i = self._subsample(l_i, ceil(((ep_i * lp_i) / e_i)
+                                                        - 1))
                         update_i = True
 
             if update_j:
