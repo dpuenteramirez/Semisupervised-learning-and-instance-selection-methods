@@ -3,7 +3,7 @@
 # @Filename:    MSS.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        23/11/21 11:53
-# @Version:     2.0
+# @Version:     3.0
 
 import sys
 
@@ -13,43 +13,23 @@ import pandas as pd
 from .utils import transform
 
 
-def __enemy_distance__(dat, tar):
-    """
-    Inner method which calculates the distance between each sample and its
-    nearest enemy.
-    :param dat: T samples.
-    :param tar: T classes.
-    :return: list of triplets: [sample, class, distance], sorted by the
-    smallest distance.
-    """
-    solution = []
-    for sample, x_class in zip(dat, tar):
-        distance = sys.maxsize
-        for sample_1, x1_class in zip(dat, tar):
-            if x1_class == x_class:
-                continue
-            else:
-                euc = np.linalg.norm(sample - sample_1)
-                if euc < distance:
-                    distance = euc
-        solution.append([sample, x_class, distance])
-
-    solution.sort(key=lambda x: x[2])
-
-    return solution
-
-
 class MSS:
+    """
+    Barandela, R., Ferri, F. J., & Sánchez, J. S. (2005). Decision boundary
+    preserving prototype selection for nearest neighbor classification.
+    International Journal of Pattern Recognition and Artificial
+    Intelligence, 19(06), 787-806.
+
+    Parameters
+    ----------
+
+    """
+
     def __init__(self):
         self.x_attr = None
 
     def filter(self, samples, y):
         """
-        Barandela, R., Ferri, F. J., & Sánchez, J. S. (2005). Decision boundary
-            preserving prototype selection for nearest neighbor classification.
-            International Journal of Pattern Recognition and Artificial
-            Intelligence, 19(06), 787-806.
-
         Implementation of Modified Selective Subset.
 
         It starts with two empty arrays *dat* and *tar*, which will contain the
@@ -66,7 +46,7 @@ class MSS:
         """
         self.x_attr = samples.keys()
         samples = transform(samples, y)
-        triplets = __enemy_distance__(samples['data'], samples['target'])
+        triplets = self._enemy_distance(samples['data'], samples['target'])
         dat = []
         tar = []
         remove_indexes = []
@@ -90,3 +70,31 @@ class MSS:
         y = pd.DataFrame(tar)
 
         return samples, y
+
+    @staticmethod
+    def _enemy_distance(dat, tar):
+        """
+        For each sample in the dataset, find the distance to the nearest sample
+        of a different class.
+
+        :param dat: the data
+        :param tar: the target variable
+        :return: A list of lists, where each list contains a sample, its class,
+         and its distance to its nearest enemy.
+        """
+
+        solution = []
+        for sample, x_class in zip(dat, tar):
+            distance = sys.maxsize
+            for sample_1, x1_class in zip(dat, tar):
+                if x1_class == x_class:
+                    continue
+                else:
+                    euc = np.linalg.norm(sample - sample_1)
+                    if euc < distance:
+                        distance = euc
+            solution.append([sample, x_class, distance])
+
+        solution.sort(key=lambda x: x[2])
+
+        return solution
