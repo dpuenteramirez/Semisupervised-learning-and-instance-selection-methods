@@ -3,7 +3,7 @@
 # @Filename:    DemocraticCoLearning.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        29/12/21 15:39
-# @Version:     4.0
+# @Version:     5.0
 
 import copy
 from math import sqrt
@@ -18,11 +18,12 @@ from .utils import split
 
 
 def check_bounds(wi):
-    """Check upper and lower bounds. The left minimum value can be 0, and the
-    right minimum value can be 1.
+    """
+    It checks that the lower bound is not less than 0 and the upper bound is not
+    greater than 1
 
     :param wi: lower and upper mean confidence
-    :return: wi fixed
+    :return: the fixed wi.
     """
     if wi[0] < 0:
         wi[0] = 0
@@ -32,16 +33,54 @@ def check_bounds(wi):
 
 
 class DemocraticCoLearning:
-    """Democratic Co-Learning Implementation. Based on:
-        Zhou, Y., & Goldman, S. (2004, November). Democratic co-learning.
-        In 16th IEEE International Conference on Tools with Artificial
-        Intelligence (pp. 594-602). IEEE.
+    """
+    Democratic Co-Learning Implementation. Based on:
+    Zhou, Y., & Goldman, S. (2004, November). Democratic co-learning.
+    In 16th IEEE International Conference on Tools with Artificial
+    Intelligence (pp. 594-602). IEEE.
+
+    Parameters
+    ----------
+    random_state : int, default=None
+        The random seed used to initialize the classifiers
+
+    c1 : base_estimator, default=MultinomialNB
+        The first classifier to be used
+
+    c1_params : dict, default=None
+        Parameters for the first classifier
+
+    c2 : base_estimator, default=KNeighborsClassifier
+        The second classifier to be used
+
+    c2_params : dict, default=None
+        Parameters for the second classifier
+
+    c3 : base_estimator, default=DecisionTreeClassifier
+        The third classifier to be used
+
+    c3_params : dict, default=None
+        Parameters for the third classifier
+
     """
 
     def __init__(self, random_state=None,
                  c1=None, c1_params=None,
                  c2=None, c2_params=None,
                  c3=None, c3_params=None):
+        """
+        The function takes in three classifiers and their parameters, and if
+        they are not provided, it uses the default classifiers and their
+        parameters.
+
+        :param random_state: The random seed used to initialize the classifiers
+        :param c1: The first classifier
+        :param c1_params: parameters for the first classifier
+        :param c2: The classifier to use for the second classifier
+        :param c2_params: The parameters for the second classifier
+        :param c3: The third classifier
+        :param c3_params: The parameters for the third classifier
+        """
         self.const = 1.96  # 95%
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
@@ -69,6 +108,17 @@ class DemocraticCoLearning:
         self.h1, self.h2, self.h3 = configs
 
     def fit(self, samples, y):
+        """
+        The function takes in a set of labeled and unlabeled data, and uses the
+        labeled data to train three classifiers. Then, it uses the three
+        classifiers to predict the labels of the unlabeled data. If the
+        prediction is correct, the data is not added to the training set. If
+        the prediction is incorrect, the data is added to the training set.
+        The process is repeated until the training set stops changing
+
+        :param samples: the training data
+        :param y: the labels of the samples
+        """
         try:
             labeled, u, y = split(samples, y)
         except IndexError:
@@ -291,6 +341,14 @@ class DemocraticCoLearning:
         self.w3 = sum(check_bounds(w3)) / 2
 
     def predict(self, samples):
+        """
+        For each sample, we get the predictions of the three classifiers, and
+        then we count the number of times each label appears in the
+        predictions. The label that appears the most is the one we return
+
+        :param samples: the samples to be classified
+        :return: The labels of the samples.
+        """
         all_instances = samples
 
         gj = [0 for _ in range(self.n_labels)]

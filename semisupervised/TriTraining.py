@@ -26,9 +26,34 @@ def measure_error(classifier_j, classifier_k, labeled_data):
 
 
 class TriTraining:
-    """Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
-        using three classifiers. IEEE Transactions on knowledge and Data
-        Engineering, 17(11), 1529-1541.
+    """
+    Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
+    using three classifiers. IEEE Transactions on knowledge and Data
+    Engineering, 17(11), 1529-1541.
+
+    Parameters
+    ----------
+    random_state : int, default=None
+        The random seed used to initialize the classifiers
+
+    c1 : base_estimator, default=KNeighborsClassifier
+        The first classifier to be used
+
+    c1_params : dict, default=None
+        Parameters for the first classifier
+
+    c2 : base_estimator, default=DecisionTreeClassifier
+        The second classifier to be used
+
+    c2_params : dict, default=None
+        Parameters for the second classifier
+
+    c3 : base_estimator, default=RandomForestClassifier
+        The third classifier to be used
+
+    c3_params : dict, default=None
+        Parameters for the third classifier
+
     """
 
     def __init__(self, random_state=None,

@@ -94,7 +94,8 @@ class STDPNF:
 
     def __auto_select_dc(self):
         """
-        Auto select the local density threshold that let average neighbor is 1-2 percent of all nodes.
+        Auto select the local density threshold that let average neighbor is 1-2
+         percent of all nodes.
 
         :return: dc that local density threshold
         """
@@ -118,7 +119,8 @@ class STDPNF:
 
     def __select_dc(self):
         """
-        Select the local density threshold, default is the method used in paper, 'auto' is auto select.
+        Select the local density threshold, default is the method used in paper,
+        'auto' is auto select.
 
         :return: dc that local density threshold
         """
@@ -150,12 +152,13 @@ class STDPNF:
 
     def __min_neighbor_and_distance(self):
         """
-        Compute all points' min util to the higher local density point(which is the nearest neighbor).
+        Compute all points' min util to the higher local density point(which is
+         the nearest neighbor).
 
         :return: distance vector, nearest neighbor vector
         """
         sort_rho_idx = np.argsort(-self.rho)
-        delta, nneigh = [float(self.max_dis)] * (self.n_id), [0] * self.n_id
+        delta, nneigh = [float(self.max_dis)] * self.n_id, [0] * self.n_id
         delta[sort_rho_idx[0]] = -1.
         for i in range(self.n_id):
             for j in range(0, i):
@@ -168,6 +171,18 @@ class STDPNF:
         return np.array(delta, np.float32), np.array(nneigh, np.float32)
 
     def __structure(self):
+        """
+        The function takes the data and the nearest neighbor indices and creates
+        a dataframe with the following columns:
+
+        - sample: the data point
+        - next: the index of the nearest neighbor
+        - previous: the index of the nearest neighbor of the nearest neighbor
+        - label: the label of the data point
+
+        The function also creates a copy of the dataframe called
+        structure_stdnpf
+        """
         self.structure = dict.fromkeys(range(self.n_id))
         for index, sample in enumerate(self.data):
             self.structure[index] = [
@@ -189,16 +204,42 @@ class STDPNF:
         self.structure_stdnpf = self.structure.copy(deep=True)
 
     def __step_a(self):
+        """
+        > The function takes the labeled samples and trains the classifier on
+        them
+        :return: The samples that have been labeled.
+        """
         samples_labeled = self.structure.loc[self.structure['label'] != -1]
-        l = samples_labeled['sample'].to_list()
+        sam_lab = samples_labeled['sample'].to_list()
         y_without = samples_labeled['label'].to_list()
-        self.classifier.fit(l, y_without)
+        self.classifier.fit(sam_lab, y_without)
         return samples_labeled
 
     def __discover_structure(self):
         self._fit_without()
 
     def __nan_search(self):
+        """
+        For each point, find the set of points that are within a distance of r,
+        and the set of points that are within a distance of r+1.
+
+        The set of points that are within a distance of r+1 is a superset of the
+        set of points that are within a distance of r.
+
+        The set of points that are within a distance of r+1 is also a superset
+        of the set of points that are within a distance of r+2.
+
+        The set of points that are within a distance of r+2 is also a superset
+        of the set of points that are within a distance of r+3.
+
+        And so on.
+
+        The set of points that are within a distance of r+1 is also a superset
+        of the set of points that are within a distance of r+2.
+
+        The set of points that are within a distance of r+2 is
+        :return: nan, r
+        """
         r = 1
         nan = defaultdict(set)
         nb = dict.fromkeys(range(self.n_id), 0)
@@ -229,6 +270,24 @@ class STDPNF:
         return nan, r
 
     def __enane(self, fx, nan, r):
+        """
+        > The function takes in the dataframe, the list of indices of the
+        unlabeled data, the list of indices of the neighbors of the unlabeled
+        data, and the number of neighbors to use in the KNN classifier. It
+        then creates a new dataframe with the labeled data and the unlabeled
+        data, and uses the KNN classifier to predict the labels of the
+        unlabeled data. It then checks if the predicted label is the same as
+        the label of the majority of the neighbors of the unlabeled data. If
+        it is, then it adds the index of the unlabeled data to the list of
+        indices of the data to be labeled
+
+        :param fx: the indexes of the unlabeled data
+        :param nan: a list of lists, where each list contains the indices of the
+        neighbors of a sample
+        :param r: the number of neighbors to consider
+        :return: The indexes of the samples that are going to be labeled and the
+        labels that are going to be assigned to them.
+        """
         es = []
         es_pred = []
         local_structure = self.structure_stdnpf.copy(deep=True)
@@ -262,6 +321,17 @@ class STDPNF:
         return es, es_pred
 
     def __init_values(self, l, u, y):
+        """
+        It takes in the lower and upper bounds of the data, and the data itself,
+         and then calculates the distances between the data points,
+         the maximum distance, the minimum distance, the dc value, the rho
+         value, the delta value, the number of neighbors, and the structure
+         of the data
+
+        :param l: lower bound of the data
+        :param u: upper bound of the data
+        :param y: the labels of the data
+        """
         self.y = y
         self.l = l
         self.u = u
@@ -274,44 +344,30 @@ class STDPNF:
         self.__structure()
 
     def _fit_without(self):
+        """
+        The function takes in a classifier, and then labels the next point,
+        and then labels the previous points, without filtering.
+        """
         if self.classifier is None:
             self.classifier = SVC()
         count = 1
         self.order = dict.fromkeys(range(self.n_id), 0)
 
-        # Step 2
+        count = self._label_next_point(count)
+
+        self._label_previous_points(count)
+
+    def _label_previous_points(self, count):
+        """
+        > The function takes the samples labeled in the previous step and finds
+         the previous samples of those samples. It then labels those samples
+         and repeats the process until there are no more samples to label
+
+        :param count: the number of the current iteration
+        """
         while True:
-            # 2.a
             samples_labeled = self.__step_a()
 
-            # 2.b
-            next_rows = samples_labeled['next'].to_numpy()
-            next_unlabeled = []
-            samples_labeled_index = samples_labeled.index.to_list()
-            for next_row in next_rows:
-                if next_row not in samples_labeled_index:
-                    next_unlabeled.append(next_row)
-                    self.order[next_row] = count
-            if len(next_unlabeled) == 0:
-                break
-            unlabeled_next_of_labeled = self.structure.loc[next_unlabeled]
-
-            lu = unlabeled_next_of_labeled['sample'].to_list()
-            y_pred = self.classifier.predict(lu)
-
-            # 2.c
-            for new_label, pos in zip(y_pred, next_unlabeled):
-                self.structure.at[pos, 'label'] = new_label
-
-            # For STDPNF
-            count += 1
-
-        # Step 3
-        while True:
-            # 3.a
-            samples_labeled = self.__step_a()
-
-            # 3.b
             prev_rows = samples_labeled['previous'].to_numpy()
             prev_unlabeled = []
             samples_labeled_index = samples_labeled.index.to_list()
@@ -327,12 +383,42 @@ class STDPNF:
             lu = unlabeled_prev_of_labeled['sample'].to_list()
             y_pred = self.classifier.predict(lu)
 
-            # 3.c
             for new_label, pos in zip(y_pred, prev_unlabeled):
                 self.structure.at[pos, 'label'] = new_label
 
-            # For STDPNF
             count += 1
+
+    def _label_next_point(self, count):
+        """
+        > The function takes the samples labeled in the previous step and finds
+         the next samples in the structure. If the next samples are not
+         labeled, it labels them and updates the order of the samples
+
+        :param count: the number of the next point to be labeled
+        :return: The number of labeled samples.
+        """
+        while True:
+            samples_labeled = self.__step_a()
+
+            next_rows = samples_labeled['next'].to_numpy()
+            next_unlabeled = []
+            samples_labeled_index = samples_labeled.index.to_list()
+            for next_row in next_rows:
+                if next_row not in samples_labeled_index:
+                    next_unlabeled.append(next_row)
+                    self.order[next_row] = count
+            if len(next_unlabeled) == 0:
+                break
+            unlabeled_next_of_labeled = self.structure.loc[next_unlabeled]
+
+            lu = unlabeled_next_of_labeled['sample'].to_list()
+            y_pred = self.classifier.predict(lu)
+
+            for new_label, pos in zip(y_pred, next_unlabeled):
+                self.structure.at[pos, 'label'] = new_label
+
+            count += 1
+        return count
 
     def _fit_stdpnf(self):
         """
@@ -420,4 +506,12 @@ class STDPNF:
             self._fit_without()
 
     def predict(self, src):
+        """
+        Predict based on a trained classifier.
+
+        :param src: The source image
+        :return: The classifier is being returned.
+        """
+        if self.classifier is None:
+            raise AssertionError("The model needs to be fitted first.")
         return self.classifier.predict(src)

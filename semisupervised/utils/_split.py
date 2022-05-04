@@ -9,16 +9,14 @@ import pandas as pd
 
 
 def split(samples, y):
-    """Split X, y into Labeled, Unlabeled and the y real tags.
+    """
+    It takes a dataframe of samples and a dataframe of labels, and returns a
+    tuple of three numpy arrays: the labeled samples, the unlabeled samples,
+    and the labels
 
-    Arguments:
-        X {DataFrame} -- samples
-        y {DataFrame} -- labeles
-
-    Returns:
-        L {Numpy array} -- labeled samples
-        U {Numpy array} -- unlabeled samples
-        y {Numpy array} -- real labels
+    :param samples: the dataframe of samples
+    :param y: the labels of the data
+    :return: L, U, y
     """
 
     if isinstance(y, pd.DataFrame):
