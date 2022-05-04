@@ -18,7 +18,6 @@ def split(samples, y):
     :param y: the labels of the data
     :return: L, U, y
     """
-
     if isinstance(y, pd.DataFrame):
         y = y.to_numpy()
 

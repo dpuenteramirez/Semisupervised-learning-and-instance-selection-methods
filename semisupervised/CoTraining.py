@@ -54,27 +54,7 @@ class CoTraining:
     def __init__(self, p=1, n=3, k=30, u=75, random_state=None,
                  c1=None, c1_params=None,
                  c2=None, c2_params=None,):
-        """
-        The function takes in the parameters for the two classifiers, and if the
-        classifier is not None, it will use the parameters to create the
-        classifier. If the classifier is None, it will use the default
-        classifier, which is GaussianNB
-
-        :param p: The number of positive samples, defaults to 1
-        (optional)
-        :param n: The number of negative samples, defaults to 3
-        (optional)
-        :param k: The number of iterations to train the classifiers, defaults
-        to 30 (optional)
-        :param u: The number of unlabeled samples to use in the training set,
-        defaults to 75 (optional)
-        :param random_state: The random seed used to generate the initial
-        population
-        :param c1: The first classifier to be used
-        :param c1_params: parameters for the first classifier
-        :param c2: The second classifier to be used
-        :param c2_params: The parameters for the second classifier
-        """
+        """Co-Training."""
         self.p = p
         self.n = n
         self.k = k

@@ -68,19 +68,7 @@ class DemocraticCoLearning:
                  c1=None, c1_params=None,
                  c2=None, c2_params=None,
                  c3=None, c3_params=None):
-        """
-        The function takes in three classifiers and their parameters, and if
-        they are not provided, it uses the default classifiers and their
-        parameters.
-
-        :param random_state: The random seed used to initialize the classifiers
-        :param c1: The first classifier
-        :param c1_params: parameters for the first classifier
-        :param c2: The classifier to use for the second classifier
-        :param c2_params: The parameters for the second classifier
-        :param c3: The third classifier
-        :param c3_params: The parameters for the third classifier
-        """
+        """Democratic Co-Learning."""
         self.const = 1.96  # 95%
         self.random_state = random_state if random_state is not None else \
             np.random.randint(low=0, high=10e5, size=1)[0]
