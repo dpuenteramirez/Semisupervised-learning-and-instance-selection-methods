@@ -55,30 +55,30 @@ Principalmente existen dos técnicas de aprendizaje no supervisado.
 	
 	Con los datos agrupados el proceso de análisis de éstos puede comenzar. En ocasiones si el número de grupos detectados es muy alto, se pueden encontrar grupos o \textit{clusters} irrelevantes, permitiendo a los científicos de datos eliminar esos datos que los forman, reduciendo la dimensionalidad~\cite{boutsidis2014randomized}.
 	
-	\item \textbf{Reducción de la dimensionalidad}. El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
+	\item \textbf{Reducción de la dimensionalidad}~\cite{li2002unsupervised}. El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
 \end{enumerate}
 
 \subsection{Aprendizaje semi-supervisado}\label{subsec:Aprendizaje-Semi-Supervisado}
 Según~\cite{zhou2014semi} \textit{Semi-Supervised Learning} se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, \textit{i.e.} si no sería un aprendizaje supervisado, o no supervisado. 
 
-El uso de aprendizaje semi-supervisado se caracteriza por ser menos costoso que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es largo y costoso. Luego, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado. 
+El uso de aprendizaje semi-supervisado se caracteriza por ser menos costoso que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es normalmente costoso (en tiempo y en recursos). Luego, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado. 
 Conseguir datos sin etiquetar es una tarea muy sencilla, mientras que conseguir conjuntos de datos etiquetados es un proceso complejo y actualmente no hay <<de todo>>.
 
 Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren inter-relacionadas entre sí por alguna de sus características~\cite{javatpoint_semisupervised} indica las siguientes suposiciones que se dan en el aprendizaje semi-supervisado.
 \begin{enumerate}
 	\item \textbf{Continuity} o continuidad. Se asume que los objetos cercanos entre sí se encontrarán en el mismo \textit{cluster} o grupo de etiquetas. 
-	\item \textbf{\textit{Clustering}} o agrupamientos. Las instancias son divididas en diferentes grupos discretos, compartiendo todos los elementos de un \textit{cluster} la misma etiqueta.
-	\item \textbf{\textit{Manifold}} o colectores. Se emplea el uso de distancias y funciones de densidad de forma que las instancias se encuentran en colectores con menos dimensiones que el espacio de entrada.
+	\item \textbf{\textit{Clustering}} o agrupamiento. Las instancias son divididas en diferentes grupos discretos, compartiendo todos los elementos de un \textit{cluster} la misma etiqueta.
+	\item \textbf{\textit{Manifold}} o variedad. Se emplea el uso de distancias y funciones de densidad de forma que las instancias se encuentran en colectores con menos dimensiones que el espacio de entrada.
 \end{enumerate}
 
 Dentro de las \textit{best practices} en \textit{semi-supervised learning} se encuentran el uso de diferentes modelos de redes neuronales para el entrenamiento~\cite{thekumparampil2018attention}.
 
 
-\section{Algoritmos en el aprendizaje semi-sepervisado}\label{sec_alg:semi-supervised}
-A continuación se van a presentar los algoritmos tratados en este trabajo dentro del aprendizaje semi-supervisado.
+\section{Algoritmos de aprendizaje semi-sepervisado}\label{sec_alg:semi-supervised}
+A continuación se van a presentar los algoritmos implementados en este trabajo dentro del aprendizaje semi-supervisado.
 
 \subsection{\textit{Self-training}}
-Los métodos de auto-entrenamiento (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{condifence level}~\cite{jesper2020survey}.
+Los métodos de auto-etiquetado (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{condifence level}~\cite{jesper2020survey}.
 
 Yarowsky~\cite{yarowsky1995unsupervised} en 1995 propuso la primera versión de \textit{Self-training}, desde entonces numerosas aproximaciones han sido realizadas, modificando la utilización del conjunto de datos etiquetado, los nuevos datos, etcétera. El diseño que se le puede dar y los campos de aplicación del mismo son muy variados.
 
@@ -87,7 +87,7 @@ El procedimiento de selección de qué datos son pseudo-etiquetados es de vital 
 \subsection{\textit{Co-Training}}
 Blum~\cite{blum1998combining} en 1998 propuso el \textit{Co-Training} para conjuntos de datos compuestos por datos separables en dos vistas. Bajo la presunción de que con unos pocos datos etiquetados y diferentes clases que aportan información, se pueden entrenar dos algoritmos de aprendizaje por separado para posteriormente añadir al conjunto de datos etiquetados aquellas predicciones con un mayor intervalo de confianza (\textit{confidence level}).
 
-Las dos características del problema mencionadas anteriormente, disponibilidad de datos etiquetados y no etiquetados, y la disponibilidad de dos <<tipos>> diferentes de conocimiento sobre los ejemplo; aproximan a la siguiente estrategia de aprendizaje. Se desea encontrar los predictores débiles basados en cada tipo de información utilizando un pequeño conjunto inicial de instancias etiquetadas, seguidamente, utilizando los datos no etiquetados se intenta hacer un \textit{bootstrap} a partir de esos <<malos>> predictores. Este tipo de \textit{bootstrapping} es el denominado \textit{Co-Training}, y posee una estrecha relación con el \textit{bootstraping} a partir de datos incompletos en el marco de la maximización de expectativas~\cite{ghahramani1994supervised, ratsaby1995learning}.
+Las dos características del problema mencionadas anteriormente, disponibilidad de datos etiquetados y no etiquetados, y la disponibilidad de dos <<tipos>> diferentes de conocimiento sobre los ejemplo; aproximan a la siguiente estrategia de aprendizaje. Se desea encontrar los predictores débiles basados en cada tipo de información utilizando un pequeño conjunto inicial de instancias etiquetadas, seguidamente, utilizando los datos no etiquetados se intenta hacer un \textit{bootstrap} a partir de esos <<malos>> predictores. Este tipo de \textit{bootstrapping} es el denominado \textit{Co-Training}, y posee una estrecha relación con el \textit{bootstrapping} a partir de datos incompletos en el marco de la maximización de expectativas~\cite{ghahramani1994supervised, ratsaby1995learning}.
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $L \lbrace\left(x_i, y_i\right)\rbrace_{i=1}^l$ y $U \lbrace x_j \rbrace_{j=l+1}^{l+u}$ de datos etiquetados y no etiquetados, respectivamente}
@@ -109,7 +109,7 @@ Las dos características del problema mencionadas anteriormente, disponibilidad 
 \subsection{\textit{Tri-Training}}
 Zhou~\cite{zhou2005tri} en 2005 propuso una modificación sobre el algoritmo de \textit{Co-Training} de Blum~\cite{blum1998combining}. Dasgupta~\textit{et al.}~\cite{dasgupta2002pac} demostraron que cuando los requerimientos del conjunto de datos se cumplían, se podían producir un menor número de errores de generalización al maximizar la clasificación de los prototipos sin etiquetar, aunque no es aplicable a cualquier conjunto de datos.
 
-El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Training}. \textit{Tri-Training} no necesita varias <<vistas significas>> de los datos, tampoco requiere el empleo de múltiples algoritmos de aprendizaje supervisado cuyas hipótesis dividen el espacio de instancias en un conjunto de clases de equivalencia. El \textit{Tri-Training} por tanto emplea tres clasificadores, a diferencia de los dos utilizados anteriormente, esta opción resuelve la dificultad de determinar cómo etiquetar las instancias no etiquetadas y generar la hipótesis final, lo que mejora enormemente la eficiencia del algoritmo. Junto con la capacidad de generalización resultante de la combinación de los tres clasificadores.
+El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Training}. \textit{Tri-Training} no necesita varias <<vistas significativas>> de los datos, tampoco requiere el empleo de múltiples algoritmos de aprendizaje supervisado cuyas hipótesis dividen el espacio de instancias en un conjunto de clases de equivalencia. El \textit{Tri-Training} por tanto emplea tres clasificadores, a diferencia de los dos utilizados anteriormente, esta opción resuelve la dificultad de determinar cómo etiquetar las instancias no etiquetadas y generar la hipótesis final, lo que mejora enormemente la eficiencia del algoritmo. Junto con la capacidad de generalización resultante de la combinación de los tres clasificadores.
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente}
@@ -118,7 +118,7 @@ El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Tr
 	\For{$i \in \lbrace 1\dots 3 \rbrace$}{
 		$S_i \leftarrow BootstrapSample(L)$\\
 		$h_i \leftarrow Learn(S_i)$\\
-		$e'_i \leftarrow 0.5$\\
+		$e'_i \leftarrow 0,5$\\
 		$l'_i \leftarrow 0$
 	}
 	\Repeat{ningún $h_i \left(i \in \lbrace 1\dots3\rbrace\right)$ cambie}{
@@ -165,14 +165,14 @@ Dado que \textit{Tri-Training} no impone ninguna restricción al algoritmo de ap
 \subsection{\textit{Democratic Co-Training}}
 Zhou~\cite{zhou2004democratic} en 2004 presentó el algoritmo \textit{Democratic Co-Learning}. El algoritmo a diferencia de sus <<homónimos>>, trabaja con múltiples algoritmos de aprendizaje supervisado, en lugar de múltiples clases significativas, permitiendo que se etiqueten nuevas instancias entre ellos. Debido a que diferentes algoritmos de aprendizaje poseen diferentes sesgos, seleccionar la clase más votada por la mayoría produce mejores predicciones.
 
-El algoritmo es por tanto enfocado para el uso en casos donde no existen dos conjuntos de atributos independientes y redundantes.
+El algoritmo es por tanto enfocado para el uso en casos donde no existen dos conjuntos de atributos independientes y redundantes, su pseudocódigo se encuentra disponible en los algoritmos~\ref{alg:Democratic-Co}~y~\ref{alg:Democratic-Co-2}.
 
-Es por ello que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
+Es por ello que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver Algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
 
 Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ (l + h)/2
 $ para $l$ y $h$ definidas por el intervalo de confianza del 95\% $\left[l,h\right]$.
 
-Finalmente el algoritmo, ver algoritmo~\ref{alg:Democratic-Co-2}, finaliza con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
+Finalizando con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente}
@@ -239,14 +239,12 @@ Finalmente el algoritmo, ver algoritmo~\ref{alg:Democratic-Co-2}, finaliza con l
 \subsection{\textit{Self-Training} basado en picos de densidad}
 Wu~\cite{wu2018self} en 2018 presentó un \textit{framework} para clasificación utilizando \textit{self-training}. En este caso a diferencia de los métodos estudiados anteriormente, se utilizan técnicas de \textit{clustering} (agrupación) para obtener mejores resultados. Con éste método se descubre la  estructura del espacio de datos, para ello se integra la densidad de los datos en el proceso de \textit{self-training}, de manera que se entrene iterativamente un clasificador. 
 
-El proceso por el cuál se consigue este nuevo clasificador <<mejorado>> es el siguiente:
+El proceso, ver algoritmo~\ref{alg:Wu-DensityPeaks}, por el cuál se consigue este nuevo clasificador <<mejorado>> es el siguiente:
 \begin{enumerate}
 \item Encontrar los picos de densidad de los datos para aprender la estructura subyacente de todo el espacio de datos de entrenamiento. Y se integra esta estructura en el proceso de entrenamiento iterativo de un clasificador.
 \item Se entrena un clasificador con los datos etiquetados. Se clasifican los ejemplos siguientes de los ya etiquetados hasta que no haya más, se predicen y, se añaden y eliminan de los datos etiquetados y no etiquetados, respectivamente.
 \item Se repite el paso anterior pero con los puntos anteriores.
 \end{enumerate}
-
-El algoritmo se encuentra disponible, ver Algoritmo~\ref{alg:Wu-DensityPeaks}.
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente}
@@ -401,20 +399,20 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 \begin{table}[]
 \small
 \begin{center}
-	\begin{tabular}{lc}
+	\begin{tabular}{lcc}
 	\toprule
 	\rowcolor[HTML]{EFEFEF} 
-	\textbf{Método}    & \textbf{Referencia} \\
+	\textbf{Método}  &  \textbf{\begin{tabular}[]{@{}c@{}}Complejidad\\Computacional\end{tabular}}  & \textbf{Referencia} \\
 	\toprule
-	Algoritmo de edición de Wilson (ENN)              &~\cite{wilson1972asymptotic}\\ 
+	Edición de Wilson (ENN)        & $O(n^2)$      &~\cite{wilson1972asymptotic}\\ 
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo Condensado de Hart (CNN)              &~\cite{hart1968condensed}\\ 
-	Algoritmo Condensado Reducido (RNN)              &~\cite{gates1972reduced}  \\ 
+	Condensado de Hart (CNN)     & $O(n^2)$         &~\cite{hart1968condensed}\\ 
+	Condensado Reducido (RNN)     & $O(n^2)$         &~\cite{gates1972reduced}  \\ 
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo \textit{Iterative Case Filtering} (ICF)                   &~\cite{brighton2002advances}\\ 
-	Algoritmo Subconjunto Selectivo Modificado (MSS)                 &~\cite{barandela2005decision}\\ 
+	\textit{Iterative Case Filtering} (ICF)     & $O(n^2)$              &~\cite{brighton2002advances}\\ 
+	Subconjunto Selectivo Modificado (MSS)    & $O(n^2)$             &~\cite{barandela2005decision}\\ 
 	\rowcolor[HTML]{EFEFEF} 
-	Algoritmo \textit{Drecremental Reduction Optimization Procedure} (DROP) &~\cite{wilson2000reduction} \\ \bottomrule
+	\textit{Drecremental Reduction Optimization Procedure} (DROP) & $O(n^2)$  &~\cite{wilson2000reduction} \\ \bottomrule
 	\end{tabular}
 \end{center}
 \caption{Algunos métodos de selección de instancias.}
@@ -436,12 +434,6 @@ Wilson~\cite{wilson1972asymptotic} (1972) publicó la regla del vecino más cerc
 \item Existe una distancia medible entre instancias.
 \end{itemize}
 
-Con todas estas premisas Wilson propone un algoritmo basado en clasificación incorrecta en función de sus vecinos más cercanos. Cuando una instancia resulta mal clasificada por sus \textit{k} vecinos más cercanos, \textit{k}-NN, esa instancia es descartada. Finalmente obtendremos como resultado un conjunto $S$ con las instancias correctamente clasificadas por sus vecinos.
-
-Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} posibles clases y, sea \textit{k} el número de vecinos cercanos,el algoritmo de Wilson se puede formular de la siguiente manera:
-
-El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas (siempre y cuando haya un nivel significativo de ruido).
-
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X = \lbrace\left( x_1, y_1 ,\right)\dots \left(x_n, y_n\right)\rbrace$, $k$ número de vecinos.}
 	\KwOut{Conjunto editado $S \subset X$}
@@ -456,6 +448,13 @@ El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN} posee una
   	\Return{$S$}
   \caption{Algoritmo de edición de Wilson, \textit{ENN}}\label{alg:Wilson-ENN}
 \end{algorithm}
+
+Con todas estas premisas Wilson propone un algoritmo basado en clasificación incorrecta en función de sus vecinos más cercanos. Cuando una instancia resulta mal clasificada por sus \textit{k} vecinos más cercanos, \textit{k}-NN, esa instancia es descartada. Finalmente obtendremos como resultado un conjunto $S$ con las instancias correctamente clasificadas por sus vecinos.
+
+Suponiendo que sea \textit{X} un conjunto de \textit{N} instancias y \textit{M} posibles clases y, sea \textit{k} el número de vecinos cercanos, el algoritmo de Wilson se puede formular de la siguiente manera:
+
+El algoritmo de edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}, posee una complejidad computacional de $O(n^2)$. Una de las ventajas de este algoritmo es su forma de crear el subconjunto $S$, ya que al ser descendente las primeras iteraciones serán lentas --- dependiendo del tamaño de $T$ lógicamente --- pero las finales serán considerablemente más rápidas (siempre y cuando haya un nivel significativo de ruido).
+
 
 \paragraph{Algoritmo Condensado de Hart}\label{paragraph:CNN}
 \hfill \break
@@ -643,8 +642,8 @@ El concepto \textit{with} permite recoger el número de asociados correctamente 
 		Añadir $x$ a la lista de asociados de cada uno de sus vecinos
 	}
 	\ForAll{$x \in S$}{
-		$with \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{con} $x$ como vecino\\
-		$without \leftarrow$ \# número de asociados de $x$ clasificados correctamente \textbf{sin} $x$ como vecino\\
+		$with \leftarrow$ número de asociados de $x$ clasificados correctamente \textbf{con} $x$ como vecino\\
+		$without \leftarrow$ número de asociados de $x$ clasificados correctamente \textbf{sin} $x$ como vecino\\
 		\If{$without \geq with$}{
 			Eliminar $x$ de $S$\\
 			\ForAll{Asociado $a$ de $x$}{
@@ -686,10 +685,5 @@ Su fórmula normalizada es la siguiente:
 
 Su fórmula es la siguiente:
 \[  \mathbb{D}(x, y) = \max_i\left(\left|x_i - y_i\right|\right) \]
-
-\item \textbf{Distancia del Coseno.} Mide la similitud o distancia entre dos vectores calculando el coseno del ángulo que forman.
-
-Su fórmula es la siguiente:
-\[ \mathbb{D}(x, y) = \frac{\sum_{i=1}^{d}x_iy_i}{\sqrt{\sum_{i=1}^{d}x_i^2}\sqrt{\sum_{i=1}^{d}y_i^2} } \]
 
 \end{itemize}

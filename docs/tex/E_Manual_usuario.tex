@@ -6,6 +6,7 @@ En esta sección se detallan los requerimientos de la aplicación, su instalaci�
 De igual manera que en el Manual del Programador cada parte del proyecto, \texttt{IS-SSL} y \texttt{UBUMLaaS}, se describirá por su propio lado, de tal manera que aunque haya aspectos comunes, cada una su propia documentación de usuario.
 
 \section{UBUMLaaS}
+En esta sección se va a presentar el manual de usuario para el correcto uso de la plataforma \texttt{UBUMLaaS}, de tal forma que sirva como guía para comprender y consiguientemente poder utilizar eficientemente el \textit{software} desarrollado.
 \subsection{Requisitos de usuarios}
 Los requisitos mínimos para poder hacer uso de \texttt{UBUMLaaS} son:
 \begin{itemize}
@@ -97,7 +98,7 @@ Siguiendo con el experimento mostrado en la Figura~\ref{fig:experiment-form-done
 
 \begin{itemize}
 \item La matriz de confusión para cada una de las posibles etiquetas.
-\item El \textit{auc score}.
+\item El \textit{AUC score}.
 \item El \textit{F1 score}.
 \item El \textit{kappa score}.
 \item El \textit{accuracy score}.
@@ -112,12 +113,21 @@ Una vez que se posee un modelo entrenado, desde la página de visualización de 
 
 Para poder predecir se deberá subir un conjunto de datos, el cual debe poseer \textbf{las mismas columnas (atributos), con exactamente los mismos nombres}, un ejemplo está en la Figura~\ref{fig:pre-predict}, siguiendo el ejemplo con el que se viene trabajando.
 
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/pre-predict}{Vista de antes de predecir}{pre-predict}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../img/anexos/manual-usuario/UBUMLaaS/pre-predict}
+\caption{Vista de antes de predecir.}\label{fig:pre-predict}
+\end{figure}
 
 Y posterior a la predicción se mostrarán los resultados tal y como cabría esperar, en la Figura~\ref{fig:post-predict} se muestra el ejemplo, en caso de considerar que la predicción es correcta, se mostrará en verde, en este caso todas son rojas puesto que no se garantiza su corrección.
 
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/post-predict}{Vista después de predecir}{post-predict}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../img/anexos/manual-usuario/UBUMLaaS/post-predict}
+\caption{Vista de después de predecir.}\label{fig:post-predict}
+\end{figure}
 
+\FloatBarrier
 \subsubsection{Estadísticas de uso}
 Si se desean visualizar las estadísticas personales de uso de la aplicación, se debe acudir al perfil del usuario, el cuál es compartido con la lista de experimentos, desde la pantalla principal, Figura~\ref{fig:index-login}, (o desde cualquier otra) se deberá pulsar en la parte superior derecha sobre el botón \textit{Launched Experiments}, y se redirigirá al perfil. 
 
@@ -133,6 +143,7 @@ En la Figura~\ref{fig:user-stats} se muestra un ejemplo de las estadísticas de 
 
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/user-stats}{Estadísticas de usuario}{user-stats}
 
+\FloatBarrier
 \subsubsection{Modificación de datos del usuario y actualizar contraseña}
 Todo usuario puede modificar sus datos personales, así como añadir una serie de datos que no son obligatorios. Para modificar los datos se realizará desde el perfil del usuario, haciendo \textit{click} en el botón amarillo en la parte inferior izquierda, con la cadena de caracteres \textit{Edit profile}.
 
@@ -140,8 +151,17 @@ En este momento se lanzará un modal el cual posee dos partes diferencias, modif
 
 Cuando se decida qué se quiere modificar, se deberá hacer \textit{click} en el \textit{checkbox} que se encuentra en la parte superior de cada formulario, lo cual habilitará la edición del mismo. Los formularios se encuentran en las Figuras~\ref{fig:edit-profile-data}~y~\ref{fig:edit-profile-passwd}, respectivamente. 
 
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/edit-profile-data}{Formulario de edición de los datos de un usuario}{edit-profile-data}
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/edit-profile-passwd}{Formulario para cambiar la contraseña de un usuario}{edit-profile-passwd}
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{../img/anexos/manual-usuario/UBUMLaaS/edit-profile-data}
+\caption{Formulario de edición de los datos de un usuario.}\label{fig:edit-profile-data}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{../img/anexos/manual-usuario/UBUMLaaS/edit-profile-passwd}
+\caption{Formulario para cambiar la contraseña de un usuario.}\label{fig:edit-profile-passwd}
+\end{figure}
 
 \FloatBarrier
 \subsection{Manual del administrador}
@@ -152,7 +172,7 @@ Tal y como se aprecia en la Figura~\ref{fig:index-admin}, el administrador posee
 
 En caso de querer ocultar la barra lateral de administración, ya que no se va utilizar en ese momento, en la parte superior izquierda aparece una \texttt{X}, haciendo \textit{click} en ella se ocultará la barra lateral.
 
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/index-admin}{Vista de índice de administrador}{index-admin}
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/index-admin}{Vista principal de administrador.}{index-admin}
 
 En las siguientes secciones se comentarán cada una de las opciones disponibles para los administradores.
 
@@ -180,7 +200,7 @@ Se dispone de la siguiente información:
 \end{itemize}
 
 \subsubsection{Users}
-Se accede a la página de administración de usuarios a través del botón \textit{Users} en la barra lateral. En este panel se pueden crear, (de)activar, dar/quitar privilegios de administración, o eliminar un usuario.
+Se accede a la página de administración de usuarios a través del botón \textit{Users} en la barra lateral. En este panel se pueden crear, (des)activar, dar/quitar privilegios de administración, o eliminar un usuario.
 
 Tal y como se puede ver en la Figura~\ref{fig:users-admin}, se soporta la búsqueda por cualquiera de los campos que se visualizan, permitiendo encontrar a aquellos usuarios que interese en <<un \textit{click}>>. 
 
@@ -203,7 +223,7 @@ La información que se muestra es la siguiente (todas las unidades que se muestr
 \begin{itemize}
 	\item \textit{CPU Load}. La carga de la CPU porcentualmente.
 	\item \textit{CPU Cores}. El número total de núcleos del sistema.
-	\item \textit{Memory Load}. EL uso total de la memoria en forma de gráfico.
+	\item \textit{Memory Load}. El uso total de la memoria en forma de gráfico.
 	\item \textit{Used Memory}. El valor total de memoria en uso en el sistema.
 	\item \textit{Storage in use}. Almacenamiento total del sistema en vista de gráfico.
 	\item \textit{Storaged Used}. El valor total de almacenamiento en uso.
@@ -225,6 +245,7 @@ La información que se muestra es la siguiente (todas las unidades que se muestr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
 \section{IS-SSL}
+A continuación se presenta el manual de usuario de las bibliotecas de algoritmos desarrolladas. Permitiendo a cualquier usuario comprender \texttt{IS-SSL} y poder hacer uso de las mismas.
 \subsection{Requisitos de usuarios}
 Los requisitos mínimos para poder hacer uso de \texttt{IS-SSL} son:
 \begin{itemize}
@@ -317,8 +338,8 @@ Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe
 Los algoritmos siguen la misma estructura interna que los propios de \texttt{Scikit-Learn}, por lo que una vez instanciados (con sus respectivos parámetros de configuración) bastará con llamar al método \texttt{fit} de cada uno de ellos, así como para predecir al método correspondiente, denominado \texttt{predict}.
 
 \begin{itemize}
-\item \textbf{\texttt{Fit}:} recibe como argumentos dos parámetros, las instancias y las etiquetas o clases, siendo -1 aquellas que se desconozcan y se quieran utilizar para entrenar el algoritmo.
-\item \textbf{\texttt{Predict}:} recibe únicamente las instancias que se quieren etiquetar. Devuelve estas instancias etiquetadas.
+\item \textbf{\texttt{fit}:} recibe como argumentos dos parámetros, las instancias y las etiquetas o clases, siendo -1 aquellas que se desconozcan y se quieran utilizar para entrenar el algoritmo.
+\item \textbf{\texttt{predict}:} recibe únicamente las instancias que se quieren etiquetar. Devuelve estas instancias etiquetadas.
 \end{itemize}
 
 Todas las entradas como las salidas deben ser objetos de tipo \texttt{DataFrame} de \texttt{Pandas}.
@@ -350,5 +371,45 @@ X = pd.DataFrame(X), y = pd.DataFrame(y)
 
 model.fit(X, y)
 y_pred = model.predict(X_test)
+	
+\end{lstlisting}
+\vfill
+\subsubsection{Ejemplo de uso combinado de ambas bibliotecas}
+\begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
+from SemiSupervisedLearningDNX import TriTraining
+from InstanceSelectionDNX import ENN
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_iris
+	
+if __name__ == "__main__":
+	model = TriTraining(
+		random_state = 42,
+		c1 = GaussianNB, c1_params = None,
+		c2 = KNeighborsClassifier, c2_params = {n_neighbors: 2},
+		c3 = DecisionTreeClassifier, c3_params = None	
+	)
+	filter_model = ENN(nearest_neighbors = 5, power_parameter = 2)
+	
+	iris = load_iris()
+	X = iris['data']
+	y = iris['target']
+
+	X = pd.DataFrame(X)
+	y = pd.DataFrame(y)
+	X, y = filter_model.filter(X, y)
+
+	val = [True if i % 2 == 0 else False for i in range(len(y))]
+	y[val] = -1
+
+	X, X_test, y, y_test = train_test_split(X.to_numpy(), y.to_numpy())
+
+	X = pd.DataFrame(X)
+	y = pd.DataFrame(y)
+
+	model.fit(X, y)
+	y_pred = model.predict(X_test)
+	print(accuracy_score(y_true=y_test, y_pred=y_pred))
 	
 \end{lstlisting}
