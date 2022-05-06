@@ -5,6 +5,13 @@ En este anexo se va a describir con detalle la documentación técnica de progra
 
 Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
 
+Ambos repositorios son consultables desde:
+\begin{itemize}
+\tightlist
+\item \textbf{\texttt{UBUMLaaS}.}~\url{https://github.com/dpr1005/UBUMLaaS}
+\item \textbf{\texttt{IS-SSL}.}~\url{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods} 
+\end{itemize}
+
 \section{UBUMLaaS}
 
 \subsection{Estructura de directorios}
@@ -438,46 +445,6 @@ Todos los métodos de selección de instancias y algoritmos de aprendizaje semi-
 Un ejemplo del uso completo de este \textit{software} es lo encontramos en Listing~\ref{lst:ejemplo}, donde se detallan los tipos de datos de entrada.
 
 Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la librería de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
-
-\begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
-from SemiSupervisedLearningDNX import TriTraining
-from InstanceSelectionDNX import ENN
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import load_iris
-	
-if __name__ == "__main__":
-	model = TriTraining(
-		random_state = 42,
-		c1 = GaussianNB, c1_params = None,
-		c2 = KNeighborsClassifier, c2_params = {n_neighbors: 2},
-		c3 = DecisionTreeClassifier, c3_params = None	
-	)
-	filter_model = ENN(nearest_neighbors = 5, power_parameter = 2)
-	
-	iris = load_iris()
-	X = iris['data']
-	y = iris['target']
-
-	X = pd.DataFrame(X)
-	y = pd.DataFrame(y)
-	X, y = filter_model.filter(X, y)
-
-	val = [True if i % 2 == 0 else False for i in range(len(y))]
-	y[val] = -1
-
-	X, X_test, y, y_test = train_test_split(X.to_numpy(), y.to_numpy())
-
-	X = pd.DataFrame(X)
-	y = pd.DataFrame(y)
-
-	model.fit(X, y)
-	y_pred = model.predict(X_test)
-	print(accuracy_score(y_true=y_test, y_pred=y_pred))
-	
-\end{lstlisting}
-\pagebreak
 
 \subsection{Integración Continua}
 Con el objetivo de diseñar un \textit{software} lo más robusto posible, la biblioteca cuenta con una serie de pruebas de integración continua, permitiendo que todos los cambios que se vayan realizando mantengan la biblioteca en un estado correcto, indicando tempranamente aquellos posibles problemas que puedan surgir.
