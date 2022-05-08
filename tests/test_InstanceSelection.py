@@ -23,6 +23,7 @@ def to_dataframe(y):
     """
     if not isinstance(y, pd.DataFrame):
         return pd.DataFrame(y)
+    return y
 
 
 @pytest.fixture

@@ -88,6 +88,19 @@ class LocalSets:
         label,
         labels,
     ):
+        """
+        It finds the closest enemy sample to the current sample
+
+        :param closest_enemy_distance: the distance to the closest enemy sample
+        :param closest_enemy_sample: the index of the closest enemy sample
+        :param distances: the distance matrix
+        :param index: the index of the current sample
+        :param instances: the data
+        :param label: the label of the current sample
+        :param labels: the labels of the samples
+        :return: The closest enemy distance and the index of the closest enemy
+        sample.
+        """
         for index2, (_, label2) in enumerate(zip(instances, labels)):
             if index == index2 or label == label2:
                 continue

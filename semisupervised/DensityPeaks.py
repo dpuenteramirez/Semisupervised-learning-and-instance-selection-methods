@@ -260,6 +260,7 @@ class STDPNF:
         return samples_labeled
 
     def __discover_structure(self):
+        """Discovers the under laying structure."""
         self._fit_without()
 
     def __nan_search(self):
