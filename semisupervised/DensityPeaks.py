@@ -71,7 +71,7 @@ class STDPNF:
             self.filter = None
 
         self.y = None
-        self.l = None
+        self.low = None
         self.u = None
         self.classifier_stdpnf = None
         self.order = None
@@ -198,9 +198,13 @@ class STDPNF:
 
         :return: distance vector, nearest neighbor vector
         """
+        if self.rho is None:
+            raise ValueError("Encountered rho as None.")
+
         sort_rho_idx = np.argsort(-self.rho)
         delta, nneigh = [float(self.max_dis)] * self.n_id, [0] * self.n_id
         delta[sort_rho_idx[0]] = -1.0
+
         for i in range(self.n_id):
             for j in range(0, i):
                 old_i, old_j = sort_rho_idx[i], sort_rho_idx[j]
@@ -359,7 +363,7 @@ class STDPNF:
 
         return es, es_pred
 
-    def __init_values(self, l, u, y):
+    def __init_values(self, low, u, y):
         """
         It takes in the lower and upper bounds of the data, and the data itself,
          and then calculates the distances between the data points,
@@ -367,12 +371,12 @@ class STDPNF:
          value, the delta value, the number of neighbors, and the structure
          of the data
 
-        :param l: lower bound of the data
+        :param low: lower bound of the data
         :param u: upper bound of the data
         :param y: the labels of the data
         """
         self.y = y
-        self.l = l
+        self.low = low
         self.u = u
         self.data = np.concatenate((l, u), axis=0)
         self.n_id = self.data.shape[0]
@@ -470,7 +474,7 @@ class STDPNF:
         self.classifier_stdpnf = KNeighborsClassifier(
             n_neighbors=self.k, metric=self.distance_metric
         )
-        self.classifier_stdpnf.fit(self.l, self.y)
+        self.classifier_stdpnf.fit(self.low, self.y)
         count = 1
 
         while count <= max(self.order.values()):
@@ -546,7 +550,7 @@ class STDPNF:
         :return: The result is a dataframe with the filtered data.
         """
         if isinstance(self.filter, ENN):
-            original = pd.DataFrame(self.l)
+            original = pd.DataFrame(self.low)
             original_y = pd.DataFrame(self.y)
             result, _ = self.filter.filter_original_complete(
                 original, original_y, complete, complete_y

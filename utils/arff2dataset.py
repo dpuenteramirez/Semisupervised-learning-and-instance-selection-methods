@@ -20,7 +20,7 @@ def arff_data(dataset_path, attr=False):
     defaults to False (optional)
     :return: A bunch object with the data, target and attributes.
     """
-    if not ".arff" in str(dataset_path).lower():
+    if ".arff" not in str(dataset_path).lower():
         raise ValueError("File does not an ARFF extension.")
     file = open(dataset_path, "r")
     attrs, data = _read_file(file)
