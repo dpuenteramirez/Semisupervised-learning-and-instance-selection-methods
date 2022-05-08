@@ -16,7 +16,6 @@ from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
 
 from instance_selection import ENN
-
 from .utils import split
 
 
@@ -32,19 +31,19 @@ class STDPNF:
     """
 
     def __init__(
-        self,
-        dc=None,
-        distance_metric="euclidean",
-        k=3,
-        gauss_cutoff=True,
-        percent=2.0,
-        density_threshold=None,
-        distance_threshold=None,
-        anormal=True,
-        filtering=False,
-        classifier=None,
-        classifier_params=None,
-        filter_method=None,
+            self,
+            dc=None,
+            distance_metric="euclidean",
+            k=3,
+            gauss_cutoff=True,
+            percent=2.0,
+            density_threshold=None,
+            distance_threshold=None,
+            anormal=True,
+            filtering=False,
+            classifier=None,
+            classifier_params=None,
+            filter_method=None,
     ):
         """Semi Supervised Algorithm based on Density Peaks."""
         self.dc = dc
@@ -69,6 +68,22 @@ class STDPNF:
             self.filter = filter_method
         else:
             self.filter = None
+
+        self.y = None
+        self.l = None
+        self.u = None
+        self.classifier_stdpnf = None
+        self.order = None
+        self.structure = None
+        self.structure_stdnpf = None
+        self.n_id = None
+        self.distances = None
+        self.max_dis = None
+        self.min_dis = None
+        self.rho = None
+        self.delta = None
+        self.nneigh = None
+        self.data = None
 
     def __build_distance(self):
         """
@@ -106,7 +121,8 @@ class STDPNF:
 
         while True:
             nneighs = (
-                sum([1 for v in self.distances.values() if v < dc]) / self.n_id**2
+                    sum([1 for v in self.distances.values() if
+                         v < dc]) / self.n_id ** 2
             )
             if 0.01 <= nneighs <= 0.02:
                 break
@@ -460,7 +476,7 @@ class STDPNF:
         while count <= max(self.order.values()):
             unlabeled_rows = self.structure_stdnpf.loc[
                 self.structure_stdnpf["label"] == -1
-            ].index.to_list()
+                ].index.to_list()
             unlabeled_indexes = []
             for row in unlabeled_rows:
                 if self.order[row] == count:
@@ -476,7 +492,7 @@ class STDPNF:
             else:
                 labeled_data = self.structure_stdnpf.loc[
                     self.structure_stdnpf["label"] != -1
-                ]
+                    ]
                 complete = labeled_data["sample"]
                 complete_y = labeled_data["label"]
 
@@ -486,14 +502,15 @@ class STDPNF:
 
             labeled_data = self.structure_stdnpf.loc[
                 self.structure_stdnpf["label"] != -1
-            ]
+                ]
             self.classifier_stdpnf.fit(
                 labeled_data["sample"].tolist(), labeled_data["label"].tolist()
             )
 
             count += 1
 
-        labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf["label"] != -1]
+        labeled_data = self.structure_stdnpf.loc[
+            self.structure_stdnpf["label"] != -1]
         self.classifier_stdpnf.fit(
             labeled_data["sample"].tolist(), labeled_data["label"].tolist()
         )
@@ -516,7 +533,8 @@ class STDPNF:
             if not is_in:
                 results_to_unlabeled.append(r)
         for r in results_to_unlabeled:
-            self.structure_stdnpf.at[np.array(self.structure_stdnpf["sample"], r)][
+            self.structure_stdnpf.at[
+                np.array(self.structure_stdnpf["sample"], r)][
                 "label"
             ] = -1
 

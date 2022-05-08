@@ -146,10 +146,6 @@ class LSSm(LocalSets):
 
     """
 
-    def __init__(self):
-        """A constructor for the class."""
-        super().__init__()
-
     def filter(self, instances, labels):
         """
         The function takes in a dataframe of instances and a dataframe of
@@ -199,10 +195,6 @@ class LSBo(LocalSets):
     ----------
 
     """
-
-    def __init__(self):
-        """A constructor for the class."""
-        super(LSBo, self).__init__()
 
     def filter(self, instances, labels):
         """

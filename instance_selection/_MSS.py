@@ -90,10 +90,9 @@ class MSS:
             for sample_1, x1_class in zip(dat, tar):
                 if x1_class == x_class:
                     continue
-                else:
-                    euc = np.linalg.norm(sample - sample_1)
-                    if euc < distance:
-                        distance = euc
+                euc = np.linalg.norm(sample - sample_1)
+                if euc < distance:
+                    distance = euc
             solution.append([sample, x_class, distance])
 
         solution.sort(key=lambda x: x[2])
