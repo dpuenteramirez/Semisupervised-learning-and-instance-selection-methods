@@ -80,7 +80,6 @@ class RESSEL:
         :param estimator_params: dict of params to pass to the estimator.
         :return: the ensemble in case is needed.
         """
-
         self._validate_params(base_estimator, labeled, unlabeled)
 
         self._init_ensemble(base_estimator, estimator_params)
@@ -218,7 +217,6 @@ class RESSEL:
         :param d_class_i: the proportion of samples to be selected from each
         class
         """
-
         y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
         best_error_i = f1_score(
             y_true=np.ravel(oob_i.iloc[:, -1:]),

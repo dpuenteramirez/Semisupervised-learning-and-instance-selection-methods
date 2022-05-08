@@ -83,7 +83,6 @@ class MSS:
         :return: A list of lists, where each list contains a sample, its class,
          and its distance to its nearest enemy.
         """
-
         solution = []
         for sample, x_class in zip(dat, tar):
             distance = sys.maxsize

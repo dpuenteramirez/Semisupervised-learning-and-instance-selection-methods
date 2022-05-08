@@ -468,7 +468,6 @@ class STDPNF:
         Self Training based on Density Peaks and a parameter-free noise
         filter.
         """
-
         self.__discover_structure()
 
         nan, lambda_param = self.__nan_search()
