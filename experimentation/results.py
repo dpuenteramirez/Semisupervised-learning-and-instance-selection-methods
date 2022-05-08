@@ -19,12 +19,15 @@ if __name__ == '__main__':
     folder = join('.', 'results', '')
     ranks_path = 'ranks'
     plots = 'plots'
-    precisions = [0.05, 0.1, 0.15]
+    # A list of the percentages of the data that is labeled.
+    precisions = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35]
+    percent_precisions = [x * 100 for x in precisions]
     metrics = ['f1-score', mse, 'accuracy score']
     results_found = next(walk(folder), (None, None, []))[2]
-    if len(results_found) != 3:
-        print("This script only works with 3 results in the \'results\' "
-              "folder.")
+    if len(results_found) != len(precisions) + 1:
+        print(
+            f"This script only works with {len(precisions) + 1} results in the "
+            f"\'results\' folder.")
         exit(1)
     dfs = []
     for index, r in enumerate(results_found):
@@ -34,7 +37,7 @@ if __name__ == '__main__':
     df.drop('fold', axis=1, inplace=True)
 
     classifiers = dfs[0].base.unique()
-    filters = dfs[0]['filter'].unique()
+    filters = np.append(dfs[0]['filter'].unique(), 'base')
     datasets = dfs[0]['dataset'].unique()
 
     ranks = {}
@@ -74,24 +77,46 @@ if __name__ == '__main__':
                 rks[(precision, metric)] = np.ravel(vals.to_numpy())
         ranks[classifier] = rks
 
-    for classifier in classifiers:
+    fig, axs = \
+        plt.subplots(nrows=3, ncols=3, sharex='all', sharey='all', figsize=(
+            12, 5))
+
+    for (i, classifier), axss in zip(enumerate(classifiers), axs):
         df_fin = pd.DataFrame(ranks.get(classifier), index=filters). \
             transpose()
 
-        for metric in metrics:
+        for (j, metric), ax in zip(enumerate(metrics), axss):
             vals = []
             for p in precisions:
                 vals.append(df_fin.loc[(p, metric)])
             df_f = pd.concat(vals, ignore_index=True, axis=1).transpose()
-            df_f.index = precisions
+            df_f.index = percent_precisions
 
-            df_f.plot(
-                title=f"Summary of {classifier} with {metric}",
-                ylabel="Precision",
-                grid=True,
-                xticks=precisions
-            )
-            plt.savefig(join(plots, f'{classifier}_{metric}.png'))
+            ax.plot(df_f)
+
+            if i == 0:
+                ax.set_title(str(metric))
+
+            if j == 0:
+                classifier = classifier.split('Classifier')[0]
+                ax.set_ylabel(str(classifier))
+
+            # ax = df_f.plot(
+            #     title=f"Summary of {classifier} with {metric}",
+            #     ylabel="Average Rank",
+            #     xlabel="Percent Labeled",
+            #     grid=True,
+            #     xticks=percent_precisions,
+            # )
+            # plt.savefig(fname=join(plots, f'{classifier}_{metric}.png'),
+            #            dpi=300)
         df_fin.to_csv(join(ranks_path, f'{classifier}.csv'))
 
+    fig.legend(
+        labels=filters,
+        loc="center right",
+    )
+    plt.subplots_adjust(right=0.9)
+
+    plt.savefig(fname=join(plots, 'General.png'), dpi=300)
     df.to_csv(join(ranks_path, 'results.csv'))
