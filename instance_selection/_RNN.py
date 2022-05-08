@@ -48,8 +48,8 @@ class RNN:
         samples, y = cnn.filter(samples, y)
         samp_set = transform(samples, y)
 
-        data = deque(list(samp_set['data']))
-        target = deque(list(samp_set['target']))
+        data = deque(list(samp_set["data"]))
+        target = deque(list(samp_set["target"]))
 
         for instance in zip(samp_set.data, samp_set.target):
             (sample, class_sample) = instance

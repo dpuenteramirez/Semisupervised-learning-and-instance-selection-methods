@@ -94,8 +94,9 @@ class DemocraticCoLearning:
         try:
             self.h1, self.h2, self.h3 = configs
         except ValueError:
-            raise AttributeError("Classifiers and/or params were not "
-                                 "correctly passed.")
+            raise AttributeError(
+                "Classifiers and/or params were not " "correctly passed."
+            )
 
     def fit(self, samples, y):
         """
