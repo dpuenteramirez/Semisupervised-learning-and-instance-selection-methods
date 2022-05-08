@@ -22,6 +22,8 @@ def split(samples, y):
         y = y.to_numpy()
 
     labeled_indexes = y != (-1 or np.NaN or None)
+    
+    labeled_indexes = np.ravel(labeled_indexes)
 
     L = samples.iloc[labeled_indexes].to_numpy()
     U = samples.iloc[~labeled_indexes].to_numpy()

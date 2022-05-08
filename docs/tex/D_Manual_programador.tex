@@ -481,3 +481,47 @@ El proceso de integración es sencillo, una vez registrados y asociada la cuenta
 \imagenRuta{../img/anexos/manual-programador/SonarCloud-IS-SSL}{SonarCloud.}{SonarCloud-IS-SSL}
 
 \subsection{Pruebas del sistema}
+
+En esta sección se van a describir las pruebas que poseen las bibliotecas.
+
+Las pruebas son realmente sencillas, ya que los propios algoritmos no poseen muchas disyunciones. Es por ello que el conjunto de pruebas codificado está compuesto de pruebas unitarias para cada algoritmo programado, permitiendo comprobar tanto que las entradas son correctas, como sus salidas. En el caso de los algoritmos de selección de instancias se asegura que las instancias recuperadas pertenecen al conjunto de datos de entrada, y que no son más que las que se introdujeron en primera instancia. De tal manera que en caso de que los algoritmos se modifiquen, el filtrado lo sigan realizando. La prueba base se puede visualizar en la Figura~\ref{fig:base-test-is}.
+
+Para la biblioteca de algoritmos de aprendizaje semi-supervisado se poseen también pruebas unitarias para todos y cada uno de ellos, la prueba base se puede visualizar en~\ref{fig:base-test-ssl}. En ellas se comprueban:
+\begin{itemize}
+\tightlist
+\item Tipo de objeto de entrada.
+\item Instanciación con mediante diferentes parámetros, tanto por defecto como mediante uso de diccionarios.
+\item Entrenamiento del propio algoritmo (\texttt{fit}).
+\item Predicción usando el modelo, \texttt{predict}.
+\item Las etiquetas devueltas como resultado de la predicción existen en el conjunto de entrenamiento, no se ha inventado ninguna.
+\end{itemize}
+
+
+\imagenFlotante{../img/anexos/manual-programador/base-tests-is}{Prueba base para algoritmos de selección de instancias.}{base-test-is}
+\imagenFlotante{../img/anexos/manual-programador/base-tests-ssl}{Prueba base para algoritmos de aprendizaje semi-supervisado.}{base-test-ssl}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{../img/anexos/manual-programador/tests-superados-is-ssl}
+\caption{Prueba base para algoritmos de aprendizaje semi-supervisado.}\label{fig:tests-superados-is-ssl}
+
+\end{figure}
+
+Además, se ha codificado una prueba para asegurar que se siguen leyendo los ficheros \texttt{ARFF} correctamente.
+
+El resultado de las ejecuciones se puede ver la Figura~\ref{fig:tests-superados-is-ssl}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
