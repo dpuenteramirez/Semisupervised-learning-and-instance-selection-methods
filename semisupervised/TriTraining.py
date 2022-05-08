@@ -84,7 +84,11 @@ class TriTraining:
             else:
                 configs.append(default_classifiers[index]())
 
-        self.hj, self.hk, self.hi = configs
+        try:
+            self.hj, self.hk, self.hi = configs
+        except ValueError:
+            raise AttributeError("Classifiers and/or params were not "
+                                 "correctly passed.")
 
         self.random_state = (
             random_state

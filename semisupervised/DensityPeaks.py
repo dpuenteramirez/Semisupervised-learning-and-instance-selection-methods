@@ -145,9 +145,25 @@ class STDPNF:
         """
 
         def gauss_func(dij, dc):
+            """
+            > The function takes in a distance value and a cutoff value, and
+            returns the value of the Gaussian function at that point
+
+            :param dij: distance between two nodes
+            :param dc: The cutoff distance
+            :return: the value of the gaussian function.
+            """
             return math.exp(-((dij / dc) ** 2))
 
         def cutoff_func(dij, dc):
+            """
+            If the distance between two atoms is less than the cutoff distance,
+            return 1, otherwise return 0
+
+            :param dij: distance between atoms i and j
+            :param dc: cutoff distance
+            :return: 1 if dij < dc, else 0
+            """
             return 1 if dij < dc else 0
 
         func = gauss_func if self.gauss_cutoff else cutoff_func
