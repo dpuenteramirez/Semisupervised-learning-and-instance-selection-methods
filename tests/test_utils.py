@@ -18,7 +18,7 @@ def arff_path_file():
     It returns the path to the iris dataset in the datasets folder
     :return: The path to the iris.arff file
     """
-    return join('datasets', 'iris.arff')
+    return join("datasets", "iris.arff")
 
 
 def test_arff_data(arff_path_file):
@@ -30,5 +30,5 @@ def test_arff_data(arff_path_file):
     """
     dataset = arff_data(arff_path_file)
     assert isinstance(dataset, Bunch)
-    dataset1 = arff_data(arff_path_file, ['a', 'b', 'c', 'd'])
+    dataset1 = arff_data(arff_path_file, ["a", "b", "c", "d"])
     assert isinstance(dataset1, Bunch)

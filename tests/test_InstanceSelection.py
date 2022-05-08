@@ -11,7 +11,7 @@ import pandas as pd
 import pytest
 from sklearn.datasets import load_iris
 
-from instance_selection import ENN, CNN, RNN, ICF, MSS, DROP3, LSSm, LSBo
+from instance_selection import CNN, DROP3, ENN, ICF, MSS, RNN, LSBo, LSSm
 
 
 def to_dataframe(y):
@@ -76,8 +76,7 @@ def base(x, y, algorithm, params=None):
     model = algorithm(**params) if params is not None else algorithm()
     x_filtered, y_filtered = model.filter(x, y)
 
-    assert x_filtered.shape[1] == x.shape[1] and y_filtered.shape[1] == \
-           y.shape[1]
+    assert x_filtered.shape[1] == x.shape[1] and y_filtered.shape[1] == y.shape[1]
 
     assert x_filtered.shape[0] == y_filtered.shape[0]
     assert x_filtered.shape[0] < x.shape[0]
@@ -90,7 +89,7 @@ def test_enn_original(iris_dataset):
     :param iris_dataset: This is the dataset to use
     """
     x, y = iris_dataset
-    base(x, y, ENN, {'nearest_neighbors': 3, 'power_parameter': 2})
+    base(x, y, ENN, {"nearest_neighbors": 3, "power_parameter": 2})
 
 
 def test_cnn(iris_dataset):
@@ -120,7 +119,7 @@ def test_icf(iris_dataset):
     :param iris_dataset: This is the dataset to use
     """
     x, y = iris_dataset
-    base(x, y, ICF, {'nearest_neighbors': 3, 'power_parameter': 2})
+    base(x, y, ICF, {"nearest_neighbors": 3, "power_parameter": 2})
 
 
 def test_mss(iris_dataset):
@@ -140,7 +139,7 @@ def test_drop3(iris_dataset):
     :param iris_dataset: This is the dataset to use
     """
     x, y = iris_dataset
-    base(x, y, DROP3, {'nearest_neighbors': 3, 'power_parameter': 2})
+    base(x, y, DROP3, {"nearest_neighbors": 3, "power_parameter": 2})
 
 
 def test_local_sets_lssm(iris_dataset):
@@ -169,11 +168,17 @@ def test_enn_ss(iris_dataset_ss):
 
     :param iris_dataset: This is the dataset to use
     """
-    original, original_labels, complete, complete_labels, = iris_dataset_ss
+    (
+        original,
+        original_labels,
+        complete,
+        complete_labels,
+    ) = iris_dataset_ss
 
     model = ENN()
-    x, y = model.filter_original_complete(original, original_labels,
-                                          complete, complete_labels)
+    x, y = model.filter_original_complete(
+        original, original_labels, complete, complete_labels
+    )
 
     new_orig = []
     for ori in original.to_numpy():
