@@ -3,8 +3,6 @@
 # @Filename:    __init__.py.py
 # @Author:      Daniel Puente Ramírez
 # @Time:        22/12/21 11:27
-
-
 """
 Semi-Supervised.
 
@@ -13,14 +11,11 @@ the literature.
 """
 
 __version__ = "0.1.3"
-__author__ = 'Daniel Puente Ramírez'
+__author__ = "Daniel Puente Ramírez"
 
 from .CoTraining import CoTraining
 from .DemocraticCoLearning import DemocraticCoLearning
 from .DensityPeaks import STDPNF
 from .TriTraining import TriTraining
 
-__all__ = ["CoTraining",
-           "TriTraining",
-           "DemocraticCoLearning",
-           "STDPNF"]
+__all__ = ["CoTraining", "TriTraining", "DemocraticCoLearning", "STDPNF"]

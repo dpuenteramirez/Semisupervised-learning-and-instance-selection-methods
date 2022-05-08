@@ -37,8 +37,15 @@ class RESSEL:
         unlabeled samples set.
     """
 
-    def __init__(self, n=2, m=5, k=25, unlabeled_sample_frac=0.75,
-                 random_state=None, reuse_samples=True):
+    def __init__(
+        self,
+        n=2,
+        m=5,
+        k=25,
+        unlabeled_sample_frac=0.75,
+        random_state=None,
+        reuse_samples=True,
+    ):
         """
         Class constructor.
 
@@ -82,23 +89,33 @@ class RESSEL:
         unlabeled.columns = [*range(len(unlabeled.keys()))]
 
         for i in range(self.k):
-            seed = self.random_state[i] if hasattr(self.random_state,
-                                                   '__iter__') else \
-                self.random_state
+            seed = (
+                self.random_state[i]
+                if hasattr(self.random_state, "__iter__")
+                else self.random_state
+            )
 
-            l_i = labeled.sample(n=len(labeled), frac=None, replace=True,
-                                 random_state=seed, ignore_index=True)
-            u_i = unlabeled.sample(frac=self.unlabeled_sample_frac,
-                                   replace=False, random_state=seed,
-                                   ignore_index=True)
+            l_i = labeled.sample(
+                n=len(labeled),
+                frac=None,
+                replace=True,
+                random_state=seed,
+                ignore_index=True,
+            )
+            u_i = unlabeled.sample(
+                frac=self.unlabeled_sample_frac,
+                replace=False,
+                random_state=seed,
+                ignore_index=True,
+            )
 
             oob_i = []
             self._fill_out_of_bag(l_i, labeled, oob_i)
 
             oob_i = pd.DataFrame(oob_i)
 
-            d_class_i = l_i[l_i.shape[1] - 1].value_counts(
-                sort=False)  # n labels
+            d_class_i = l_i[l_i.shape[1] -
+                            1].value_counts(sort=False)  # n labels
             d_class_i = [x / d_class_i.sum() for x in d_class_i]
 
             self.ensemble[i].fit(l_i.iloc[:, :-1], np.ravel(l_i.iloc[:, -1:]))
@@ -153,24 +170,34 @@ class RESSEL:
         :param unlabeled: The unlabeled samples
         """
         if not isinstance(labeled, pd.DataFrame):
-            raise AttributeError("Labeled samples object needs to be a "
-                                 "Pandas DataFrame. Not a ", type(labeled))
+            raise AttributeError(
+                "Labeled samples object needs to be a " "Pandas DataFrame. Not a ",
+                type(labeled),
+            )
         if not isinstance(unlabeled, pd.DataFrame):
-            raise AttributeError("Unlabeled samples object needs to be a "
-                                 "Pandas DataFrame. Not a ",
-                                 type(unlabeled))
+            raise AttributeError(
+                "Unlabeled samples object needs to be a " "Pandas DataFrame. Not a ",
+                type(unlabeled),
+            )
         if labeled.shape[1] != unlabeled.shape[1] + 1:
-            raise ValueError("Labeled samples must have one more attribute "
-                             "than the unlabeled ones.",
-                             labeled.shape[1], unlabeled.shape[1])
+            raise ValueError(
+                "Labeled samples must have one more attribute "
+                "than the unlabeled ones.",
+                labeled.shape[1],
+                unlabeled.shape[1],
+            )
         if base_estimator is None:
             raise AttributeError("The base estimator can not be None.")
-        if not isinstance(self.random_state, int) and \
-                not hasattr(self.random_state, '__iter__') and \
-                not isinstance(self.random_state, list):
-            raise AttributeError("The random state must be an integer, "
-                                 "iterable or list. Not "
-                                 f"{type(self.random_state)}")
+        if (
+            not isinstance(self.random_state, int)
+            and not hasattr(self.random_state, "__iter__")
+            and not isinstance(self.random_state, list)
+        ):
+            raise AttributeError(
+                "The random state must be an integer, "
+                "iterable or list. Not "
+                f"{type(self.random_state)}"
+            )
 
     def _robust_self_training(self, iteration, l_i, u_i, oob_i, d_class_i):
         """
@@ -193,8 +220,9 @@ class RESSEL:
         """
 
         y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
-        best_error_i = f1_score(y_true=np.ravel(oob_i.iloc[:, -1:]),
-                                y_pred=y_pred, average="weighted")
+        best_error_i = f1_score(
+            y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred, average="weighted"
+        )
         best_c_i = self.ensemble[iteration]
 
         for _ in range(self.m):
@@ -215,17 +243,20 @@ class RESSEL:
 
             samples_selected_proportion = []
             try:
-                for prop, (label, samples) in zip(proportion,
-                                                  samples_pred_label.items()):
+                for prop, (label, samples) in zip(
+                    proportion, samples_pred_label.items()
+                ):
                     for k in range(prop):
                         sample_temp = list(samples[k])
                         sample_temp.append(label)
                         samples_selected_proportion.append(sample_temp)
 
             except IndexError:
-                print("Warning: There are not enough samples to keep the "
-                      "proportion, consider changing the problem to be able "
-                      "to reuse samples or change the model parametrization. ")
+                print(
+                    "Warning: There are not enough samples to keep the "
+                    "proportion, consider changing the problem to be able "
+                    "to reuse samples or change the model parametrization. "
+                )
 
             samples_u_best = pd.DataFrame(samples_selected_proportion)
 
@@ -233,12 +264,13 @@ class RESSEL:
 
             u_i = self._reuse_samples(samples_u_best, u_i)
 
-            self.ensemble[iteration].fit(l_i.iloc[:, :-1],
-                                         np.ravel(l_i.iloc[:, -1:]))
+            self.ensemble[iteration].fit(
+                l_i.iloc[:, :-1], np.ravel(l_i.iloc[:, -1:]))
 
             y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
-            current_error_i = f1_score(y_true=np.ravel(oob_i.iloc[:, -1:]),
-                                       y_pred=y_pred, average="weighted")
+            current_error_i = f1_score(
+                y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred, average="weighted"
+            )
 
             if current_error_i < best_error_i:
                 best_error_i = current_error_i
@@ -280,8 +312,9 @@ class RESSEL:
         if isinstance(samples, pd.DataFrame):
             samples = samples.to_numpy()
         if len(self.ensemble) == 0:
-            raise InterruptedError("To be able to predict, fitting is needed "
-                                   "to be already done.")
+            raise InterruptedError(
+                "To be able to predict, fitting is needed " "to be already done."
+            )
         c_pred = []
         for classifier in self.ensemble:
             c_pred.append(classifier.predict(samples))

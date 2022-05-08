@@ -12,7 +12,6 @@ from sklearn.metrics import pairwise_distances
 
 
 class LocalSets:
-
     """
     Leyva, E., González, A., & Pérez, R. (2015). Three new instance selection
     methods based on local sets: A comparative study with several approaches
@@ -43,32 +42,52 @@ class LocalSets:
         for index, (sample, label) in enumerate(zip(instances, labels)):
             closest_enemy_distance = sys.maxsize
             closest_enemy_sample = None
-            closest_enemy_distance, closest_enemy_sample = \
-                self._find_enemy_distance(
-                    closest_enemy_distance, closest_enemy_sample, distances,
-                    index, instances, label, labels)
-            structure[index] = [sample, [], None, closest_enemy_distance,
-                                closest_enemy_sample, label]
+            closest_enemy_distance, closest_enemy_sample = self._find_enemy_distance(
+                closest_enemy_distance,
+                closest_enemy_sample,
+                distances,
+                index,
+                instances,
+                label,
+                labels,
+            )
+            structure[index] = [
+                sample,
+                [],
+                None,
+                closest_enemy_distance,
+                closest_enemy_sample,
+                label,
+            ]
 
         for index, (sample, label) in enumerate(zip(instances, labels)):
             neighs = []
             for index2, (_, label2) in enumerate(zip(instances, labels)):
-                if index != index2 and label == label2 and \
-                        distances[index][index2] < structure[index][3]:
+                if (
+                    index != index2
+                    and label == label2
+                    and distances[index][index2] < structure[index][3]
+                ):
                     neighs.append(index2)
 
             structure[index][1] = neighs
             structure[index][2] = len(neighs)
 
-        self.local_sets = pd.DataFrame(structure, index=['sample',
-                                                         'index_ls',
-                                                         'LSC', 'LSR',
-                                                         'enemy', 'label']) \
-            .transpose()
+        self.local_sets = pd.DataFrame(
+            structure, index=["sample", "index_ls",
+                              "LSC", "LSR", "enemy", "label"]
+        ).transpose()
 
     @staticmethod
-    def _find_enemy_distance(closest_enemy_distance, closest_enemy_sample,
-                             distances, index, instances, label, labels):
+    def _find_enemy_distance(
+        closest_enemy_distance,
+        closest_enemy_sample,
+        distances,
+        index,
+        instances,
+        label,
+        labels,
+    ):
         for index2, (_, label2) in enumerate(zip(instances, labels)):
             if index == index2 or label == label2:
                 continue
@@ -82,7 +101,7 @@ class LocalSets:
         The function takes a dataframe of local sets and sorts them in ascending
         order by the LSC value
         """
-        self.local_sets = self.local_sets.sort_values(by='LSC')
+        self.local_sets = self.local_sets.sort_values(by="LSC")
 
     def _usefulness(self, e):
         """
@@ -92,7 +111,7 @@ class LocalSets:
         :return: The number of times the element appears in the local sets.
         """
         local_sets = self.local_sets
-        local_sets = local_sets['index_ls'].values
+        local_sets = local_sets["index_ls"].values
         return len([x for x in local_sets if e in x])
 
     def _get_local_sets(self):
@@ -146,8 +165,8 @@ class LSSm(LocalSets):
         labels = self._check_frame_to_numpy(labels)
         if len(instances) != len(labels):
             raise ValueError(
-                f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(instances)} != {len(labels)}'
+                f"The dimension of the labeled data must be the same as the "
+                f"number of labels given. {len(instances)} != {len(labels)}"
             )
         self.n_id = len(instances)
         s_samples = []
@@ -157,7 +176,7 @@ class LSSm(LocalSets):
         for index in range(self.n_id):
             usefulness = super(LSSm, self)._usefulness(index)
             try:
-                harmfulness = super(LSSm, self)._get_local_sets()['enemy']
+                harmfulness = super(LSSm, self)._get_local_sets()["enemy"]
                 harmfulness = harmfulness.value_counts()[index]
             except KeyError:
                 harmfulness = 0
@@ -196,8 +215,8 @@ class LSBo(LocalSets):
         """
         if len(instances) != len(labels):
             raise ValueError(
-                f'The dimension of the labeled data must be the same as the '
-                f'number of labels given. {len(instances)} != {len(labels)}'
+                f"The dimension of the labeled data must be the same as the "
+                f"number of labels given. {len(instances)} != {len(labels)}"
             )
         self.n_id = len(instances)
         labels = self._check_frame_to_numpy(labels)
@@ -211,7 +230,7 @@ class LSBo(LocalSets):
         s_indexes = []
         for index, row in super(LSBo, self)._get_local_sets().iterrows():
             is_in = False
-            for ls_index in row['index_ls']:
+            for ls_index in row["index_ls"]:
                 if ls_index in s_indexes:
                     is_in = True
                     break
