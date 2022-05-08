@@ -378,7 +378,7 @@ class STDPNF:
         self.y = y
         self.low = low
         self.u = u
-        self.data = np.concatenate((l, u), axis=0)
+        self.data = np.concatenate((low, u), axis=0)
         self.n_id = self.data.shape[0]
         self.distances, self.max_dis, self.min_dis = self.__build_distance()
         self.dc = self.__select_dc()
