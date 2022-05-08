@@ -20,7 +20,7 @@ def arff_data(dataset_path, attr=False):
     defaults to False (optional)
     :return: A bunch object with the data, target and attributes.
     """
-    file = open(dataset_path, 'r')
+    file = open(dataset_path, "r")
     attrs, data = _read_file(file)
     file.close()
     data = np.array(data)
@@ -51,17 +51,17 @@ def _read_file(file):
         next_line = file.readline()
         if not next_line:
             break
-        if next_line[0] == '%':
+        if next_line[0] == "%":
             continue
-        if '@attribute' in next_line.strip().lower():
-            n = next_line.strip().split(' ')
-            attrs.append(n[1] if '\t' not in n[1] else n[1].split(sep='\t')[0])
+        if "@attribute" in next_line.strip().lower():
+            n = next_line.strip().split(" ")
+            attrs.append(n[1] if "\t" not in n[1] else n[1].split(sep="\t")[0])
             continue
 
-        if '@DATA' in next_line.strip().upper():
+        if "@DATA" in next_line.strip().upper():
             start = True
             continue
         if start:
-            line_data = next_line.strip().split(sep=',')
+            line_data = next_line.strip().split(sep=",")
             data.append(np.array(line_data))
     return attrs, data
