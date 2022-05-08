@@ -13,7 +13,6 @@ from .utils import transform, transform_original_complete
 
 
 class ENN:
-
     """
     Wilson, D. L. (1972). Asymptotic properties of nearest neighbor rules
     using edited data. IEEE Transactions on Systems, Man, and
@@ -62,12 +61,12 @@ class ENN:
         """
         x_sample = s_samples[index - removed]
         x_target = s_targets[index - removed]
-        knn = NearestNeighbors(n_jobs=-1,
-                               n_neighbors=self.nearest_neighbors, p=2)
-        samples_not_x = s_samples[:index - removed] + s_samples[
-                                                      index - removed + 1:]
-        targets_not_x = s_targets[:index - removed] + s_targets[
-                                                      index - removed + 1:]
+        knn = NearestNeighbors(
+            n_jobs=-1, n_neighbors=self.nearest_neighbors, p=2)
+        samples_not_x = s_samples[: index - removed] + \
+            s_samples[index - removed + 1:]
+        targets_not_x = s_targets[: index - removed] + \
+            s_targets[index - removed + 1:]
         knn.fit(samples_not_x)
         _, neigh_ind = knn.kneighbors([x_sample])
 
@@ -88,16 +87,18 @@ class ENN:
         """
         self.x_attr = samples.keys()
         samples = transform(samples, y)
-        size = len(samples['data'])
-        s_samples = list(samples['data'])
-        s_targets = list(samples['target'])
+        size = len(samples["data"])
+        s_samples = list(samples["data"])
+        s_targets = list(samples["target"])
         removed = 0
 
         for index in range(size):
-            _, x_target, targets_not_x, samples_not_x, neigh_ind = \
-                self._neighs(s_samples, s_targets, index, removed)
+            _, x_target, targets_not_x, samples_not_x, neigh_ind = self._neighs(
+                s_samples, s_targets, index, removed
+            )
             y_targets = np.ravel(
-                np.array([targets_not_x[x] for x in neigh_ind[0]])).astype(int)
+                np.array([targets_not_x[x] for x in neigh_ind[0]])
+            ).astype(int)
             count = np.bincount(y_targets)
             max_class = np.where(count == np.amax(count))[0][0]
             if max_class != x_target:
@@ -110,8 +111,7 @@ class ENN:
 
         return samples, y
 
-    def filter_original_complete(self, original, original_y, complete,
-                                 complete_y):
+    def filter_original_complete(self, original, original_y, complete, complete_y):
         """
         Modification of the Wilson Editing algorithm.
 
@@ -129,17 +129,19 @@ class ENN:
         :return: the input dataset with the remaining samples.
         """
         self.x_attr = original.keys()
-        original, complete = transform_original_complete(original, original_y,
-                                                         complete, complete_y)
-        size = len(complete['data'])
-        s_samples = list(complete['data'])
-        s_targets = list(complete['target'])
-        o_samples = list(original['data'])
+        original, complete = transform_original_complete(
+            original, original_y, complete, complete_y
+        )
+        size = len(complete["data"])
+        s_samples = list(complete["data"])
+        s_targets = list(complete["target"])
+        o_samples = list(original["data"])
         removed = 0
 
         for index in range(size):
-            x_sample, x_target, targets_not_x, samples_not_x, neigh_ind = \
-                self._neighs(s_samples, s_targets, index, removed)
+            x_sample, x_target, targets_not_x, samples_not_x, neigh_ind = self._neighs(
+                s_samples, s_targets, index, removed
+            )
             y_targets = [targets_not_x[x] for x in neigh_ind[0]]
             count = np.bincount(np.ravel(y_targets))
             max_class = np.where(count == np.amax(count))[0][0]

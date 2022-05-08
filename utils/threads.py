@@ -2,7 +2,6 @@
 # https://alexandra-zaharia.github.io/posts/how-to-return-a-result-from-a
 # -python-thread/
 
-
 import sys
 import threading
 
@@ -18,7 +17,7 @@ class ReturnValueThread(threading.Thread):
         try:
             self.result = self._target(*self._args, **self._kwargs)
         except Exception as exc:
-            print(f'{type(exc).__name__}: {exc}', file=sys.stderr)
+            print(f"{type(exc).__name__}: {exc}", file=sys.stderr)
 
     def join(self, *args, **kwargs):
         super().join(*args, **kwargs)

@@ -14,13 +14,13 @@ class DatasetResult:
         self.__name = name
         self.__precision = precision
         self.__folds = int(folds)
-        self.__n_samples = [nanmean(x) for x in n_samples[::self.__folds]]
+        self.__n_samples = [nanmean(x) for x in n_samples[:: self.__folds]]
         self.__n_samples_values = n_samples
-        self.__f1 = [nanmean(x) for x in f1[::self.__folds]]
+        self.__f1 = [nanmean(x) for x in f1[:: self.__folds]]
         self.__f1_values = f1
-        self.__mse = [nanmean(x) for x in mse[::self.__folds]]
+        self.__mse = [nanmean(x) for x in mse[:: self.__folds]]
         self.__mse_values = mse
-        self.__acc = [nanmean(x) for x in acc[::self.__folds]]
+        self.__acc = [nanmean(x) for x in acc[:: self.__folds]]
         self.__acc_values = acc
 
     @property
@@ -40,7 +40,7 @@ class DatasetResult:
         if isinstance(precision, Iterable):
             self.__precision = precision
         else:
-            raise ValueError('Expected an iterable with the precisions')
+            raise ValueError("Expected an iterable with the precisions")
 
     @property
     def folds(self):
@@ -57,9 +57,9 @@ class DatasetResult:
     @n_samples.setter
     def n_samples(self, n_samples):
         if isinstance(n_samples, Iterable):
-            self.__n_samples = [nanmean(x) for x in n_samples[::self.__folds]]
+            self.__n_samples = [nanmean(x) for x in n_samples[:: self.__folds]]
         else:
-            raise ValueError('Expected an iterable with the number of samples')
+            raise ValueError("Expected an iterable with the number of samples")
 
     @property
     def f1(self):
@@ -68,9 +68,9 @@ class DatasetResult:
     @f1.setter
     def f1(self, f1):
         if isinstance(f1, Iterable):
-            self.__f1 = [nanmean(x) for x in f1[::self.__folds]]
+            self.__f1 = [nanmean(x) for x in f1[:: self.__folds]]
         else:
-            raise ValueError('Expected an iterable with f1')
+            raise ValueError("Expected an iterable with f1")
 
     @property
     def mse(self):
@@ -79,9 +79,9 @@ class DatasetResult:
     @mse.setter
     def mse(self, mse):
         if isinstance(mse, Iterable):
-            self.__mse = [nanmean(x) for x in mse[::self.__folds]]
+            self.__mse = [nanmean(x) for x in mse[:: self.__folds]]
         else:
-            raise ValueError('Expected an iterable with mse')
+            raise ValueError("Expected an iterable with mse")
 
     @property
     def acc(self):
@@ -90,9 +90,9 @@ class DatasetResult:
     @acc.setter
     def acc(self, acc):
         if isinstance(acc, Iterable):
-            self.__acc = [nanmean(x) for x in acc[::self.__folds]]
+            self.__acc = [nanmean(x) for x in acc[:: self.__folds]]
         else:
-            raise ValueError('Expected an iterable with acc')
+            raise ValueError("Expected an iterable with acc")
 
     @property
     def f1_values(self):
@@ -128,8 +128,7 @@ class DatasetResult:
 
     def __eq__(self, other):
         return isinstance(other, DatasetResult) and (
-                self.name() == other.name() and
-                self.precision() == other.precision()
+            self.name() == other.name() and self.precision() == other.precision()
         )
 
     def __hash__(self):

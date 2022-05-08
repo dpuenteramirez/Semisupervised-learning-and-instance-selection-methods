@@ -5,7 +5,7 @@
 # @Time:        27/12/21 10:25
 # @Version:     5.0
 
-from math import floor, ceil
+from math import ceil, floor
 
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
@@ -56,15 +56,24 @@ class TriTraining:
 
     """
 
-    def __init__(self, random_state=None,
-                 c1=None, c1_params=None,
-                 c2=None, c2_params=None,
-                 c3=None, c3_params=None):
+    def __init__(
+        self,
+        random_state=None,
+        c1=None,
+        c1_params=None,
+        c2=None,
+        c2_params=None,
+        c3=None,
+        c3_params=None,
+    ):
         """Tri-Training."""
         classifiers = [c1, c2, c3]
         classifiers_params = [c1_params, c2_params, c3_params]
-        default_classifiers = [KNeighborsClassifier, DecisionTreeClassifier,
-                               RandomForestClassifier]
+        default_classifiers = [
+            KNeighborsClassifier,
+            DecisionTreeClassifier,
+            RandomForestClassifier,
+        ]
         configs = []
         for index, (c, cp) in enumerate(zip(classifiers, classifiers_params)):
             if c is not None:
@@ -75,10 +84,17 @@ class TriTraining:
             else:
                 configs.append(default_classifiers[index]())
 
-        self.hj, self.hk, self.hi = configs
+        try:
+            self.hj, self.hk, self.hi = configs
+        except ValueError:
+            raise AttributeError(
+                "Classifiers and/or params were not correctly passed.")
 
-        self.random_state = random_state if random_state is not None else \
-            np.random.randint(low=0, high=10e5, size=1)[0]
+        self.random_state = (
+            random_state
+            if random_state is not None
+            else np.random.randint(low=0, high=10e5, size=1)[0]
+        )
 
     def _subsample(self, l_t, s):
         """
@@ -93,8 +109,8 @@ class TriTraining:
         """
         np.random.seed(self.random_state)
         rng = np.random.default_rng()
-        data = np.array(l_t['data'])
-        target = np.array(l_t['target'])
+        data = np.array(l_t["data"])
+        target = np.array(l_t["target"])
         samples_index = rng.choice(len(data), size=s, replace=False)
         samples = data[samples_index]
         targets = target[samples_index]
@@ -115,24 +131,39 @@ class TriTraining:
         try:
             labeled, u, y = split(samples, y)
         except IndexError:
-            raise ValueError('Dimensions do not match.')
+            raise ValueError("Dimensions do not match.")
 
         le = LabelEncoder()
         le.fit(y)
         y = le.transform(y)
 
-        train, _, test, _ = train_test_split(labeled, y, train_size=floor(
-            len(labeled) / 3), stratify=y, random_state=self.random_state)
+        train, _, test, _ = train_test_split(
+            labeled,
+            y,
+            train_size=floor(len(labeled) / 3),
+            stratify=y,
+            random_state=self.random_state,
+        )
         h_j = self.hj.fit(train, test)
         ep_j = 0.5
         lp_j = 0
-        train, _, test, _ = train_test_split(labeled, y, train_size=floor(
-            len(labeled) / 3), stratify=y, random_state=self.random_state)
+        train, _, test, _ = train_test_split(
+            labeled,
+            y,
+            train_size=floor(len(labeled) / 3),
+            stratify=y,
+            random_state=self.random_state,
+        )
         h_k = self.hk.fit(train, test)
         ep_k = 0.5
         lp_k = 0
-        train, _, test, _ = train_test_split(labeled, y, train_size=floor(
-            len(labeled) / 3), stratify=y, random_state=self.random_state)
+        train, _, test, _ = train_test_split(
+            labeled,
+            y,
+            train_size=floor(len(labeled) / 3),
+            stratify=y,
+            random_state=self.random_state,
+        )
         h_i = self.hi.fit(train, test)
         ep_i = 0.5
         lp_i = 0
@@ -142,30 +173,37 @@ class TriTraining:
             hash_j = h_j.__hash__()
             hash_k = h_k.__hash__()
 
-            e_j, l_j, update_j = self._train_classifier(ep_j, h_i, h_j, h_k,
-                                                        labeled, lp_j, u)
+            e_j, l_j, update_j = self._train_classifier(
+                ep_j, h_i, h_j, h_k, labeled, lp_j, u
+            )
 
-            e_k, l_k, update_k = self._train_classifier(ep_k, h_i, h_j, h_k,
-                                                        labeled, lp_k, u)
+            e_k, l_k, update_k = self._train_classifier(
+                ep_k, h_i, h_j, h_k, labeled, lp_k, u
+            )
 
-            e_i, l_i, update_i = self._train_classifier(ep_i, h_i, h_j, h_k,
-                                                        labeled, lp_i, u)
+            e_i, l_i, update_i = self._train_classifier(
+                ep_i, h_i, h_j, h_k, labeled, lp_i, u
+            )
 
-            ep_j, h_j, lp_j = self._check_for_update(e_j, ep_j, h_j, l_j,
-                                                     labeled, lp_j, update_j, y)
-            ep_k, h_k, lp_k = self._check_for_update(e_k, ep_k, h_k, l_k,
-                                                     labeled, lp_k, update_k,
-                                                     y)
+            ep_j, h_j, lp_j = self._check_for_update(
+                e_j, ep_j, h_j, l_j, labeled, lp_j, update_j, y
+            )
+            ep_k, h_k, lp_k = self._check_for_update(
+                e_k, ep_k, h_k, l_k, labeled, lp_k, update_k, y
+            )
 
-            ep_i, h_i, lp_i = self._check_for_update(e_i, ep_i, h_i, l_i,
-                                                     labeled, lp_i, update_i, y)
+            ep_i, h_i, lp_i = self._check_for_update(
+                e_i, ep_i, h_i, l_i, labeled, lp_i, update_i, y
+            )
 
-            if h_i.__hash__() == hash_i and h_j.__hash__() == hash_j and \
-                    h_k.__hash__() == hash_k:
+            if (
+                h_i.__hash__() == hash_i
+                and h_j.__hash__() == hash_j
+                and h_k.__hash__() == hash_k
+            ):
                 break
 
-    def _check_for_update(self, e_j, ep_j, h_j, l_j, labeled, lp_j, update_j,
-                          y):
+    def _check_for_update(self, e_j, ep_j, h_j, l_j, labeled, lp_j, update_j, y):
         """
         If the update_j flag is True, then we concatenate the labeled data with
         the new data, and fit the model to the new data
@@ -181,9 +219,8 @@ class TriTraining:
         :return: the error, the hypothesis, and the length of the labeled data.
         """
         if update_j:
-            train = np.concatenate((labeled, l_j['data']), axis=0)
-            test = np.concatenate((y, np.ravel(l_j['target'])),
-                                  axis=0)
+            train = np.concatenate((labeled, l_j["data"]), axis=0)
+            test = np.concatenate((y, np.ravel(l_j["target"])), axis=0)
             h_j = self.hj.fit(train, test)
             ep_j = e_j
             lp_j = len(l_j)
@@ -213,22 +250,21 @@ class TriTraining:
                 sample_s = sample.reshape(1, -1)
                 if h_j.predict(sample_s) == h_k.predict(sample_s):
                     pred = h_i.predict(sample_s)
-                    prev_dat = list(l_k['data'])
-                    prev_tar = list(l_k['target'])
+                    prev_dat = list(l_k["data"])
+                    prev_tar = list(l_k["target"])
                     prev_dat.append(sample)
-                    l_k['data'] = np.array(prev_dat)
+                    l_k["data"] = np.array(prev_dat)
                     prev_tar.append(pred)
-                    l_k['target'] = np.array(prev_tar)
+                    l_k["target"] = np.array(prev_tar)
 
             if lp_k == 0:
                 lp_k = floor(e_k / (ep_k - e_k) + 1)
 
-            if lp_k < len(l_k['data']):
-                if e_k * len(l_k['data']) < ep_k * lp_k:
+            if lp_k < len(l_k["data"]):
+                if e_k * len(l_k["data"]) < ep_k * lp_k:
                     update_k = True
                 elif lp_k > e_k / (ep_k - e_k):
-                    l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k)
-                                                    - 1))
+                    l_k = self._subsample(l_k, ceil(((ep_k * lp_k) / e_k) - 1))
                     update_k = True
         return e_k, l_k, update_k
 
