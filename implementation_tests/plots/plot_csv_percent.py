@@ -30,7 +30,7 @@ def test_unlabeled(dataset):
                 else:
                     tree_mse_df = pd.read_csv(name)
 
-    datasets = np.array([x for x in knn_acc_df['dataset']])
+    datasets = np.array(list(knn_acc_df['dataset']))
     index = [idx for idx, elem in enumerate(datasets) if dataset in elem][0]
 
     precision = np.array(knn_acc_df.keys()[1:])
