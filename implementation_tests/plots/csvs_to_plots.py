@@ -30,20 +30,20 @@ def main():
             else:
                 order_acc.append(precision)
                 acc_df.append(pd.read_csv(file))
-    order_mse = [(i, x) for i, x in enumerate(order_mse)]
-    order_acc = [(i, x) for i, x in enumerate(order_acc)]
+    order_mse = list(enumerate(order_mse))
+    order_acc = list(enumerate(order_acc))
     order_mse.sort(key=lambda x: x[1])
     order_acc.sort(key=lambda x: x[1])
 
-    datasets = np.array([x for x in mse_df[0]['dataset']])
+    datasets = np.array(list(mse_df[0]['dataset']))
     index = [idx for idx, elem in enumerate(datasets) if dataset in elem][0]
 
-    acc_algorithms = np.array([[x for x in df.iloc[index][1:]] for df in
+    acc_algorithms = np.array([list(df.iloc[index][1:]) for df in
                                acc_df])
     acc_algorithms = np.array([acc_algorithms[x] for x, _ in order_acc])
     acc_algorithms = acc_algorithms.astype(float)
 
-    mse_algorithms = np.array([[x for x in df.iloc[index][1:]] for df in
+    mse_algorithms = np.array([list(df.iloc[index][1:]) for df in
                                mse_df])
     mse_algorithms = np.array([mse_algorithms[x] for x, _ in order_mse])
     mse_algorithms = mse_algorithms.astype(float)
