@@ -115,8 +115,8 @@ def arff2sk_dataset(dataset_path):
         tar_names = np.array(dataset['attributes'][-1][1]).astype(int)
         tar = tt.astype(int)
     except ValueError:
-        tar_names = np.array([x for x in range(len(dataset['attributes'][-1][
-                                                       1]))])
+        tar_names = np.array(list(range(len(dataset['attributes'][-1][
+                                                       1]))))
         relation = {}
         for index, target in enumerate(dataset['attributes'][-1][1]):
             relation[target] = index

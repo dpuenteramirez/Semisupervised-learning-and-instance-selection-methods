@@ -49,11 +49,20 @@ class CoTraining:
     c2_params : dict, default=None
         Parameters for the second classifier
 
-     """
+    """
 
-    def __init__(self, p=1, n=3, k=30, u=75, random_state=None,
-                 c1=None, c1_params=None,
-                 c2=None, c2_params=None,):
+    def __init__(
+        self,
+        p=1,
+        n=3,
+        k=30,
+        u=75,
+        random_state=None,
+        c1=None,
+        c1_params=None,
+        c2=None,
+        c2_params=None,
+    ):
         """Co-Training."""
         self.p = p
         self.n = n
@@ -74,7 +83,11 @@ class CoTraining:
             else:
                 configs.append(GaussianNB())
 
-        self.h1, self.h2 = configs
+        try:
+            self.h1, self.h2 = configs
+        except ValueError:
+            raise AttributeError(
+                "Classifiers and/or params were not correctly passed.")
 
     def fit(self, samples, y):
         """
@@ -125,26 +138,30 @@ class CoTraining:
             u2_samples = u2[np.array(top_h2[:, 2], int)]
             u2_x1_samples = u2[np.array(top_h1[:, 2], int)]
 
-            u1_new_samples = np.concatenate((u1_samples, u2_x1_samples), axis=1)
-            u2_new_samples = np.concatenate((u2_samples, u1_x2_samples), axis=1)
+            u1_new_samples = np.concatenate(
+                (u1_samples, u2_x1_samples), axis=1)
+            u2_new_samples = np.concatenate(
+                (u2_samples, u1_x2_samples), axis=1)
             u_new = np.concatenate((u1_new_samples, u2_new_samples))
             labeled = np.concatenate((labeled, u_new))
             y_new = np.array([x[0] for x in top_h1] + [x[0] for x in top_h2])
             y = np.concatenate((y, y_new))
 
-            old_indexes = np.array([x[2] for x in top_h1] + [x[2] for x in
-                                                             top_h2], int)
+            old_indexes = np.array(
+                [x[2] for x in top_h1] + [x[2] for x in top_h2], int)
             u_prime = np.delete(u_prime, old_indexes, axis=0)
 
             u = np.delete(u, u_random_index, axis=0)
 
             try:
-                u_random_index = rng.choice(len(u),
-                                            size=2 * self.p + 2 * self.n,
-                                            replace=False, shuffle=False)
+                u_random_index = rng.choice(
+                    len(u), size=2 * self.p + 2 * self.n, replace=False, shuffle=False
+                )
             except ValueError:
-                raise ValueError('The model was incorrectly parametrized, '
-                                 'total between _p_ and _u_ is to big.')
+                raise ValueError(
+                    "The model was incorrectly parametrized, "
+                    "total between _p_ and _u_ is to big."
+                )
 
             u_prime = np.concatenate((u_prime, u[u_random_index]))
 
@@ -161,14 +178,17 @@ class CoTraining:
         try:
             labeled, u, y = split(samples, y)
         except IndexError:
-            raise ValueError('Dimensions do not match.')
+            raise ValueError("Dimensions do not match.")
         rng = np.random.default_rng()
         try:
-            u_random_index = rng.choice(len(u), size=floor(self.u),
-                                        replace=False, shuffle=False)
+            u_random_index = rng.choice(
+                len(u), size=floor(self.u), replace=False, shuffle=False
+            )
         except ValueError:
-            raise ValueError('The model was incorrectly parametrized, '
-                             'total between _p_ and _u_ is to big.')
+            raise ValueError(
+                "The model was incorrectly parametrized, "
+                "total between _p_ and _u_ is to big."
+            )
         return labeled, rng, u, u_random_index, y
 
     def predict(self, samples):

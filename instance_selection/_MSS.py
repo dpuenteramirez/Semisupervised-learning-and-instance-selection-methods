@@ -14,7 +14,6 @@ from .utils import transform
 
 
 class MSS:
-
     """
     Barandela, R., Ferri, F. J., & Sánchez, J. S. (2005). Decision boundary
     preserving prototype selection for nearest neighbor classification.
@@ -48,7 +47,7 @@ class MSS:
         """
         self.x_attr = samples.keys()
         samples = transform(samples, y)
-        triplets = self._enemy_distance(samples['data'], samples['target'])
+        triplets = self._enemy_distance(samples["data"], samples["target"])
         dat = []
         tar = []
         remove_indexes = []

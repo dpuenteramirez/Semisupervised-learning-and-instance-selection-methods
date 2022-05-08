@@ -76,7 +76,8 @@ def base(x, y, algorithm, params=None):
     model = algorithm(**params) if params is not None else algorithm()
     x_filtered, y_filtered = model.filter(x, y)
 
-    assert x_filtered.shape[1] == x.shape[1] and y_filtered.shape[1] == y.shape[1]
+    if not (x_filtered.shape[1] == x.shape[1] and y_filtered.shape[1] == y.shape[1]):
+        raise AssertionError
 
     assert x_filtered.shape[0] == y_filtered.shape[0]
     assert x_filtered.shape[0] < x.shape[0]

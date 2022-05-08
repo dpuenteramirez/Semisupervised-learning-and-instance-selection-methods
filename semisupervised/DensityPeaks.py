@@ -10,12 +10,13 @@ from collections import defaultdict
 
 import numpy as np
 import pandas as pd
-from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.preprocessing import LabelEncoder
 from sklearn.semi_supervised import SelfTrainingClassifier
 from sklearn.svm import SVC
 
 from instance_selection import ENN
+
 from .utils import split
 
 
@@ -30,20 +31,21 @@ class STDPNF:
     data. Neurocomputing, 275, 180-191.
     """
 
-    def __init__(self,
-                 dc=None,
-                 distance_metric='euclidean',
-                 k=3,
-                 gauss_cutoff=True,
-                 percent=2.0,
-                 density_threshold=None,
-                 distance_threshold=None,
-                 anormal=True,
-                 filtering=False,
-                 classifier=None,
-                 classifier_params=None,
-                 filter_method=None
-                 ):
+    def __init__(
+        self,
+        dc=None,
+        distance_metric="euclidean",
+        k=3,
+        gauss_cutoff=True,
+        percent=2.0,
+        density_threshold=None,
+        distance_threshold=None,
+        anormal=True,
+        filtering=False,
+        classifier=None,
+        classifier_params=None,
+        filter_method=None,
+    ):
         """Semi Supervised Algorithm based on Density Peaks."""
         self.dc = dc
         self.distance_metric = distance_metric
@@ -61,9 +63,9 @@ class STDPNF:
                 self.classifier = classifier()
         else:
             self.classifier = None
-        if filter_method is not None and filter_method != 'ENANE':
+        if filter_method is not None and filter_method != "ENANE":
             self.filter = filter_method()
-        elif isinstance(filter_method, str) and filter_method == 'ENANE':
+        elif isinstance(filter_method, str) and filter_method == "ENANE":
             self.filter = filter_method
         else:
             self.filter = None
@@ -103,8 +105,9 @@ class STDPNF:
         dc = (max_dis + min_dis) / 2
 
         while True:
-            nneighs = sum(
-                [1 for v in self.distances.values() if v < dc]) / self.n_id ** 2
+            nneighs = (
+                sum([1 for v in self.distances.values() if v < dc]) / self.n_id**2
+            )
             if 0.01 <= nneighs <= 0.02:
                 break
             # binary search
@@ -124,10 +127,11 @@ class STDPNF:
 
         :return: dc that local density threshold
         """
-        if self.dc == 'auto':
+        if self.dc == "auto":
             dc = self.__auto_select_dc()
         else:
-            position = int(self.n_id * (self.n_id + 1) / 2 * self.percent / 100)
+            position = int(self.n_id * (self.n_id + 1) /
+                           2 * self.percent / 100)
             dc = np.sort(list(self.distances.values()))[
                 position * 2 + self.n_id]
 
@@ -139,8 +143,29 @@ class STDPNF:
 
         :return: local density vector that index is the point index
         """
-        gauss_func = lambda dij, dc: math.exp(- (dij / dc) ** 2)
-        cutoff_func = lambda dij, dc: 1 if dij < dc else 0
+
+        def gauss_func(dij, dc):
+            """
+            > The function takes in a distance value and a cutoff value, and
+            returns the value of the Gaussian function at that point
+
+            :param dij: distance between two nodes
+            :param dc: The cutoff distance
+            :return: the value of the gaussian function.
+            """
+            return math.exp(-((dij / dc) ** 2))
+
+        def cutoff_func(dij, dc):
+            """
+            If the distance between two atoms is less than the cutoff distance,
+            return 1, otherwise return 0
+
+            :param dij: distance between atoms i and j
+            :param dc: cutoff distance
+            :return: 1 if dij < dc, else 0
+            """
+            return 1 if dij < dc else 0
+
         func = gauss_func if self.gauss_cutoff else cutoff_func
         rho = [0] * self.n_id
         for i in range(self.n_id):
@@ -159,7 +184,7 @@ class STDPNF:
         """
         sort_rho_idx = np.argsort(-self.rho)
         delta, nneigh = [float(self.max_dis)] * self.n_id, [0] * self.n_id
-        delta[sort_rho_idx[0]] = -1.
+        delta[sort_rho_idx[0]] = -1.0
         for i in range(self.n_id):
             for j in range(0, i):
                 old_i, old_j = sort_rho_idx[i], sort_rho_idx[j]
@@ -189,17 +214,16 @@ class STDPNF:
                 sample,
                 int(self.nneigh[index]),
                 None,
-                self.y[index] if index < len(self.y) else -1
+                self.y[index] if index < len(self.y) else -1,
             ]
 
         for index in range(self.n_id):
             if self.structure[self.structure[index][1]][2] is None:
                 self.structure[self.structure[index][1]][2] = index
 
-        self.structure = pd.DataFrame(self.structure, index=['sample', 'next',
-                                                             'previous',
-                                                             'label']) \
-            .transpose()
+        self.structure = pd.DataFrame(
+            self.structure, index=["sample", "next", "previous", "label"]
+        ).transpose()
 
         self.structure_stdnpf = self.structure.copy(deep=True)
 
@@ -209,9 +233,9 @@ class STDPNF:
         them
         :return: The samples that have been labeled.
         """
-        samples_labeled = self.structure.loc[self.structure['label'] != -1]
-        sam_lab = samples_labeled['sample'].to_list()
-        y_without = samples_labeled['label'].to_list()
+        samples_labeled = self.structure.loc[self.structure["label"] != -1]
+        sam_lab = samples_labeled["sample"].to_list()
+        y_without = samples_labeled["label"].to_list()
         self.classifier.fit(sam_lab, y_without)
         return samples_labeled
 
@@ -248,11 +272,11 @@ class STDPNF:
         cnt = defaultdict(int)
 
         while True:
-            search = NearestNeighbors(n_neighbors=r + 1, algorithm='kd_tree')
+            search = NearestNeighbors(n_neighbors=r + 1, algorithm="kd_tree")
             search.fit(self.data)
             for index, sample in enumerate(self.data):
-                r_neighs = search.kneighbors([sample],
-                                             return_distance=False)[0][1:]
+                r_neighs = search.kneighbors(
+                    [sample], return_distance=False)[0][1:]
                 knn[index].update(list(r_neighs))
                 for neigh in r_neighs:
                     nb[neigh] += 1
@@ -291,25 +315,24 @@ class STDPNF:
         es = []
         es_pred = []
         local_structure = self.structure_stdnpf.copy(deep=True)
-        base_estimator = KNeighborsClassifier(n_neighbors=r,
-                                              metric=self.distance_metric)
+        base_estimator = KNeighborsClassifier(
+            n_neighbors=r, metric=self.distance_metric
+        )
 
-        labeled_data = local_structure.loc[local_structure[
-                                               'label'] != -1]
+        labeled_data = local_structure.loc[local_structure["label"] != -1]
         nan_unlabeled = local_structure.loc[fx]
-        data = pd.concat([labeled_data, nan_unlabeled], join='inner')
+        data = pd.concat([labeled_data, nan_unlabeled], join="inner")
 
         enane_model = SelfTrainingClassifier(base_estimator)
-        enane_model.fit(data['sample'].tolist(), data['label'].tolist())
+        enane_model.fit(data["sample"].tolist(), data["label"].tolist())
 
-        enane_pred = enane_model.predict(nan_unlabeled['sample'].tolist())
+        enane_pred = enane_model.predict(nan_unlabeled["sample"].tolist())
 
-        for (row_index, _), pred in zip(nan_unlabeled.iterrows(),
-                                        enane_pred):
+        for (row_index, _), pred in zip(nan_unlabeled.iterrows(), enane_pred):
             usefulness = 0
             harmfulness = 0
             for neigh in nan[row_index]:
-                if local_structure.loc[neigh, 'label'] == pred:
+                if local_structure.loc[neigh, "label"] == pred:
                     usefulness += 1
                 else:
                     harmfulness += 1
@@ -368,23 +391,22 @@ class STDPNF:
         while True:
             samples_labeled = self.__step_a()
 
-            prev_rows = samples_labeled['previous'].to_numpy()
+            prev_rows = samples_labeled["previous"].to_numpy()
             prev_unlabeled = []
             samples_labeled_index = samples_labeled.index.to_list()
             for prev_row in prev_rows:
-                if prev_row not in samples_labeled_index and prev_row is not \
-                        None:
+                if prev_row not in samples_labeled_index and prev_row is not None:
                     prev_unlabeled.append(prev_row)
                     self.order[prev_row] = count
             if len(prev_unlabeled) == 0:
                 break
             unlabeled_prev_of_labeled = self.structure.loc[prev_unlabeled]
 
-            lu = unlabeled_prev_of_labeled['sample'].to_list()
+            lu = unlabeled_prev_of_labeled["sample"].to_list()
             y_pred = self.classifier.predict(lu)
 
             for new_label, pos in zip(y_pred, prev_unlabeled):
-                self.structure.at[pos, 'label'] = new_label
+                self.structure.at[pos, "label"] = new_label
 
             count += 1
 
@@ -400,7 +422,7 @@ class STDPNF:
         while True:
             samples_labeled = self.__step_a()
 
-            next_rows = samples_labeled['next'].to_numpy()
+            next_rows = samples_labeled["next"].to_numpy()
             next_unlabeled = []
             samples_labeled_index = samples_labeled.index.to_list()
             for next_row in next_rows:
@@ -411,11 +433,11 @@ class STDPNF:
                 break
             unlabeled_next_of_labeled = self.structure.loc[next_unlabeled]
 
-            lu = unlabeled_next_of_labeled['sample'].to_list()
+            lu = unlabeled_next_of_labeled["sample"].to_list()
             y_pred = self.classifier.predict(lu)
 
             for new_label, pos in zip(y_pred, next_unlabeled):
-                self.structure.at[pos, 'label'] = new_label
+                self.structure.at[pos, "label"] = new_label
 
             count += 1
         return count
@@ -430,46 +452,51 @@ class STDPNF:
 
         nan, lambda_param = self.__nan_search()
         self.classifier_stdpnf = KNeighborsClassifier(
-            n_neighbors=self.k, metric=self.distance_metric)
+            n_neighbors=self.k, metric=self.distance_metric
+        )
         self.classifier_stdpnf.fit(self.l, self.y)
         count = 1
 
         while count <= max(self.order.values()):
-            unlabeled_rows = self.structure_stdnpf.loc[self.structure_stdnpf[
-                                                           'label'] == -1]. \
-                index.to_list()
+            unlabeled_rows = self.structure_stdnpf.loc[
+                self.structure_stdnpf["label"] == -1
+            ].index.to_list()
             unlabeled_indexes = []
             for row in unlabeled_rows:
                 if self.order[row] == count:
                     unlabeled_indexes.append(row)
 
-            if isinstance(self.filter, str) and self.filter == 'ENANE':
+            if isinstance(self.filter, str) and self.filter == "ENANE":
                 filtered_indexes, filtered_labels = self.__enane(
-                    unlabeled_indexes, nan, lambda_param)
-                self.structure_stdnpf.at[filtered_indexes, 'label'] = \
-                    filtered_labels
+                    unlabeled_indexes, nan, lambda_param
+                )
+                self.structure_stdnpf.at[filtered_indexes,
+                                         "label"] = filtered_labels
 
             else:
-                labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
-                                                             'label'] != -1]
-                complete = labeled_data['sample']
-                complete_y = labeled_data['label']
+                labeled_data = self.structure_stdnpf.loc[
+                    self.structure_stdnpf["label"] != -1
+                ]
+                complete = labeled_data["sample"]
+                complete_y = labeled_data["label"]
 
                 result = self._if_filter(complete, complete_y)
 
                 self._results_to_structure(complete, result)
 
-            labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
-                                                         'label'] != -1]
+            labeled_data = self.structure_stdnpf.loc[
+                self.structure_stdnpf["label"] != -1
+            ]
             self.classifier_stdpnf.fit(
-                labeled_data['sample'].tolist(), labeled_data['label'].tolist())
+                labeled_data["sample"].tolist(), labeled_data["label"].tolist()
+            )
 
             count += 1
 
-        labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf[
-                                                     'label'] != -1]
+        labeled_data = self.structure_stdnpf.loc[self.structure_stdnpf["label"] != -1]
         self.classifier_stdpnf.fit(
-            labeled_data['sample'].tolist(), labeled_data['label'].tolist())
+            labeled_data["sample"].tolist(), labeled_data["label"].tolist()
+        )
 
     def _results_to_structure(self, complete, result):
         """
@@ -489,9 +516,9 @@ class STDPNF:
             if not is_in:
                 results_to_unlabeled.append(r)
         for r in results_to_unlabeled:
-            self.structure_stdnpf.at[
-                np.array(self.structure_stdnpf['sample'],
-                         r)]['label'] = -1
+            self.structure_stdnpf.at[np.array(self.structure_stdnpf["sample"], r)][
+                "label"
+            ] = -1
 
     def _if_filter(self, complete, complete_y):
         """
@@ -506,7 +533,8 @@ class STDPNF:
             original = pd.DataFrame(self.l)
             original_y = pd.DataFrame(self.y)
             result, _ = self.filter.filter_original_complete(
-                original, original_y, complete, complete_y)
+                original, original_y, complete, complete_y
+            )
         else:
             result, _ = self.filter.filter(complete, complete_y)
         return result
@@ -516,7 +544,7 @@ class STDPNF:
         try:
             l, u, y = split(samples, y)
         except IndexError:
-            raise ValueError('Dimensions do not match.')
+            raise ValueError("Dimensions do not match.")
 
         le = LabelEncoder()
         le.fit(y)

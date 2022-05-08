@@ -5,21 +5,14 @@ in the literature.
 """
 
 __version__ = "2.0"
-__author__ = 'Daniel Puente Ramírez'
+__author__ = "Daniel Puente Ramírez"
 
 from ._CNN import CNN
 from ._DROP3 import DROP3
 from ._ENN import ENN
 from ._ICF import ICF
-from ._LocalSets import LSSm, LSBo
+from ._LocalSets import LSBo, LSSm
 from ._MSS import MSS
 from ._RNN import RNN
 
-__all__ = ["ENN",
-           "CNN",
-           "RNN",
-           "MSS",
-           "ICF",
-           "DROP3",
-           "LSSm",
-           "LSBo"]
+__all__ = ["ENN", "CNN", "RNN", "MSS", "ICF", "DROP3", "LSSm", "LSBo"]

@@ -11,11 +11,12 @@ def check_dir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
         if os.path.isdir(path):
-            print(f'Created main folder for ranks solutions.'
-                  f' {path}')
+            print("Created main folder for ranks solutions: ", path)
         else:
-            print(f'Create manually the folder \'{path.split("/")[-1]}\' inside'
-                  f' {path.split("/")[:-1]} and  rerun.')
+            print(
+                f'Create manually the folder \'{path.split("/")[-1]}\' inside'
+                f' {path.split("/")[:-1]} and  rerun.'
+            )
             exit(1)
     else:
-        print(f'Path OK - {path}')
+        print(f"Path OK - {path}")

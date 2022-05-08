@@ -11,7 +11,10 @@ alt="ISMSSL by DNX"></a>
 
 <h4 align="center">Instance selection methods for semi-supervised learning.</h4>
 
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c336db4b8f9b4196bc802a544a18b83b)](https://www.codacy.com/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dpr1005/Semisupervised-learning-and-instance-selection-methods&amp;utm_campaign=Badge_Grade)
+ [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpr1005_Semisupervised-learning-and-instance-selection-methods&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpr1005_Semisupervised-learning-and-instance-selection-methods)
+ [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c336db4b8f9b4196bc802a544a18b83b)](https://www.codacy.com/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dpr1005/Semisupervised-learning-and-instance-selection-methods&utm_campaign=Badge_Coverage)
+[![DeepSource](https://deepsource.io/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods.svg/?label=active+issues&show_trend=true&token=_L2oEwtETgWq6CnhDB1m8qO6)](https://deepsource.io/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods/?ref=repository-badge)
 
 <p align="center">
   <a href="#key-features">Key Features</a> •

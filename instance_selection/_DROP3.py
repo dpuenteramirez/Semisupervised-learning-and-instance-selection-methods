@@ -16,7 +16,6 @@ from .utils import transform
 
 
 class DROP3:
-
     """
     Wilson, D. R., & Martinez, T. R. (2000). Reduction techniques for
     instance-based learning algorithms. Machine learning, 38(3), 257-286.
@@ -63,11 +62,17 @@ class DROP3:
         :param y: DataFrame.
         :return: the input dataset with the remaining samples.
         """
-        initial_distances, initial_samples, initial_targets, knn, \
-            samples_info = self._create_variables(samples, y)
+        (
+            initial_distances,
+            initial_samples,
+            initial_targets,
+            knn,
+            samples_info,
+        ) = self._create_variables(samples, y)
 
-        self._find_associates(initial_distances, initial_samples,
-                              initial_targets, knn, samples_info)
+        self._find_associates(
+            initial_distances, initial_samples, initial_targets, knn, samples_info
+        )
 
         initial_distances.sort(key=lambda x: x[2], reverse=True)
 
@@ -79,32 +84,37 @@ class DROP3:
             with_, without = self._with_without(tuple(x_sample), samples_info)
 
             if without >= with_:
-                initial_distances = initial_distances[:index_x - removed] + \
-                                    initial_distances[index_x - removed + 1:]
+                initial_distances = (
+                    initial_distances[: index_x - removed]
+                    + initial_distances[index_x - removed + 1:]
+                )
                 removed += 1
 
                 for a_associate_of_x in samples_info[(tuple(x_sample))][1]:
                     a_neighs, remaining_samples = self._remove_from_neighs(
-                        a_associate_of_x, initial_distances,
-                        samples_info, x_sample)
+                        a_associate_of_x, initial_distances, samples_info, x_sample
+                    )
 
                     knn = NearestNeighbors(
                         n_neighbors=self.nearest_neighbors + 2,
-                        n_jobs=1, p=self.power_parameter)
+                        n_jobs=1,
+                        p=self.power_parameter,
+                    )
                     knn.fit(remaining_samples)
                     _, neigh_ind = knn.kneighbors([a_associate_of_x])
-                    possible_neighs = [initial_distances[x][0] for x in
-                                       neigh_ind[0]]
+                    possible_neighs = [initial_distances[x][0]
+                                       for x in neigh_ind[0]]
 
-                    self._find_new_neighs(a_associate_of_x, a_neighs,
-                                          possible_neighs, samples_info)
+                    self._find_new_neighs(
+                        a_associate_of_x, a_neighs, possible_neighs, samples_info
+                    )
 
                     new_neigh = a_neighs[-1]
-                    samples_info[tuple(new_neigh)][1].append(
-                        a_associate_of_x)
+                    samples_info[tuple(new_neigh)][1].append(a_associate_of_x)
 
-        samples = pd.DataFrame([x for x, _, _ in initial_distances],
-                               columns=self.x_attr)
+        samples = pd.DataFrame(
+            [x for x, _, _ in initial_distances], columns=self.x_attr
+        )
         y = pd.DataFrame([x for _, x, _ in initial_distances])
 
         return samples, y
@@ -122,23 +132,24 @@ class DROP3:
         self.x_attr = samples.keys()
         samples = transform(samples, y)
         s = copy.deepcopy(samples)
-        initial_samples = s['data']
-        initial_targets = s['target']
-        initial_samples, samples_index = np.unique(ar=initial_samples,
-                                                   return_index=True, axis=0)
+        initial_samples = s["data"]
+        initial_targets = s["target"]
+        initial_samples, samples_index = np.unique(
+            ar=initial_samples, return_index=True, axis=0
+        )
         initial_targets = initial_targets[samples_index]
-        knn = NearestNeighbors(n_neighbors=self.nearest_neighbors + 2, n_jobs=1,
-                               p=self.power_parameter)
+        knn = NearestNeighbors(
+            n_neighbors=self.nearest_neighbors + 2, n_jobs=1, p=self.power_parameter
+        )
         knn.fit(initial_samples)
-        samples_info = {tuple(x): [[], [], y] for x, y in zip(initial_samples,
-                                                              initial_targets)}
+        samples_info = {
+            tuple(x): [[], [], y] for x, y in zip(initial_samples, initial_targets)
+        }
         initial_distances = []
-        return initial_distances, initial_samples, initial_targets, knn, \
-            samples_info
+        return initial_distances, initial_samples, initial_targets, knn, samples_info
 
     @staticmethod
-    def _find_new_neighs(a_associate_of_x, a_neighs, possible_neighs,
-                         samples_info):
+    def _find_new_neighs(a_associate_of_x, a_neighs, possible_neighs, samples_info):
         """
         > The function takes a sample, finds its neighbors, and then checks if
         any of the neighbors are not already in the list of neighbors. If
@@ -162,8 +173,9 @@ class DROP3:
         samples_info[tuple(a_associate_of_x)][0] = a_neighs
 
     @staticmethod
-    def _remove_from_neighs(a_associate_of_x, initial_distances,
-                            samples_info, x_sample):
+    def _remove_from_neighs(
+        a_associate_of_x, initial_distances, samples_info, x_sample
+    ):
         """
         > It removes the sample `x_sample` from the list of neighbors of
         `a_associate_of_x` and returns the updated list of neighbors of
@@ -191,8 +203,9 @@ class DROP3:
         return a_neighs, remaining_samples
 
     @staticmethod
-    def _find_associates(initial_distances, initial_samples, initial_targets,
-                         knn, samples_info):
+    def _find_associates(
+        initial_distances, initial_samples, initial_targets, knn, samples_info
+    ):
         """
         For each sample in the initial set, find the closest sample from the
         other class and store it in the initial_distances list
@@ -245,12 +258,13 @@ class DROP3:
         associates_targets = [samples_info[tuple(x)][2] for x in x_associates]
         associates_neighs = [samples_info[tuple(x)][0] for x in x_associates]
 
-        for _, a_target, a_neighs in zip(x_associates,
-                                         associates_targets,
-                                         associates_neighs):
+        for _, a_target, a_neighs in zip(
+            x_associates, associates_targets, associates_neighs
+        ):
 
-            neighs_targets = np.ravel(np.array([samples_info[tuple(x)][2] for x
-                                                in a_neighs])).astype(int)
+            neighs_targets = np.ravel(
+                np.array([samples_info[tuple(x)][2] for x in a_neighs])
+            ).astype(int)
             neighs_targets = neighs_targets.tolist()
 
             count = np.bincount(neighs_targets[:-1])
@@ -261,8 +275,9 @@ class DROP3:
             for index_a, neigh in enumerate(a_neighs):
                 if np.array_equal(neigh, x_sample):
                     break
-            count = np.bincount(neighs_targets[:index_a] + neighs_targets[
-                                                           index_a + 1:])
+            count = np.bincount(
+                neighs_targets[:index_a] + neighs_targets[index_a + 1:]
+            )
             max_class = np.where(count == np.amax(count))[0][0]
             if max_class == a_target:
                 without += 1
