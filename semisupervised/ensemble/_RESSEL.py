@@ -171,12 +171,12 @@ class RESSEL:
         """
         if not isinstance(labeled, pd.DataFrame):
             raise AttributeError(
-                "Labeled samples object needs to be a Pandas DataFrame. Not a ",
+                "Labeled samples object needs to be a Pandas DataFrame. Not ",
                 type(labeled),
             )
         if not isinstance(unlabeled, pd.DataFrame):
             raise AttributeError(
-                "Unlabeled samples object needs to be a Pandas DataFrame. " "Not a ",
+                "Unlabeled samples object needs to be a Pandas DataFrame. Not ",
                 type(unlabeled),
             )
         if labeled.shape[1] != unlabeled.shape[1] + 1:
