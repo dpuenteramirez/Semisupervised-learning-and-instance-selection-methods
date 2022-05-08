@@ -285,8 +285,17 @@ Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaa
 \imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
 
 \subsection{Pruebas del sistema}
-Intro \\ (En desarrollo)
-Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales, debido a que únicamente comprobaban la interacción del usuario con la plataforma a través de un navegador.
+Las pruebas del sistema se encuentran dentro de los trabajos futuros que debe seguir la aplicación.
+
+Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales. La problemática que surge con las existentes es que no eran pruebas sobre el \textit{backend} de la aplicación, sino la interacción del usuario (mediante el uso de \textit{Selenium}) con el \textit{frontend}. 
+
+Es por ello que, al haberse hecho <<de cero>> toda la interfaz de la aplicación web, literalmente, no existe ninguna referencia de las antiguas que las pruebas existentes puedan reutilizar. 
+
+Debido a esta problemática, y con el fin de obtener un sistema estable, se ha seleccionado a un grupo de personas de edades comprendidas entre 18 y 55 años, profesionales de mecánica y electrónica, medicina, informática y estudiantes del grado de otras universidades españolas; con el fin de que dado un \href{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/blob/917d49bcc9d7f1a4825225414b246023bfa2ea7b/docs/misc/survey_steps.pdf}{documento} relativamente sencillo, puedan hacer uso de todo el sistema, y sean estos los que reporten en un \href{https://forms.gle/eZUWmT5GNahqYVVa6}{formulario de \texttt{Google}} sus impresiones y resultados. Está preparado para que se vaya leyendo el documento, probando la aplicación y posteriormente rellenando el formulario, de forma que todo sea un proceso auto-guiado.
+
+Gracias a estas respuestas, se han podido encontrar \textit{bugs} existentes en la aplicación que no permitían trabajar correctamente con ella. El más importante de todo y el cual posee su propia \href{https://github.com/dpr1005/UBUMLaaS/issues/101}{\textit{issue}}, es el desfase existente entre los algoritmos de \texttt{Scikit-Learn} de la versión 0.21 (la utilizada previamente) y la actual, la 0.24. Numerosos algoritmos han sido modificados en su parametrización y por ende en \texttt{UBUMLaaS} no se podían utilizar.
+
+Durante algunos meses de desarrollo del proyecto \texttt{Travis-CI} funcionó correctamente pero la propia herramienta sufrió una actualización a finales de marzo y dejó de ser funcional, resultando en numerosos \textit{commits} marcados como erróneos, pero tal y como se aprecia en los propios \textit{logs} de Travis, nunca se llegó a testar el código, sino que en la configuración de la máquina remota <<rompía>>.
 
 \clearpage
 \section{IS-SSL}
