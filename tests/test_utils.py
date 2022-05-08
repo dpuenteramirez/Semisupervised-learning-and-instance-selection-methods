@@ -14,10 +14,20 @@ from utils import arff_data
 
 @pytest.fixture
 def arff_path_file():
+    """
+    It returns the path to the iris dataset in the datasets folder
+    :return: The path to the iris.arff file
+    """
     return join("datasets", "iris.arff")
 
 
 def test_arff_data(arff_path_file):
+    """
+    `arff_data` loads an arff file into a `Bunch` object, which is a
+    dictionary-like object.
+
+    :param arff_path_file: The path to the arff file
+    """
     dataset = arff_data(arff_path_file)
     assert isinstance(dataset, Bunch)
     dataset1 = arff_data(arff_path_file, ["a", "b", "c", "d"])

@@ -285,8 +285,17 @@ Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaa
 \imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
 
 \subsection{Pruebas del sistema}
-Intro \\ (En desarrollo)
-Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales, debido a que únicamente comprobaban la interacción del usuario con la plataforma a través de un navegador.
+Las pruebas del sistema se encuentran dentro de los trabajos futuros que debe seguir la aplicación.
+
+Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales. La problemática que surge con las existentes es que no eran pruebas sobre el \textit{backend} de la aplicación, sino la interacción del usuario (mediante el uso de \textit{Selenium}) con el \textit{frontend}. 
+
+Es por ello que, al haberse hecho <<de cero>> toda la interfaz de la aplicación web, literalmente, no existe ninguna referencia de las antiguas que las pruebas existentes puedan reutilizar. 
+
+Debido a esta problemática, y con el fin de obtener un sistema estable, se ha seleccionado a un grupo de personas de edades comprendidas entre 18 y 55 años, profesionales de mecánica y electrónica, medicina, informática y estudiantes del grado de otras universidades españolas; con el fin de que dado un \href{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/blob/917d49bcc9d7f1a4825225414b246023bfa2ea7b/docs/misc/survey_steps.pdf}{documento} relativamente sencillo, puedan hacer uso de todo el sistema, y sean estos los que reporten en un \href{https://forms.gle/eZUWmT5GNahqYVVa6}{formulario de \texttt{Google}} sus impresiones y resultados. Está preparado para que se vaya leyendo el documento, probando la aplicación y posteriormente rellenando el formulario, de forma que todo sea un proceso auto-guiado.
+
+Gracias a estas respuestas, se han podido encontrar \textit{bugs} existentes en la aplicación que no permitían trabajar correctamente con ella. El más importante de todo y el cual posee su propia \href{https://github.com/dpr1005/UBUMLaaS/issues/101}{\textit{issue}}, es el desfase existente entre los algoritmos de \texttt{Scikit-Learn} de la versión 0.21 (la utilizada previamente) y la actual, la 0.24. Numerosos algoritmos han sido modificados en su parametrización y por ende en \texttt{UBUMLaaS} no se podían utilizar.
+
+Durante algunos meses de desarrollo del proyecto \texttt{Travis-CI} funcionó correctamente pero la propia herramienta sufrió una actualización a finales de marzo y dejó de ser funcional, resultando en numerosos \textit{commits} marcados como erróneos, pero tal y como se aprecia en los propios \textit{logs} de Travis, nunca se llegó a testar el código, sino que en la configuración de la máquina remota <<rompía>>.
 
 \clearpage
 \section{IS-SSL}
@@ -481,3 +490,47 @@ El proceso de integración es sencillo, una vez registrados y asociada la cuenta
 \imagenRuta{../img/anexos/manual-programador/SonarCloud-IS-SSL}{SonarCloud.}{SonarCloud-IS-SSL}
 
 \subsection{Pruebas del sistema}
+
+En esta sección se van a describir las pruebas que poseen las bibliotecas.
+
+Las pruebas son realmente sencillas, ya que los propios algoritmos no poseen muchas disyunciones. Es por ello que el conjunto de pruebas codificado está compuesto de pruebas unitarias para cada algoritmo programado, permitiendo comprobar tanto que las entradas son correctas, como sus salidas. En el caso de los algoritmos de selección de instancias se asegura que las instancias recuperadas pertenecen al conjunto de datos de entrada, y que no son más que las que se introdujeron en primera instancia. De tal manera que en caso de que los algoritmos se modifiquen, el filtrado lo sigan realizando. La prueba base se puede visualizar en la Figura~\ref{fig:base-test-is}.
+
+Para la biblioteca de algoritmos de aprendizaje semi-supervisado se poseen también pruebas unitarias para todos y cada uno de ellos, la prueba base se puede visualizar en~\ref{fig:base-test-ssl}. En ellas se comprueban:
+\begin{itemize}
+\tightlist
+\item Tipo de objeto de entrada.
+\item Instanciación con mediante diferentes parámetros, tanto por defecto como mediante uso de diccionarios.
+\item Entrenamiento del propio algoritmo (\texttt{fit}).
+\item Predicción usando el modelo, \texttt{predict}.
+\item Las etiquetas devueltas como resultado de la predicción existen en el conjunto de entrenamiento, no se ha inventado ninguna.
+\end{itemize}
+
+
+\imagenFlotante{../img/anexos/manual-programador/base-tests-is}{Prueba base para algoritmos de selección de instancias.}{base-test-is}
+\imagenFlotante{../img/anexos/manual-programador/base-tests-ssl}{Prueba base para algoritmos de aprendizaje semi-supervisado.}{base-test-ssl}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{../img/anexos/manual-programador/tests-superados-is-ssl}
+\caption{Prueba base para algoritmos de aprendizaje semi-supervisado.}\label{fig:tests-superados-is-ssl}
+
+\end{figure}
+
+Además, se ha codificado una prueba para asegurar que se siguen leyendo los ficheros \texttt{ARFF} correctamente.
+
+El resultado de las ejecuciones se puede ver la Figura~\ref{fig:tests-superados-is-ssl}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

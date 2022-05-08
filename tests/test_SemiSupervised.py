@@ -19,6 +19,11 @@ from semisupervised import STDPNF, CoTraining, DemocraticCoLearning, TriTraining
 
 @pytest.fixture
 def digits_dataset_ss():
+    """
+    It loads the digits dataset, splits it into train and test sets, and then
+    randomly assigns 55% of the training set as unlabeled
+    :return: x_train, x_test, y_train, y_test, opt_labels
+    """
     x, y = load_digits(return_X_y=True, as_frame=True)
     x = x.to_numpy()
     y = y.to_numpy()
@@ -38,6 +43,18 @@ def digits_dataset_ss():
 
 
 def base(x_train, x_test, y_train, y_test, opt_labels, algorithm, params=None):
+    """
+    It takes in a training and testing set, a list of possible labels, and a
+    model, and checks the predictions of the model on the testing set
+
+    :param x_train: The training data
+    :param x_test: The test data
+    :param y_train: The training labels
+    :param y_test: the actual labels of the test set
+    :param opt_labels: the set of labels that the model can predict
+    :param algorithm: the algorithm to use
+    :param params: a dictionary of parameters to pass to the algorithm
+    """
     assert isinstance(x_train, pd.DataFrame) and isinstance(
         y_train, pd.DataFrame)
     assert isinstance(x_test, pd.DataFrame) and isinstance(
@@ -51,6 +68,11 @@ def base(x_train, x_test, y_train, y_test, opt_labels, algorithm, params=None):
 
 
 def test_co_training(digits_dataset_ss):
+    """
+    It tests the Co-Training algorithm on the digits dataset
+
+    :param digits_dataset_ss: The dataset we're using
+    """
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(
         x_train,
@@ -106,6 +128,11 @@ def test_co_training(digits_dataset_ss):
 
 
 def test_tri_training(digits_dataset_ss):
+    """
+    It tests the Tri-Training algorithm on the digits dataset
+
+    :param digits_dataset_ss: the dataset we're using
+    """
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(
         x_train,
@@ -123,6 +150,11 @@ def test_tri_training(digits_dataset_ss):
 
 
 def test_demo_co_learning(digits_dataset_ss):
+    """
+    It tests the Democratic Co-Learning algorithm on the digits dataset
+
+    :param digits_dataset_ss: The dataset we're using
+    """
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(x_train, x_test, y_train, y_test, opt_labels, DemocraticCoLearning)
     base(
@@ -141,11 +173,25 @@ def test_demo_co_learning(digits_dataset_ss):
 
 
 def test_density_peaks(digits_dataset_ss):
+    """
+    It takes the training and testing data, and the optimal labels, and runs the
+    STDPNF algorithm on it
+
+    :param digits_dataset_ss: a tuple of (x_train, x_test, y_train, y_test,
+    opt_labels)
+    """
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     base(x_train, x_test, y_train, y_test, opt_labels, STDPNF)
 
 
 def test_density_peaks_filtering(digits_dataset_ss):
+    """
+    It tests that the `filtering` option works as expected in the STDPNF
+    algorithm
+
+    :param digits_dataset_ss: a fixture that returns a tuple of (x_train,
+    x_test, y_train, y_test, opt_labels)
+    """
     x_train, x_test, y_train, y_test, opt_labels = digits_dataset_ss
     with pytest.raises(AttributeError):
         base(x_train, x_test, y_train, y_test,
@@ -177,6 +223,12 @@ def test_density_peaks_filtering(digits_dataset_ss):
 
 
 def test_different_len(digits_dataset_ss):
+    """
+    It tests that if the length of the input and output are different, then the
+    model will raise a ValueError
+
+    :param digits_dataset_ss: a tuple of (x, x_test, y, y_test, y_pred)
+    """
     x, _, y, _, _ = digits_dataset_ss
     co = CoTraining()
     tri = TriTraining()
