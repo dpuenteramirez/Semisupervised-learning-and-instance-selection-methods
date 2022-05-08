@@ -23,12 +23,15 @@ def split(samples, y):
 
     labeled_indexes = y != (-1 or np.NaN or None)
 
+    labeled_indexes = np.ravel(labeled_indexes)
+
     L = samples.iloc[labeled_indexes].to_numpy()
     U = samples.iloc[~labeled_indexes].to_numpy()
     y = y[labeled_indexes]
 
     assert len(L) == len(y), f"L {len(L)} != {len(y)} y"
-    assert len(L) + len(U) == samples.shape[
-        0], f"L {len(L)} + U {len(U)} != X {samples.shape[0]}"
+    assert (
+        len(L) + len(U) == samples.shape[0]
+    ), f"L {len(L)} + U {len(U)} != X {samples.shape[0]}"
 
     return L, U, y
