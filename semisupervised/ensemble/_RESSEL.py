@@ -176,8 +176,8 @@ class RESSEL:
             )
         if not isinstance(unlabeled, pd.DataFrame):
             raise AttributeError(
-                "Unlabeled samples object needs to be a Pandas DataFrame. "
-                "Not a ", type(unlabeled),
+                "Unlabeled samples object needs to be a Pandas DataFrame. " "Not a ",
+                type(unlabeled),
             )
         if labeled.shape[1] != unlabeled.shape[1] + 1:
             raise ValueError(
@@ -221,7 +221,8 @@ class RESSEL:
 
         y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
         best_error_i = f1_score(
-            y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred,
+            y_true=np.ravel(oob_i.iloc[:, -1:]),
+            y_pred=y_pred,
             average="weighted",
         )
         best_c_i = self.ensemble[iteration]
@@ -270,7 +271,8 @@ class RESSEL:
 
             y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
             current_error_i = f1_score(
-                y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred,
+                y_true=np.ravel(oob_i.iloc[:, -1:]),
+                y_pred=y_pred,
                 average="weighted",
             )
 
