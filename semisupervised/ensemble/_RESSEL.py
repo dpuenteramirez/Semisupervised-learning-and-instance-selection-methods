@@ -171,13 +171,13 @@ class RESSEL:
         """
         if not isinstance(labeled, pd.DataFrame):
             raise AttributeError(
-                "Labeled samples object needs to be a " "Pandas DataFrame. Not a ",
+                "Labeled samples object needs to be a Pandas DataFrame. Not a ",
                 type(labeled),
             )
         if not isinstance(unlabeled, pd.DataFrame):
             raise AttributeError(
-                "Unlabeled samples object needs to be a " "Pandas DataFrame. Not a ",
-                type(unlabeled),
+                "Unlabeled samples object needs to be a Pandas DataFrame. "
+                "Not a ", type(unlabeled),
             )
         if labeled.shape[1] != unlabeled.shape[1] + 1:
             raise ValueError(
@@ -221,7 +221,8 @@ class RESSEL:
 
         y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
         best_error_i = f1_score(
-            y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred, average="weighted"
+            y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred,
+            average="weighted",
         )
         best_c_i = self.ensemble[iteration]
 
@@ -269,7 +270,8 @@ class RESSEL:
 
             y_pred = self.ensemble[iteration].predict(oob_i.iloc[:, :-1])
             current_error_i = f1_score(
-                y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred, average="weighted"
+                y_true=np.ravel(oob_i.iloc[:, -1:]), y_pred=y_pred,
+                average="weighted",
             )
 
             if current_error_i < best_error_i:
@@ -313,7 +315,7 @@ class RESSEL:
             samples = samples.to_numpy()
         if len(self.ensemble) == 0:
             raise InterruptedError(
-                "To be able to predict, fitting is needed " "to be already done."
+                "To be able to predict, fitting is needed to be already done."
             )
         c_pred = []
         for classifier in self.ensemble:

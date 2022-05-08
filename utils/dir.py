@@ -11,7 +11,7 @@ def check_dir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
         if os.path.isdir(path):
-            print(f"Created main folder for ranks solutions." f" {path}")
+            print("Created main folder for ranks solutions: ", path)
         else:
             print(
                 f'Create manually the folder \'{path.split("/")[-1]}\' inside'
