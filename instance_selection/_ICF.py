@@ -11,11 +11,10 @@ import numpy as np
 import pandas as pd
 
 from ._ENN import ENN
-from .utils import transform, delete_multiple_element
+from .utils import delete_multiple_element, transform
 
 
 class ICF:
-
     """
     Brighton, H., & Mellish, C. (2002). Advances in instance selection for
     instance-based learning algorithms. Data mining and knowledge
@@ -66,14 +65,16 @@ class ICF:
         :return: the input dataset with the remaining samples.
         """
         self.x_attr = samples.keys()
-        enn = ENN(nearest_neighbors=self.nearest_neighbors,
-                  power_parameter=self.power_parameter)
+        enn = ENN(
+            nearest_neighbors=self.nearest_neighbors,
+            power_parameter=self.power_parameter,
+        )
         samples, y = enn.filter(samples, y)
         ts = transform(samples, y)
 
         while True:
-            data = list(ts['data'])
-            target = list(ts['target'])
+            data = list(ts["data"])
+            target = list(ts["target"])
 
             cov_reach = self._coverage(ts)
 
@@ -86,13 +87,13 @@ class ICF:
 
             delete_multiple_element(data, removable_indexes)
             delete_multiple_element(target, removable_indexes)
-            ts['data'] = data
-            ts['target'] = target
+            ts["data"] = data
+            ts["target"] = target
             if not progress:
                 break
 
-        samples = pd.DataFrame(ts['data'], columns=self.x_attr)
-        y = pd.DataFrame(ts['target'])
+        samples = pd.DataFrame(ts["data"], columns=self.x_attr)
+        y = pd.DataFrame(ts["target"])
 
         return samples, y
 
@@ -113,12 +114,13 @@ class ICF:
         distances_to_enemies = []
         sol = []
 
-        ICF.calculate_distances_to_enemies(distances_to_enemies,
-                                           matrix_distances,
-                                           size, train_set)
+        ICF.calculate_distances_to_enemies(
+            distances_to_enemies, matrix_distances, size, train_set
+        )
 
-        ICF.calculate_coverage(distances_to_enemies, matrix_distances, size,
-                               sol, train_set)
+        ICF.calculate_coverage(
+            distances_to_enemies, matrix_distances, size, sol, train_set
+        )
 
         ICF.calculate_reachability(size, sol, train_set)
 
@@ -135,9 +137,9 @@ class ICF:
         """
         for sample in range(size):
             reachable = []
-            x_target = train_set['target'][sample]
+            x_target = train_set["target"][sample]
             for other_sample in range(size):
-                y_target = train_set['target'][other_sample]
+                y_target = train_set["target"][other_sample]
                 if sample != other_sample and x_target == y_target:
                     coverage = sol[other_sample][0]
                     if sample in coverage:
@@ -145,8 +147,9 @@ class ICF:
             sol[sample].append(reachable)
 
     @staticmethod
-    def calculate_coverage(distances_to_enemies, matrix_distances, size, sol,
-                           train_set):
+    def calculate_coverage(
+        distances_to_enemies, matrix_distances, size, sol, train_set
+    ):
         """
         For each sample, we find the distance to the closest enemy. Then, we
         find all the samples that are closer to the current sample than the
@@ -162,22 +165,22 @@ class ICF:
         """
         for sample in range(size):
             x_coverage = []
-            x_target = train_set['target'][sample]
+            x_target = train_set["target"][sample]
             distance_to_closest_enemy = distances_to_enemies[sample]
             for other_sample in range(size):
                 if sample == other_sample:
                     continue
-                y_target = train_set['target'][other_sample]
+                y_target = train_set["target"][other_sample]
                 if x_target == y_target:
-                    distance_between_samples = matrix_distances[sample][
-                        other_sample]
+                    distance_between_samples = matrix_distances[sample][other_sample]
                     if distance_between_samples < distance_to_closest_enemy:
                         x_coverage.append(other_sample)
             sol.append([x_coverage])
 
     @staticmethod
-    def calculate_distances_to_enemies(distances_to_enemies,
-                                       matrix_distances, size, train_set):
+    def calculate_distances_to_enemies(
+        distances_to_enemies, matrix_distances, size, train_set
+    ):
         """
         For each sample in the training set, calculate the distance to the
         closest enemy and store it in the distances_to_enemies array
@@ -191,15 +194,14 @@ class ICF:
         """
         for sample in range(size):
             distance_to_closest_enemy = maxsize
-            x_sample = train_set['data'][sample]
-            x_target = train_set['target'][sample]
+            x_sample = train_set["data"][sample]
+            x_target = train_set["target"][sample]
             for other_sample in range(size):
-                y_sample = train_set['data'][other_sample]
-                y_target = train_set['target'][other_sample]
+                y_sample = train_set["data"][other_sample]
+                y_target = train_set["target"][other_sample]
                 distance = np.linalg.norm(x_sample - y_sample)
                 matrix_distances[sample][other_sample] = distance
 
-                if x_target != y_target and \
-                        distance < distance_to_closest_enemy:
+                if x_target != y_target and distance < distance_to_closest_enemy:
                     distance_to_closest_enemy = distance
             distances_to_enemies.append(distance_to_closest_enemy)

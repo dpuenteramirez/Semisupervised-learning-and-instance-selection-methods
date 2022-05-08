@@ -8,11 +8,10 @@
 import numpy as np
 import pandas as pd
 
-from .utils import transform, delete_multiple_element
+from .utils import delete_multiple_element, transform
 
 
 class CNN:
-
     """
     Hart, P. (1968). The condensed nearest neighbor rule (corresp.). IEEE
     transactions on information theory, 14(3), 515-516.
@@ -54,7 +53,7 @@ class CNN:
         samples = transform(samples, y)
         store_classes, indexes = np.unique(samples.target, return_index=True)
         store_classes = store_classes.tolist()
-        store = [samples['data'][x] for x in indexes]
+        store = [samples["data"][x] for x in indexes]
 
         handbag = []
 
@@ -82,8 +81,8 @@ class CNN:
             delete_multiple_element(handbag, indexes)
         del handbag
         samples = pd.DataFrame(store, columns=self.x_attr)
-        y = pd.DataFrame(np.array(store_classes, dtype=object).flatten().astype(
-            int))
+        y = pd.DataFrame(
+            np.array(store_classes, dtype=object).flatten().astype(int))
 
         return samples, y
 

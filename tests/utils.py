@@ -14,11 +14,11 @@ from utils import arff_data
 
 @pytest.fixture
 def arff_path_file():
-    return join('datasets', 'iris.arff')
+    return join("datasets", "iris.arff")
 
 
 def test_arff_data(arff_path_file):
     dataset = arff_data(arff_path_file)
     assert isinstance(dataset, Bunch)
-    dataset1 = arff_data(arff_path_file, ['a', 'b', 'c', 'd'])
+    dataset1 = arff_data(arff_path_file, ["a", "b", "c", "d"])
     assert isinstance(dataset1, Bunch)

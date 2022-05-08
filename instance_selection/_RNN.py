@@ -11,11 +11,11 @@ import numpy as np
 import pandas as pd
 
 from instance_selection import CNN
+
 from .utils import transform
 
 
 class RNN:
-
     """
     Gates, G. (1972). The reduced nearest neighbor rule (corresp.).
     IEEE transactions on information theory, 18(3), 431-433.
@@ -48,15 +48,15 @@ class RNN:
         samples, y = cnn.filter(samples, y)
         samp_set = transform(samples, y)
 
-        data = deque(list(samp_set['data']))
-        target = deque(list(samp_set['target']))
+        data = deque(list(samp_set["data"]))
+        target = deque(list(samp_set["target"]))
 
         for instance in zip(samp_set.data, samp_set.target):
             (sample, class_sample) = instance
             data.popleft()
             target.popleft()
 
-            for x_class, x_sample in zip(samp_set['target'], samp_set['data']):
+            for x_class, x_sample in zip(samp_set["target"], samp_set["data"]):
                 euc = []
                 for s_sample in data:
                     euc.append(np.linalg.norm(s_sample - x_sample))
