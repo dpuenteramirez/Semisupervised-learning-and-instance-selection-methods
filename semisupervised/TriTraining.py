@@ -196,8 +196,7 @@ class TriTraining:
             ):
                 break
 
-    def _check_for_update(self, e_j, ep_j, h_j, l_j,
-                          labeled, lp_j, update_j, y):
+    def _check_for_update(self, e_j, ep_j, h_j, l_j, labeled, lp_j, update_j, y):
         """
         If the update_j flag is True, then we concatenate the labeled data with
         the new data, and fit the model to the new data
