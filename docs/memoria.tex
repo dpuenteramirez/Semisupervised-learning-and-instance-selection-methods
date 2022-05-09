@@ -65,12 +65,30 @@
 	\FloatBarrier
 }
 
-\newcommand{\imagenflotante}[2]{
+\newcommand{\imagenRuta}[3]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{#1}
+		\caption{#2}\label{fig:#3}
+	\end{figure}
+	\FloatBarrier
+}
+
+\newcommand{\imagenFlotante}[3]{
 	\begin{figure}%[!h]
 		\centering
 		\includegraphics[width=0.9\textwidth]{#1}
-		\caption{#2}\label{fig:#1}
+		\caption{#2}\label{fig:#3}
 	\end{figure}
+}
+
+\newcommand{\imagenAncho}[4]{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#4\textwidth]{#1}
+		\caption{#2}\label{fig:#3}
+	\end{figure}
+	\FloatBarrier
 }
 
 
