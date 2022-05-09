@@ -83,17 +83,15 @@ class MSS:
         :return: A list of lists, where each list contains a sample, its class,
          and its distance to its nearest enemy.
         """
-
         solution = []
         for sample, x_class in zip(dat, tar):
             distance = sys.maxsize
             for sample_1, x1_class in zip(dat, tar):
                 if x1_class == x_class:
                     continue
-                else:
-                    euc = np.linalg.norm(sample - sample_1)
-                    if euc < distance:
-                        distance = euc
+                euc = np.linalg.norm(sample - sample_1)
+                if euc < distance:
+                    distance = euc
             solution.append([sample, x_class, distance])
 
         solution.sort(key=lambda x: x[2])

@@ -8,6 +8,11 @@ import os
 
 
 def check_dir(path):
+    """
+    If the path doesn't exist, create it
+
+    :param path: the path to the folder where the ranks solutions will be saved
+    """
     if not os.path.isdir(path):
         os.mkdir(path)
         if os.path.isdir(path):

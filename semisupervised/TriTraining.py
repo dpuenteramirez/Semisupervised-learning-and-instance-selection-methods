@@ -18,13 +18,6 @@ from sklearn.utils import Bunch
 from .utils import split
 
 
-def measure_error(classifier_j, classifier_k, labeled_data):
-    pred_j = classifier_j.predict(labeled_data)
-    pred_k = classifier_k.predict(labeled_data)
-    same = len([0 for x, y in zip(pred_j, pred_k) if x == y])
-    return (len(pred_j) - same) / same
-
-
 class TriTraining:
     """
     Zhou, Z. H., & Li, M. (2005). Tri-training: Exploiting unlabeled data
@@ -244,7 +237,7 @@ class TriTraining:
         """
         update_k = False
         l_k = Bunch(data=np.array([]), target=np.array([]))
-        e_k = measure_error(h_j, h_k, labeled)
+        e_k = self.measure_error(h_j, h_k, labeled)
         if e_k < ep_k:
             for sample in u:
                 sample_s = sample.reshape(1, -1)
@@ -286,3 +279,20 @@ class TriTraining:
             labels.append(np.where(count == np.amax(count))[0][0])
 
         return np.array(labels)
+
+    @staticmethod
+    def measure_error(classifier_j, classifier_k, labeled_data):
+        """
+        It returns the fraction of the time that classifiers j and k disagree on
+         the labels of the labeled data
+
+        :param classifier_j: the classifier you want to compare to
+        :param classifier_k: the classifier that we want to measure the error of
+        :param labeled_data: the labeled data that we're using to train the
+        classifiers
+        :return: The error rate of the two classifiers.
+        """
+        pred_j = classifier_j.predict(labeled_data)
+        pred_k = classifier_k.predict(labeled_data)
+        same = len([0 for x, y in zip(pred_j, pred_k) if x == y])
+        return (len(pred_j) - same) / same

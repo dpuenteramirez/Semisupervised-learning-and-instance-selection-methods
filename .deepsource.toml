@@ -1,8 +1,8 @@
 version = 1
 
 test_patterns = [
-  "test/**",
-  "test_*"
+  "\"tests/**\",",
+  "\"test_*.py\","
 ]
 
 exclude_patterns = [

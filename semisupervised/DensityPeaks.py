@@ -70,6 +70,22 @@ class STDPNF:
         else:
             self.filter = None
 
+        self.y = None
+        self.low = None
+        self.u = None
+        self.classifier_stdpnf = None
+        self.order = None
+        self.structure = None
+        self.structure_stdnpf = None
+        self.n_id = None
+        self.distances = None
+        self.max_dis = None
+        self.min_dis = None
+        self.rho = None
+        self.delta = None
+        self.nneigh = None
+        self.data = None
+
     def __build_distance(self):
         """
         Calculate distance dict.
@@ -182,9 +198,13 @@ class STDPNF:
 
         :return: distance vector, nearest neighbor vector
         """
+        if self.rho is None:
+            raise ValueError("Encountered rho as None.")
+
         sort_rho_idx = np.argsort(-self.rho)
         delta, nneigh = [float(self.max_dis)] * self.n_id, [0] * self.n_id
         delta[sort_rho_idx[0]] = -1.0
+
         for i in range(self.n_id):
             for j in range(0, i):
                 old_i, old_j = sort_rho_idx[i], sort_rho_idx[j]
@@ -240,6 +260,7 @@ class STDPNF:
         return samples_labeled
 
     def __discover_structure(self):
+        """Discovers the under laying structure."""
         self._fit_without()
 
     def __nan_search(self):
@@ -343,7 +364,7 @@ class STDPNF:
 
         return es, es_pred
 
-    def __init_values(self, l, u, y):
+    def __init_values(self, low, u, y):
         """
         It takes in the lower and upper bounds of the data, and the data itself,
          and then calculates the distances between the data points,
@@ -351,14 +372,14 @@ class STDPNF:
          value, the delta value, the number of neighbors, and the structure
          of the data
 
-        :param l: lower bound of the data
+        :param low: lower bound of the data
         :param u: upper bound of the data
         :param y: the labels of the data
         """
         self.y = y
-        self.l = l
+        self.low = low
         self.u = u
-        self.data = np.concatenate((l, u), axis=0)
+        self.data = np.concatenate((low, u), axis=0)
         self.n_id = self.data.shape[0]
         self.distances, self.max_dis, self.min_dis = self.__build_distance()
         self.dc = self.__select_dc()
@@ -447,14 +468,13 @@ class STDPNF:
         Self Training based on Density Peaks and a parameter-free noise
         filter.
         """
-
         self.__discover_structure()
 
         nan, lambda_param = self.__nan_search()
         self.classifier_stdpnf = KNeighborsClassifier(
             n_neighbors=self.k, metric=self.distance_metric
         )
-        self.classifier_stdpnf.fit(self.l, self.y)
+        self.classifier_stdpnf.fit(self.low, self.y)
         count = 1
 
         while count <= max(self.order.values()):
@@ -530,7 +550,7 @@ class STDPNF:
         :return: The result is a dataframe with the filtered data.
         """
         if isinstance(self.filter, ENN):
-            original = pd.DataFrame(self.l)
+            original = pd.DataFrame(self.low)
             original_y = pd.DataFrame(self.y)
             result, _ = self.filter.filter_original_complete(
                 original, original_y, complete, complete_y

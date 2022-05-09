@@ -395,7 +395,7 @@ class DemocraticCoLearning:
         confidence = [0 for _ in range(self.n_labels)]
         for index, j in enumerate(gj):
             izq = (j + 0.5) / (j + 1)
-            div = True if j != 0 else False
+            div = j != 0
             if div:
                 der = [
                     (gj_h[0][index] * self.w1) / gj[index],
