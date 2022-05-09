@@ -47,11 +47,11 @@ class ENN:
 
     def _neighs(self, s_samples, s_targets, index, removed):
         """
-        _neighs() takes in the samples and targets, the index of the sample to
-        be removed, and the number of samples already removed. It returns the
-        sample to be removed, its target, the targets of the samples not yet
-        removed, the samples not yet removed, and the indices of the nearest
-        neighbors of the sample to be removed.
+        The function takes in the samples and targets, the index of the
+        sample to be removed, and the number of samples already removed. It
+        returns the sample to be removed, its target, the targets of the
+        samples not yet removed, the samples not yet removed, and the
+        indices of the nearest neighbors of the sample to be removed.
 
         :param s_samples: the samples that are being used to train the model
         :param s_targets: the targets of the samples
