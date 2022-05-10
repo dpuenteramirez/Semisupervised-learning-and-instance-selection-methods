@@ -18,7 +18,7 @@ alt="ISMSSL by DNX"></a>
   <img alt="DeepSource" src="https://deepsource.io/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods.svg/?label=active+issues&show_trend=true&token=_L2oEwtETgWq6CnhDB1m8qO6)](https://deepsource.io/gh/dpr1005/Semisupervised-learning-and-instance-selection-methods/?ref=repository-badge"> 
   <br/>
   <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dpr1005/Semisupervised-learning-and-instance-selection-methods"></a>
-<a href="https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dpr1005/Semisupervised-learning-and-instance-selection-methods"></a>
+<a href="https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/network/members"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dpr1005/Semisupervised-learning-and-instance-selection-methods"></a>
 <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dpr1005/Semisupervised-learning-and-instance-selection-methods"></a>
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/dpr1005/Semisupervised-learning-and-instance-selection-methods">
   <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dpr1005/Semisupervised-learning-and-instance-selection-methods"></a>
