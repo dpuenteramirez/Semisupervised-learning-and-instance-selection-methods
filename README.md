@@ -9,6 +9,7 @@ alt="ISMSSL by DNX"></a>
   <br>
 </h1>
 
+---
 <h4 align="center">Instance selection methods for semi-supervised learning.</h4>
 <div align="center">
   <img alt="Codacy coverage" src="https://img.shields.io/codacy/coverage/c336db4b8f9b4196bc802a544a18b83b?logo=codacy">
@@ -27,60 +28,56 @@ alt="ISMSSL by DNX"></a>
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/dpr1005/Semisupervised-learning-and-instance-selection-methods?color=purple&logo=github">
 </div>
 
-
-<br>
-
-<br>
+---
 <p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#setup">Setup</a> •
-  <a href="#usage-guide">Usage guide</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a> •
-  <a href="#license">License</a>
+  <a href="#description">Project Description</a> •
+  <a href="#download-and-installation">Download and Installation</a> •
+  <a href="#dependencies">Dependencies</a> •
+  <a href="#support">Support</a>
 </p>
 
 
+---
+## Description
+This project has an implementation of common algorithms in the literature, both instance selection algorithms and semi-supervised learning algorithms.
 
-## Key Features
+Among the objectives of the project is that the implemented algorithms are correct and complete with their respective original papers in which they were presented.
 
-* TBD
+Likewise, there are multiple experiment configuration files for the aforementioned verification, and for the realization of a research process on the behavior of semi-supervised learning algorithms when noise filtering is performed.
 
-## Setup
+---
+## Download and installation
+IS-SSL is distributed under two libraries, both are available in their last 
+versions in PIP. 
+- Instance Selection Algorithms. [PIP](https://pypi.org/project/InstanceSelectionDNX/).
+  
+````bash
+pip install InstanceSelectionDNX
+````
 
-TBD
+- Semi-Supervised Algorithms. [PIP](https://pypi.org/project/SemiSupervisedLearningDNX/).
+````bash
+pip install SemiSupervisedLearningDNX
+````
 
-## Usage guide
+Being the nature a Python project, it is easily importable from within the 
+repo and its [releases](https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/releases).
 
-TBD
 
-
-## Download
-
-TBD
-
-## Credits
+---
+## Dependencies
 
 This software uses the following open source packages:
 
-- [scikit-learn](https://sklearn.org)
 - [NumPy](https://numpy.org)
+- [Pandas](https://pandas.pydata.org/)
+- [Scikit-Learn](https://sklearn.org)
+- [Scipy](https://scipy.org)
 
-
-## Related
-
-TBD
-
+---
 ## Support
-
 <a href="https://buymeacoffee.com/danielpuente" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-
-
-## License
-
-MIT
 
 ---
 
