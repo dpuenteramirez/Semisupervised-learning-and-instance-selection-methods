@@ -46,6 +46,14 @@ El proyecto también puede ser descargado directamente desde el repositorio de G
 
 El futuro de la aplicación podría ser únicamente en Docker perfectamente, siendo mucho más sencillo desplegarla en diferentes servidores, pero en la actualidad ese no es el enfoque deseado, por lo que se dejó para hacer al final en caso de que sobrara tiempo, como ha sucedido.
 
+\subsection{Validación de la integridad de los algoritmos implementados}
+Todos los algoritmos los cuáles se encuentran disponibles en \texttt{IS-SSL} han sido validados y refinados a lo largo de múltiples iteraciones de trabajo con el fin de garantizar su integridad, de forma que se puede asegurar que reportan resultados tal y como el \textit{paper} original lo presentó.
+
+\begin{itemize}
+\item Los algoritmos de selección de instancias han sido validados contra los homónimos correspondientes proporcionados por \texttt{Weka}, \textit{sortware} de ML desarrollado por la Universidad de Waikato.
+\item Los algoritmos de aprendizaje semi-supervisado han sido validados contra los implementados por el grupo de investigación ADMIRABLE de la Universidad de Burgos.
+\end{itemize}
+
 
 \subsection{Experimentación de filtros de ruido para aprendizaje semi-supervisado}
 \imagenFlotante{../img/memoria/aspectos-relevantes/General}{Resumen en función del clasificador y filtro.}{exp-general}
