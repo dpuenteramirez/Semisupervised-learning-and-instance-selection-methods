@@ -166,8 +166,8 @@ def main(datasets):
 
 
 if __name__ == "__main__":
-    mail = "ntoolsecure"
-    passwd = "qfj3nfr_jnt7ATZ8jgh"
+    mail = "mail"
+    passwd = "passwd"
     yag = yagmail.SMTP(user=mail, password=passwd)
     t_start_g = time.time()
     try:
