@@ -34,7 +34,7 @@ if __name__ == '__main__':
         dfs.append(pd.read_csv(folder + results_found[index]))
 
     df = pd.concat(dfs, ignore_index=True)
-    df.drop('fold', axis=1, inplace=True)
+    df.drop(['fold', 'Unnamed: 0'], axis=1, inplace=True)
 
     classifiers = dfs[0].base.unique()
     filters = np.append(dfs[0]['filter'].unique(), 'base')
@@ -119,4 +119,5 @@ if __name__ == '__main__':
     plt.subplots_adjust(right=0.9)
 
     plt.savefig(fname=join(plots, 'General.png'), dpi=300)
-    df.to_csv(join(ranks_path, 'results.csv'))
+    df.to_csv(join(ranks_path, 'results.csv'), index=False)
+    print('Plots generated and its CSV')
