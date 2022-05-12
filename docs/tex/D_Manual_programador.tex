@@ -519,18 +519,87 @@ Además, se ha codificado una prueba para asegurar que se siguen leyendo los fic
 
 El resultado de las ejecuciones se puede ver la Figura~\ref{fig:tests-superados-is-ssl}.
 
+\subsection{Validación}
+Todos los algoritmos que se incluyen en la biblioteca han sido probados y testados en múltiples iteraciones con el fin de garantizar su integridad, de forma que sea capaces de reportar los resultados adecuados y su implementación sea correcta según se propusieron en sus correspondientes \textit{papers} de publicación.
+
+Los algoritmos de selección de instancias han sido testados contra los homónimos propuestos por \texttt{Weka}, y en ambos se han utilizado árboles de decisión (J48 en \texttt{Weka}) y vecinos más cercanos, como clasificadores base para realizar la comparativa. La experimentación se ha realizado mediante validación cruzada, con 5 \textit{folds}, tanto para \texttt{Weka} como para los implementados. Se ha tenido en cuenta la diferencia de lenguajes de programación Java (\texttt{Weka}) y los implementados en Python.
+
+En las Tablas~\ref{tab:is-algs-checks-knn}~y~\ref{tab:is-algs-checks-tree} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos para cada uno de los clasificadores base utilizados. Si bien puede observarse como para determinados pares conjunto de datos : algoritmo, no son compatibles por diferentes motivos, la muestra es lo suficientemente grande como para asegurar una variación menor al $\pm 5\%$ su fiabilidad.
 
 
+De igual manera, los algoritmos de aprendizaje semi-supervisado han sido validados contra los propios del grupo de investigación ADMIRABLE de la Universidad de Burgos. Estos últimos sí que se encuentran implementados en Python, por lo que se esperan resultados prácticamente idénticos. La experimentación en esta ocasión también se ha realizado con validación cruzada de 5 \textit{folds}, pero como se trata de conjuntos de datos de semi-supervisado, ha sido una validación cruzada estratificada.
+
+En la Tabla~\ref{tab:ssl-algs-check} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos. En el caso del \textit{Co-Training}, la implementación desarrollada por este proyecto es capaz de soportar conjuntos de datos con más de dos vistas significativas (internamente las re-trabaja), mientras que el propuesto por ADMIRABLE no. Los resultados son tal y como se esperaba, con variaciones del $\pm 1\%$.
+
+\begin{landscape}
+\begin{table}[]
+    \centering
+    \renewrobustcmd{\bfseries}{\fontseries{b}\selectfont} 
+    \begin{tabular}{l|cc|cc|cc|cc|cc}
+	\toprule
+        \multirow{2}{*}{\diagbox{Dataset}{Algoritmo}}      & \multicolumn{2}{c}{CNN} & \multicolumn{2}{c}{RNN} & \multicolumn{2}{c}{ICF} &\multicolumn{2}{c}{MSS} & \multicolumn{2}{c}{DROP3} \\ 
+        ~ & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka \\ 
+        \midrule
+        Contraceptive         & \bfseries 46,71 & 45,48 & \bfseries 46,71 & 41,34 & 43,86 & \bfseries 45,14 & \bfseries 47,32 & 46,83 & 46,13 & \bfseries 46,36 \\ 
+        Yeast                     & \bfseries 51,41 & 49,60 & \bfseries 50,20 & 42,86 & 52,18 & \bfseries 54,38 & \bfseries 52,69 & 49,80 & \bfseries 57,12 & 56,53 \\ 
+        Wine Quality Red    & \bfseries 51,91 & 51,22 & 48,34 & \bfseries 53,04 & 52,59 & \bfseries 53,41 & \bfseries 54,91 & 51,10 & \bfseries 57,32 & 56,16 \\ 
+        Segment                & \bfseries 87,53 & 83,42 & \bfseries 78,48 & 75,80 & \bfseries 90,43 & 90,39 & \bfseries 93,98 & 92,29 & 87,45 & \bfseries 92,64 \\ 
+        Wine Quality White & 47,66 & \bfseries 48,65 & 42,18 & \bfseries 45,67 & \bfseries 53,15 & 49,47 & \bfseries 51,29 & 50,61 & \bfseries 51,79 & 51,59 \\ 
+        Banana                  & \bfseries 87,34 & 87,28 & \bfseries 86,83 & 77,49 & 81,53 & \bfseries 87,08 & \bfseries 88,26 & 86,57 & 85,13 & \bfseries 89,45 \\ 
+        Phoneme               & \bfseries 84,92 & 83,98 & \bfseries 81,46 & 80,03 & 82,60 & \bfseries 84,09 & \bfseries 87,27 & 85,16 & 82,70 & \bfseries 86,09 \\ 
+        Page Blocks           & 94,77 & \bfseries 95,36 & \bfseries 94,77 & 93,09 & \bfseries 95,87 & 92,84 & 95,63 & \bfseries 95,74 & 93,47 & \bfseries 95,49 \\ 
+        Texture                 & 87,22 & \bfseries 90,64 & 81,11 & \bfseries 84,91 & 92,47 & \bfseries 94,85 & \bfseries 97,98 & 97,20 & 92,31 & \bfseries 97,11 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Comparación de resultados ACC de los algoritmos de selección de instancias, el clasificador base es \textit{3-NN}.}\label{tab:is-algs-checks-knn}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \renewrobustcmd{\bfseries}{\fontseries{b}\selectfont}     
+    \begin{tabular}{l|cc|cc|cc|cc|cc}
+	\toprule
+        \multirow{2}{*}{\diagbox{Dataset}{Algoritmo}}      & \multicolumn{2}{c}{CNN} & \multicolumn{2}{c}{RNN} & \multicolumn{2}{c}{ICF} &\multicolumn{2}{c}{MSS} & \multicolumn{2}{c}{DROP3} \\ 
+        ~ & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka & IS-SSL & Weka \\ 
+        \midrule
+        Contraceptive         & \bfseries 51,87 & 51,19 & \bfseries 51,87 & 41,68 & 45,01 & \bfseries 50,03 & 51,45 & \bfseries 51,93 & 49,42 & \bfseries 50,37 \\ 
+        Yeast                     & 51,55 & \bfseries 51,68 & \bfseries 50,20 & 42,31 & 38,68 & \bfseries 53,57 & \bfseries 54,51 & 51,08 & 52,80 & \bfseries 55,99 \\ 
+        Wine Quality Red    & \bfseries 54,98 & 54,41 & \bfseries 55,41 & 47,84 & 46,72 & \bfseries 53,35 & \bfseries 56,22 & 54,91 & 56,35 &\bfseries  56,41 \\ 
+        Titanic                   & 57,06 & \bfseries 78,87 & 57,06 & \bfseries 61,08 & \bfseries 37,51 & 32,30 & \bfseries 32,30 & \bfseries 32,30 & \bfseries 59,93 & --- \\ 
+        Segment                & \bfseries 88,18 & 84,59 & \bfseries 82,86 & 72,03 & \bfseries 82,51 & 86,28 & \bfseries 92,86 & 78,18 & \bfseries 82,25 & 75,11 \\ 
+        Wine Quality White & \bfseries 52,42 & 52,12 & \bfseries 47,12 & 45,28 & \bfseries 53,48 & 48,88 & \bfseries 51,56 & 50,90 & \bfseries 50,51 & 50,31 \\ 
+        Banana                  & \bfseries 84,62 & 55,17 & \bfseries 84,17 & 56,23 & \bfseries 58,68 & 55,17 & \bfseries 86,57 & 55,17 & \bfseries 83,26 & 55,45 \\ 
+        Phoneme               & \bfseries 78,41 & 73,47 & 72,17 & \bfseries 73,48 & 68,74 & \bfseries 74,85 & \bfseries 82,07 & 69,41 & 75,13 & \bfseries 76,70 \\ 
+        Page Blocks           & 95,08 & \bfseries 95,91 & \bfseries 95,08 & 93,24 & 83,95 & \bfseries 95,60 & 95,63 & \bfseries 96,02 & 92,69 & \bfseries 93,95 \\
+        Texture                 & \bfseries 77,02 & 74,87 & 69,75 & \bfseries 72,24 & 65,53 & \bfseries 74,62 &\bfseries  85,27 & 80,16 & 78,49 & \bfseries 79,05 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Comparación de resultados ACC de los algoritmos de selección de instancias, el clasificador base es \textit{Decision Tree}.}\label{tab:is-algs-checks-tree}
+\end{table}
 
 
+\begin{table}[]
+    \centering
+    \renewrobustcmd{\bfseries}{\fontseries{b}\selectfont}      
+    \begin{tabular}{l|cc|cc|cc}
+    \hline
+        \multirow{2}{*}{\diagbox{Dataset}{Algoritmo}} & \multicolumn{2}{c}{Co-Training} & \multicolumn{2}{c}{Tri-Training} & \multicolumn{2}{c}{Democratic Co-Learning} \\
+        ~ & IS-SSL & ADMIRABLE & IS-SSL & ADMIRABLE & IS-SSL & ADMIRABLE \\ 
+        \midrule
+        Contraceptive         & \bfseries 47,52 & --- & 45,82 & \bfseries 46,64 & 47,11 & \bfseries 47,39 \\ 
+        Yeast                     & \bfseries 23,47 & --- & 13,20 & \bfseries 23,31 & 51,75 & 5\bfseries 2,35 \\ 
+        Wine Quality Red    & \bfseries 52,66 & --- & 51,66 & \bfseries 55,16 & 61,10 & \bfseries 62,23 \\ 
+        Titanic                   & \bfseries 77,33 & \bfseries 77,33 & \bfseries 77,33 & \bfseries 77,33 & \bfseries 78,46 & \bfseries  78,46 \\ 
+        Segment                & \bfseries 66,02 & --- & 78,01 & \bfseries 79,91 & 95,58 &\bfseries  95,93 \\ 
+        Wine Quality White & \bfseries 46,18 & --- & 42,51 & \bfseries 44,36 & 59,35 & \bfseries 62,07 \\ 
+        Banana                  & 60,06 & \bfseries 61,04 & \bfseries 62,06 & 61,08 & 87,92 & \bfseries 88,47 \\ 
+        Phoneme               & \bfseries 77,50 & 76,00 & 74,24 & \bfseries 75,98 & \bfseries 87,12 & 86,94 \\ 
+        Page Blocks           & \bfseries 88,52 & --- & 81,94 &\bfseries  89,55 & \bfseries 95,52 & 95,38 \\ 
+        Texture                 & \bfseries 74,62 & --- & 75,76 & \bfseries 77,44 & \bfseries 97,20 & 96,93 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Comparación de resultados ACC de los algoritmos de aprendizaje semi-supervisado.}\label{tab:ssl-algs-check}
+\end{table}
 
 
-
-
-
-
-
-
-
-
-
+\end{landscape}
