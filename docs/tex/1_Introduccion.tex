@@ -1,3 +1,55 @@
 \capitulo{1}{Introducción}
 
-Descripción del contenido del trabajo y del estructura de la memoria y del resto de materiales entregados.
+Actualmente no se dispone de ninguna librería en Python que facilite a los científicos de datos aplicar técnicas de Selección de Instancias sobre grandes conjuntos de datos, siendo esta una carencia detectada y teniendo en mente el auge que posee el lenguaje de programación, se propone la creación de un librería que recoja aquellos algoritmos más comúnmente utilizados en la literatura. 
+
+De igual manera ocurre con los algoritmos de aprendizaje semi-supervisado, la no disponibilidad de estos en un momento en el que es un campo que está siendo investigado por gran parte de la comunidad científica enfocada en \textit{Machine Learning}, retrasa y dificulta los procesos y plazos.
+
+Ambas bibliotecas propuestas en este trabajo se encuentran a disposición de quien las necesite para su trabajo, así pues su licencia es BSD 3-Clause. La intención perseguida no es solo el crear un proyecto y que este sea descontinuado una vez se finalice el proyecto, sino que cualquiera pueda seguir expandiendo las bibliotecas con nuevos algoritmos de forma que sea un proyecto capaz de crecer y ser mantenido.
+
+Por otro lado reside el \textit{Machine Learning as a Service}, MLaaS. El desarrollo de un producto para convertirlo en un servicio completo en la nube ha visto el aumento de nuevos servicios, entre los que se encuentran el \textit{PaaS}, \textit{IaaS}, \textit{SaaS}, y más recientemente, \textit{MLaaS}. Con una tendencia creciente de trasladar el almacenamiento de datos a la nube, mantenerlos y obtener los mejores conocimientos de ellos, \textit{MLaaS} surge como un gran aliado gracias a su capacidad de proporcionar estas soluciones a un coste reducido~\cite{whatismlaas}.
+
+La Universidad de Burgos, gracias al grupo de investigación ADMIRABLE, posee su propia aplicación de \textit{MLaaS}, bajo el nombre de \texttt{UBUMLaaS}. Es objetivo de este proyecto su modernización, adaptación para dar una primera cabida a algoritmos de aprendizaje semi-supervisado, así como su ampliación de forma que como cualquier plataforma, disponga de capacidades propias de administración.
+
+El estado inicial de \texttt{UBUMLaaS} requiere de constantes accesos a la base de datos para realizar modificaciones sobre usuarios y sus parámetros, es por ello que se quiere realizar una <<parte>> de administración para que usuarios con un nuevo rol de administrador puedan realizar las operaciones pertinentes de forma correcta.
+
+Además, se integran opciones de visualización estadística tanto para usuarios como para administradores, siendo reportadas estadísticas de uso personales o del sistema, respectivamente. Para aquellos usuarios con la suerte de ser administradores, se les proporciona una vista del estado en tiempo real del sistema, con el fin de poder realizar un seguimiento y toma de decisiones acorde a lo que se pueda visualizar.
+
+\section{Estructura de la memoria}\label{estructura-de-la-memoria}
+La memoria posee la siguiente estructura:
+\begin{itemize}
+\item \textbf{Introducción.} Descripción del proyecto y estructura de la documentación.
+\item \textbf{Objetivos del proyecto.} Explicación de los objetivos principales que sigue el proyecto.
+\item \textbf{Conceptos teóricos.} Explicación de aquellos conceptos cuya comprensión es clave para poder comprender el proyecto desarrollado.
+\item \textbf{Técnicas y herramientas.} Breve explicación de cada técnica, metodología, y herramienta utilizada para el desarrollo del proyecto.
+\item \textbf{Aspectos relevantes.} Exposición de aquellos aspectos destacables y que tuvieron lugar a lo largo de la realización del proyecto. Además se incluyen los resultados de la investigación realizada.
+\item \textbf{Trabajos relacionados.} Estado del arte de aquellos trabajos y proyectos relacionados con la selección de instancias, el aprendizaje semi-supervisado, y los \textit{MLaaS}.
+\item \textbf{Conclusiones y Líneas de trabajo futuras.} Conclusiones alcanzadas tras la realización del proyecto, y siguientes pasos a dar tanto en investigación como en mejora de los diferentes productos desarrollados.
+\end{itemize}
+
+El documento de anexos posee la siguiente estructura:
+\begin{itemize}
+\item \textbf{Plan del proyecto software.} Exposición de la planificación temporal y los estudias de viabilidad económica y legal.
+\item \textbf{Especificación de requisitos del software.} Exposición en detalle de los objetivos del proyecto, así como el catálogo de requisitos y la especificación de requisitos funcionales y no funcionales.
+\item \textbf{Especificación de diseño.} Explicación de las decisiones seguidas para cumplir con los objetivos del proyecto. Y las principales características del diseño.
+\item \textbf{Documentación técnica de programación.} Exposición de toda aquella información relevante para futuros desarrolladores encargados de continuar con alguno de los proyectos.
+\item \textbf{Documentación de usuario.} Guía la cual puede seguir cualquier usuario para poder hacer uso del proyecto.
+\end{itemize}
+
+
+\section{Materiales adjuntos}\label{materiales-adjuntos}
+Los materiales que se adjuntan con la memoria son:
+\begin{itemize}
+\item Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado, \texttt{IS-SSL}.
+\item Aplicación \texttt{UBUMLaaS} para su despliegue directo.
+\item Contenedor \texttt{Docker} con \texttt{UBUMLaaS} ya desplegado.
+\item Resultados de la experimentación.
+\end{itemize}
+
+Los siguientes recursos son accesibles a través de Internet:
+\begin{itemize}
+\item Repositorio del proyecto \texttt{IS-SSL}~\cite{ISSSLRepo}.
+\item Biblioteca de algoritmos de selección de instancias en \texttt{PyPI}~\cite{ISPyPI}.
+\item Biblioteca de  algoritmos de aprendizaje semi-supervisado en \texttt{PyPI}~\cite{SSLPyPI}.
+\item Repositorio del proyecto \texttt{UBUMLaaS}~\cite{UBUMLaaSRepo}.
+\item Contenedor \texttt{Docker} con \texttt{UBUMLaaS} desplegado~\cite{UBUMLaaSDocker}.
+\end{itemize}
