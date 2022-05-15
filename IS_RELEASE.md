@@ -1,3 +1,12 @@
+<h1 align="center">
+  <br>
+  <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance
+-selection-methods"><img src="./branding/is-ssl-2-flatten.gif" 
+alt="IS-SSL by DNX"></a>
+  <br>
+</h1>
+
+---
 # Instance Selection Methods
 This project has the following algorithms:
 - ENN

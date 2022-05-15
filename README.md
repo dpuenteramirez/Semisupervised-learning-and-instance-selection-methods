@@ -2,10 +2,10 @@
 <h1 align="center">
   <br>
   <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance
--selection-methods"><img src="./misc/logo.png" 
-alt="ISMSSL by DNX"></a>
+-selection-methods"><img src="./branding/is-ssl-2-flatten.gif" 
+alt="IS-SSL by DNX"></a>
   <br>
-  Semi-supervised learning → Instance Selection Methods 
+  Instance Selection - Semi-Supervised Learning
   <br>
 </h1>
 
