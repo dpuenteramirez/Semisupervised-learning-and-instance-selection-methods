@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <a href="https://github.com/dpr1005/Semisupervised-learning-and-instance
--selection-methods"><img src="./branding/is-ssl-2-flatten.gif" 
+-selection-methods"><img src="./branding/is-ssl-2-flatten.png" 
 alt="IS-SSL by DNX"></a>
   <br>
 </h1>
