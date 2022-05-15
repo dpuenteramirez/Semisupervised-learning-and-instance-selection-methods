@@ -60,7 +60,7 @@ pip install InstanceSelectionDNX
 pip install SemiSupervisedLearningDNX
 ````
 
-Being the nature a Python project, it is easily importable from within the 
+Being a Python project, it is easily importable from within the 
 repo and its [releases](https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/releases).
 
 
