@@ -4,6 +4,7 @@ Los principales objetivos del proyecto son cuatro:
 \begin{enumerate}
 \item Diseño e implementación de una biblioteca con los algoritmos de selección de instancias más comunes en la literatura.
 \item Diseño e implementación de una biblioteca con una serie de algoritmos de aprendizaje semi-supervisado.
+\item Realización de una experimentación en el campo de investigación del aprendizaje semi-supervisado seguro. Descubrir el efecto de la aplicación de diferentes métodos de selección de instancias.
 \item Integración de las bibliotecas con la plataforma de \texttt{MLaaS} de la Universidad de Burgos (\texttt{UBUMLaaS}).
 \item Diseño y puesta en producción de la parte de administración de \texttt{UBUMLaaS}.
 \end{enumerate}
@@ -11,14 +12,14 @@ Los principales objetivos del proyecto son cuatro:
 
 El enfoque que se le debe dar a las bibliotecas, en adelante \texttt{IS-SSL}\footnote{\textit{Instance Selection - Semi-Supervised Learning.}}, tanto de selección de instancias como de aprendizaje semi-supervisado, deberá permitir de manera sencilla la inclusión o añadido de nuevos algoritmos en un futuro, no siendo necesaria realizar grandes refactorizaciones para ello. Mediante ello se obtendrá un producto escalable y con un mantenimiento relativamente sencillo.
 
-\texttt{UBULMLaaS} fue un proyecto desarrollado por ADMIRABLE y se paralizó en 2019, por lo que necesitará una actualización de librerías, interfaz gráfica, seguridad y actualización de la base de datos; entre otras cosas. Independientemente de los cambios, debe primar la sencillez de uso que la aplicación, de forma que la curva de aprendizaje sea mínima.
+\texttt{UBULMLaaS} fue un proyecto desarrollado por el grupo de investigación ADMIRABLE y se paralizó en 2019, por lo que necesitará una actualización de bibliotecas, interfaz gráfica, seguridad y actualización de la base de datos; entre otras cosas. Independientemente de los cambios, debe primar la sencillez de uso que la aplicación, de forma que la curva de aprendizaje sea mínima.
 
 \subsection{Objetivos técnicos}
 Además de lo anteriormente mencionado, el proyecto cuenta con una serie de objetivos técnicos que se pueden resumir en:
 \begin{itemize}
 \item Los algoritmos imeplementados en \texttt{IS-SSL} deberán seguir la guía de estilo de \textit{Scikit-Learn}~\cite{SKLEARNGUIDELINES}, permitiendo a la comunidad científica acostumbrada al uso de la mencionada biblioteca en \texttt{Python}, hacer uso de \texttt{IS-SSL} de igual manera.
 \item Los algoritmos deberán de ser validados de alguna manera, ya sea con la literatura o mediante pares, para asegurar un correcto funcionamiento. 
-\item \texttt{UBUMLaaS} procederá a tener distintos tipos o categorías de usuarios, debiendo dejar <<la puerta abierta>> a nuevos tipos de usuarios en el futuro.
+\item \texttt{UBUMLaaS} deberá tener distintos tipos o categorías de usuarios, debiendo dejar <<la puerta abierta>> a nuevos tipos de usuarios en el futuro.
 \item \texttt{UBUMLaaS} podrá ser portado y desplegado sobre  \textit{bare metal} o mediante contenedores de Docker en cualquier sistema compatible.
 \item \texttt{UBUMLaaS} debe mantener todas sus funcionalidades previas a este proyecto.
 \item \texttt{UBUMLaaS} mostrará estadísticas generadas en tiempo real, se deberá de sortear la problemática de la concurrencia de acceso a registros de la base de datos, así como ficheros temporales.

@@ -19,10 +19,10 @@ La estructura del repositorio es la siguiente:
 \begin{itemize}
 \tightlist
 \item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD), junto con los ficheros de requisitos para \texttt{conda} y \texttt{pyenv}. 
-\item \texttt{/lib/}: librerías utilizadas por el sistema.
-\item \texttt{/lib/is\_ssl}: librería propia de métodos de selección de instancias y aprendizaje semi-supervisado.
-\item \texttt{/lib/scikit\_ml\_learn\_data/meka/meka-release-1.9.2/}: librería \texttt{Meka} en su versión 1.9.2.
-\item \texttt{/lib/skmultilearn/}: librería \texttt{scikit-multilearn}.
+\item \texttt{/lib/}: bibliotecas utilizadas por el sistema.
+\item \texttt{/lib/is\_ssl}: biblioteca propia de métodos de selección de instancias y aprendizaje semi-supervisado.
+\item \texttt{/lib/scikit\_ml\_learn\_data/meka/meka-release-1.9.2/}: biblioteca \texttt{Meka} en su versión 1.9.2.
+\item \texttt{/lib/skmultilearn/}: biblioteca \texttt{scikit-multilearn}.
 \item \texttt{/lib/unofficial\_weka\_packages/}: algoritmos de ADMIRABLE.
 \item \texttt{/lib/wekafiles/}: algoritmos concretos de \texttt{weka}.
 \item \texttt{/test/*}: ficheros de prueba CI-CD.
@@ -33,7 +33,7 @@ La estructura del repositorio es la siguiente:
 \item \texttt{/ubumlaas/error\_pages/}: contiene el \textit{backend} de las vistas de error.
 \item \texttt{/ubumlaas/experiments/}: contiene el \textit{backend} para la realización de experimentos.
 \item \texttt{/ubumlaas/experiments/algorithm/}: contiene las métricas para el análisis del modelo entrenado.
-\item \texttt{/ubumlaas/experiments/execute\_algorithm/}: contiene opciones de ejecución para cada librería.
+\item \texttt{/ubumlaas/experiments/execute\_algorithm/}: contiene opciones de ejecución para cada biblioteca.
 \item \texttt{/ubumlaas/experiments/views/}: control de las vistas relacionadas con los experimentos.
 \item \texttt{/ubumlaas/jobs/}: descripción de \textit{RQ Worker Builder}.
 \item \texttt{/ubumlaas/static/}: contiene los ficheros estáticos de la plataforma.
@@ -70,7 +70,7 @@ En los siguientes apartados se detalla la instalación de cada uno de los compon
 Al comienzo del proyecto, muchas de sus funcionalidades eran compatibles con Python 2, pero el nuevo desarrollo ha utilizado indistintamente métodos existentes en versiones anteriores de Python y algunos que se han introducido a partir de la version 3.7, disponible desde~\cite{pythonGetIt}. Es importante que los binarios se encuentren en el \texttt{path} del sistema para que no de problemas de ejecución.
 
 \subsubsection{Bibliotecas Python}
-A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a detallar uno de los puntos más importantes para poder <<hacer funcionar>> el proyecto, puesto que se van a necesitar versiones concretas de determinadas librerías para que todo se integre correctamente con todo y se pueda ver y utilizar como un sistema homogéneo.
+A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a detallar uno de los puntos más importantes para poder <<hacer funcionar>> el proyecto, puesto que se van a necesitar versiones concretas de determinadas bibliotecas para que todo se integre correctamente con todo y se pueda ver y utilizar como un sistema homogéneo.
 
 \begin{table}[p]
 \centering
@@ -233,7 +233,7 @@ Lo primero de todo para poder tener el producto trabajando, es desplegarlo, para
 conda activate UBUMLaaS
 ./run.sh
 \end{lstlisting}
-\textbf{Nota.} Es importante asegurarnos que todos los ficheros de las librerías y el lanzador del proyecto poseen permisos de ejecución necesarios (en instalaciones <<por defecto>> de Debian, CentOS, SUSE, no debería de ser necesario más que dar permisos de ejecución al lanzador).
+\textbf{Nota.} Es importante asegurarnos que todos los ficheros de las bibliotecas y el lanzador del proyecto poseen permisos de ejecución necesarios (en instalaciones <<por defecto>> de Debian, CentOS, SUSE, no debería de ser necesario más que dar permisos de ejecución al lanzador).
 
 El usuario administrador por defecto es \texttt{Admin@AdminUBUMLaaS.es} y su contraseña es \texttt{admin4123!UBUMLaaS}.
 
@@ -304,6 +304,7 @@ Durante algunos meses de desarrollo del proyecto \texttt{Travis-CI} funcionó co
 La estructura del repositorio es la siguiente:
 \begin{itemize}
 \item \texttt{/}: raíz del proyecto, aquí se encuentra el README, la licencia, los ficheros de configuración de PIP, los ficheros de configuración de las pruebas de integración y despliegue continuo (CI-CD); y, el fichero de requisitos.
+\item \texttt{experimentation/*}: ficheros con los que se ha realizado la experimentación y generación de resultados.
 \item \texttt{/datasets/*}: conjuntos de datasets en formatos \texttt{csv} y \texttt{arff}, normalizados y no normalizados.
 \item \texttt{/docs/}: documentación del proyecto.
 \item \texttt{/docs/img/}: imágenes utilizadas en la documentación.
@@ -341,7 +342,7 @@ El desarrollo se ha realizado siguiendo las últimas formas de programación dis
 \subsubsection{Bibliotecas Python}
 Esta sección es la más importante de todas junto con la anterior, debido a que el proyecto depende de (está construido utilizando) bibliotecas de $3^{os}$. Y en especial, determinadas versiones de las mismas. 
 
-En la Tabla~\ref{tab:bibliotecas-python-is-ssl} se detallan las bibliotecas necesarias para utilizar el proyecto tal y como se encuentra en el repositorio. Para el uso en exclusiva de las librerías de \texttt{IS-SSL} se deben utilizar aquellas que se encuentran en negrita.
+En la Tabla~\ref{tab:bibliotecas-python-is-ssl} se detallan las bibliotecas necesarias para utilizar el proyecto tal y como se encuentra en el repositorio. Para el uso en exclusiva de las bibliotecas de \texttt{IS-SSL} se deben utilizar aquellas que se encuentran en negrita.
 
 \begin{table}[]
 \centering
@@ -453,7 +454,7 @@ Todos los métodos de selección de instancias y algoritmos de aprendizaje semi-
 
 Un ejemplo del uso completo de este \textit{software} es lo encontramos en Listing~\ref{lst:ejemplo}, donde se detallan los tipos de datos de entrada.
 
-Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la librería de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
+Según la codificación realizada, todos los métodos accesibles de las clases esperan la entrada de objetos de tipo \texttt{DataFrame} de la biblioteca de \texttt{Pandas}. Internamente en función de las operaciones que tenga que realizar, serán convertidos estos objetos a listas de Python o arreglos de \texttt{NumPy}. Independientemente de las operaciones internas, siempre la salida producida (en caso de tenerla) serán objetos de \texttt{Pandas}, no teniendo que ser necesariamente el mismo objeto de entrada modificado, en la mayor parte de las ocasiones serán objetos nuevos.
 
 \subsection{Integración Continua}
 Con el objetivo de diseñar un \textit{software} lo más robusto posible, la biblioteca cuenta con una serie de pruebas de integración continua, permitiendo que todos los cambios que se vayan realizando mantengan la biblioteca en un estado correcto, indicando tempranamente aquellos posibles problemas que puedan surgir.
@@ -477,7 +478,7 @@ La integración es muy sencilla, basta con crearse una cuenta asociada con la de
 
 \imagenRuta{../img/anexos/manual-programador/Codacy-IS-SSL}{Codacy.}{Codacy-IS-SSL}
 
-En la Figura~\ref{fig:Codacy-IS-SSL} se aprecia uno de los gráficos que muestra Codacy, en este caso referido al número de \textit{issues} detectados en el código analizado. Tal y como se muestra, se ha realizado un trabajo a lo largo del mes de febrero y marzo para obtener una librería sin fallos aumentando su mantenibiliad.
+En la Figura~\ref{fig:Codacy-IS-SSL} se aprecia uno de los gráficos que muestra Codacy, en este caso referido al número de \textit{issues} detectados en el código analizado. Tal y como se muestra, se ha realizado un trabajo a lo largo del mes de febrero y marzo para obtener una biblioteca sin fallos aumentando su mantenibiliad.
 
 \subsubsection{Sonar Cloud}
 

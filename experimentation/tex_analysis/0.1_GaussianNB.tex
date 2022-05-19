@@ -1,0 +1,71 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{graphicx}
+\usepackage{lscape}
+\title{Output tables for 1xN statistical comparisons.}
+\author{}
+\date{\today}
+\begin{document}
+\begin{landscape}
+\pagestyle{empty}
+\maketitle
+\thispagestyle{empty}
+
+\section{Average rankings of Friedman test}
+
+
+Average ranks obtained by each method in the Friedman test.
+
+\begin{table}[!htp]
+\centering
+\begin{tabular}{|c|c|}\hline
+Algorithm&Ranking\\\hline
+GaussianNB:ENANE&2.1667\\GaussianNB:ENN&2.4167\\GaussianNB:LSSm&2.1944\\GaussianNB:base&3.2222\\\hline\end{tabular}
+\caption{Average Rankings of the algorithms (Friedman)}
+\end{table}
+
+Friedman statistic (distributed according to chi-square with 3 degrees of freedom): 7.916667. \newline P-value computed by Friedman Test: 0.047766.\newline
+
+
+\newpage
+
+\section{Post hoc comparison (Friedman)}
+
+
+P-values obtained in by applying post hoc methods over the results of Friedman procedure.
+
+\begin{table}[!htp]
+\centering\footnotesize
+\begin{tabular}{ccccc}
+$i$&algorithm&$z=(R_0 - R_i)/SE$&$p$&Hochberg \\
+\hline3&GaussianNB:base&2.452889&0.014171&0.016667\\2&GaussianNB:ENN&0.580948&0.561276&0.025\\1&GaussianNB:LSSm&0.06455&0.948533&0.05\\\hline
+\end{tabular}
+\caption{Post Hoc comparison Table for $\alpha=0.05$ (FRIEDMAN)}
+\end{table}Hochberg's procedure rejects those hypotheses that have an unadjusted p-value $\le0.016667$.
+
+
+\newpage
+
+\section{Adjusted P-Values (Friedman)}
+
+
+Adjusted P-values obtained through the application of the post hoc methods (Friedman).
+
+\begin{table}[!htp]
+\centering\small
+\begin{tabular}{cccc}
+i&algorithm&unadjusted $p$&$p_{Hochberg}$\\
+\hline1&GaussianNB:base&0.014171&0.042514\\2&GaussianNB:ENN&0.561276&0.948533\\3&GaussianNB:LSSm&0.948533&0.948533\\\hline
+\end{tabular}
+\caption{Adjusted $p$-values (FRIEDMAN) (I)}
+\end{table}
+\begin{table}[!htp]
+\centering\small
+\begin{tabular}{ccc}
+i&algorithm&unadjusted $p$\\
+\hline1&GaussianNB:base&0.014171\\2&GaussianNB:ENN&0.561276\\3&GaussianNB:LSSm&0.948533\\\hline
+\end{tabular}
+\caption{Adjusted $p$-values (FRIEDMAN) (II)}
+\end{table}
+
+\newpage
+\end{landscape}\end{document}

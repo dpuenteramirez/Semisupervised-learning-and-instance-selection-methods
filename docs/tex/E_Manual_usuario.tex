@@ -244,6 +244,7 @@ La información que se muestra es la siguiente (todas las unidades que se muestr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
+\clearpage
 \section{IS-SSL}
 A continuación se presenta el manual de usuario de las bibliotecas de algoritmos desarrolladas. Permitiendo a cualquier usuario comprender \texttt{IS-SSL} y poder hacer uso de las mismas.
 \subsection{Requisitos de usuarios}
@@ -262,7 +263,7 @@ Por comodidad para el usuario, \texttt{IS-SSL} se ha dividido en dos bibliotecas
 El proceso de instalación de cualquiera de las dos bibliotecas es muy sencillo, siendo integrable en cualquier fichero de requerimientos, ya sea para \texttt{PIP} o \texttt{Conda}.
 
 Las dos bibliotecas se encuentran publicadas en PyPI\footnote{\textit{Python Package Index} es un repositorio de \textit{software} para el lenguaje de programación de Python.} desde su versión 1.0, la cual fue una primea versión alpha estable con los primeros algoritmos publicados. 
-La versión 3.0 es la versión estable (la final) que se ha publicado.
+La versión 3.3 es la versión estable (la final) que se ha publicado.
 
 \imagenFlotante{../img/anexos/manual-usuario/PyPI-IS}{Vista de la biblioteca de algoritmos de selección de instancias en PyPI.}{PyPI-IS}
 \imagenFlotante{../img/anexos/manual-usuario/PyPI-SSL}{Vista de la biblioteca de algoritmos de aprendizaje semi-supervisado en PyPI.}{PyPI-SSL}
@@ -289,8 +290,7 @@ Para realizar la instalación se deben seguir los siguientes pasos para cualquie
 A continuación se documentan las funcionalidades de las bibliotecas, desde su importación, a uso y especificación de los diferentes parámetros de entrada y salida esperados. A modo de resumen se puede destacar que todos los algoritmos siguen la misma estructura interna luego el aprendizaje y familizarización es relativamente rápido.
 
 \subsubsection{Biblioteca de algoritmos de selección de instancias}
-\textbf{Importar}
-
+\textbf{Importar}\\
 Para poder trabajar con los algoritmos de selección de instancias se deben de importar en el fichero en el que se quieran utilizar. Para ello se importan como cualquier otro paquete de Python, supongamos que queremos utilizar el algoritmo ENN, lo importaremos de la siguiente manera:
 
 \texttt{from InstanceSelectionDNX import ENN} 
@@ -299,8 +299,7 @@ De esta forma podemos sustituir ENN por el algoritmo que deseemos de entre los d
 
 Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso del mismo. 
 
-\textbf{Uso}
-
+\textbf{Uso}\\
 Como se ha comentado al comienzo, todos los algoritmos poseen la misma estructura. Todos ellos poseen el método \texttt{filter} de tal manera que una vez se haya instanciado se podrá llamar al método y se obtendrá como resultado el conjunto de datos reducido.
 
 Todos los algoritmos en su instanciación reciben aquellos parámetros que son necesarios para la configuración y su uso posterior, mientras que cuando se realiza el filtrado únicamente reciben el conjunto de datos dividido, por un lado los atributos y por otro lado la clase.
@@ -323,26 +322,20 @@ data_red, label_red = model.filter(data, target)
 \end{lstlisting}
 
 \subsubsection{Biblioteca de algoritmos de aprendizaje semi-supervisado}
-\textbf{Importar}
-
+\textbf{Importar}\\
 De manera análoga a la otra biblioteca, importaremos el paquete y seleccionaremos cuál es el algoritmo que se desea utilizar, por ejemplo:
 
-\texttt{from SemiSupervisedLearningDNX import TriTraining}
-
-Pudiendo sustituir TriTraining por el algoritmo deseado.
-
+\texttt{from SemiSupervisedLearningDNX import TriTraining}\\
+Pudiendo sustituir TriTraining por el algoritmo deseado.\\
 Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso del mismo. 
 
-\textbf{Uso}
-
+\textbf{Uso}\\
 Los algoritmos siguen la misma estructura interna que los propios de \texttt{Scikit-Learn}, por lo que una vez instanciados (con sus respectivos parámetros de configuración) bastará con llamar al método \texttt{fit} de cada uno de ellos, así como para predecir al método correspondiente, denominado \texttt{predict}.
 
 \begin{itemize}
 \item \textbf{\texttt{fit}:} recibe como argumentos dos parámetros, las instancias y las etiquetas o clases, siendo -1 aquellas que se desconozcan y se quieran utilizar para entrenar el algoritmo.
 \item \textbf{\texttt{predict}:} recibe únicamente las instancias que se quieren etiquetar. Devuelve estas instancias etiquetadas.
 \end{itemize}
-
-Todas las entradas como las salidas deben ser objetos de tipo \texttt{DataFrame} de \texttt{Pandas}.
 
 \begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplossl}]
 from SemiSupervisedLearningDNX import TriTraining
@@ -373,7 +366,6 @@ model.fit(X, y)
 y_pred = model.predict(X_test)
 	
 \end{lstlisting}
-\vfill
 \subsubsection{Ejemplo de uso combinado de ambas bibliotecas}
 \begin{lstlisting}[language=Python, caption={Ejemplo de uso de IS-SSL}, label={lst:ejemplo}]
 from SemiSupervisedLearningDNX import TriTraining

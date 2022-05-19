@@ -17,7 +17,7 @@ En la fase de análisis han participado diversos usuarios, entre los que se han 
 \item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de multiples papeles a lo largo de esta fase:
 \begin{itemize}
 \item \textit{Cliente}. Descripción de las funcionalidades deseadas de la aplicación y el comportamiento que debe de tener.
-\item \textit{Técnico}. Aportando conocimientos acerca de las técnicas de selección de instancias y su relación con la minería de datos. Junto con ello ha compartido sus conocimientos en el uso de librerías tales como Weka, Scikit-Learn, o el lenguaje de marcas \LaTeX. Así como el aporte de grandes cantidades de documentación en forma de \textit{papers} o documentación web. 
+\item \textit{Técnico}. Aportando conocimientos acerca de las técnicas de selección de instancias y su relación con la minería de datos. Junto con ello ha compartido sus conocimientos en el uso de bibliotecas tales como Weka, Scikit-Learn, o el lenguaje de marcas \LaTeX. Así como el aporte de grandes cantidades de documentación en forma de \textit{papers} o documentación web. 
 \end{itemize}
 \item Multitud de compañeros del grado han aportado sus experiencias a la hora de tratar con aplicaciones de este tipo, comentando sus principales dificultades que encuentran habitualmente y lo que esperarían encontrarse en una nueva aplicación. Lo que permite hacer un diseño de la interfaz más intuitivo en función de lo que el usuario espera encontrar sin perder funcionalidades.
 \item \textit{Analista.} El alumno ha realizado el análisis (valga la redundancia) y descripción del problema planteado por el cliente y realización del diseño de la solución propuesta.
@@ -263,7 +263,7 @@ Este es un \textit{sprint} relativamente corto, puesto que es de verificación d
 \caption{\textit{Burndown Chart Sprint 6.}}\label{fig:BD-Sprint6}
 \end{center}
 \end{figure}
-Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint6} referente al sexto \textit{sprint}, el ritmo de trabajo ha sido constante a lo largo de la primera semana, torciéndose al final del \textit{sprint} debido a la complejidad sobrellevada de aprender la librería \textit{Flask} y sus dependencias. Es por ello que dos \textit{issues} se cerraron un día más tarde de la planificación.
+Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint6} referente al sexto \textit{sprint}, el ritmo de trabajo ha sido constante a lo largo de la primera semana, torciéndose al final del \textit{sprint} debido a la complejidad sobrellevada de aprender la biblioteca \textit{Flask} y sus dependencias. Es por ello que dos \textit{issues} se cerraron un día más tarde de la planificación.
 El número de horas aproximado que se han invertido han sido de 50h, permitido en gran medida con que todavía no hay clases del segundo cuatrimestre.
 
 \item \textbf{\textit{Sprint review meeting}}\\
@@ -409,7 +409,7 @@ Objetivos del undécimo \textit{sprint}:
 \begin{enumerate}
 \item Con~\cite{LI2019104895} se desea comprobar con 16 de los 18 conjuntos de datos utilizados en sus experimentos los resultados esperados para comprobar si merece la pena continuar la línea de investigación con el enfoque inicial.
 
-\item Montar un servidor con Jenkins, se desea incorporar a UBUMLaaS y a la librería $IS\_SSL$ dentro de CI/CD~\footnote{Método de distribución de aplicaciones a los clientes con una cierta frecuencia mediante el uso de la automatización en las etapas del desarrollo de aplicaciones. Se trata de una solución para los problemas que se pueden generar en la integración del código nuevo en producción.}
+\item Montar un servidor con Jenkins, se desea incorporar a UBUMLaaS y a la biblioteca $IS\_SSL$ dentro de CI/CD~\footnote{Método de distribución de aplicaciones a los clientes con una cierta frecuencia mediante el uso de la automatización en las etapas del desarrollo de aplicaciones. Se trata de una solución para los problemas que se pueden generar en la integración del código nuevo en producción.}
 \item Añadir al \textit{dashboard analytics} gráficos de carta con el número de experimentos de cada tipo que se han ejecutado. Así como los tiempos de uso de cada algoritmo.
 \item Crear una pantalla de carga para el \textit{dashboard} de forma que la recuperación de datos sea asíncrona.
 \item Permitir al usuario añadir más datos personales dentro de su perfil (Institución,  redes sociales, \dots)
@@ -671,7 +671,7 @@ Se detectó y solucionó un problema en los algoritmos de \textit{clustering} en
 \item \textbf{\textit{Planning meeting}}\\
 Objetivos del decimonoveno \textit{sprint}:
 \begin{enumerate}
-\item Mejora de la calidad del código de las librerías \texttt{IS-SSL}, principalmente reducir la complejidad cognitiva de los algoritmos de aprendizaje semi-supervisado.
+\item Mejora de la calidad del código de las bibliotecas \texttt{IS-SSL}, principalmente reducir la complejidad cognitiva de los algoritmos de aprendizaje semi-supervisado.
 \item Mejora de la documentación del código de las librearías \texttt{IS-SSL}.
 \item Solución de errores reportados por \texttt{SonarCloud} en \texttt{UBUMLaaS}.
 \item Escritura de las pruebas de \texttt{IS-SSL} y \texttt{UBUMLaaS} en el anexo de <<Documentación técnica de programación>>.
@@ -725,6 +725,34 @@ Este \textit{sprint} se desarrolla entre el 10/04/2022 y 16/05/2022.
 
 \end{itemize}
 
+\subsection{Resumen}
+A continuación se muestra un resumen del tiempo dedicado a cada tipo de tarea. El cálculo ha sido realizado en función de los puntos de historia asignados mediante \texttt{ZenHub}, a razón de 45 minutos por punto de historia.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{lrrr}
+	\toprule
+        ~ & \textbf{\textit{Issues}} & \textbf{Tiempo (h)} & \textbf{Ptos historia} \\ 
+        \toprule
+        Bug & 32 & 72,75 & 97 \\ 
+        Code Quality & 19 & 40,5 & 54 \\ 
+        Documentation & 82 & 231 & 308 \\ 
+        Experimentation & 15 & 53,25 & 71 \\
+        Feature & 87 & 360,75 & 481 \\ 
+        Research & 15 & 22,5 & 30 \\ 
+        Testing & 7 & 14,25 & 19 \\ 
+        Training & 5 & 29,25 & 39 \\ 
+        Validation & 14 & 15,75 & 21 \\ 
+    \midrule
+        Total & 276 & 840 & 1111 \\ 
+   	\bottomrule
+    \end{tabular}
+    \caption{Horas dedicadas al proyecto por tareas.}\label{tab:summary}
+\end{table}
+
+\imagenFlotante{../img/anexos/sprints/pie-summary.pdf}{Distribución de las horas repartidas por tareas.}{pie-summary}
+\imagenFlotante{../img/anexos/sprints/bar-summary.pdf}{Distribución de las horas repartidas por tareas.}{bar-summary}
+
 \newpage
 \subsubsection{\textit{Sprint} n: Name}
 \begin{itemize}
@@ -747,7 +775,7 @@ Objetivos del n \textit{sprint}:
 \section{Estudio de viabilidad}
 En esta sección se va a desarrollar el estudio de la viabilidad del proyecto, permitiendo tener una visión global de los beneficios en contraposición al coste que supone el desarrollo del proyecto.
 
-El desarrollo de cualquier producto \textit{software} conlleva una serie de riesgos, entre los que destacan la experiencia del equipo de desarrollo, el tamaño del proyecto, el tiempo del que se dispone para conseguirlo,\dots Influyendo todos ellos en el resultado final.
+El desarrollo de cualquier producto \textit{software} conlleva una serie de riesgos, entre los que destacan la experiencia del equipo de desarrollo, el tamaño del proyecto, el tiempo del que se dispone para conseguirlo,\dots, influyendo todos ellos en el resultado final.
 \subsection{Viabilidad económica}
 Lo primero de todo que se va a calcular es la viabilidad económica del proyecto, reportando y analizando los costes/beneficios que habría supuesto el desarrollo del proyecto en el sector empresarial, en España\footnote{Se hace referencia al lugar de desarrollo puesto que se van a hacer referencias económicas en la moneda del país, así como uso de legislación vigente, la cuál varía en función del país en el que se encuentre asentada la empresa desarrolladora.}.
 
@@ -766,57 +794,56 @@ La amortización para cada equipo es diferente, pero el tiempo de uso es el mism
 \centering
 \begin{tabular}{lrr}
 	\toprule
-	\textbf{Concepto} & \textbf{Coste} & \textbf{Coste Amortizado}\\
+	\textbf{Concepto} & \textbf{Coste (\officialeuro)} & \textbf{Coste Amortizado (\officialeuro)}\\
 	\midrule
-	Macbook Pro & 2.249~\officialeuro & 499,78~\officialeuro \\
-	Servidor & 1.500~\officialeuro & 250~\officialeuro \\
+	Macbook Pro & 2.249 & 499,78\\
+	Servidor & 1.500 & 250 \\
 	\midrule
-	\textbf{Total} & 3.049~\officialeuro & 749,78~\officialeuro \\
+	\textbf{Total} & 3.049 & 749,78 \\
 	\bottomrule
 \end{tabular}
 \caption{Costes de \emph{hardware}.}\label{tab:costes-hardware}
 \end{table}
 
-\textbf{Costes \textit{software}}
-
+\textbf{Costes \textit{software}}\\
 Para el desarrollo del proyecto y uso del \textit{software} necesario, es necesaria la adquisición de una serie de licencias, todas ellas se encuentran detalladas con su amortización en la Tabla~\ref{tab:costes-software}. Todas las licencias tienen un periodo de validez de un año.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
 	\toprule
-	\textbf{Concepto} & \textbf{Coste} & \textbf{Coste Amortizado}\\
+	\textbf{Concepto} & \textbf{Coste (\officialeuro)} & \textbf{Coste Amortizado (\officialeuro)}\\
 	\midrule
-	Codacy & 170,76~\officialeuro & 113,84~\officialeuro \\
-	FileZilla & 0~\officialeuro & 0~\officialeuro \\
-	GitKraken & 59,4~\officialeuro & 36,27~\officialeuro \\
-	Codacy & 170,76~\officialeuro & 113,84~\officialeuro \\
-	Linux Mint 20.3 & 0~\officialeuro & 0~\officialeuro \\
-	MacOs Monterey & 0~\officialeuro & 0~\officialeuro \\
-	PyCharm & 240,79~\officialeuro & 160,53~\officialeuro \\
-	Selenium & 0~\officialeuro & 0~\officialeuro \\
-	SonarCloud & 120~\officialeuro & 80~\officialeuro \\
-	\TeX Maker & 0~\officialeuro & 0~\officialeuro \\
-	Travis-CI & 719,86~\officialeuro & 479,81~\officialeuro \\
-	Visual Paradigm & 93,89~\officialeuro & 62,59~\officialeuro \\
-	Visual Studio Code & 0~\officialeuro & 0~\officialeuro \\
+	Codacy & 170,76 & 113,84\\
+	FileZilla & 0 & 0 \\
+	GitKraken & 59,4& 36,27 \\
+	Codacy & 170,76 & 113,84 \\
+	Linux Mint 20.3 & 0 & 0 \\
+	MacOs Monterey & 0 & 0 \\
+	PyCharm & 240,79 & 160,53 \\
+	Selenium & 0 & 0 \\
+	SonarCloud & 120 & 80 \\
+	\TeX Maker & 0 & 0 \\
+	Travis-CI & 719,86 & 479,81 \\
+	Visual Paradigm & 93,89 & 62,59 \\
+	Visual Studio Code & 0 & 0~\\
 	\midrule
-	\textbf{Total} & 1.399,70~\officialeuro & 933,13~\officialeuro \\
+	\textbf{Total} & 1.399,70 & 933,13 \\
 	\bottomrule
 \end{tabular}
 \caption{Costes de \emph{software}.}\label{tab:costes-software}
 \end{table}
 
-\textbf{Coste de personal}
+\textbf{Coste de personal}\\
 El desarrollo del proyecto ha sido llevado a cabo por un desarrollador y el tutor del proyecto.
 \begin{itemize}
-\item El salario del desarrollador se calcula según~\cite{SalarioJunior}, siendo el salario medio anal del 20.123~\officialeuro brutos al año.
-\item El salario del tutor se calcula según~\cite{SalarioInvestigador}, siendo el salario medio anual de 22.784~\officialeuro brutos al año. Con una carga de trabajo de dos horas semanales.
+\item El salario del desarrollador se calcula según~\cite{SalarioJunior}, siendo el salario medio anual del 20.201~\officialeuro{} netos al año.
+\item El salario del tutor se calcula según~\cite{SalarioInvestigador}, siendo el salario medio anual de 22.784~\officialeuro{} netos al año. Con una carga de trabajo de dos horas semanales.
 \end{itemize}
 
-La duración total del proyecto es de 31 semanas, por lo tanto, el tutor trabajará un total de 62 horas. Frente a las XXX del desarrollador.
+La duración total del proyecto es de 31 semanas, por lo tanto, el tutor trabajará un total de 62 horas. Frente a las 840 del desarrollador.
 
-El IRPF es del XX\% y la retribución a la Seguridad Social, calculada tal cual se plantea en~\cite{ss_cotizacion} por el Ministerio de Inclusión, Seguridad Social y Migraciones; se contribuye con un 31,40\% en total. Estando dividido en:
+El IRPF es del 24\% y la retribución a la Seguridad Social, calculada tal cual se plantea en~\cite{ss_cotizacion} por el Ministerio de Inclusión, Seguridad Social y Migraciones; se contribuye con un 31,40\% en total. Estando dividido en:
 \begin{itemize}
 \tightlist
 \item 23,60\% de contingencias comunes~\cite{BOEPCM2442022}.
@@ -830,71 +857,71 @@ El IRPF es del XX\% y la retribución a la Seguridad Social, calculada tal cual 
 \centering
 \begin{tabular}{lrr}
 	\toprule
-	\textbf{Concepto} & \textbf{Desarrollador} & \textbf{Tutor}\\
+	\textbf{Concepto} & \textbf{Desarrollador (\officialeuro)} & \textbf{Tutor (\officialeuro)}\\
 	\midrule
-	Salario total neto & XX~\officialeuro & XX~\officialeuro \\
-	Retención IRPF & XX~\officialeuro & XX~\officialeuro \\
-	Seguridad Social & XX~\officialeuro & XX~\officialeuro \\
+	Salario total neto & 1.082,20 & 81 \\
+	Retención IRPF & 259,73 & 19,44 \\
+	Seguridad Social & 339,81 & 25,43 \\
 	\midrule
-	\textbf{Total salario bruto} & XX~\officialeuro & XX~\officialeuro \\
+	\textbf{Total salario bruto} &  1.681,74 & 125,87  \\
+	\midrule
+	\textbf{Total 7 meses} & 11.772,17 & 881,12 \\
 	\bottomrule
 \end{tabular}
 \caption{Costes de personal.}\label{tab:costes-personal}
 \end{table}
 
 En la Tabla~\ref{tab:costes-personal} se desglosan punto por punto los costes de personal, resultando en:
-\[ XX\text{\officialeuro/desarrollador} + XX\text{\officialeuro/tutor} = XX\text{\officialeuro}\]
+\[ \text{11.772,17\officialeuro/desarrollador} + \text{881,12\officialeuro/tutor} =  \text{12.653,29\officialeuro}\]
 
-Siendo el coste total en personal de XX~\officialeuro.
+Siendo el coste total en personal de  12.653,29~\officialeuro{}.
 
-\textbf{Otros costes}
-
+\textbf{Otros costes}\\
 Costes no agrupables en los anteriores apartados pero a tener en cuenta, Tabla~\ref{tab:costes-otros}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{lr}
 	\toprule
-	\textbf{Concepto} & \textbf{Coste} \\
+	\textbf{Concepto (\officialeuro)} & \textbf{Coste (\officialeuro)} \\
 	\midrule
-	Dominio despliegue & 32~\officialeuro \\
-	Logos & 45~\officialeuro \\
-	Memoria impresa & 250~\officialeuro \\
-	Alquiler oficina & 1600~\officialeuro \\
-	Internet & 136~\officialeuro \\
-	Electricidad & 140~\officialeuro \\
-	Agua & 51~\officialeuro \\
-	Calefacción & 230~\officialeuro \\
+	Dominio despliegue & 32 \\
+	Logos & 45 \\
+	Memoria impresa & 250 \\
+	Alquiler oficina & 1600 \\
+	Internet & 136\\
+	Electricidad & 140 \\
+	Agua & 51\\
+	Calefacción & 230 \\
 	\midrule
-	\textbf{Total} & 2484~\officialeuro \\
+	\textbf{Total} & 2484 \\
 	\bottomrule
 \end{tabular}
 \caption{Otros costes.}\label{tab:costes-otros}
 \end{table}
 
-\textbf{Total de  costes}
-
-En la Tabla~\ref{tab:costes-totales} se puede ver un resumen de todos los costes comentados. Dejando el coste base total del proyecto en XX~\officialeuro.
+\textbf{Total de  costes}\\
+En la Tabla~\ref{tab:costes-totales} se puede ver un resumen de todos los costes comentados. Dejando el coste base total del proyecto en 19.585,99~\officialeuro.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{lr}
 	\toprule
-	\textbf{Categoría} & \textbf{Coste} \\
+	\textbf{Categoría (\officialeuro)} & \textbf{Coste (\officialeuro)} \\
 	\midrule
-	\textit{Hardware} & 3.049~\officialeuro \\
-	\textit{Software} & 1.399,70~\officialeuro \\
-	Personal & XX~\officialeuro \\
-	Otros & 2484~\officialeuro \\
+	\textit{Hardware} & 3.049 \\
+	\textit{Software} & 1.399,70 \\
+	Personal & 12.653,29 \\
+	Otros & 2.484 \\
 	\midrule
-	\textbf{Total} & 6.932,7+XX~\officialeuro \\
+	\textbf{Total} & 19.585,99 \\
 	\bottomrule
 \end{tabular}
 \caption{Costes totales.}\label{tab:costes-totales}
 \end{table}
 
 
-\textbf{Beneficios}
+\textbf{Beneficios}\\
 El proyecto está compuesto de dos partes, las cuáles se pueden comercializar de forma independiente.
 \begin{itemize}
 \item \textbf{IS-SSL.} Las bibliotecas de algoritmos son distribuidas de forma pública, gratuita y sin publicidad, con el fin de aportar un <<granito de arena>> a la investigación en aprendizaje semi-supervisado y selección de instancias.
@@ -903,15 +930,15 @@ El proyecto está compuesto de dos partes, las cuáles se pueden comercializar d
 
 \begin{table}[H]
 \centering
-\begin{tabular}{lcrcr}
+\begin{tabular}{lccrr}
 	\toprule
-	\textbf{Tipo}          &\textbf{Experimentos} &  \textbf{Precio} & \textbf{Tiempo (h)} & EUR/h\\
+	\textbf{Tipo}          &\textbf{Experimentos} & \textbf{Tiempo (h)} & \textbf{Precio (\officialeuro)} &  EUR/h\\
 	\midrule
-	\textit{Trial}        & 5 & 0~\officialeuro & 3 & X\\
-	Estudiante   & 25 & 10~\officialeuro & 20 & X\\
-	Investigador  & 120 & 40~\officialeuro & 250 & 0.4~\officialeuro/h \\
-	Equipo  & 300 & 150~\officialeuro & 1000 & 0.4~\officialeuro/h \\
-	Empresa & Ilimitados & 2000~\officialeuro & 5000 & 0.25~\officialeuro/h \\
+	\textit{Trial}        & 5 & 3 & 0 & X\\
+	Estudiante   & 25 & 20 & 10 & X\\
+	Investigador  & 120 & 250 & 40 & 0.4 \\
+	Equipo  & 300 & 1000 & 150 & 0.4 \\
+	Empresa & Ilimitados & 5000 & 2000 & 0.25 \\
 	Otros & \multicolumn{3}{c}{Contactar con soporte para obtener presupuesto} \\
 	\bottomrule
 \end{tabular}
@@ -924,16 +951,16 @@ Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<front
 \centering
 \begin{tabular}{lcr}
 	\toprule
-	\textbf{Tipo}     & \textbf{Número de cuentas} & \textbf{Beneficios}\\
+	\textbf{Tipo}     & \textbf{Número de cuentas} & \textbf{Beneficios (\officialeuro)}\\
 	\midrule
-	\textit{Trial}        & Ilimitadas & 0~\officialeuro\\
-	Estudiante   & 4 & 40~\officialeuro\\
-	Investigador  & 15 & 600~\officialeuro\\
-	Equipo  & 40 & 6.000~\officialeuro\\
-	Empresa & 15 & 30.000~\officialeuro\\
+	\textit{Trial}        & Ilimitadas & 0 \\
+	Estudiante   & 4 & 40 \\
+	Investigador  & 15 & 600 \\
+	Equipo  & 40 & 6.000 \\
+	Empresa & 15 & 30.000 \\
 	Otros & \multicolumn{2}{c}{No computado} \\
 	\midrule
-	\textbf{Total} &&36.640~\officialeuro \\
+	\textbf{Total} &&36.640 \\
 	\bottomrule
 \end{tabular}
 \caption{Simulación para recuperar la inversión con UBUMLaaS.}\label{tab:simulacion-clientes}
@@ -941,8 +968,7 @@ Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<front
 
 Debido a las funcionalidades ofrecidas y al precio competitivo de la plataforma, no sería difícil encontrar organizaciones que incorporen UBUMLaaS en su repertorio de herramientas, maximizando beneficios.
 
-\textbf{Conclusiones}
-
+\textbf{Conclusiones}\\
 Analizando los beneficios reportados en contraposción a los costes del desarrollo del proyecto, queda más que demostrada la viabilidad de desarrollo del proyecto. Se tiene en cuenta además que el proyecto una vez desarrollado no tiene necesidad de ser mantenido más allá de añadir nuevos algoritmos. Teniendo como costes fijos el mantenimiento de el(los) servidor(es) en donde esté desplegado.
 
 \subsection{Viabilidad legal}
@@ -1041,7 +1067,7 @@ Se ha decidido utilizar como licencia: \textit{Creative Commons Attribution-NonC
 \begin{table}[H]
 \centering
 \begin{tabular}{ll}
-	\toprule
+\toprule
 	\textbf{Libre de} & \textbf{Bajo los términos}\\
 	\midrule
 	\multirow{3}{*}{Compartir - Copiar y redistribuir}   &Atribución\\

@@ -1,0 +1,69 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{graphicx}
+\usepackage{lscape}
+\title{Output tables for 1xN statistical comparisons.}
+\author{}
+\date{\today}
+\begin{document}
+\begin{landscape}
+\pagestyle{empty}
+\maketitle
+\thispagestyle{empty}
+
+\section{Average rankings of Friedman test}
+
+
+Average ranks obtained by each method in the Friedman test.
+
+\begin{table}[!htp]
+\centering
+\begin{tabular}{|c|c|}\hline
+Algorithm&Ranking\\\hline
+KNeighborsClassifier:ENANE&2.2222\\KNeighborsClassifier:ENN&2.6667\\KNeighborsClassifier:LSSm&2.5833\\KNeighborsClassifier:base&2.5278\\\hline\end{tabular}
+\caption{Average Rankings of the algorithms (Friedman)}
+\end{table}
+
+Friedman statistic (distributed according to chi-square with 3 degrees of freedom): 1.216667. \newline P-value computed by Friedman Test: 0.74901.\newline
+
+
+\newpage
+
+\section{Post hoc comparison (Friedman)}
+
+
+P-values obtained in by applying post hoc methods over the results of Friedman procedure.
+
+\begin{table}[!htp]
+\centering\footnotesize
+\begin{tabular}{ccccc}
+$i$&algorithm&$z=(R_0 - R_i)/SE$&$p$&Hochberg \\
+\hline3&KNeighborsClassifier:ENN&1.032796&0.3017&0.016667\\2&KNeighborsClassifier:LSSm&0.839146&0.401387&0.025\\1&KNeighborsClassifier:base&0.710047&0.477675&0.05\\\hline
+\end{tabular}
+\caption{Post Hoc comparison Table for $\alpha=0.05$ (FRIEDMAN)}
+\end{table}
+\newpage
+
+\section{Adjusted P-Values (Friedman)}
+
+
+Adjusted P-values obtained through the application of the post hoc methods (Friedman).
+
+\begin{table}[!htp]
+\centering\small
+\begin{tabular}{cccc}
+i&algorithm&unadjusted $p$&$p_{Hochberg}$\\
+\hline1&KNeighborsClassifier:ENN&0.3017&0.477675\\2&KNeighborsClassifier:LSSm&0.401387&0.477675\\3&KNeighborsClassifier:base&0.477675&0.477675\\\hline
+\end{tabular}
+\caption{Adjusted $p$-values (FRIEDMAN) (I)}
+\end{table}
+\begin{table}[!htp]
+\centering\small
+\begin{tabular}{ccc}
+i&algorithm&unadjusted $p$\\
+\hline1&KNeighborsClassifier:ENN&0.3017\\2&KNeighborsClassifier:LSSm&0.401387\\3&KNeighborsClassifier:base&0.477675\\\hline
+\end{tabular}
+\caption{Adjusted $p$-values (FRIEDMAN) (II)}
+\end{table}
+
+\newpage
+\end{landscape}\end{document}
