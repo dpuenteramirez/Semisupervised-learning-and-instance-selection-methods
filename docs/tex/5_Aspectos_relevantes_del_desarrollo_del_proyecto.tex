@@ -56,27 +56,27 @@ Todos los algoritmos los cuáles se encuentran disponibles en \texttt{IS-SSL} ha
 
 
 \section{Experimentación de filtros de ruido para aprendizaje semi-supervisado}
+El aprendizaje semi-supervisado se basa en el entrenamiento de un modelo a partir de un pequeño número de prototipos etiquetados y uno mucho mayor de prototipos no etiquetados. Gracias a los innumerables campos de aplicación que posee, en los últimos años ha recibido mucha atención de la comunidad científica~\cite{van2020survey}. 
 
-\subsection{Introducción}
-El aprendizaje semi-supervisado se basa en el entrenamiento de un modelo a partir de un pequeño número de prototipos etiquetados y uno mucho mayor de prototipos no etiquetados. Gracias a los innumerables campos de aplicación que posee, en los últimos años ha recibido mucha atención de la comunidad científica. 
+Dependiendo el dobjetivo final de los métodos, SSL puede ser aplicado en problemas de clasificación semi-supervisada~\cite{chapelle2009semi} o \textit{clustering} semi-supervisado~\cite{pedrycz1985algorithms}. La primera puede dividirse en dos aproximaciones ligeramente diferentes~\cite{chen2010semi}, el aprendizaje transductivo y el inductivo. 
 
-El método se basa en la mejora del aprendizaje de forma iterativa, mediante la explotación de los datos no etiquetados en combinación con los etiquetados. De forma que iterativamente se etiqueten aquellos con mayor confianza, aumentando el tamaño del conjunto de datos etiquetados, y con ello el espectro del cuál el modelo puede aprender. 
+En el aprendizaje transductivo, el problema es abordado desde la predicción de las etiquetas de las instancias no etiquetadas, dadas de antemano, teniendo en cuenta tanto los datos no etiquetados como los que sí lo están para entrenar un clasificador. Mientras que en el aprendizaje inductivo se consideran los datos etiquetados y no etiquetados como datos de entrenamiento, siendo su objetivo el predecir los ejemplos no vistos.
 
 La contrapartida se presenta en forma de que numerosos estudios empíricos demuestran como existen situaciones en las cuales el uso de esos datos no etiquetados pueden degradar el modelo. Siendo aconsejable el poder explotar los datos de forma segura.
 
 Es por ello que múltiples estudios~\cite{zhao2021safe, guo2020safe, li2016towards} ya se han adentrado en el aprendizaje semi-supervisado seguro. Entendiendo por \emph{seguro} que el rendimiento de la generalización nunca es estadísticamente peor que los métodos que sólo utilizan datos etiquetados~\cite{li2019safe}.
 
-Esta experimentación posee como objetivo validar la hipótesis:\\
-\emph{<<¿Se obtiene una selección más segura en aprendizaje semi-supervisado gracias a la aplicación de métodos de selección de instancias?>>}
+La experimentación llevada a cabo posee como objetivo validar la hipótesis:\\
+\emph{<<¿Se obtiene una selección más segura en aprendizaje semi-supervisado gracias a la aplicación de métodos de selección de instancias?>>}.
 
 Introduciendo como novedades nuevos métodos de selección de instancias, así como clasificadores, hasta ahora no evaluados en problemas de esta naturaleza.
 
 \subsection{Experimentación}
-La experimentación ha sido realizada utilizando la aproximación propuesta en~\cite{li2019selfk}, bajo la cual el etiquetado de las instancias se produce en base a picos de densidad y la reducción del mismo mediante el uso de un filtrado de ruido previo.
+La experimentación ha sido realizada utilizando la aproximación propuesta en~\cite{li2019selfk}, bajo la cual el etiquetado de las instancias se produce en base a picos de densidad y la reducción del mismo mediante el uso de un filtrado de ruido previo. Así mismo, también se ha realizado la aproximación mediante el uso de \textit{self-training}.
 
 Para la realización de la experimentación se utilizan 18 conjuntos de datos seleccionados del repositorio de la Universidad de California Irvine (UCI), la descripción de los diferentes conjuntos de datos se encuentra en la Tabla~\ref{tab:exp:datasets}. Los experimentos son realizados con diferentes porcentajes de número de instancias etiquetadas sobre el total, disponibles en la Tabla~\ref{tab:exp:percents}.
 
-En todos los experimentos, se realiza una validación cruzada de 10 \textit{folds}, con el fin de obtener los resultados de la experimentación se utilizan las métricas ACC, \textit{f1 score}, y el error cuadrático medio.
+En todos los experimentos, se realiza una validación cruzada de 10 \textit{folds}, con el fin de obtener los resultados de la experimentación se utilizan las métricas \textit{accuracy} (ACC), \textit{f1 score}, y el error cuadrático medio.
 
 \begin{align}
 \text{\textit{ACC}} & = \frac{\text{\# tp}}{\text{\# Total de instancias}} \\
@@ -84,15 +84,18 @@ En todos los experimentos, se realiza una validación cruzada de 10 \textit{fold
 \text{\textit{MSE}} & = \frac{1}{n} \sum_{i=1}^{n}\left(Y_i - Y_j\right)^2
 \end{align}
 
-El conjunto de datos es dividido en 9 \textit{folds} para el conjunto de entrenamiento y 1 para el conjunto de prueba. Se utiliza selección estratificada aleatoria para la separación de los datos en entrenamiento y validación.
+\noindent Métricas alcanzadas a partir de la matriz de confusión, esta es una herramienta que permite analizar los resultados de cómo trabaja un algoritmo de aprendizaje automático, repartiendo la información en columnas con las predicciones realizadas y en filas para el número real de instancias de cada clase. 
+Donde TP representa los \textit{true positive}, TN los \textit{true negative}, FP los \textit{false positives} y FN los \textit{false negatives}. 
 
-Anteriores artículos~\cite{li2019selfk} proponen esta misma aproximación pero utilizando únicamente el filtro propio \emph{ENaNE}, y el clasificador base \textit{k-Nearest Neighbors}, tal y como se muestra en la Tabla~\ref{tab:exp:classifiers} esta aproximación utiliza 3 clasificadores base con el fin de obtener una mayor diversidad de soluciones. Además, se utilizan los métodos de selección de instancias presentados en la Tabla~\ref{tab:exp:filters}.\\
+El conjunto de datos es dividido en 10 \textit{folds}, 9 de ellos para el conjunto de entrenamiento y 1 para el conjunto de prueba. Se utiliza selección estratificada aleatoria para la separación de los datos en entrenamiento y validación.
+
+Anteriores artículos~\cite{li2019selfk} proponen esta misma aproximación pero utilizando únicamente el filtro propio \emph{ENaNE}, y el clasificador base \textit{k-Nearest Neighbors}, tal y como se muestra en la Tabla~\ref{tab:exp:classifiers} esta aproximación utiliza 3 clasificadores base con el fin de obtener una mayor diversidad de soluciones. Además, se utilizan los métodos de selección de instancias presentados en la Tabla~\ref{tab:exp:filters}.
 Con todo esto se obtiene un espectro mucho más amplio de soluciones comparables, permitiendo validar la hipótesis planteada.
 
-El  procedimiento seguido es directo y sencillo, aseguramos que los valores son separados en cada experimento de la misma forma mediante una semilla aleatoria. El pseudocódigo se encuentra dispoible en el Algoritmo~\ref{alg:pseudo-exp}.
+El  procedimiento seguido es directo y sencillo, mediante el uso de una semilla aleatoria, se asegura que todos los clasificadores y filtros poseen los mismos datos en cada \textit{n-ésima} iteración. El pseudocódigo se encuentra dispoible en el Algoritmo~\ref{alg:pseudo-exp}.
 
 \begin{algorithm}[]
-  $random\_seed \leftarrow XX$
+  $random\_seed \leftarrow XX$\\
   \For {dataset en datasets}{
 		\For {clasificador en clasificadores}{
 			\For {filtro en filtros}{
@@ -194,7 +197,7 @@ El  procedimiento seguido es directo y sencillo, aseguramos que los valores son 
         LET & 776 & 1.553 & 2.330 & 3.106 & 3.883 & 4.660 & 5.436 & 15.534 \\ 
         \bottomrule
     \end{tabular}
-    \caption{Relación de cada conjunto de datos con los diferentes porcentajes de etiquetado utilizados.}\label{tab:exp:percents}
+    \caption{Relación de el número de instancias de cada conjunto de datos con los diferentes porcentajes de etiquetado utilizados.}\label{tab:exp:percents}
 \end{table}
 
 \FloatBarrier
@@ -203,22 +206,56 @@ El análisis de los resultados a los que podemos llegar se realiza en función d
 
 La aproximación seguida para conocer qué filtro (o ninguno) reporta mejores resultados para cada conjunto estimador base, han sido los \textit{rankings} medios para cada conjunto de datos y cada porcentaje de etiquetado. En la Figura~\ref{fig:exp-general} se muestra un resumen de todos los filtros para cada estimador\footnote{\emph{base} hace referencia a el resultado reportado por el estimador sin la aplicación de ningún método de selección de instancias sobre el conjunto de datos etiquetados.}. 
 
-\imagenFlotante{../img/memoria/aspectos-relevantes/General}{Resumen en función del clasificador y filtro.}{exp-general}
+\imagenRuta{../img/memoria/aspectos-relevantes/General}{Resumen en función del clasificador y filtro.}{exp-general}
 
-En la Figura~\ref{fig:exp-general} no se aprecia a <<simple vista>> tendencia alguna para ningún clasificador base y método de selección de instancias, que destaque sobre el resto. Si bien se puede intuir que \texttt{LSSm} tiene a mejorar según se poseen más instancias, no es una conclusión válida, es por ello que se realizan tests estadísticos para comprobar si existen diferencias significativas entre los mismos.
+En la Figura~\ref{fig:exp-general} no se aprecia a <<simple vista>> tendencia alguna para ningún clasificador base y método de selección de instancias, que destaque sobre el resto. Si bien se puede intuir que \texttt{LSSm} tiene a mejorar según se poseen más instancias etiquetadas, no es una conclusión válida, es por ello que se realizan tests estadísticos para comprobar si existen diferencias significativas entre los mismos.
 
-El cálculo de los rankings medios es validado mediante comprobación con \texttt{KEEL}\footnote{\textit{Knowledge Extraction based on Evolutionary Learning}. Herramienta de software Java que puede utilizarse para un gran número de tareas diferentes de descubrimiento de datos de conocimiento. KEEL proporciona una sencilla interfaz gráfica de usuario basada en el flujo de datos para diseñar experimentos con diferentes conjuntos de datos y algoritmos de IA.}~\cite{alcala2009keel, alcala2011keel} de forma que se puede realizar el cálculo de Nemenyi como \textit{post hoc} estadístico. 
+El cálculo de los \textit{rankings} medios se ha validado gracias al uso de la herramienta \texttt{KEEL}\footnote{\textit{Knowledge Extraction based on Evolutionary Learning}. Herramienta de software Java que puede utilizarse para un gran número de tareas diferentes de descubrimiento de datos de conocimiento. KEEL proporciona una sencilla interfaz gráfica de usuario basada en el flujo de datos para diseñar experimentos con diferentes conjuntos de datos y algoritmos de IA.}~\cite{alcala2009keel, alcala2011keel}. Con la verificación de que los cálculos son correctos, se procede a realizar el \textit{test} de Nemenyi~\cite{nemenyi1963distribution} como \textit{test} \textit{post-hoc}, con el objetivo de encontrar las diferencias significativas entre clasificadores y los filtros utilizados. Este último paso viene propiciado como resultado de que el \textit{test} de Friedman~\cite{friedman1937use} rechazara la hipótesis nula.
 
 Por motivos de espacio se muestra un resumen de las figuras obtenidas: \ref{fig:knn-posthoc}, \ref{fig:gaussnb-posthoc} y \ref{fig:tree-posthoc},  cada par clasificador-porcentaje de instancias etiquetadas dispone de su propio diagrama de \emph{Critial Difference} disponibles desde el siguiente \href{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/tree/main/experimentation/result_plots}{enlace}. De igual manera los \texttt{CSVs} resultantes del proceso de experimentación, los \textit{logs}, los \textit{rankings} medios, \dots, se encuentran disponibles en el correspondiente directorio del \href{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/tree/main/experimentation}{repositorio} de \texttt{IS-SSL}.
 
-\imagenFlotante{../img/memoria/aspectos-relevantes/knn-posthoc}{Diagrama \textit{Critical Difference} para \textit{k-NN}.}{knn-posthoc}
-\imagenFlotante{../img/memoria/aspectos-relevantes/gaussnb-posthoc}{Diagrama \textit{Critical Difference} para \textit{Gaussian NB}.}{gaussnb-posthoc}
-\imagenFlotante{../img/memoria/aspectos-relevantes/tree-posthoc}{Diagrama \textit{Critical Difference} para \textit{Decission Tree}.}{tree-posthoc}
+\begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../img/memoria/aspectos-relevantes/knn-posthoc}
+            \caption[]%
+            {{\tiny Diagrama \textit{Critical Difference} para \textit{k-Nearest Neighbors}.}}    
+            \label{fig:knn-posthoc}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{../img/memoria/aspectos-relevantes/gaussnb-posthoc}
+            \caption[]%
+            {{\tiny Diagrama \textit{Critical Difference} para \textit{Gaussian NB}.}}    
+            \label{fig:gaussnb-posthoc}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{../img/memoria/aspectos-relevantes/tree-posthoc}
+            \caption[]%
+            {{\tiny Diagrama \textit{Critical Difference} para \textit{Decission Tree}.}}    
+            \label{fig:tree-posthoc}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{../img/memoria/aspectos-relevantes/knn2-posthoc}
+            \caption[]%
+            {{\tiny Diagrama \textit{Critical Difference} para \textit{k-Nearest Neighbors}.}}    
+            \label{fig:knn2-posthoc}
+        \end{subfigure}
+        \caption[ The average and standard deviation of critical parameters ]
+        {\small The average and standard deviation of critical parameters: Region R4} 
+        \label{fig:mean and std of nets}
+    \end{figure*}
 
 \FloatBarrier
 \subsection{Conclusiones}
-Tal y como se apreciaba ya en la Figura~\ref{fig:exp-general}, no existe una diferencia significativa entre los diferentes métodos de selección de instancias en relación con el aprendizaje semi-supervisado seguro. Los diagramas representando la Diferencia Crítica \ref{fig:knn-posthoc}, \ref{fig:gaussnb-posthoc}, \ref{fig:tree-posthoc}, y todos los faltantes no añadidos, no reportan en ningún caso un claro vencedor sobre los demás, para ningún clasificador base analizado. 
+Tal y como se apreciaba ya en la Figura~\ref{fig:exp-general}, no existen diferencias significativas entre los diferentes métodos de selección de instancias en relación con el aprendizaje semi-supervisado seguro. Los diagramas representando la Diferencia Crítica \ref{fig:knn-posthoc}, \ref{fig:gaussnb-posthoc}, \ref{fig:tree-posthoc}, y todos los demás no añadidos, no reportan en ningún caso un claro vencedor sobre los demás, para ningún clasificador base analizado. 
 
-Estos resultados nos permiten llegar a la conclusión de que si bien los tiempos de ejecución son ligeramente inferiores en función del método de selección de instancias utilizado (en función de la <<agresividad>> con la que elimine instancias), los resultados que cabe esperar sean reportados por las diferentes aproximaciones analizadas, serán similares en tanto en cuanto se ejecuten en condiciones idénticas.
+Estos resultados nos permiten llegar a la conclusión de que si bien los tiempos de ejecución son ligeramente inferiores en función del método de selección de instancias utilizado (en función de la <<agresividad>> con la que elimine instancias), no existe un ganador.
 
 
