@@ -15,6 +15,7 @@
 \usepackage{colortbl}
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 
+\usepackage{emptypage}
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
 \RequirePackage{xtab}
@@ -37,7 +38,8 @@
 % Links
 \PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
 \hypersetup{
-	allcolors = {red}
+	allcolors = {red},
+	urlcolor=blue,
 }
 
 % Ecuaciones
@@ -56,6 +58,8 @@
 
 % Imagenes
 \usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{mwe}
 \newcommand{\imagen}[2]{
 	\begin{figure}[!h]
 		\centering
@@ -401,8 +405,7 @@
 \maketitle
 
 
-\newpage\null\thispagestyle{empty}\newpage
-
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \thispagestyle{empty}
@@ -448,9 +451,7 @@ Vº. Bº. del Tutor:\\[2cm]
 D. Álvar Arnaiz González
 
 
-\newpage\null\thispagestyle{empty}\newpage
-
-
+\cleardoublepage
 
 
 \frontmatter
@@ -464,12 +465,12 @@ El primer objetivo del proyecto es la creación de dos bibliotecas, las cuales r
 \emph{<<¿Se obtiene una selección más segura en aprendizaje semi-supervisado gracias a la aplicación de métodos de selección de instancias?>>}.\\
 Las bibliotecas quedarán a disposición de la comunidad \textit{Open source} tras la finalización del proyecto.
 
-El segundo objetivo es la integración de sendas bibliotecas en \texttt{UBUMLaaS}, aplicación de aprendizaje máquina en la nube, perteneciente al grupo de investigación ADMIRABLE de la Universidad de Burgos. Además de, su modernización y creación del nuevo rol de administrador del sistema, con todas las opciones y vistas que con ello conlleva; finalmente se añadirá una vista de monitorización del sistema en tiempo real y visualización de estadísticas.
+El segundo objetivo es la integración de sendas bibliotecas en \texttt{UBUMLaaS}, aplicación de aprendizaje máquina en la nube, perteneciente al grupo de investigación ADMIRABLE de la Universidad de Burgos. Además de su modernización y creación del nuevo rol de administrador del sistema, con todas las opciones y vistas que con ello conlleva; finalmente se añadirá una vista de monitorización del sistema en tiempo real y visualización de estadísticas.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-selección de instancias, aprendizaje semi-supervisado, aprendizaje semi-supervisado seguro, aprendizaje máquina como servicio
+\noindent selección de instancias, aprendizaje semi-supervisado, aprendizaje semi-supervisado seguro, aprendizaje máquina como servicio
 \end{abstract}
 
 \clearpage
@@ -488,7 +489,7 @@ The second objective is the integration of both libraries in \texttt{UBUMLaaS}, 
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-instance selection, semi-supervised learning, safe semi-supervised learning, machine learning as a service
+\noindent instance selection, semi-supervised learning, safe semi-supervised learning, machine learning as a service
 \end{abstract}
 
 \clearpage
@@ -520,6 +521,8 @@ instance selection, semi-supervised learning, safe semi-supervised learning, mac
 
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
+\clearpage
+\thispagestyle{empty}
 \begin{bottompar}
 \begin{figure}[h]
 		\centering
