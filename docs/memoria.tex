@@ -15,6 +15,7 @@
 \usepackage{colortbl}
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 
+\usepackage{emptypage}
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
 \RequirePackage{xtab}
@@ -37,7 +38,8 @@
 % Links
 \PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
 \hypersetup{
-	allcolors = {red}
+	allcolors = {red},
+	urlcolor=blue,
 }
 
 % Ecuaciones
@@ -519,6 +521,8 @@ The second objective is the integration of both libraries in \texttt{UBUMLaaS}, 
 
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
+\clearpage
+\thispagestyle{empty}
 \begin{bottompar}
 \begin{figure}[h]
 		\centering

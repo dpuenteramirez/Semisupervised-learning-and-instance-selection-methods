@@ -15,6 +15,7 @@
 \usepackage{siunitx}
 \usepackage{array}
 \usepackage{placeins}
+\usepackage{emptypage}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -40,7 +41,8 @@
 % Links
 \PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
 \hypersetup{
-	allcolors = {red}
+	allcolors = {red},
+	urlcolor = blue,
 }
 
 % Ecuaciones
@@ -416,7 +418,7 @@
     Tutor: \@tutor{}\\
   }%
   \end{center}%
-  \null
+  \vfill
   \cleardoublepage
   }
 \makeatother
@@ -431,10 +433,6 @@
 \begin{document}
 
 \maketitle
-
-
-\cleardoublepage
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
