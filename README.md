@@ -46,6 +46,10 @@ Among the objectives of the project is that the implemented algorithms are corre
 Likewise, there are multiple experiment configuration files for the aforementioned verification, and for the realization of a research process on the behavior of semi-supervised learning algorithms when noise filtering is performed.
 
 ---
+## Available for MLaaS
+All the algorithms that make up this library are available in [UBUMLaaS](https://github.com/dpr1005/ubumlaas), an Open Source MLaaS tool.
+
+---
 ## Download and installation
 IS-SSL is distributed under two libraries, both are available in their last 
 versions in PIP. 
