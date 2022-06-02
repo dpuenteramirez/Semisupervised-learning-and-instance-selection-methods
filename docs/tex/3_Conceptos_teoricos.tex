@@ -59,10 +59,14 @@ Principalmente existen dos técnicas de aprendizaje no supervisado.
 \end{enumerate}
 
 \subsection{Aprendizaje semi-supervisado}\label{subsec:Aprendizaje-Semi-Supervisado}
-Según~\cite{zhou2014semi} \textit{Semi-Supervised Learning} se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, \textit{i.e.} si no sería un aprendizaje supervisado, o no supervisado. 
+Según~\cite{zhou2014semi} \textit{Semi-Supervised Learning} se define como una forma de entrenamiento de modelos el cual usa tanto datos etiquetados como no etiquetados, \textit{i.e.} si no sería un aprendizaje supervisado, o no supervisado. El conjunto de datos no etiquetado posee un número de instancias mucho más elevado que el etiquetado.
 
-El uso de aprendizaje semi-supervisado se caracteriza por ser menos costoso que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es normalmente costoso (en tiempo y en recursos). Luego, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado. 
+El uso de aprendizaje semi-supervisado se caracteriza por ser menos costoso que el supervisado, ya que este último necesita que todo el conjunto de datos que va a utilizar para aprender esté etiquetado, y ese proceso es normalmente costoso (en tiempo y en recursos). Luego, obtiene mejores resultados en menor tiempo que el aprendizaje no supervisado~\cite{van2020survey}. 
 Conseguir datos sin etiquetar es una tarea muy sencilla, mientras que conseguir conjuntos de datos etiquetados es un proceso complejo y actualmente no hay <<de todo>>.
+
+Dependiendo el objetivo final de los métodos, SSL puede ser aplicado en problemas de clasificación semi-supervisada~\cite{chapelle2009semi} o \textit{clustering} semi-supervisado~\cite{pedrycz1985algorithms}. La primera puede dividirse en dos aproximaciones ligeramente diferentes~\cite{chen2010semi}, el aprendizaje transductivo y el inductivo. 
+
+En el aprendizaje transductivo, el problema es abordado desde la predicción de las etiquetas de las instancias no etiquetadas, dadas de antemano, teniendo en cuenta tanto los datos no etiquetados como los que sí lo están para entrenar un clasificador. Mientras que en el aprendizaje inductivo se consideran los datos etiquetados y no etiquetados como datos de entrenamiento, siendo su objetivo el predecir los ejemplos no vistos.
 
 Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren inter-relacionadas entre sí por alguna de sus características~\cite{javatpoint_semisupervised} indica las siguientes suposiciones que se dan en el aprendizaje semi-supervisado.
 \begin{enumerate}
@@ -111,6 +115,12 @@ Zhou~\cite{zhou2005tri} en 2005 propuso una modificación sobre el algoritmo de 
 
 El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Training}. \textit{Tri-Training} no necesita varias <<vistas significativas>> de los datos, tampoco requiere el empleo de múltiples algoritmos de aprendizaje supervisado cuyas hipótesis dividen el espacio de instancias en un conjunto de clases de equivalencia. El \textit{Tri-Training} por tanto emplea tres clasificadores, a diferencia de los dos utilizados anteriormente, esta opción resuelve la dificultad de determinar cómo etiquetar las instancias no etiquetadas y generar la hipótesis final, lo que mejora enormemente la eficiencia del algoritmo. Junto con la capacidad de generalización resultante de la combinación de los tres clasificadores.
 
+Los tres clasificadores, $h_1\text{, } h_2 \text{ y } h_3$, son entrenados inicialmente con todo el conjunto de datos etiquetado. Seguidamente, a cualquier instancia no etiquetada, se la podrá asignar una etiqueta siempre y cuando hay al menos dos clasificadores de acuerdo con la asignación, \textit{i.e.} $label(x) = h_i(x) =  h_j(x)$, ver~ algoritmo~\ref{alg:Tri-Training}. Puede darse el caso de que dos clasificadores acierten en la predicción y la etiqueta sea considerada correcta, pero para el tercer clasificador sea ruido, incluso en el peor caso, el aumento del ruido en el proceso de clasificación puede mitigarse si el número de instancias recién etiquetadas es significativo (bajo condiciones específicas)~\cite{zhou2005tri}.
+
+Debido a que \textit{Tri-Training} no asume la existencia de clases <<redundantes>>, se necesita un cierto grado de diversidad en los clasificadores. Esta diversidad es alcanzada mediante la manipulación del conjunto de datos etiquetado. Los clasificadores iniciales son entrenados con los datos generados mediante \textit{bootstrap}\footnote{En el campo de la estadística, se define como un método el cual consiste en la extracción de datos de muestra repetidamente con reemplazo de un conjunto de datos, con el fin de estimar un parámetro de la población.} del conjunto de datos etiquetados original. Estos clasificadores son depurados en el proceso iterativo del algoritmo, produciendo la hipótesis final mediante mayoría simple.
+
+Dado que \textit{Tri-Training} no impone ninguna restricción al algoritmo de aprendizaje supervisado ni emplea un proceso de validación cruzada que requiera mucho tiempo de cómputo, tanto su aplicabilidad como su eficiencia demuestran ser mejores que otras versiones de \textit{Co-Training}.
+
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $L$ y $U$ de datos etiquetados y no etiquetados, respectivamente}
 	\KwIn{\textit{Learn}\tcc*[f]{algoritmo de aprendizaje}}
@@ -155,12 +165,6 @@ El \textit{Tri-Training} se define como una nueva aproximación de \textit{Co-Tr
   	
 	\caption{\textit{Tri-Training}}\label{alg:Tri-Training}
 \end{algorithm}
-
-Los tres clasificadores, $h_1\text{, } h_2 \text{ y } h_3$, son entrenados inicialmente con todo el conjunto de datos etiquetado. Seguidamente, a cualquier instancia no etiquetada, se la podrá asignar una etiqueta siempre y cuando hay al menos dos clasificadores de acuerdo con la asignación, \textit{i.e.} $label(x) = h_i(x) =  h_j(x)$, ver~ algoritmo~\ref{alg:Tri-Training}. Puede darse el caso de que dos clasificadores acierten en la predicción y la etiqueta sea considerada correcta, pero para el tercer clasificador sea ruido, incluso en el peor caso, el aumento del ruido en el proceso de clasificación puede mitigarse si el número de instancias recién etiquetadas es significativo (bajo condiciones específicas)~\cite{zhou2005tri}.
-
-Debido a que \textit{Tri-Training} no asume la existencia de clases <<redundantes>>, se necesita un cierto grado de diversidad en los clasificadores. Esta diversidad es alcanzada mediante la manipulación del conjunto de datos etiquetado. Los clasificadores iniciales son entrenados con los datos generados mediante \textit{bootstrap}\footnote{En el campo de la estadística, se define como un método el cual consiste en la extracción de datos de muestra repetidamente con reemplazo de un conjunto de datos, con el fin de estimar un parámetro de la población.} del conjunto de datos etiquetados original. Estos clasificadores son depurados en el proceso iterativo del algoritmo, produciendo la hipótesis final mediante mayoría simple.
-
-Dado que \textit{Tri-Training} no impone ninguna restricción al algoritmo de aprendizaje supervisado ni emplea un proceso de validación cruzada que requiera mucho tiempo de cómputo, tanto su aplicabilidad como su eficiencia demuestran ser mejores que otras versiones de \textit{Co-Training}.
 
 \subsection{\textit{Democratic Co-Training}}
 Zhou~\cite{zhou2004democratic} en 2004 presentó el algoritmo \textit{Democratic Co-Learning}. El algoritmo a diferencia de sus <<homónimos>>, trabaja con múltiples algoritmos de aprendizaje supervisado, en lugar de múltiples clases significativas, permitiendo que se etiqueten nuevas instancias entre ellos. Debido a que diferentes algoritmos de aprendizaje poseen diferentes sesgos, seleccionar la clase más votada por la mayoría produce mejores predicciones.
@@ -401,7 +405,7 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 \begin{center}
 	\begin{tabular}{lcc}
 	\toprule 
-	\textbf{Método}  &  \textbf{\begin{tabular}[]{@{}c@{}}Complejidad\\Computacional\end{tabular}}  & \textbf{Referencia} \\
+	\textbf{Método}  &  \textbf{\begin{tabular}[]{@{}c@{}}Complejidad\\computacional\end{tabular}}  & \textbf{Referencia} \\
 	\toprule
 	\rowcolor[HTML]{EFEFEF} 
 	Edición de Wilson (ENN)        & $O(n^2)$      &~\cite{wilson1972asymptotic}\\ 
@@ -414,7 +418,7 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 	\textit{Drecremental Reduction Optimization Procedure} (DROP) & $O(n^2)$  &~\cite{wilson2000reduction} \\ \bottomrule
 	\end{tabular}
 \end{center}
-\caption{Algunos métodos de selección de instancias.}
+\caption{Resumen de la complejidad computacional de algunos métodos clásicos de selección de instancias.}
 \label{tab:instance-selection-methods}
 \end{table}
 
@@ -583,7 +587,7 @@ La aproximación realizada por Barandela \textit{et al.} modifica la condición 
 
 El objetivo principal de esta modificación es reforzar la condición que debe cumplir el subconjunto reducido para maximizar la aproximación a la frontera de decisión. Quedando definido el algoritmo, ver algoritmo~\ref{alg:Barandela-MSS}, como una alternativa eficiente al algoritmo propuesto por Ritter \textit{et al.}, siendo capaz de seleccionar mejores instancias (más cercanas a la frontera de decisión). 
 
-El criterio que sigue \textit{MSS} para determinar la frontera de decisión es la distancia al enemigo más cercano. Con esta medida se puede definir el mejor subconjunto selectivo como aquel que contiene el mejor vecino relacionado para cada instancia en el $TS$. (Mejor $\iff$ Menor distancia a su enemigo más cercano).
+El criterio que sigue \textit{MSS} para determinar la frontera de decisión es la distancia al enemigo más cercano. Con esta medida se puede definir el mejor subconjunto selectivo como aquel que contiene el mejor vecino relacionado para cada instancia en el $TS$. (Será mejor cuanto menor distancia a su enemigo más cercano posea).
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$}
@@ -623,7 +627,7 @@ Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo al
 \begin{itemize}
 \item \textit{DROP1}. Eliminará un objeto $P$ de $S$ si sus socios en $S$ se clasifican correctamente sin $P$, \textit{i.e.} la ausencia de $P$ no impide la correcta clasificación del resto de prototipos.
 \item \textit{DROP2}. Eliminará un objeto $P$ de $S$ si los socios que tiene $P$ en $TS$ se clasifican correctamente sin $P$, \textit{i.e.}, verificará el efecto que causa esta eliminación sobre la muestra original. Previo al proceso de eliminación de objetos $P$, ordena los prototipos a tratar en orden a su enemigo más cercano, permitiendo que los primeros prototipos que se van a tratar serán aquellos más alejados de las fronteras de decisión, ergo las más prescindibles.
-\item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, para ello aplica la edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}
+\item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, para ello aplica la edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}.
 \item \textit{DROP4}. Aplica un filtro de ruido diferente, en este casos consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
 \item \textit{DROP5}. Modificación sobre \textit{DROP2}, en este algoritmo el proceso de eliminación de objetos comienza por aquellos más cercanos a sus enemigos. 
 \end{itemize}

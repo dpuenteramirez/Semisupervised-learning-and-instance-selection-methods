@@ -43,7 +43,7 @@ La estimación es una parte muy importante ya que es lo que permitirá al equipo
 \subsubsection{Actores, roles y responsabilidades}
 Dentro de un equipo que sigue la metodología \textit{scrum} encontramos diferentes actores, como ya se ha comentado el equipo de desarrollo suele estar compuesto por entre cinco y diez personas, además del \textit{Scrum Master} y el \textit{Product Owner}~\cite{julioroche_2020}.
 \begin{itemize}
-\item \textbf{\textit{Product Owner.}} Encargado de optimizar y maximizar el valor del producto, es la persona encargada de gestionar las prioridades del \textit{product backlog}. Una de sus principales tareas es la de intermediario con los \textit{stakeholders}, partes interesadas, del proyecto; junto con recoger los requerimientos de los clientes. Es habitual que esta figura sea representante del negocio, con lo que aumenta su valor.
+\item \textbf{\textit{Product Owner.}} Encargado de optimizar y maximizar el valor del producto, es la persona encargada de gestionar las prioridades del \textit{product backlog}. Una de sus principales tareas es la de ser intermediario con los \textit{stakeholders}, partes interesadas, del proyecto; junto con recoger los requerimientos de los clientes. Es habitual que esta figura sea representante del negocio, con lo que aumenta su valor.
 
 Para cada \textit{sprint} debe de marcar el objetivo de éste de manera clara y acordada con el equipo de desarrollo, lo cual hará que el producto vaya incrementando constantemente su valor. Para que todo fluya como debe, esta figura tiene que tener el ``poder'' de tomar decisiones que afecten al producto.
 
@@ -82,10 +82,10 @@ PEP8 mejora la legibilidad del código, pero, ¿a qué se debe que la legibilida
 \subsubsection{\textit{Ranking} medio}
 En el campo de la estadística, los \textit{rankings} permiten la transformación de datos en función de su posición cuando el conjunto de datos es ordenado.
 
-El \textit{ranking} medio se calcula de la siguiente manera: para una serie de conjuntos de datos los cuales han sido utilizado por diferentes clasificadores, cada uno de estos habrá reportado unos resultados para cada uno de los conjuntos de datos y sobre éstos últimos se puede obtener un \textit{ranking}, el \textit{ranking} medio consiste en calcular la media de los \textit{rankings} reportados para cada conjunto de datos por cada clasificador.
+Para cada conjunto de datos se ordenan los resultados de cada clasificador de tal modo que al mejor clasificador se le da 1, al segundo mejor 2 y así sucesivamente. El \textit{ranking} medio, por lo tanto, es calculado mediante el promedio de los \textit{rankings} de cada clasificador para los distintos conjuntos de datos
 
 \subsubsection{\textit{Test} estadístico}
-Mecanismo para tomar decisiones cuantitativas sobre un proceso o una serie de estos. El objetivo es determinar si hay suficientes pruebas para <<rechazar>> una hipótesis sobre el proceso. La conjetura se denomina hipótesis nula. No rechazarla puede ser un resultado si se quiere seguir actuando como si se <<creyera>> que la hipótesis nula es cierta. O puede ser un resultado decepcionante, que posiblemente indique que aún no se poseen suficientes datos para <<demostrar>> algo rechazando la hipótesis nula~\cite{lucon2018new}~\cite{nist}.
+Mecanismo para tomar decisiones cuantitativas sobre un proceso o una serie de estos. El objetivo es determinar si hay suficientes pruebas para <<rechazar>> una hipótesis sobre el proceso. La conjetura se denomina hipótesis nula. Una hipótesis puede no ser rechazada en tanto en cuanto se desee seguir investigando bajo la suposición de que la hipótesis nula es cierta. O puede ser un resultado decepcionante, que posiblemente indique que aún no se poseen suficientes datos para <<demostrar>> algo rechazando la hipótesis nula~\cite{lucon2018new}~\cite{nist}.
 
 \section{Herramientas}\label{sec:herramientas}
 \subsection{UBUMLaaS}\label{UBUMLaaS}
@@ -116,21 +116,31 @@ Finalmente Weka proporciona un resultado estadístico del procesamiento del mode
 
 Página web de la herramienta: \url{https://waikato.github.io/weka-wiki/}
 
+\subsection{Orange3}
+\texttt{Orange} es un \textit{software} de minería de datos basado en componentes. Ofrece un entorno para la creación, de manera rápida y sencilla, prototipos de los algoritmos más comunes de ML y casos de prueba. Un gran número de los componentes que lo conforma están escritos en Python.
+
+Entre los objetivos de \texttt{Orange} figura que sea una plataforma para la experimentación basada en selección, modelado predictivo y sistemas de aprobación. Permitiendo ser utilizada en campos como la bioinformática, el análisis del genoma, biomedicina y la enseñanza. Desde el punto de vista de la educación ofrece un apoyo en la enseñanza de la minería de datos y el aprendizaje automático.
+
+Página web de la herramienta: \url~{https://orangedatamining.com/}
+
+
 \subsection{PyCharm}
 
 PyCharm es uno de los IDEs\footnote{Entorno de desarrollo integrado, sistema de software para el diseño de aplicaciones que combina herramientas comunes para desarrolladores en una sola interfaz gráfica.} con soporte para Python más completos y exhaustivos, convirtiéndolo en uno de los más populares IDEs. Este éxito proviene en gran medida de que la empresa desarrolladora de este \textit{software} es JetBrains, el desarrollador detrás del popular IDE Intellij IDEA, uno de los 3 IDEs más grandes de Java.
 
 Disponible como una aplicación multiplataforma, PyCharm es compatible con los siguientes sistemas operativos: Windows, Linux y MacOS. Proporciona soporte para las versiones de Python 2.x (descontinuada desde 2021) y 3.x. Provee de un elevado número de módulos, paquetes y herramientas diseñadas para optimizar el desarrollo del código, al mismo tiempo que reduce el esfuerzo necesario para ello. Siendo totalmente personalizable en función de los requisitos de desarrollo y las preferencias personales. Cuenta con:
 \begin{itemize}
+\tightlist
 \item \textit{Debugger} gráfico.
 \item Validación de pruebas unitarias.
 \item Soporte integrado para sistemas de control de versiones, VCS.
 \item Soporte para análisis de datos con Anaconda.
 \end{itemize}
-PyCharm permite trabajar con múltiples bases de datos directamente sin necesidad de utilizar terceras aplicaciones en forma de intermediarias. A pesar de que está diseñado para Python, tiene soporte para HTML, CSS, Javascript,\dots
+PyCharm permite trabajar con múltiples bases de datos directamente sin necesidad de utilizar terceras aplicaciones en forma de intermediarias. A pesar de que está diseñado para Python, tiene soporte para HTML, CSS, Javascript, entre otros.
 
 Características y ventajas de PyCharm:
 \begin{itemize}
+\tightlist
 \item Editor de código inteligente. 
 \item Permite integrar nuevas herramientas.
 \item Soporte integrado para \textit{Machine Learning} y \textit{Data Science}.
@@ -152,6 +162,7 @@ Características y ventajas de PyCharm:
 
 Entre las principales desventajas se encuentran:
 \begin{itemize}
+\tightlist
 \item Requisitos mínimos elevados. 
 \item Precio de la licencia de uso elevado.
 \item Curva de aprendizaje.
@@ -177,6 +188,7 @@ Página web de la herramienta: \url{https://filezilla-project.org}
 \subsection{GitKraken}
 GitKraken es un potente \textit{software} diseñado para realizar de forma gráfica todas aquellas tareas que serían realizadas mediante Git en la consola de comandos tradicional. Es una herramienta multiplataforma, con soporte para Windows, Linux y MacOS; permite de forma sencilla mantenerse al tanto de repositorios, \textit{braches}, etiquetas, históricos, realizar \textit{commits}, etcétera. Entre sus características más relevantes destacamos:
 \begin{itemize}
+\tightlist
 \item Soporte para múltiples perfiles.
 \item Integración nativa con GitHub Enterprise, GitLab, Bitbucket y VCTS.
 \item Edición y visualización de ramas, \textit{merging}, histórico de \textit{commits}.

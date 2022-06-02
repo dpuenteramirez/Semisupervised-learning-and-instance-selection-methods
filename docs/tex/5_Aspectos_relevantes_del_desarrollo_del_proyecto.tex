@@ -23,7 +23,7 @@ Posiblemente será el aspecto relevante más cercano a el futuro laboral de cual
 La no existencia de una documentación, ni técnica ni formal, acerca del propio \textit{software} no ayudó a obtener una visión del proyecto más allá de la estructura de paquetes y nombres. Fue algo que se echó en falta, y que con la finalización de este proyecto, ya posee.
 
 \section{Desarrollo Web}
-A lo largo del Grado no se ha impartido docencia en cuanto a desarrollo web se refiere, siendo toda una desventaja a la hora de actualizar y modificar \texttt{UBUMLaaS}. Trabajar con una REST API era algo hasta enero desconocido, y la curva de aprendizaje no ha sido especialmente sencilla. Han sido necesarias numerosas horas para familiarizarse tanto con el proyecto como con la forma de trabajo que poseen las aplicaciones que siguen esta arquitectura.
+A lo largo del Grado no se ha recibido docencia en cuanto a desarrollo web se refiere, siendo toda una desventaja a la hora de actualizar y modificar \texttt{UBUMLaaS}. Trabajar con una REST API era algo hasta enero desconocido, y la curva de aprendizaje no ha sido especialmente sencilla. Han sido necesarias numerosas horas para familiarizarse tanto con el proyecto como con la forma de trabajo que poseen las aplicaciones que siguen esta arquitectura.
 
 A la hora de integrar nuevas modificaciones sobre el \textit{backend} del proyecto no supuso grandes problemas, fue un trabajo laborioso como es de esperar, pero al ser Python ya se estaba acostumbrado al lenguaje de programación. La dificultad llegó con el \textit{frontend}, lenguajes de marcas como HTML o CSS, y de programación como JavaScript, no eran desconocidos, pero no se habían utilizado nunca en grandes proyectos; es por ello que hubo tareas que se vieron retrasadas. 
 
@@ -32,14 +32,14 @@ Destacar que como ha sido la tónica general del proyecto, y así queda recogido
 La web ha sufrido una renovación completa, siendo necesario re-escribir todos los documentos HTML, si bien se tuvo desde un inicio en cuenta que ciertas páginas tuvieran un diseño similar al que ya poseían anteriormente para seguir con el diseño inicial. El nuevo diseño soporta múltiples resoluciones de pantalla, habiendo sido priorizadas aquellas soportadas en tabletas sobre las de dispositivos móviles.
 
 \subsection{Funcionalidades <<sobre la marcha>>}
-En el momento de desarrollo de la parte de administración de \texttt{UBUMLaaS} surgían cada día nuevas funcionalidades que parecían correctas o adecuadas para implementar y añadir, permitiendo a los administradores tener más control del que iban a poseer una vez pase a producción la versión creada.
+A lo largo del desarrollo de la parte de administración de \texttt{UBUMLaaS} surgían cada día nuevas funcionalidades que parecían correctas o adecuadas para implementar y añadir, permitiendo a los administradores tener más control del que iban a poseer una vez pase a producción la versión creada.
 
 Muchas de estas nuevas funcionalidades se han llevado a cabo y se encuentran disponibles y completamente integradas con la plataforma, si bien muchas otras no, se han quedado como trabajos futuros. Aquellas que se han quedado sin implementar fueron clasificadas con una relevancia baja, siendo priorizadas aquellas que se consideraron más útiles o curiosas.
 
 \section{PIP}
 \texttt{IS-SSL} es una biblioteca desarrollada con la finalidad de que sea útil a la mayor cantidad de desarrolladores posible, siguiendo las directrices del \textit{Open Source}, es por ello que se encuentra disponible a través del gestor de paquetes de Python, PIP. 
 
-El proyecto también puede ser descargado directamente desde el repositorio de GitHub y realizar todas las instalaciones de dependencias necesarias a través del fichero de \textit{requeriments.txt} o creando un entorno de \texttt{Conda} (a través del fichero \textit{is-ssl.yml}).
+El proyecto también puede ser descargado directamente desde el repositorio de GitHub y realizar todas las instalaciones de dependencias necesarias a través del fichero de \texttt{requeriments.txt} o creando un entorno de \texttt{Conda} (a través del fichero \texttt{is-ssl.yml}).
 
 \section{Docker}
 \texttt{UBUMLaaS} se encuentra desplegado en la Universidad de Burgos sobre un servidor directamente, pero con el fin de permitir que se despliegue en cualquier equipo y que la configuración específica sea mínima, se ha creado un contenedor Docker en el cuál reside la última versión de la aplicación. 
@@ -47,32 +47,28 @@ El proyecto también puede ser descargado directamente desde el repositorio de G
 El futuro de la aplicación podría ser únicamente en Docker perfectamente, siendo mucho más sencillo desplegarla en diferentes servidores, pero en la actualidad ese no es el enfoque deseado, por lo que se dejó para hacer al final en caso de que sobrara tiempo, como ha sucedido.
 
 \section{Validación de la integridad de los algoritmos implementados}
-Todos los algoritmos los cuáles se encuentran disponibles en \texttt{IS-SSL} han sido validados y refinados a lo largo de múltiples iteraciones de trabajo con el fin de garantizar su integridad, de forma que se puede asegurar que reportan resultados tal y como el \textit{paper} original lo presentó.
+Todos los algoritmos que se encuentran disponibles en \texttt{IS-SSL} han sido validados y refinados a lo largo de múltiples iteraciones de trabajo con el fin de garantizar su integridad, de forma que se puede asegurar que reportan resultados tal y como el \textit{paper} original lo presentó.
 
 \begin{itemize}
-\item Los algoritmos de selección de instancias han sido validados contra los homónimos correspondientes proporcionados por \texttt{Weka}, \textit{software} de ML desarrollado por la Universidad de Waikato.
+\item Los algoritmos de selección de instancias han sido validados contra los homónimos correspondientes proporcionados por \texttt{Weka}.
 \item Los algoritmos de aprendizaje semi-supervisado han sido validados contra los implementados por el grupo de investigación ADMIRABLE de la Universidad de Burgos.
 \end{itemize}
 
 
 \section{Experimentación de filtros de ruido para aprendizaje semi-supervisado}
-El aprendizaje semi-supervisado se basa en el entrenamiento de un modelo a partir de un pequeño número de prototipos etiquetados y uno mucho mayor de prototipos no etiquetados. Gracias a los innumerables campos de aplicación que posee, en los últimos años ha recibido mucha atención de la comunidad científica~\cite{van2020survey}. 
-
-Dependiendo el dobjetivo final de los métodos, SSL puede ser aplicado en problemas de clasificación semi-supervisada~\cite{chapelle2009semi} o \textit{clustering} semi-supervisado~\cite{pedrycz1985algorithms}. La primera puede dividirse en dos aproximaciones ligeramente diferentes~\cite{chen2010semi}, el aprendizaje transductivo y el inductivo. 
-
-En el aprendizaje transductivo, el problema es abordado desde la predicción de las etiquetas de las instancias no etiquetadas, dadas de antemano, teniendo en cuenta tanto los datos no etiquetados como los que sí lo están para entrenar un clasificador. Mientras que en el aprendizaje inductivo se consideran los datos etiquetados y no etiquetados como datos de entrenamiento, siendo su objetivo el predecir los ejemplos no vistos.
-
-La contrapartida se presenta en forma de que numerosos estudios empíricos demuestran como existen situaciones en las cuales el uso de esos datos no etiquetados pueden degradar el modelo. Siendo aconsejable el poder explotar los datos de forma segura.
+La problemática al utilizar algoritmos de SSL se presenta en forma de que numerosos estudios empíricos demuestran que existen situaciones en las cuales el uso de esos datos no etiquetados pueden degradar el modelo. Siendo aconsejable el poder explotar los datos de forma segura.
 
 Es por ello que múltiples estudios~\cite{zhao2021safe, guo2020safe, li2016towards} ya se han adentrado en el aprendizaje semi-supervisado seguro. Entendiendo por \emph{seguro} que el rendimiento de la generalización nunca es estadísticamente peor que los métodos que sólo utilizan datos etiquetados~\cite{li2019safe}.
 
 La experimentación llevada a cabo posee como objetivo validar la hipótesis:\\
-\emph{<<¿Se obtiene una selección más segura en aprendizaje semi-supervisado gracias a la aplicación de métodos de selección de instancias?>>}.
+\emph{<<¿Se obtiene un etiquetado más seguro en aprendizaje semi-supervisado gracias a la aplicación de métodos de selección de instancias en combinación con self-training?>>}.
 
 Introduciendo como novedades nuevos métodos de selección de instancias, así como clasificadores, hasta ahora no evaluados en problemas de esta naturaleza.
 
 \subsection{Experimentación}
-La experimentación ha sido realizada utilizando la aproximación propuesta en~\cite{li2019selfk}, bajo la cual el etiquetado de las instancias se produce en base a picos de densidad y la reducción del mismo mediante el uso de un filtrado de ruido previo. Así mismo, también se ha realizado la aproximación mediante el uso de \textit{self-training}.
+La experimentación en una primera instancia ha sido realizada utilizando \textit{self-training}, como algoritmo de aprendizaje semi-supervisado, utilizando como clasificadores base: \textit{K-Nearest Neighbors} y árboles de decisión. 
+
+En una segunda instancia se siguió la aproximación propuesta en~\cite{li2019selfk}, bajo la cual el etiquetado de las instancias se produce en base a picos de densidad y la reducción del mismo mediante el uso mediante el uso de un filtrado de ruido previo.
 
 Para la realización de la experimentación se utilizan 18 conjuntos de datos seleccionados del repositorio de la Universidad de California Irvine (UCI), la descripción de los diferentes conjuntos de datos se encuentra en la Tabla~\ref{tab:exp:datasets}. Los experimentos son realizados con diferentes porcentajes de número de instancias etiquetadas sobre el total, disponibles en la Tabla~\ref{tab:exp:percents}.
 
@@ -87,9 +83,11 @@ En todos los experimentos, se realiza una validación cruzada de 10 \textit{fold
 \noindent Métricas alcanzadas a partir de la matriz de confusión, esta es una herramienta que permite analizar los resultados de cómo trabaja un algoritmo de aprendizaje automático, repartiendo la información en columnas con las predicciones realizadas y en filas para el número real de instancias de cada clase. 
 Donde TP representa los \textit{true positive}, TN los \textit{true negative}, FP los \textit{false positives} y FN los \textit{false negatives}. 
 
-El conjunto de datos es dividido en 10 \textit{folds}, 9 de ellos para el conjunto de entrenamiento y 1 para el conjunto de prueba. Se utiliza selección estratificada aleatoria para la separación de los datos en entrenamiento y validación.
+El conjunto de datos es dividido en 10 \textit{folds}, 9 de ellos son usados como conjunto de entrenamiento y 1 para el conjunto de prueba/validación/\textit{test}. Se utiliza selección estratificada aleatoria para la separación de los datos en entrenamiento y validación.
 
-Anteriores artículos~\cite{li2019selfk} proponen esta misma aproximación pero utilizando únicamente el filtro propio \emph{ENaNE}, y el clasificador base \textit{k-Nearest Neighbors}, tal y como se muestra en la Tabla~\ref{tab:exp:classifiers} esta aproximación utiliza 3 clasificadores base con el fin de obtener una mayor diversidad de soluciones. Además, se utilizan los métodos de selección de instancias presentados en la Tabla~\ref{tab:exp:filters}.
+Anteriores artículos~\cite{li2019selfk} proponen esta misma aproximación pero utilizando únicamente el filtro propio \emph{ENaNE}, y el clasificador base \textit{k-Nearest Neighbors}, tal y como se muestra en la Tabla~\ref{tab:exp:classifiers}.
+
+La aproximación propuesta en esta documentación utiliza 3 clasificadores base con el fin de obtener una mayor diversidad de soluciones. Además, se utilizan los métodos de selección de instancias presentados en la Tabla~\ref{tab:exp:filters}.
 Con todo esto se obtiene un espectro mucho más amplio de soluciones comparables, permitiendo validar la hipótesis planteada.
 
 El  procedimiento seguido es directo y sencillo, mediante el uso de una semilla aleatoria, se asegura que todos los clasificadores y filtros poseen los mismos datos en cada \textit{n-ésima} iteración. El pseudocódigo se encuentra disponible en el Algoritmo~\ref{alg:pseudo-exp}.
@@ -202,13 +200,13 @@ El  procedimiento seguido es directo y sencillo, mediante el uso de una semilla 
 
 \FloatBarrier
 \subsection{Resultados}
-El análisis de los resultados a los que podemos llegar se realiza en función de cada estimador base, ya que se han seleccionado 3 de naturaleza distinta, no se pueden comparar de manera tan simple entre ellos.
+El análisis de los resultados a los que podemos llegar se realiza en función de cada estimador base, ya que se han seleccionado 3 de naturaleza distinta, no se pueden comparar de manera directa entre ellos.
 
-La aproximación seguida para conocer qué filtro (o ninguno) reporta mejores resultados para cada conjunto: estimador base-filtro, han sido los \textit{rankings} medios; se han evaluado para cada conjunto de datos y cada porcentaje de etiquetado. En la Figura~\ref{fig:exp-general} se muestra un resumen de todos los filtros para cada estimador\footnote{\emph{base} hace referencia a el resultado reportado por el estimador sin la aplicación de ningún método de selección de instancias sobre el conjunto de datos etiquetados.}. 
+La aproximación seguida para conocer qué filtro (si es que existe) reporta mejores resultados para cada conjunto: estimador base-filtro, han sido los \textit{rankings} medios; se han evaluado para cada conjunto de datos y cada porcentaje de etiquetado. En la Figura~\ref{fig:exp-general} se muestra un resumen de todos los filtros para cada estimador\footnote{\emph{base} hace referencia a el resultado reportado por el estimador sin la aplicación de ningún método de selección de instancias sobre el conjunto de datos etiquetados.}. 
 
 \imagenRuta{../img/memoria/aspectos-relevantes/General}{Resumen en función del clasificador y filtro.}{exp-general}
 
-En la Figura~\ref{fig:exp-general} no se aprecia a <<simple vista>> tendencia alguna para ningún clasificador base y método de selección de instancias, que destaque sobre el resto. Si bien se puede intuir que \texttt{LSSm} tiende a mejorar según se poseen más instancias etiquetadas, no es una conclusión válida, es por ello que se realizan tests estadísticos para comprobar si existen diferencias significativas entre los mismos.
+En la Figura~\ref{fig:exp-general} no se aprecia a <<simple vista>> tendencia alguna para ningún clasificador base y método de selección de instancias, que destaque sobre el resto. Si bien se puede intuir que \texttt{LSSm} tiende a mejorar según se poseen más instancias etiquetadas, no se puede asegurar a priori, es por ello que se realizan tests estadísticos para comprobar si existen diferencias significativas entre los mismos.
 
 El cálculo de los \textit{rankings} medios se ha validado gracias al uso de la herramienta \texttt{KEEL}\footnote{\textit{Knowledge Extraction based on Evolutionary Learning}. Herramienta de software Java que puede utilizarse para un gran número de tareas diferentes de descubrimiento de datos de conocimiento. KEEL proporciona una sencilla interfaz gráfica de usuario basada en el flujo de datos para diseñar experimentos con diferentes conjuntos de datos y algoritmos de IA.}~\cite{alcala2009keel, alcala2011keel}. Con la verificación de que los cálculos son correctos, se procede a realizar el \textit{test} de Nemenyi~\cite{nemenyi1963distribution} como \textit{test} \textit{post-hoc}, con el objetivo de encontrar las diferencias significativas entre clasificadores y los filtros utilizados. Este último paso viene propiciado como resultado de que el \textit{test} de Friedman~\cite{friedman1937use} rechazara la hipótesis nula.
 
@@ -247,15 +245,15 @@ Por motivos de espacio se muestra un resumen de las figuras obtenidas: \ref{fig:
             {{\tiny Diagrama \textit{Critical Difference} para \textit{k-Nearest Neighbors}.}}    
             \label{fig:knn2-posthoc}
         \end{subfigure}
-        \caption[ The average and standard deviation of critical parameters ]
-        {\small The average and standard deviation of critical parameters: Region R4} 
-        \label{fig:mean and std of nets}
+        \caption[Diagramas de \textit{Critical Difference} para algunos porcentajes de etiquetado y clasificadores base utilizados.]
+        {\small Diagramas de \textit{Critical Difference} para algunos porcentajes de etiquetado y clasificadores base utilizados.}
+        \label{fig:CDs}
     \end{figure*}
 
 \FloatBarrier
 \subsection{Conclusiones}
 Tal y como se apreciaba ya en la Figura~\ref{fig:exp-general}, no existen diferencias significativas entre los diferentes métodos de selección de instancias en relación con el aprendizaje semi-supervisado seguro. Los diagramas representando la Diferencia Crítica \ref{fig:knn-posthoc}, \ref{fig:gaussnb-posthoc}, \ref{fig:tree-posthoc}, y todos los demás no añadidos, no reportan en ningún caso un claro vencedor sobre los demás, para ningún clasificador base analizado. 
 
-Estos resultados nos permiten llegar a la conclusión de que si bien los tiempos de ejecución son ligeramente inferiores en función del método de selección de instancias utilizado (en función de la <<agresividad>> con la que elimine instancias), no existe un ganador.
+Estos resultados nos permiten llegar a la conclusión de que si bien los tiempos de ejecución son ligeramente inferiores en función del método de selección de instancias utilizado (en función de la <<agresividad>> con la que elimine instancias), no existe un ganador que nos permita asegurar que el uso de técnicas de selección de instancias con SSL lo haga más seguro.
 
 
