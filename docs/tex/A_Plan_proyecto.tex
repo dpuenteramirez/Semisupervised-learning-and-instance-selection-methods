@@ -1,20 +1,20 @@
 \apendice{Plan de Proyecto Software}
 \section{Introducción}
-En este anexo se tratará el plan de proyecto, es la base sobre la que se crea el proyecto. Desde el punto de vista de la temporalidad y la viabilidad. Es una parte fundamental del ya que permitirá visualizar el escenario en el que se desarrollará el proyecto, permitiendo hacer una alineación estratégica de todos los elementos que se deben completar para finalizar correctamente el proyecto.
+En este anexo se tratará el plan de proyecto, es la base sobre la que se crea el proyecto \textit{software}. Desde el punto de vista de la temporalidad y la viabilidad. Siendo una parte fundamental del proyecto ya que permitirá visualizar el escenario en el que se desarrollará, permitiendo hacer una alineación estratégica de todos los elementos que se deben completar para finalizarlo correctamente.
 
 Desde el punto de vista de la planificación temporal, el proyecto sigue la metodología ágil \textit{Scrum}. Permitiendo definir cada uno de los objetivos que se desean alcanzar, los elementos que los componen y su respectiva prioridad.
 
-\textit{Scrum}, de manera muy resumida, trabaja con u \textit{product backlog}, es una lista de prioridades en función del valor de cada tarea. Cuando comienza un \textit{sprint}, se empieza a trabajar en las tareas que se encuentren en el \textit{sprint backlog}, estas han sido extraídas del \textit{product backlog}. En el caso de este proyecto se realiza una reunión de planificación, \textit{sprint planning}, cada dos semanas aproximadamente.
+\textit{Scrum}, de manera muy resumida, trabaja con un \textit{product backlog}, es una lista de prioridades en función del valor de cada tarea. Cuando comienza un \textit{sprint}, se empieza a trabajar en las tareas que se encuentren en el \textit{sprint backlog}, estas han sido extraídas del \textit{product backlog}. En el caso de este proyecto se realiza una reunión de planificación, \textit{sprint planning}, cada dos semanas inicialmente y posteriormente cada semana.
 
 Para el control y seguimiento se utiliza una herramienta externa, \textit{Zenhub}, la cual permite la definición de las tareas, el seguimiento de cada una de ellas en función de la planificación póker, seguimiento de cada \textit{sprint}, el versionado, etc.
 
 Seguidamente se realizará un estudio de la viabilidad del proyecto, tanto a nivel económico como legal.
 \newpage
 
-\section{Usuarios Participantes}\label{usuarios-participantes}
+\section{Usuarios participantes}\label{usuarios-participantes}
 En la fase de análisis han participado diversos usuarios, entre los que se han repartido los principales <<papeles>>.
 \begin{itemize}
-\item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de multiples papeles a lo largo de esta fase:
+\item Dr. Álvar Arnaiz González, tutor del proyecto, ha sido partícipe de múltiples papeles a lo largo de esta fase:
 \begin{itemize}
 \item \textit{Cliente}. Descripción de las funcionalidades deseadas de la aplicación y el comportamiento que debe de tener.
 \item \textit{Técnico}. Aportando conocimientos acerca de las técnicas de selección de instancias y su relación con la minería de datos. Junto con ello ha compartido sus conocimientos en el uso de bibliotecas tales como Weka, Scikit-Learn, o el lenguaje de marcas \LaTeX. Así como el aporte de grandes cantidades de documentación en forma de \textit{papers} o documentación web. 
@@ -27,7 +27,7 @@ En la fase de análisis han participado diversos usuarios, entre los que se han 
 \subsection{\textit{SCRUM}}
 \textit{Scrum} es un marco de trabajo que permite el trabajo colaborativo en equipos. Permite que los equipos que trabajan en proyectos con esta metodología se organicen por sí mismos, siendo ellos los que deciden cómo afrontar los problemas que van surgiendo. 
 
-Según~\cite{cervone2011understanding}, el modelo \textit{Scrum} se basa en tres componentes principales: roles, procesos y artefactos. El \textit{Scrum Master} es el puesto asumido por el director o gerente del proyecto, o en algunos casos el líder del equipo. Esta figura representa los valores y principios por los que se rige la metodología de \textit{scrum}, manteniendo los valores y buenas prácticas, así como resolviendo los impedimentos que vayan surgiendo a lo largo del desarrollo del proyecto. Habitualmente los equipos están compuestos por entre cinco y diez personas que trabajan en el proyecto a tiempo completo. Siendo este equipo independiente y flexible en cuanto a jerarquía interna, no siendo representado el papel del ``jefe'' dentro de este por la misma persona siempre. Esto genera que el papel cambie en función de las necesidades del propio proyecto, la configuración del equipo cambia únicamente entre iteraciones, o \textit{sprints}, no dentro de los mismos.
+Según~\cite{cervone2011understanding}, el modelo \textit{Scrum} se basa en tres componentes principales: roles, procesos y artefactos. El \textit{Scrum Master} es el puesto asumido por el director o gerente del proyecto, o en algunos casos el líder del equipo. Esta figura representa los valores y principios por los que se rige la metodología de \textit{scrum}, manteniendo los valores y buenas prácticas, así como resolviendo los impedimentos que vayan surgiendo a lo largo del desarrollo del proyecto. Habitualmente los equipos están compuestos por entre cinco y diez personas que trabajan en el proyecto a tiempo completo. Siendo este equipo independiente y flexible en cuanto a jerarquía interna, no siendo representado el papel del <<jefe>> dentro de este por la misma persona siempre. Esto genera que el papel cambie en función de las necesidades del propio proyecto, la configuración del equipo cambia únicamente entre iteraciones, o \textit{sprints}, no dentro de los mismos.
 
 \begin{figure}[]
 	\centering
@@ -43,17 +43,17 @@ A pesar de las similitudes los \textit{sprints} poseen un objetivo subyacente, e
 \subsubsection{\textit{Sprint meetings}}
 Dentro de la metodología \textit{scrum} existen diferentes reuniones que favorecen la agilidad del proyecto y que todo el mundo sepa lo que tiene que hacer en cada momento.
 \begin{itemize}
-\item \textbf{\textit{Sprint planning meeting.}} Esta reunión puede tener una duración de hasta de un día completo de trabajo. En ella deben de estar presentes todas las partes del proyecto, \textit{i.e.} el \textit{Scrum Master}, el equipo de desarrollo, y el \textit{product owner}. Poseen dos partes, en la primera de ellas se define el \textit{product backlog}, requerimientos del proyecto y se definen los objetivos para el \textit{sprint} que comienza, \textit{i.e.} lo que se espera ``construir'' o completar en el \textit{sprint}. En la segunda parte de la reunión se trabaja en el \textit{sprint backlog}, las tareas que se van a seguir en el \textit{sprint} para completar el objetivo de éste.
-\item \textbf{\textit{Daily meeting.}} Debido a que los requerimientos del proyecto no se pueden variar durante la vida de un \textit{sprint}, existen las reuniones diarias que son organizadas por el \textit{Scrum Master} en las que se comenta el trabajo del día previo, lo que se espera de ese día y qué está retrasando o impidiendo a un individuo el proseguir con sus tareas, esta reunión no debe tener una duración de más de quince minutos y se debe realizar ``de pie''. No es una reunión para ver quién retrasa el proyecto sino para ayudar a quién lo necesite entre todos los miembros del equipo y permitir esa agilidad.
+\item \textbf{\textit{Sprint planning meeting.}} Esta reunión puede tener una duración de hasta de un día completo de trabajo. En ella deben de estar presentes todas las partes del proyecto, \textit{i.e.} el \textit{Scrum Master}, el equipo de desarrollo, y el \textit{product owner}. Poseen dos partes, en la primera de ellas se define el \textit{product backlog}, requerimientos del proyecto y se definen los objetivos para el \textit{sprint} que comienza, \textit{i.e.} lo que se espera <<construir>> o completar en el \textit{sprint}. En la segunda parte de la reunión se trabaja en el \textit{sprint backlog}, las tareas que se van a seguir en el \textit{sprint} para completar el objetivo de éste.
+\item \textbf{\textit{Daily meeting.}} Debido a que los requerimientos del proyecto no se pueden variar durante la vida de un \textit{sprint}, existen las reuniones diarias que son organizadas por el \textit{Scrum Master} en las que se comenta el trabajo del día previo, lo que se espera de ese día y qué está retrasando o impidiendo a un individuo el proseguir con sus tareas, esta reunión no debe tener una duración de más de quince minutos y se debe realizar <<de pie>>. No es una reunión para ver quién retrasa el proyecto sino para ayudar a quién lo necesite entre todos los miembros del equipo y permitir esa agilidad.
 \item \textbf{\textit{Sprint review meeting.}} Reunión fijada al final de cada \textit{sprint} en la cual se hace una puesta en conocimiento de lo que se ha realizado en ese \textit{sprint}, siempre que se pueda se hará una demostración funcional en lugar de una presentación al \textit{product owner}. Esta reunión tiene un carácter informal.
 \end{itemize}
  
 \subsubsection{Artifacts}
 Uno de los componentes más importantes de cara a la metodología \textit{scrum} son los artefactos, o \textit{artifacts} por su nombre en inglés. Éstos incluyen el \textit{product backlog}, el \textit{sprint backlog} y los \textit{burn down charts}.
 \begin{itemize}
-\item \textbf{\textit{Product backlog.}} Lista de trabajo ordenada por las prioridades para el equipo de desarrollo. Es generada a partir de las reuniones de planificación de los \textit{sprints}, contiene los requisitos. Se encuentra actualizado y clasificado en función de la periodicidad asignada a las tareas, pudiendo ser de corto o largo plazo. Aquellas tareas que se deban resolver a corto plazo deberán estar perfectaemnte descritas antes de asignarlas esta periodicidad, implicnddo que se han diseñado las historias de usuario completas así como el equipo de desarrollo ha establecido las estimaciones correspondientes. Los elementos a largo plazo pueden ser abstractos u opacos, conviene que estén estimados en la medida de lo posible para poder tener en cuenta el tiempo que llevará desarrollarla.
+\item \textbf{\textit{Product backlog.}} Lista de trabajo ordenada por las prioridades para el equipo de desarrollo. Es generada a partir de las reuniones de planificación de los \textit{sprints}, contiene los requisitos. Se encuentra actualizado y clasificado en función de la periodicidad asignada a las tareas, pudiendo ser de corto o largo plazo. Aquellas tareas que se deban resolver a corto plazo deberán estar perfectamente descritas antes de asignarlas esta periodicidad, implicando que se han diseñado las historias de usuario completas así como el equipo de desarrollo ha establecido las estimaciones correspondientes. Los elementos a largo plazo pueden ser abstractos u opacos, conviene que estén estimados en la medida de lo posible para poder tener en cuenta el tiempo que llevará desarrollarla.
 
-Los propietarios del producto dictan la prioridad de los elementos de trabajo en el \textit{product backlog}, mientras que el equipo de desarrollo dicta la velocidad a la que se trabaja en \textit{backlog}~\cite{danradigan2021}.
+Los propietarios del producto dictan la prioridad de los elementos de trabajo en el \textit{product backlog}, mientras que el equipo de desarrollo dicta la velocidad a la que se trabaja el \textit{backlog}~\cite{danradigan2021}.
 
 La estimación es una parte muy importante ya que es lo que permitirá al equipo de desarrollo mantener el ánimo y el trabajo al ritmo deseado. La estimación es realizada en la \textit{sprint planning meeting}, en la que se estima para cada tarea/producto del \textit{product backlog}. No se busca tener un resultado exacto del tiempo que va a llevar al equipo completar esa tarea, sino es una previsión. Para realizar correctamente la estimación se debe tener en cuenta el tamaño y la categoría de la tarea, los puntos de historia que se le van a asignar, así como el número de horas y días que van a ser necesarias para completar la tarea. 
 
@@ -65,14 +65,14 @@ Dentro de un equipo que sigue la metodología \textit{scrum} encontramos diferen
 \begin{itemize}
 \item \textbf{\textit{Product Owner.}} Encargado de optimizar y maximizar el valor del producto, es la persona encargada de gestionar las prioridades del \textit{product backlog}. Una de sus principales tareas es la de ser intermediario con los \textit{stakeholders}, partes interesadas, del proyecto; junto con recoger los requerimientos de los clientes. Es habitual que esta figura sea representante del negocio, con lo que aumenta su valor.
 
-Para cada \textit{sprint} debe de marcar el objetivo de éste de manera clara y acordada con el equipo de desarrollo, lo cual hará que el producto vaya incrementando constantemente su valor. Para que todo fluya como debe, esta figura tiene que tener el ``poder'' de tomar decisiones que afecten al producto.
+Para cada \textit{sprint} debe de marcar el objetivo de éste de manera clara y acordada con el equipo de desarrollo, lo cual hará que el producto vaya incrementando constantemente su valor. Para que todo fluya como debe, esta figura debe tener el <<poder>> de tomar decisiones que afecten al producto.
 
 \item \textbf{\textit{Scrum Master.}} Figura con dos responsabilidades, gestionar el proceso \textit{scrum} y ayudar a eliminar impedimentos que puedan afectar a la entrega del producto.
 \begin{enumerate}
 \item Gestionar el proceso \textit{scrum}. Su función es asegurarse de que el proceso se lleva a cabo correctamente, facilitando la ejecución de éste y sus mecánicas. Consiguiendo que la metodología sea una fuente de generación de valor.
 \item Eliminar impedimentos. Eliminar los problemas que vayan surgiendo a lo largo de los \textit{sprints} con el fin de mantener el ritmo de trabajo dentro de los equipos de desarrollo para poder entregar valor, manteniendo la integridad de la metodología.
 \end{enumerate}
-\item \textbf{Equipo de desarrollo.} Formado por entre cinco y diez personas encargados del desarrollo del producto, organizados de forma autónoma para conseguir entregar las tareas del \textit{product backlog} asignadas al \textit{sprint} correspondiente. Para que funcione correctamente la metodología todos los integrantes deben de conocer su rol dentro del equipo, internamente se pueden gestionar como el equipo considere, pero de cara ``hacia fuera'' son un equipo con una responsabilidad.
+\item \textbf{Equipo de desarrollo.} Formado por entre cinco y diez personas encargadas del desarrollo del producto, organizados de forma autónoma para conseguir entregar las tareas del \textit{product backlog} asignadas al \textit{sprint} correspondiente. Para que funcione correctamente la metodología todos los integrantes deben de conocer su rol dentro del equipo, internamente se pueden gestionar como el equipo considere, pero de cara <<hacia fuera>> son un equipo con una responsabilidad.
 \end{itemize}
 \newpage
 \subsection{Planificación por \textit{sprints}}
@@ -92,7 +92,7 @@ Los objetivos definidos han sido:
 \item Lectura de \textit{papers} relacionados con el ámbito de la inteligencia artificial. En concreto \textit{SSL density peaks}~\cite{wu2018self}, \textit{Co-Training}~\cite{blum1998combining}, \textit{Tri-Training}~\cite{zhou2005tri} y \textit{Democratic Co-Learning}~\cite{zhou2004democratic}.
 \end{enumerate}
 
-El tiempo empleado en la lectura y asimilación de estos conceptos ha sido de catorce horas, es la primera vez que se leen \textit{papers} o artículos científicos completos procurando asimilar todos los conceptos de éstos. Se ha desarrollado entre el veintisiete de octubre y el cinco de noviembre, de dos mil veintiuno. 
+El tiempo empleado en la lectura y asimilación de estos conceptos ha sido de catorce horas, es la primera vez que se leen \textit{papers} o artículos científicos completos procurando asimilar todos los conceptos de éstos. Se ha desarrollado entre el 27/10/2021 y 05/11/2021.
 
 \subsubsection{\textit{Sprint} 1: Chad}
 \begin{itemize}
@@ -100,7 +100,7 @@ El tiempo empleado en la lectura y asimilación de estos conceptos ha sido de ca
 Objetivos del primer \textit{sprint}:
 \begin{enumerate}
 \item Lectura del API de \textit{scikit-learn}. Comprensión del funcionamiento de los transformadores y estimadores enfocado desde el punto de su programación.
-\item Lectura de los \textit{papers On issues instance selection}~\cite{liu2002issues}, \textit{Comparison of instances seletion algorithms I. algorithms survey}~\cite{jankowski2004comparison} y \textit{Comparison of instance selection algorithms II. Results and comments}~\cite{grochowski2004comparison}.
+\item Lectura de los \textit{papers}: \textit{On issues instance selection}~\cite{liu2002issues}, \textit{Comparison of instances selection algorithms I. algorithms survey}~\cite{jankowski2004comparison} y \textit{Comparison of instance selection algorithms II. Results and comments}~\cite{grochowski2004comparison}.
 \item Implementación de las técnicas de reducción del conjunto de entrenamiento, basados en $k$-NN.
 \end{enumerate}
 
@@ -114,12 +114,12 @@ El \textit{sprint} se desarrolla entre 08/11/2021 y 19/11/2021. Han sido dedicad
 \caption{\textit{Burndown Chart Sprint 1.}}\label{fig:BD-Sprint1}
 \end{center}
 \end{figure}
-Durante este \textit{sprint} el trabajo inicial comenzó ligeramente retrasado, motivos en el apartado \textit{sprint review meeting}, por lo tanto podemos observar en la Figura ~\ref{fig:BD-Sprint1} como el trabajo completado dista del ideal o proyectado para este \textit{sprint}.
+Durante este \textit{sprint} el trabajo inicial comenzó ligeramente retrasado, motivos en el apartado \textit{sprint review meeting}, por lo tanto podemos observar en la Figura~\ref{fig:BD-Sprint1} como el trabajo completado dista del ideal o proyectado para este \textit{sprint}.
 
 En el \textit{sprint backlog} habían sido incluidos todos los algoritmos a programar, es por ello que indica que se ha completado aproximadamente la mitad del trabajo.
 
 \item \textbf{\textit{Sprint review meeting}}\\
-El trabajo en este primer \textit{sprint} ha salido adelante correctamente. Al ser el primer \textit{sprint} ha habido un pequeño error de configuración del repositorio junto con la herramienta ZenHub, de ahí que en el \textit{burndown chart} de esta semana, Figura ~\ref{fig:BD-Sprint1}, aparezca como que la primera semana del \textit{sprint} no ha habido trabajo completado.
+El trabajo en este primer \textit{sprint} ha salido adelante correctamente. Al ser el primer \textit{sprint} ha habido un pequeño error de configuración del repositorio junto con la herramienta ZenHub, de ahí que en el \textit{burndown chart} de esta semana, Figura~\ref{fig:BD-Sprint1}, aparezca como que la primera semana del \textit{sprint} no ha habido trabajo completado.
 
 La adaptación a la metodología ágil ha resultado un poco compleja.
 \end{itemize}
@@ -133,7 +133,6 @@ Objetivos del segundo \textit{sprint}:
 \item Añadir la documentación correspondiente a los algoritmos implementados.
 \item Comprobar el rendimiento de los algoritmos implementados respecto a los resultados de una ejecución similar con el software \textit{Weka}.
 \end{enumerate}
-El \textit{sprint} se desarrolla entre el veintidós de noviembre y el tres de diciembre de dos mil veintiuno. Han sido dedicadas al desarrollo del proyecto treinta y ocho horas.
 
 \item \textbf{Marcas temporales}\\
 El \textit{sprint} se desarrolla entre 20/11/2021 y 04/12/2021.
@@ -145,12 +144,12 @@ El \textit{sprint} se desarrolla entre 20/11/2021 y 04/12/2021.
 \caption{\textit{Burndown Chart Sprint 2.}}\label{fig:BD-Sprint2}
 \end{center}
 \end{figure}
-El trabajo realizado a lo largo de este \textit{sprint} ya ha sido adecuado a la metodología \textit{scrum}, obteniendo un \textit{burndown chart}, Figura ~\ref{fig:BD-Sprint2}, con más sentido que la que se había obtenido en el \textit{Sprint } 1. 
+El trabajo realizado a lo largo de este \textit{sprint} ya ha sido adecuado a la metodología \textit{scrum}, obteniendo un \textit{burndown chart}, Figura~\ref{fig:BD-Sprint2}, con más sentido que la que se había obtenido en el \textit{Sprint } 1. 
 
 El equipo de desarrollo se sigue habituando poco a poco a la metodología de trabajo y en este \textit{sprint} se ha trabajo por debajo del <<ideal>> para el proyecto. 
 
 \item \textbf{\textit{Sprint review meeting}}\\
-A lo largo de este \textit{sprint} se descubrió un problema en la forma de identificar los $k$-NN en el algoritmo \textit{Condensed Nearest Neighbor, CNN}~\cite{hart1968condensed}, retrasando el trabajo cuatro horas, entre identificación y re-programación. Este error se descubrió mientras se investigaba otro error, en este caso el algoritmo \textit{Iterative Case Filtering, ICF}~\cite{brighton2002advances} terminaba en error buscando los k-NN de las últimas instancias.
+A lo largo de este \textit{sprint} se descubrió un problema en la forma de identificar los $k$-NN en el algoritmo \textit{Condensed Nearest Neighbor, CNN}~\cite{hart1968condensed}, retrasando el trabajo cuatro horas, entre identificación y re-codificación. Este error se descubrió mientras se investigaba otro error, en este caso el algoritmo \textit{Iterative Case Filtering, ICF}~\cite{brighton2002advances} terminaba en error buscando los \textit{k}-NN de las últimas instancias.
 
 La implementación de los algoritmos \textit{Reduced Nearest Neighbor, RNN}~\cite{gates1972reduced} y \textit{Modified Selective Subset, MSS}~\cite{barandela2005decision} ha sido relativamente asequible una vez se comprendía el algoritmo en cuestión así como su funcionamiento (entradas, procesado, salidas...).
 \end{itemize}
@@ -175,7 +174,7 @@ Se va a realizar en \LaTeX.
 El \textit{sprint} se desarrolla entre el 06/12/2021 y el 17/12/2021. Han sido dedicadas al desarrollo del proyecto 45 horas.
 
 \item \textbf{\textit{Burndown chart}}\\
-El trabajo realizado en este tercer \textit{sprint} ha sido realizado a un ritmo constante y con una dedicación en número de horas un poco mayor a los anteriores, como se puede ver en el \textit{Burndown report}, ver figura~~\ref{fig:BD-Sprint3}, el número de \textit{story points} de este \textit{sprint} era de 39 y a pesar de que algunas tareas llevaron más tiempo del inicialmente planificado, otras resultaron ser totalmente lo contrario, mucho más rápidas de realizar.
+El trabajo en este tercer \textit{sprint} ha sido realizado a un ritmo constante y con una dedicación en número de horas un poco mayor a los anteriores, como se puede ver en el \textit{Burndown report}, ver Figura~\ref{fig:BD-Sprint3}, el número de \textit{story points} de este \textit{sprint} era de 39 y a pesar de que algunas tareas llevaron más tiempo del inicialmente planificado, otras resultaron ser totalmente lo contrario, mucho más rápidas de realizar.
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint3}
@@ -185,13 +184,13 @@ El trabajo realizado en este tercer \textit{sprint} ha sido realizado a un ritmo
 \item \textbf{\textit{Sprint review meeting}}\\
 Este \textit{sprint} ha sido un poco más grande en cuanto a horas de trabajo invertidas ya que el tiempo del equipo de desarrollo así lo ha permitido. A su vez se han detectado \textit{bugs} en la codificación de algoritmos como ICF (se arreglará en el siguiente \textit{sprint}) el cual después de comparar sus resultados contra los expresados por \textit{Weka} con 9 conjuntos de datos no considerados como de juguete, la codificación del proyecto obtiene soluciones 20\% inferiores; el resto de los algoritmos implementados están en el rango de $\pm2\%$. A su vez también se han descubierto limitaciones de otros algoritmos como es el caso de ENN cuando tiene pocas muestras y un número elevado de clases diferentes.
 
-Se ha proseguido con la redacción de la memoria del trabajo, finalizando la primera parte de conceptos teóricos y comenzando la explicación teórica de los algoritmos que
+Se ha proseguido con la redacción de la memoria del trabajo, finalizando la primera parte de conceptos teóricos y comenzando la explicación teórica de los algoritmos que se van a implementar.
 \end{itemize}
 
 \subsubsection{\textit{Sprint} 4: The Seven}
 \begin{itemize}
 \item \textbf{\textit{Planning meeting}}\\
-Objetivos del cuarto \textit{sprint}
+Objetivos del cuarto \textit{sprint}:
 \begin{enumerate}
 \item Revisar y corregir la codificación del algoritmo \textit{Iterative Case Filtering}, \textit{ICF}.
 \item Formatear las métricas de rendimiento recogidas durante el \textit{sprint} anterior.
@@ -201,7 +200,7 @@ Objetivos del cuarto \textit{sprint}
 El \textit{sprint} se desarrolla entre el 18/12/2021 y el 23/12/2021. Han sido dedicadas al desarrollo del proyecto 21 horas. Este \textit{sprint} posee una duración más corta con el fin de ajustar las reuniones a las festividades propias de la Navidad.
 
 \item \textbf{\textit{Burndown chart}}\\
-En el \textit{Burndown report} asociado a este \textit{sprint}, ver figura~~\ref{fig:BD-Sprint4}, se aprecia como el trabajo ha sido finalizado  en unas marcas temporales muy por delante de lo <<ideal>>. Esto se debe a que el equipo de desarrolló comenzó a realizar el trabajo el sábado 18 de diciembre, en lugar de esperar al lunes 20, bajo la presunción de que el trabajo asignado iba a ser mayor.
+En el \textit{Burndown report} asociado a este \textit{sprint}, ver Figura~\ref{fig:BD-Sprint4}, se aprecia como el trabajo ha sido finalizado  en unas marcas temporales muy por delante de lo <<ideal>>. Esto se debe a que el equipo de desarrolló comenzó a realizar el trabajo el sábado 18 de diciembre, en lugar de esperar al lunes 20, bajo la presunción de que el trabajo asignado iba a ser mayor.
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{../img/anexos/sprints/BD-Sprint4}
@@ -210,7 +209,7 @@ En el \textit{Burndown report} asociado a este \textit{sprint}, ver figura~~\ref
 \end{figure}
 
 \item \textbf{\textit{Sprint review meeting}}\\
-Ha pesar de la corta duración del \textit{sprint} para poder organizar el siguiente \textit{sprint} antes de las festividades navideñas, el trabajo realizado ha sido correcto e importante, debido a que para poder seguir trabajando en otros algoritmos de selección de instancias o de aprendizaje semi-supervisado, lo anterior debe de quedar correctamente hecho. Es por ello, que prácticamente se le ha dedicado un \textit{sprint} entero a arreglar el algoritmo \textit{Iterative Case Filtering, ICF}, ya que con él y a falta de implementar DROP3, ya tendríamos todos los algoritmos de selección de instancias correctamente implementados.
+A pesar de la corta duración del \textit{sprint} para poder organizar el siguiente \textit{sprint} antes de las festividades navideñas, el trabajo realizado ha sido correcto e importante, debido a que para poder seguir trabajando en otros algoritmos de selección de instancias o de aprendizaje semi-supervisado, lo anterior debe de quedar correctamente hecho. Es por ello, que prácticamente se le ha dedicado un \textit{sprint} entero a arreglar el algoritmo \textit{Iterative Case Filtering, ICF}, ya que con él y a falta de implementar DROP3, ya tendríamos todos los algoritmos de selección de instancias correctamente implementados.
 \end{itemize}
 \vfill
 \subsubsection{\textit{Sprint} 5: Murph}
@@ -235,7 +234,7 @@ Este \textit{sprint} se desarrolla entre el 24/12/2021 y el 10/01/2022. Tiene un
 \caption{\textit{Burndown Chart Sprint 5.}}\label{fig:BD-Sprint5}
 \end{center}
 \end{figure}
-En este \textit{sprint}, y como vemos en la figura~\ref{fig:BD-Sprint5}, referente al correspondiente \textit{Burndown report}; se ha realizado una gran cantidad de trabajo, habiendo siendo completados 77 puntos de historia, una cantidad muy superior a anteriores \textit{sprints}, esto es debido en gran parte a las fechas en las que nos encontramos, ya que el número de horas que se han podido invertir en el desarrollo del proyecto ha sido muy superior a lo que venían siendo habituales. En total han sido utilizadas cerca de 110 horas de trabajo, siendo repartidas en los 17 días que ha durado el \textit{sprint} y con una media de horas de trabajo de 6.5 horas diarias. 
+En este \textit{sprint}, y como vemos en la Figura~\ref{fig:BD-Sprint5}, referente al correspondiente \textit{Burndown report}; se ha realizado una gran cantidad de trabajo, habiendo siendo completados 77 puntos de historia, una cantidad muy superior a anteriores \textit{sprints}, esto es debido en gran parte a las fechas en las que nos encontramos, ya que el número de horas que se han podido invertir en el desarrollo del proyecto ha sido muy superior a lo que venían siendo habituales. En total han sido utilizadas cerca de 110 horas de trabajo, siendo repartidas en los 17 días que ha durado el \textit{sprint} y con una media de horas de trabajo de 6.5 horas diarias. 
 
 \item \textbf{\textit{Sprint review meeting}}\\
 Todo el trabajo que se ha realizado en este \textit{sprint} podría haber sido realizado seguramente en tres cuartas partes del tiempo real invertido, pero debido al tiempo de lectura de los artículos de donde se extraían los algoritmos, así como su correcta comprensión, codificación y posterior resolución de problemas asociados a \textit{bugs} que se van descubriendo <<sobre la marcha>>, ha sido un \textit{sprint} largo y en algunos momentos agotador. 
@@ -267,7 +266,7 @@ Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint6} referente al sexto \text
 El número de horas aproximado que se han invertido han sido de 50h, permitido en gran medida con que todavía no hay clases del segundo cuatrimestre.
 
 \item \textbf{\textit{Sprint review meeting}}\\
-El trabajo realizado en este \textit{sprint} ha ido de acuerdo a lo que se comentó en la anterior reunión. Si bien ha sido un \textit{sprint} más enfocado a <<cerrar>> una parte de trabajo que se llevaba realizada para poder comenzar con el mejor pie posible la segunda etapa.
+El trabajo realizado en este \textit{sprint} ha ido de acuerdo con lo que se comentó en la anterior reunión. Si bien ha sido un \textit{sprint} más enfocado a <<cerrar>> la parte de trabajo que se llevaba realizada para poder comenzar con el mejor pie posible la segunda etapa.
 
 Un punto de inflexión realizado en este \textit{sprint} ha sido la refactorización de gran parte del repositorio, dejándolo en un formato de paquetes.
 \end{itemize}
@@ -294,10 +293,10 @@ Este \textit{sprint} se desarrolla entre el 25/01/2022 y el 02/02/2022. Es un \t
 \caption{\textit{Burndown Chart Sprint 7.}}\label{fig:BD-Sprint7}
 \end{center}
 \end{figure}
-El \textit{Burndown} de este \textit{sprint} representa un ritmo de trabajo <<adelantado>> a la velocidad óptima, esto se debe a que como en el \textit{sprint} anterior no se cerraron todas las \textit{issues} previa la finalización del mismo, pero sí fueron cerradas previo el inicio de este nuevo \textit{sprint}, el gráfico queda por debajo siempre. El número de horas invertido ha rondado las 35h. Un \textit{sprint} de menor tamaño.
+El \textit{Burndown} de este \textit{sprint} representa un ritmo de trabajo <<adelantado>> a la velocidad óptima, esto se debe a que como en el \textit{sprint} anterior no se cerraron todas las \textit{issues} previa la finalización de este, pero sí fueron cerradas previo el inicio de este nuevo \textit{sprint}, el gráfico queda por debajo siempre. El número de horas invertido ha rondado las 35h. Un \textit{sprint} de menor tamaño.
 
 \item \textbf{\textit{Sprint review meeting}}\\
-Este \textit{sprint} si bien es como el anterior muy corto, y se ajusta a la temporarización del proyecto, ha tenido una carga de trabajo un poco más alta de lo esperado, esto se debe a que la integración de nuevos algoritmos a UBUMLaaS parecía en un primer momento muy directo, pero se han requerido hacer modificaciones con las que no se contaba en un primer momento.
+Este \textit{sprint} si bien es como el anterior muy corto, y se ajusta a la temporalización del proyecto, ha tenido una carga de trabajo un poco más alta de lo esperado, esto se debe a que la integración de nuevos algoritmos a UBUMLaaS parecía en un primer momento muy directo, pero se han requerido hacer modificaciones con las que no se contaba en un primer momento.
 
 \end{itemize}
 
@@ -360,11 +359,11 @@ Este \textit{sprint} tiene una duración de una semana, tal y como se desea (apr
 Quedando el trabajo finalizado un par de días antes de la fecha de finalización del \textit{sprint}, dando al equipo de desarrollo tiempo para planear futuras tareas y aproximaciones a problemas conocidos.
 
 \item \textbf{\textit{Sprint review meeting}}\\
-En este \textit{sprint} se planificó <<tirando a lo alto>> en los puntos de historia, se debe a que se requería comprobar la implementación de los tres algoritmos de aprendizaje Semi-Supervisado, y en caso de que alguno (o todos) tuviera una implementación incorrecta, realizar los ajustes pertinentes para que fuera correcta. Debido a la experiencia del equipo de desarrollo un mes atrás con el filtro ICF, el cual tuvo que ser re-programado y revisado en más de una ocasión debido a su inconsistencia, se aventuró un futuro similar con éstos algoritmos ya que son más grandes y con una complejidad superior. La realidad en este caso superó las expectativas del equipo de desarrollo, cuando los tres algoritmos tuvieron una desviación menor al 1\% en comparación con los de Jose Luis. (En futuros \textit{sprints} se ha propuesto ser más críticos con la asignación de puntos de historia para no tener diferencias de este calibre).
+En este \textit{sprint} se planificó <<tirando a lo alto>> en los puntos de historia, se debe a que se requería comprobar la implementación de los tres algoritmos de aprendizaje Semi-Supervisado, y en caso de que alguno (o todos) tuviera una implementación incorrecta, realizar los ajustes pertinentes para que fuera correcta. Debido a la experiencia del equipo de desarrollo un mes atrás con el filtro ICF, el cual tuvo que ser re-codificado y revisado en más de una ocasión debido a su inconsistencia, se aventuró un futuro similar con éstos algoritmos ya que son más grandes y con una complejidad superior. La realidad en este caso superó las expectativas del equipo de desarrollo, cuando los tres algoritmos tuvieron una desviación menor al 1\% en comparación con los de referencia. (En futuros \textit{sprints} se ha propuesto ser más críticos con la asignación de puntos de historia para no tener diferencias de este calibre).
 
 Con todo y con ello, la implementación de los filtros en UBUMLaaS incurrió en múltiples modificaciones a la estructura base de la propia plataforma, pero con un resultado satisfactorio.
 
-Los rankings creados no han convencido en estructura y formato, es por ello que en siguiente \textit{sprint} tendrán que ser repetidos.
+Los \textit{rankings} creados no han convencido en estructura y formato, es por ello que en siguiente \textit{sprint} tendrán que ser repetidos.
 \end{itemize}
 
 \subsubsection{\textit{Sprint} 10: Jerry}
@@ -461,10 +460,10 @@ Este \textit{sprint} se desarrolla entre el 01/03/2022 y el 08/03/2022.
 \caption{\textit{Burndown Chart Sprint 12.}}\label{fig:BD-Sprint12}
 \end{center}
 \end{figure}
-El trabajo realizado en este \textit{sprint} tal y como en la Figura~\ref{fig:BD-Sprint12} se aprecia, ha sido superior a los anteriores, con un total de 83 puntos de historia y cerca de 45 horas invertidas. En esta ocasión el trabajo ha vuelto ha ser planificado <<por lo alto>> debido a la suposición de complejidad de implementación del algoritmo de aprendizaje Semi-Supervisado. 
+El trabajo realizado en este \textit{sprint} tal y como en la Figura~\ref{fig:BD-Sprint12} se aprecia, ha sido superior a los anteriores, con un total de 83 puntos de historia y cerca de 45 horas invertidas. En esta ocasión el trabajo ha vuelto a ser planificado <<por lo alto>> debido a la suposición de complejidad de implementación del algoritmo de aprendizaje Semi-Supervisado. 
 
 \item \textbf{\textit{Sprint review meeting}}\\
-En este \textit{sprint} el equipo de desarrollo ha tenido la sensación que no <<llegaba>> a todo lo planificado, las reuniones llegan a un punto en el cuál se comenta trabajo, queda apuntado, y se intenta meter todo en tiempo y forma. Generando un cierto agobio en algunas situaciones que han impedido continuar con el trabajo al ritmo deseado.
+En este \textit{sprint} el equipo de desarrollo ha tenido la sensación de que no <<llegaba>> a todo lo planificado, las reuniones llegan a un punto en el cual se comenta trabajo, queda apuntado, y se intenta meter todo en tiempo y forma. Generando un cierto agobio en algunas situaciones que han impedido continuar con el trabajo al ritmo deseado.
 
 En líneas generales se puede afirmar que el \textit{frontend} ha sido rehecho entero, se han reutilizado formatos o formularios existentes por facilidad de uso a todos aquellos usuarios que ya la conocieran, pero a nivel de código prácticamente es nueva. Con un estilo mucho más moderno, fino y elegante.
 
@@ -484,7 +483,7 @@ Objetivos del decimotercero \textit{sprint}:
 \item Realizar algunas pruebas de estrés para detectar puntos de rotura de la interfaz.
 \item Comenzar a escribir los Requisitos.
 \item Comenzar a escribir dentro del Diseño, el diagrama de casos de uso.
-\item Añadir a los aspectos relevantes los métodos que se están haciendo a sí como los cambios en la interfaz.
+\item Añadir a los aspectos relevantes los métodos que se están haciendo así como los cambios en la interfaz.
 \item Revisar comentarios hechos por Alvar en la memoria.
 \end{enumerate}
 
@@ -538,9 +537,8 @@ Junto con lo expuesto anteriormente, se ha comprobado en este \textit{sprint} la
 Objetivos del decimoquinto \textit{sprint}:
 \begin{enumerate}
 \item Toma de decisión del formato del diagrama de secuencia <<Nuevo Experimento>>.
-\item Introducir en Trabajos Relacionados, una disyunción entre \texttt{UBUMLaaS} y los el aprendizaje semi-supervisado seguro.
+\item Introducir en Trabajos Relacionados, una disyunción entre \texttt{UBUMLaaS} y el aprendizaje semi-supervisado seguro.
 \item Comenzar con la primera etapa de experimentación <<seria>> que se va a realizar.
-\item Segundo
 \end{enumerate}
 
 \item \textbf{Marcas temporales}\\
@@ -620,7 +618,7 @@ Este \textit{sprint} se desarrolla entre el 08/04/2022 y 20/04/2022. Englobando 
 \caption{\textit{Burndown Chart Sprint 17.}}\label{fig:BD-Sprint17}
 \end{center}
 \end{figure}
-El trabajo a lo largo de este \textit{sprint} ha sido a ritmo constante, tal y como se aprecia en la Figura~\ref{fig:BD-Sprint17}, se aprecia como el número de puntos de historia es elevado, esto se debe a que se realizan en total 26 \textit{issues}, del total de 27 planificadas. Son muchas tareas pequeñas que acaban elevando el número de puntos de historia empleados. En total se han invertido alrededor de 45 horas de trabajo a lo largo de todo el\textit{sprint}.
+El trabajo a lo largo de este \textit{sprint} ha sido a ritmo constante, tal y como se aprecia en la Figura~\ref{fig:BD-Sprint17}, se aprecia como el número de puntos de historia es elevado, esto se debe a que se realizan en total 26 \textit{issues}, del total de 27 planificadas. Son muchas tareas pequeñas que acaban elevando el número de puntos de historia empleados. En total se han invertido alrededor de 45 horas de trabajo a lo largo de todo el \textit{sprint}.
 
 \item \textbf{\textit{Sprint review meeting}}\\
 En este \textit{sprint} se sobre-predijo el número de puntos de historia necesarios para resolver un número determinado de \textit{bugs} en \texttt{UBUMLaaS}, resultando estos más sencillos de resolver que en lo que en un primer momento parecía. 
@@ -653,16 +651,16 @@ Este \textit{sprint} se desarrolla entre el 20/04/2022 y 02/05/2022.
 \caption{\textit{Burndown Chart Sprint 18.}}\label{fig:BD-Sprint18}
 \end{center}
 \end{figure}
-Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint18}, en este \textit{sprint} el ritmo de trabajo no ha sido continuo, por motivos de índole personal la primera semana de trabajo no se pudieron cerrar prácticamente tareas, si bien si que se pudo avanzar en ellas permitiendo que cuando se dispuso de tiempo para trabajar a ritmo <<normal>> en ellas, éstas se cerraran con relativa sencillez.
+Tal y como se aprecia en la Figura~\ref{fig:BD-Sprint18}, en este \textit{sprint} el ritmo de trabajo no ha sido continuo, por motivos de índole personal la primera semana de trabajo no se pudieron cerrar prácticamente tareas, si bien sí que se pudo avanzar en ellas permitiendo que cuando se dispuso de tiempo para trabajar a ritmo <<normal>> en ellas, éstas se cerraran con relativa sencillez.
 
 El tiempo total invertido fue de 30 horas aproximadamente. Quedando cerrados 50 puntos de historia.
 
 \item \textbf{\textit{Sprint review meeting}}\\
 La calidad del producto que se está obteniendo está resultando satisfactoria para ambas partes, tanto el equipo de desarrollo como para el tutor del proyecto. 
 
-Cabe destacar que el producto de documentación final (memoria y anexos) está empezando a ser relativamente grande, no siendo un mal indicador ya que a la fecha de finalización del \textit{sprint} ya se han realizado numerosas revisiones de la misma, pero ello no implica que no llame la atención.
+Cabe destacar que el producto de documentación final (memoria y anexos) está empezando a ser relativamente grande, no siendo un mal indicador ya que a la fecha de finalización del \textit{sprint} ya se han realizado numerosas revisiones de esta, pero ello no implica que no llame la atención.
 
-Se detectó y solucionó un problema en los algoritmos de \textit{clustering} en \texttt{UBUMLaaS}, gracias a las pruebas realizadas por terceros sobre el proyecto. Además se actualizaron los algoritmos de \texttt{Scikit-Learn}, ya que su parametrización se había modificado y no permitía su ejecución.
+Se detectó y solucionó un problema en los algoritmos de \textit{clustering} en \texttt{UBUMLaaS}, gracias a las pruebas realizadas por terceros sobre el proyecto. Además, se actualizaron los algoritmos de \texttt{Scikit-Learn}, ya que su parametrización se había modificado y no permitía su ejecución.
 
 \end{itemize}
 
@@ -697,7 +695,7 @@ Aproximadamente se han invertido cerca de 41 horas en el desarrollo del proyecto
 \item \textbf{\textit{Sprint review meeting}}\\
 La calidad del producto está aumentando considerablemente, y a la vista de los resultados se aprecia la facilidad de mantenimiento. Gracias a las sucesivas iteraciones de mejora de la calidad, cada \textit{sprint} se puede mejorar y mantener el código con más facilidad, permitiendo <<hacer más en menos>>.
 
-Un \textit{bug} que se detectó y paralizó el trabajo fue el descubrimiento de que \texttt{UBUMLaaS} había dejado de funcionar pero únicamente en sus capacidades de experimentación. Fue necesaria casi una jornada entera de trabajo para solucionar el problema. En el proceso de refactorizaciones se hicieron pequeños cambios en las declaraciones de las colas del sistema, anteriormente estando definidas por 4 \textit{workers}, y estos ya no son suficientes para el tamaño de la plataforma, cuando se aumentaron a 16, el problema desapareció.
+Un \textit{bug} que se detectó y paralizó el trabajo fue el descubrimiento de que \texttt{UBUMLaaS} había dejado de funcionar, pero únicamente en sus capacidades de experimentación. Fue necesaria casi una jornada entera de trabajo para solucionar el problema. En el proceso de refactorizaciones se hicieron pequeños cambios en las declaraciones de las colas del sistema, anteriormente estando definidas por 4 \textit{workers}, y estos ya no son suficientes para el tamaño de la plataforma, cuando se aumentaron a 16, el problema desapareció.
 
 Las gráficas de rankings no muestran una tendencia, será necesario calcular los rankings medios y realizar \textit{tests} estadísticos sobre estos para poder llegar a conclusiones.
 \end{itemize}
@@ -709,7 +707,7 @@ Objetivos del vigésimo \textit{sprint}:
 \begin{enumerate}
 \item Crear \textit{tests} estadísticos para los rankings medios.
 \item Introducir el trabajo de Triguero de aprendizaje semi-supervisado seguro~\cite{triguero2014characterization} en los <<Trabajos Relacionados>> de la memoria.
-\item Revisar todas las tablas de la documentación y normalizar, así como hacerlas auto-contenidas si no lo son ya.
+\item Revisar todas las tablas de la documentación y normalizar, así como hacerlas autocontenidas si no lo son ya.
 \item Añadir a la documentación las validaciones de los algoritmos implementados.
 \item Crear y actualizar los repositorios de GitHub, en especial los README.
 \item Escribir el <<Resumen>> e <<Introducción>> de la memoria.
@@ -726,7 +724,7 @@ Este \textit{sprint} se desarrolla entre el 10/05/2022 y 16/05/2022.
 \caption{\textit{Burndown Chart Sprint 20.}}\label{fig:BD-Sprint20}
 \end{center}
 \end{figure}
-Tal y como se puede comprobar en el \textit{Burndown Report} de este \textit{sprint}, ver Figura~\ref{fig:BD-Sprint20}, el ritmo de trabajo de este \textit{sprint} ha sido constante. En los primeros días no se pudiendo cerrar tareas, pero posteriormente el trabajo salió adelante en tiempo y forma. Marcando un remanente de 5 puntos de historia a la finalización del \textit{sprint}, éstos puntos de historia eran referentes a \textit{pull requests} que había que verificar antes de poder hacer el \textit{merge} con la rama principal.
+Tal y como se puede comprobar en el \textit{Burndown Report} de este \textit{sprint}, ver Figura~\ref{fig:BD-Sprint20}, el ritmo de trabajo de este \textit{sprint} ha sido constante. En los primeros días no se pudiendo cerrar tareas, pero posteriormente el trabajo salió adelante en tiempo y forma. Marcando un remanente de 5 puntos de historia a la finalización del \textit{sprint}, estos puntos de historia eran referentes a \textit{pull requests} que había que verificar antes de poder hacer el \textit{merge} con la rama principal.
 
 Ha sido \textit{sprint} donde no se han invertido muchas horas, siendo esto reflejado en los puntos de historia, aproximadamente se han invertido un total de 16 horas. Una cifra muy por debajo de lo que ha venido siendo la tónica habitual a lo largo de todo el desarrollo del proyecto. 
 
@@ -749,8 +747,8 @@ Objetivos del vigésimo primer \textit{sprint}:
 \item Finalizar el estudio económico con cifras.
 \item Actualizar la \textit{release} de \texttt{IS-SSL}.
 \item Actualizar \texttt{IS-SSL} en \texttt{PyPI}.
-\item Crear la primera y única \textit{relesase} de \texttt{UBUMLaaS}.
-\item Actualizar figuras de los anexos (CI/CD, PyPI, \ldots) con sus últimas versiones.
+\item Crear la primera y única \textit{release} de \texttt{UBUMLaaS}.
+\item Actualizar figuras de los anexos (CI/CD, PyPI, \dots) con sus últimas versiones.
 \end{enumerate}
 
 \item \textbf{Marcas temporales}\\
@@ -763,7 +761,7 @@ Este \textit{sprint} se desarrolla entre el 17/05/2022 y 23/05/2022.
 \caption{\textit{Burndown Chart Sprint 21.}}\label{fig:BD-Sprint21}
 \end{center}
 \end{figure}
-Los puntos de historia, ver Figura~\ref{fig:BD-Sprint21}, en este \textit{sprint} han sido muy pocos, 16 en concreto, siendo reflejados en menos de 14 horas de trabajo. Este \textit{sprint} según la figura ha tenido un grand <<escalón>>, esto se ha debido a que el trabajo ha sido agrupado en tareas épicas y al cierre de éstas es cuando se han cerrado, en grupo. Así mismo refleja que no han sido finalizadas todas las tareas, a tiempo, esto es debido a que el cierre de \textit{pull requests} por algún motivo no lo cuenta bien. Todas las tareas y \textit{PRs} fueron cerradas a tiempo.
+Los puntos de historia, ver Figura~\ref{fig:BD-Sprint21}, en este \textit{sprint} han sido muy pocos, 16 en concreto, siendo reflejados en menos de 14 horas de trabajo. Este \textit{sprint} según la figura ha tenido un gran <<escalón>>, esto se ha debido a que el trabajo ha sido agrupado en tareas épicas y al cierre de éstas es cuando se han cerrado, en grupo. Así mismo refleja que no han sido finalizadas todas las tareas, a tiempo, esto es debido a que el cierre de \textit{pull requests} por algún motivo no lo cuenta bien. Todas las tareas y \textit{PRs} fueron cerradas a tiempo.
 
 \item \textbf{\textit{Sprint review meeting}}\\
 En este \textit{sprint} se ha finalizado la documentación de la memoria, formalizado los repositorios y revisado en la mayor parte la documentación. 
@@ -805,7 +803,7 @@ En esta sección se va a desarrollar el estudio de la viabilidad del proyecto, p
 
 El desarrollo de cualquier producto \textit{software} conlleva una serie de riesgos, entre los que destacan la experiencia del equipo de desarrollo, el tamaño del proyecto, el tiempo del que se dispone para conseguirlo,\dots, influyendo todos ellos en el resultado final.
 \subsection{Viabilidad económica}
-Lo primero de todo que se va a calcular es la viabilidad económica del proyecto, reportando y analizando los costes/beneficios que habría supuesto el desarrollo del proyecto en el sector empresarial, en España\footnote{Se hace referencia al lugar de desarrollo puesto que se van a hacer referencias económicas en la moneda del país, así como uso de legislación vigente, la cuál varía en función del país en el que se encuentre asentada la empresa desarrolladora.}.
+Lo primero de todo que se va a calcular es la viabilidad económica del proyecto, reportando y analizando los costes/beneficios que habría supuesto el desarrollo del proyecto en el sector empresarial, en España\footnote{Se hace referencia al lugar de desarrollo puesto que se van a hacer referencias económicas en la moneda del país, así como uso de legislación vigente, la cual varía en función del país en el que se encuentre asentada la empresa desarrolladora.}.
 
 \subsubsection{Costes}
 La realización de un proyecto de esta envergadura lleva asociados una serie de costes fijos y variables, a continuación se desglosan agrupados en \textit{hardware}, \textit{software}, personal, otros.
@@ -814,7 +812,7 @@ La realización de un proyecto de esta envergadura lleva asociados una serie de 
 
 Para el desarrollo del proyecto es necesario más de un equipo \textit{hardware}, lo primero de todo es un equipo de tipo portátil. Se utilizará un MacBook Pro, con un procesador Inter Core i7 de 4 núcleos a 2.3~GHz, con 16~GB de memoria RAM, atendiendo a un precio de mercado de 2249~\officialeuro, se tiene en cuenta que la vida útil del equipo se encuentra en torno a los seis años, por lo que para los cálculos se usa la vida media del inmovilizado, es decir, 3 años. 
 
-A su vez se necesita un servidor para desplegar la aplicación y trabajar sobre esta, ya que el despliegue local no se considera una forma de trabajo óptima. Es por ello que se hace uso de un equipo con un AMD FX(tm)-4130 Quad-Core a 4.5~GHz, con 64~GB de memoria RAM. El coste aproximado del equipo es de 1500~\officialeuro. La vida útil estimada es de seis ocho años, se utilizará igual que con el equipo portatil, su vida media de inmovilizado, 4 años.
+A su vez se necesita un servidor para desplegar la aplicación y trabajar sobre esta, ya que el despliegue local no se considera una forma de trabajo óptima. Es por ello que se hace uso de un equipo con un AMD FX(tm)-4130 Quad-Core a 4.5~GHz, con 64~GB de memoria RAM. El coste aproximado del equipo es de 1500~\officialeuro. La vida útil estimada es de seis ocho años, se utilizará igual que con el equipo portátil, su vida media de inmovilizado, 4 años.
 
 La amortización para cada equipo es diferente, pero el tiempo de uso es el mismo, de noviembre de dos mil veintiuno a junio de dos mil veintidós, ambos incluidos, luego en total ocho meses. Se detallan todos los costes \textit{hardware} en la Tabla~\ref{tab:costes-hardware}.
 
@@ -824,7 +822,7 @@ La amortización para cada equipo es diferente, pero el tiempo de uso es el mism
 	\toprule
 	\textbf{Concepto} & \textbf{Coste (\officialeuro)} & \textbf{Coste Amortizado (\officialeuro)}\\
 	\midrule
-	Macbook Pro & 2.249 & 499,78\\
+	MacBook Pro & 2.249 & 499,78\\
 	Servidor & 1.500 & 250 \\
 	\midrule
 	\textbf{Total} & 3.049 & 749,78 \\
@@ -973,7 +971,7 @@ El proyecto está compuesto de dos partes, las cuáles se pueden comercializar d
 \caption{Opciones para obtener beneficio con UBUMLaaS.}\label{tab:opciones-beneficio}
 \end{table}
 
-Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<fronteras>> ya que el inglés es el idioma oficial de la investigación y la ciencia, se pueden alcanzar usuarios de todo el mundo. En la Tabla~\ref{tab:simulacion-clientes} se presenta un ejemplo real y viable de alcanzar la cuál permitiría recuperar la inversión del proyecto en el primer año.
+Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<fronteras>> ya que el inglés es el idioma oficial de la investigación y la ciencia, se pueden alcanzar usuarios de todo el mundo. En la Tabla~\ref{tab:simulacion-clientes} se presenta un ejemplo real y viable de alcanzar la cual permitiría recuperar la inversión del proyecto en el primer año.
 
 \begin{table}[H]
 \centering
@@ -997,7 +995,7 @@ Teniendo en cuenta los anteriores valores, y que la aplicación no tiene <<front
 Debido a las funcionalidades ofrecidas y al precio competitivo de la plataforma, no sería difícil encontrar organizaciones que incorporen UBUMLaaS en su repertorio de herramientas, maximizando beneficios.
 
 \textbf{Conclusiones}\\
-Analizando los beneficios reportados en contraposción a los costes del desarrollo del proyecto, queda más que demostrada la viabilidad de desarrollo del proyecto. Se tiene en cuenta además que el proyecto una vez desarrollado no tiene necesidad de ser mantenido más allá de añadir nuevos algoritmos. Teniendo como costes fijos el mantenimiento de el(los) servidor(es) en donde esté desplegado.
+Analizando los beneficios reportados en contraposición a los costes del desarrollo del proyecto, queda más que demostrada la viabilidad de desarrollo del proyecto. Se tiene en cuenta además que el proyecto una vez desarrollado no tiene necesidad de ser mantenido más allá de añadir nuevos algoritmos. Teniendo como costes fijos el mantenimiento de el(los) servidor(es) en donde esté desplegado.
 
 \subsection{Viabilidad legal}
 
@@ -1009,9 +1007,9 @@ Una licencia proporciona, además, definiciones legalmente vinculantes para la d
 
 
 \subsubsection{\textit{Software}}
-La licencia más importante es aquella bajo la cual se encuentra el \textit{software} desarrollado por el producto,  permitiendo el uso (sobretodo comercial y de distribución que se le puede dar). La principal limitación que se debe tener en cuenta es el orden jerárquico de licencias que se debe respetar. El proyecto utiliza una serie de dependencias externas, las cuáles poseen sus propias licencias, nunca pudiendo encontrarse bajo una licencia más permisiva.
+La licencia más importante es aquella bajo la cual se encuentra el \textit{software} desarrollado por el producto,  permitiendo el uso (sobre todo comercial y de distribución que se le puede dar). La principal limitación que se debe tener en cuenta es el orden jerárquico de licencias que se debe respetar. El proyecto utiliza una serie de dependencias externas, las cuáles poseen sus propias licencias, nunca pudiendo encontrarse bajo una licencia más permisiva.
 
-A continuación se exponen las licencias de las dependencias utilizadas tanto por UBUMLaaS, Tabla~\ref{tab:dependencias-ubumlaas}, como por IS-SSL, Tabla~\ref{tab:dependencias-is-ssl}. La descripción de cada una se encuentra en las Tablas~\ref{tab:bibliotecas-python-ubumlaas}~y~\ref{tab:bibliotecas-python-is-ssl}, respectivamente.
+A continuación, se exponen las licencias de las dependencias utilizadas tanto por UBUMLaaS, Tabla~\ref{tab:dependencias-ubumlaas}, como por IS-SSL, Tabla~\ref{tab:dependencias-is-ssl}. La descripción de cada una se encuentra en las Tablas~\ref{tab:bibliotecas-python-ubumlaas}~y~\ref{tab:bibliotecas-python-is-ssl}, respectivamente.
 
 \begin{table}[]
 \centering
@@ -1068,11 +1066,11 @@ A continuación se exponen las licencias de las dependencias utilizadas tanto po
 \caption{Bibliotecas utilizadas y sus versiones.}\label{tab:dependencias-is-ssl}
 \end{table}
 
-Como se aprecia en las Tablas~\ref{tab:dependencias-ubumlaas}~y~\ref{tab:dependencias-ubumlaas}, cada proyecto de manera individual va a estar sujeto a diferentes restricciones en cuanto a licencias se refiere, siendo más laxo en IS-SSL y mucho más restrictivo en UBUMLaaS. Para la comparación de licencias se utiliza JLA,~\cite{JLA}, \textit{joinup Licensing Assisntant}.
+Como se aprecia en las Tablas~\ref{tab:dependencias-ubumlaas}~y~\ref{tab:dependencias-ubumlaas}, cada proyecto de manera individual va a estar sujeto a diferentes restricciones en cuanto a licencias se refiere, siendo más laxo en IS-SSL y mucho más restrictivo en UBUMLaaS. Para la comparación de licencias se utiliza JLA,~\cite{JLA}, \textit{Joinup Licensing Assisntant}.
 
 \imagenFlotante{../img/anexos/plan/Licencias}{Orden de permisividad/restricción de licencias.}{licencias}
 
-En la Figura~\ref{fig:licencias} se detalla una comparación de las diferentes licencias de las dependencias de cada parte del proyecto, estando más a la derecha aquella con mayor restricciones, y a la izquierda la más permisivas. El \textit{software} debe estar licenciado como mínimo, con la más restrictiva.
+En la Figura~\ref{fig:licencias} se detalla una comparación de las diferentes licencias de las dependencias de cada parte del proyecto, estando más a la derecha aquella con mayor restricción, y a la izquierda la más permisiva. El \textit{software} debe estar licenciado como mínimo, con la más restrictiva.
 
 \begin{itemize}
 \item \textbf{UBUMLaaS.} Estará licenciado bajo GNU v3.  Figura~\ref{fig:licencia-ubumlaas}. 

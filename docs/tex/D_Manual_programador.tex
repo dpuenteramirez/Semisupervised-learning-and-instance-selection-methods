@@ -39,7 +39,7 @@ La estructura del repositorio es la siguiente:
 \item \texttt{/ubumlaas/static/}: contiene los ficheros estáticos de la plataforma.
 \item \texttt{/ubumlaas/static/avatars/}: contiene las imágenes de perfil de cada usuario.
 \item \texttt{/ubumlaas/static/css/}: contiene el código \texttt{CSS} del \textit{frontend}.
-\item \texttt{/ubumlaas/static/img/}: contiene las imágenes que aparecen en la pltaforma.
+\item \texttt{/ubumlaas/static/img/}: contiene las imágenes que aparecen en la plataforma.
 \item \texttt{/ubumlaas/static/js/}: contiene el código \texttt{JavaScript} del \textit{frontend}.
 \item \texttt{/ubumlaas/templates/}: ficheros \texttt{HTML}.
 \item \texttt{/ubumlaas/templates/admin/}: ficheros web de administración.
@@ -67,7 +67,7 @@ Para poder continuar con el desarrollo del proyecto, se requiere tener instalado
 En los siguientes apartados se detalla la instalación de cada uno de los componentes anteriormente citados.
 
 \subsubsection{Python 3.7+}
-Al comienzo del proyecto, muchas de sus funcionalidades eran compatibles con Python 2, pero el nuevo desarrollo ha utilizado indistintamente métodos existentes en versiones anteriores de Python y algunos que se han introducido a partir de la version 3.7, disponible desde~\cite{pythonGetIt}. Es importante que los binarios se encuentren en el \texttt{path} del sistema para que no de problemas de ejecución.
+Al comienzo del proyecto, muchas de sus funcionalidades eran compatibles con Python 2, pero el nuevo desarrollo ha utilizado indistintamente métodos existentes en versiones anteriores de Python y algunos que se han introducido a partir de la versión 3.7, disponible desde~\cite{pythonGetIt}. Es importante que los binarios se encuentren en el \texttt{path} del sistema para que no de problemas de ejecución.
 
 \subsubsection{Bibliotecas Python}
 A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a detallar uno de los puntos más importantes para poder <<hacer funcionar>> el proyecto, puesto que se van a necesitar versiones concretas de determinadas bibliotecas para que todo se integre correctamente con todo y se pueda ver y utilizar como un sistema homogéneo.
@@ -88,7 +88,7 @@ A continuación (ver Tabla~\ref{tab:bibliotecas-python-ubumlaas}), se van a deta
 	\texttt{flask-sqlalchemy} & 2.4.0 & Soporte a SQLAchemy en Flask.\\
 	\texttt{flask-wtf} & 0.14.2 & Render, validar y CSRF formularios.\\ \rowcolor[HTML]{EFEFEF}
 	\texttt{future} & 0.16.0 & Soporte a Python 2 y 3.\\ 
-	\texttt{geopy} & 2.2.0 & Geocodificación.\\ \rowcolor[HTML]{EFEFEF}
+	\texttt{geopy} & 2.2.0 & Geo-codificación.\\ \rowcolor[HTML]{EFEFEF}
 	\texttt{glances} & 3.2.4.2 & Monitorización del sistema.\\ 
 	\texttt{imbalanced-learn} & 0.5.0 & ML con datos desbalanceados.\\ \rowcolor[HTML]{EFEFEF}
 	\texttt{itsdangerous} & 1.1.0 & Paso de datos en entornos no seguros.\\
@@ -178,7 +178,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \item En caso de que se solicite, introducir la contraseña, pero se recomienda configurar el uso de llaves SSH, ver guía~\cite{Remote-Development-Tricks-Tips}.
 \item Después de la conexión usar Archivo $\rightarrow$ Abrir carpeta, para abrir el directorio donde se encuentra el proyecto en la máquina remota.
 \end{enumerate}
-\item Todos los cambios que se realicen, se harán sobre el código en la máquina remota, la máquina local no hará más que el efecto de editor.
+\item Todos los cambios que se realicen se harán sobre el código en la máquina remota, la máquina local no hará más que el efecto de editor.
 \end{enumerate}
 \end{itemize}
 
@@ -257,7 +257,7 @@ A pesar de que sea un proyecto \textit{open source} no es gratuita, y como todas
 \imagenRuta{../img/anexos/manual-programador/SonarCloud-UBUMLaaS}{SonarCloud.}{SonarCloud-UBUMLaaS}
 
 \subsubsection{Travis-CI}
-Herramienta \textit{cloud} desarrollada para la realización de pruebas de integración continua sobre proyectos alojados en GitHub (con soporte beta para BitBucket, Gitlab y Assembla). Permite realizar un \textit{build} del proyecto y ejecutar sobre ella una batería de pruebas de manera automática cada vez que se realiza un \textit{commit} y/o \textit{pull request}, permitiendo pruebas concurrentes, incluso sobre diferentes sistemas operativos (Linux, Windows, macOS y FreeBSD). 
+Herramienta \textit{cloud} desarrollada para la realización de pruebas de integración continua sobre proyectos alojados en GitHub (con soporte beta para BitBucket, GitLab y Assembla). Permite realizar un \textit{build} del proyecto y ejecutar sobre ella una batería de pruebas de manera automática cada vez que se realiza un \textit{commit} y/o \textit{pull request}, permitiendo pruebas concurrentes, incluso sobre diferentes sistemas operativos (Linux, Windows, macOS y FreeBSD). 
 
 Con el proyecto configurado en \texttt{Travis-CI} se debe configurar un fichero \texttt{YAML} y debe de estar en el directorio raíz, será a partir del cual se ejecuten las pruebas.
 
@@ -295,7 +295,7 @@ Debido a esta problemática, y con el fin de obtener un sistema estable, se ha s
 
 Gracias a estas respuestas, se han podido encontrar \textit{bugs} existentes en la aplicación que no permitían trabajar correctamente con ella. El más importante de todo y el cual posee su propia \href{https://github.com/dpr1005/UBUMLaaS/issues/101}{\textit{issue}}, es el desfase existente entre los algoritmos de \texttt{Scikit-Learn} de la versión 0.21 (la utilizada previamente) y la actual, la 0.24. Numerosos algoritmos han sido modificados en su parametrización y por ende en \texttt{UBUMLaaS} no se podían utilizar.
 
-Durante algunos meses de desarrollo del proyecto \texttt{Travis-CI} funcionó correctamente pero la propia herramienta sufrió una actualización a finales de marzo y dejó de ser funcional, resultando en numerosos \textit{commits} marcados como erróneos, pero tal y como se aprecia en los propios \textit{logs} de Travis, nunca se llegó a testar el código, sino que en la configuración de la máquina remota <<rompía>>.
+Durante algunos meses de desarrollo del proyecto \texttt{Travis-CI} funcionó correctamente, pero la propia herramienta sufrió una actualización a finales de marzo y dejó de ser funcional, resultando en numerosos \textit{commits} marcados como erróneos, pero tal y como se aprecia en los propios \textit{logs} de Travis, nunca se llegó a testar el código, sino que en la configuración de la máquina remota <<rompía>>.
 
 \clearpage
 \section{IS-SSL}
@@ -328,10 +328,10 @@ En esta subsección se describen todos aquellos métodos seguidos por el equipo 
 Para poder continuar con el desarrollo del proyecto, se requiere tener instalado el siguiente \textit{software} en el equipo:
 \begin{itemize}
 \tightlist
-\item Python 3.7+.
-\item Bibliotecas Python.
+\item Python 3.7+
+\item Bibliotecas Python
 \item Git
-\item VSCode/PyCharm/\dots.
+\item VSCode/PyCharm/\dots
 \end{itemize}
 
 En los siguientes apartados se detalla la instalación de cada uno de los componentes anteriormente citados.
@@ -367,7 +367,7 @@ Se recomienda el uso de un entorno de desarrollo de \texttt{Conda}, se facilitan
 \subsubsection{Git}
 Para poder utilizar el repositorio ha de utilizarse el gestor de versiones \texttt{Git}. Se recomienda utilizar GUI con soporte a VC tales que no requieran de una interfaz de comandos para su utilización, pero eso se deja a decisión del futuro desarrollador.
 
-\subsubsection{VSCode/Pycharm/\dots}
+\subsubsection{VSCode/PyCharm/\dots}
 El desarrollo propio del producto puede ser realizado en cualquier editor de textos, incluso en \texttt{Vi} si así se desea. La ventaja de herramientas como \texttt{Visual Studio Code} o \texttt{PyCharm}, es que permiten el uso de \textit{plugins} añadidos a los complementos del propio IDE, lo cual permite la generación de código un proceso mucho más sencillo y directo, reduciendo el número de errores ocasionados y permitiendo una depuración o refactorización del código fuente mucho más eficiente y sencilla.
 
 Se puede obtener cada una de las herramientas desde~\cite{VSCode, PyCharm}, respectivamente.
@@ -478,7 +478,7 @@ La integración es muy sencilla, basta con crearse una cuenta asociada con la de
 
 \imagenRuta{../img/anexos/manual-programador/Codacy-IS-SSL}{Codacy.}{Codacy-IS-SSL}
 
-En la Figura~\ref{fig:Codacy-IS-SSL} se aprecia uno de los gráficos que muestra Codacy, en este caso referido al número de \textit{issues} detectados en el código analizado. Tal y como se muestra, se ha realizado un trabajo a lo largo del mes de febrero y marzo para obtener una biblioteca sin fallos aumentando su mantenibiliad.
+En la Figura~\ref{fig:Codacy-IS-SSL} se aprecia uno de los gráficos que muestra Codacy, en este caso referido al número de \textit{issues} detectados en el código analizado. Tal y como se muestra, se ha realizado un trabajo a lo largo del mes de febrero y marzo para obtener una biblioteca sin fallos aumentando su mantenibilidad.
 
 \subsubsection{Sonar Cloud}
 

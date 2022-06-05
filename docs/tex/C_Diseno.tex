@@ -51,9 +51,9 @@ En la elección/subida de un conjunto de datos, se harán operaciones de lectura
 
 Para la selección de algoritmos y filtros, una vez se selecciona el tipo de algoritmo a utilizar, se leen de la base de datos aquellos algoritmos y filtros compatibles y se muestran al usuario para su elección. Una vez seleccionados se renderizan los parámetros de configuración particulares de cada uno de ellos.
 
-Finalmente el usuario mandará crear el experimento, pasando al lado del servidor la ejecución de este, ver Figura~\ref{fig:DSec-NewExpServer}.
+Finalmente, el usuario mandará crear el experimento, pasando al lado del servidor la ejecución de este, ver Figura~\ref{fig:DSec-NewExpServer}.
 
-\item \textbf{DS para la ejecución de un experimento.} Figura~\ref{fig:DSec-NewExpServer}. En el momento en el que el usuario manda crear el experimento, se le muestra la pantalla en la cuál aparecerán los resultados pero con un GIF indicando que aún no ha terminado la ejecución. 
+\item \textbf{DS para la ejecución de un experimento.} Figura~\ref{fig:DSec-NewExpServer}. En el momento en el que el usuario manda crear el experimento, se le muestra la pantalla en la cual aparecerán los resultados, pero con un GIF indicando que aún no ha terminado la ejecución. 
 
 El servidor recoge la configuración indicada por el usuario para realizar el experimento y lo encola en las colas de ejecución \texttt{high-ubumlaas}, en las que cuándo estén disponibles, realizarán el experimento según la configuración recibida. 
 
@@ -73,7 +73,7 @@ En el momento en el que el experimento finalice, la cola pasará a ejecutar el s
 \imagenFlotante{../img/anexos/design/client-server}{Arquitectura cliente-servidor.}{client-server}
 La aplicación con el fin de cumplir con todos los requerimientos funcionales así como objetivos principales, y por ende, conseguir un bajo acoplamiento y una alta cohesión. Sigue una arquitectura de cliente servidor.
 
-En la Figura~\ref{fig:client-server} se aprecia un modelo simplificado de la arquitectura seguida, en la cuál los procesos se van a dividir en dos grupos. 
+En la Figura~\ref{fig:client-server} se aprecia un modelo simplificado de la arquitectura seguida, en la cual los procesos se van a dividir en dos grupos. 
 \begin{itemize}
 \item Servidor. Implementa el servicio de \texttt{UBUMLaaS}.
 \item Cliente. Solicitará los servicios de proporcionados por el servidor.
@@ -95,12 +95,12 @@ UBUMLaaS sigue esta arquitectura por las siguientes razones:
 \subsection{Diseño de datos}
 En esta sección se van a seleccionar las representaciones lógicas de los datos, las estructuras de datos utilizadas.
 
-Los algoritmos implementados se encuentran divididos en dos bibliotecas, la separación se realiza en base al criterio lógico de qué hacen los algoritmos de cada una de ellas. Por un lado están los algoritmos de selección de instancias, y por el otro, los algoritmos de aprendizaje semi-supervisado.
+Los algoritmos implementados se encuentran divididos en dos bibliotecas, la separación se realiza en base al criterio lógico de qué hacen los algoritmos de cada una de ellas. Por un lado, están los algoritmos de selección de instancias, y por el otro, los algoritmos de aprendizaje semi-supervisado.
 
-Todos los algoritmos utilizan la clase auxiliar \textit{NearestNeighbors} de Scikit-Learn~\cite{NearestNeighbors} para el cálculo de los vecinos cercanos. Teniendo en cuenta que la distancia a sí misma es cero, se han codificado los algoritmos para evitar que un prototipo posea como vecino más cercano a sí mismo.
+Todos los algoritmos utilizan la clase auxiliar \textit{Nearest Neighbors} de Scikit-Learn~\cite{NearestNeighbors} para el cálculo de los vecinos cercanos. Teniendo en cuenta que la distancia a sí misma es cero, se han codificado los algoritmos para evitar que un prototipo posea como vecino más cercano a sí mismo.
 
 \subsection{Diseño procedimental}
-A continuación se recogen los detalles para poder hacer uso de los algoritmos.
+A continuación, se recogen los detalles para poder hacer uso de los algoritmos.
 
 Todos los algoritmos se pueden utilizar de la misma manera que se esperaría al utilizar los propios de la biblioteca de Scikit-Learn. Por lo tanto, una vez están importados los correspondientes se utilizarán:
 \begin{itemize}
@@ -126,6 +126,6 @@ Debido a que se trata de una serie de bibliotecas de algoritmos, no son lo sufic
 \subsubsection{Diseño en paquetes}
 Para la organización de los diferentes archivos que componen las bibliotecas se ha seguido la estrategia de \textit{package per feature approach} (paquete por característica).
 
-Esta estrategia permite agrupar todos los archivos en función de la funcionalidad que aportan, aumentando la legibilidad del árbol de paquetes, su modularización, así como su desarrollo desarrollo continuo y ampliación de algoritmos soportados.
+Esta estrategia permite agrupar todos los archivos en función de la funcionalidad que aportan, aumentando la legibilidad del árbol de paquetes, su modularización, así como su desarrollo continuo y ampliación de algoritmos soportados.
 
 Ambas bibliotecas incluyen el directorio interno de \texttt{utils}. El cual proporciona clases y métodos necesarios, comunes a varios algoritmos de la biblioteca principal. 

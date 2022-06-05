@@ -16,7 +16,7 @@ Los requisitos mínimos para poder hacer uso de \texttt{UBUMLaaS} son:
 \item Tener una cuenta en la plataforma.
 \end{itemize}
 \subsection{Instalación}
-Al tratarse de un producto web no se requiere de ningún tipo de instalación. Los navegadores Google Chrome, Mozilla Firefox, Safari y Microsfot Edge son soportados\footnote{Todos ellos han sido probados por el equipo de desarrollo y usuarios encuestados a  los que se les proporcionó un documento de uso básico y lo usaron en sus dispositivos cotidianos.}, siempre y cuando se encuentren en versiones compatibles con HTML5 y tengan activado el uso de JavaScript.
+Al tratarse de un producto web no se requiere de ningún tipo de instalación. Los navegadores Google Chrome, Mozilla Firefox, Safari y Microsoft Edge son soportados\footnote{Todos ellos han sido probados por el equipo de desarrollo y usuarios encuestados a  los que se les proporcionó un documento de uso básico y lo usaron en sus dispositivos cotidianos.}, siempre y cuando se encuentren en versiones compatibles con HTML5 y tengan activado el uso de JavaScript.
 
 Independientemente del dispositivo de uso (ordenador de sobremesa, portátil, tableta o móvil), se requiere de conexión a Internet como es lógico. Pero no necesita de permisos adicionales, ha sido desarrollada de tal manera que utiliza la sesión local del navegador sin necesidad del uso de \textit{cookies}.
 
@@ -70,7 +70,7 @@ Llegando a una página similar a la Figura~\ref{fig:create-experiment} (la figur
 
 En este momento el usuario podrá rellenar todos los campos del formulario para crear su experimento deseado. Se recomienda rellenar los campos en el siguiente orden:
 \begin{enumerate}
-\item Seleccionar le conjunto de datos a utilizar, pudiendo en este momento subir uno propio a la plataforma. Los nombres de los conjuntos de datos no son modificables luego asegúrese de que es correcto. En caso de subir uno propio la página se auto-actualizará en el momento en el que la carga haya sido satisfactoria. En caso de una visualización incompleta (diferente a la mostrada en la Figura~\ref{fig:experiment-form-done}) se recomienda encarecidamente volver a acceder a la página y seleccionar el nuevo conjunto de datos desde la parte de conjuntos de datos existentes y disponibles, no siendo necesario volver a subirlo.
+\item Seleccionar le conjunto de datos a utilizar, pudiendo en este momento subir uno propio a la plataforma. Los nombres de los conjuntos de datos no son modificables luego asegúrese de que es correcto. En caso de subir uno propio la página se actualizará automáticamente en el momento en el que la carga haya sido satisfactoria. En caso de una visualización incompleta (diferente a la mostrada en la Figura~\ref{fig:experiment-form-done}) se recomienda encarecidamente volver a acceder a la página y seleccionar el nuevo conjunto de datos desde la parte de conjuntos de datos existentes y disponibles, no siendo necesario volver a subirlo.
 \item Seleccionar el tipo de algoritmo que se desea utilizar, disponiendo entre Clasificación, Regresión, Clasificación Semi-Supervisada, Multi-Clasificación, Clustering, o Mixed (Algoritmos compatibles con clasificación y regresión).
 \item Seleccionar el algoritmo en concreto que desea utilizar.
 \item Parametrizar el algoritmo tal y como se considere apropiado para el problema.
@@ -80,7 +80,7 @@ En este momento el usuario podrá rellenar todos los campos del formulario para 
 \item Con todos los campos rellenos. Se puede lanzar el experimento.
 \end{enumerate}
 
-El resultado debería ser similar a el representado por la Figura~\ref{fig:experiment-form-done}, en el que se aprecia un experimento de clasificación con el conjunto de datos iris. Este experimento puede ser lanzado por un usuario según llega a la aplicación, puesto que todo lo que necesita se encuentra desde el minuto uno disponible.
+El resultado debería ser similar al representado por la Figura~\ref{fig:experiment-form-done}, en el que se aprecia un experimento de clasificación con el conjunto de datos iris. Este experimento puede ser lanzado por un usuario según llega a la aplicación, puesto que todo lo que necesita se encuentra desde el minuto uno disponible.
 
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/experiment-form-done}{Formulario de crear experimento relleno.}{experiment-form-done}
 
@@ -92,7 +92,7 @@ Llegado el momento como el lógico se querrá comprobar qué tan bien un modelo 
 \item Desde el enlace recibido en un correo electrónico una vez que el experimento finalice.
 \end{itemize}
 
-\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/profile}{Perfil de el usuario.}{profile}
+\imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/profile}{Perfil del usuario.}{profile}
 
 Siguiendo con el experimento mostrado en la Figura~\ref{fig:experiment-form-done}, en la Figura~\ref{fig:results} se pueden apreciar los resultados mostrados por la experimentación. Al haber sido un experimento sin validación cruzada, el sistema lo considera como si fuera una única \textit{fold}, de ahí el \texttt{k0}, en caso de usarse validación cruzada se tendrían \texttt{kn} en función de la $n$ seleccionada.
 
@@ -109,7 +109,7 @@ Se deja como trabajo del usuario el análisis de los diferentes valores y si tie
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/results}{Visualización de resultados.}{results}
 
 \subsubsection{Predecir la clase correspondiente}
-Una vez que se posee un modelo entrenado, desde la página de visualización de los resultados del experimentos, Figura~\ref{fig:results}, se puede hacer \textit{click} sobre el botón \textit{Predict}, siendo inmediatamente redirigidos a la página de predicción de etiquetas.
+Una vez que se posee un modelo entrenado, desde la página de visualización de los resultados del experimento, Figura~\ref{fig:results}, se puede hacer \textit{click} sobre el botón \textit{Predict}, siendo inmediatamente redirigidos a la página de predicción de etiquetas.
 
 Para poder predecir se deberá subir un conjunto de datos, el cual debe poseer \textbf{las mismas columnas (atributos), con exactamente los mismos nombres}, un ejemplo está en la Figura~\ref{fig:pre-predict}, siguiendo el ejemplo con el que se viene trabajando.
 
@@ -165,12 +165,12 @@ Cuando se decida qué se quiere modificar, se deberá hacer \textit{click} en el
 
 \FloatBarrier
 \subsection{Manual del administrador}
-A continuación se detallan todas las funcionalidades añadidas que posee un administrador. Un administrador es un usuario en su base, por lo tanto, todas las funcionalidades descritas en la sección anterior también hacen referencia al administrador.
+A continuación, se detallan todas las funcionalidades añadidas que posee un administrador. Un administrador es un usuario en su base, por lo tanto, todas las funcionalidades descritas en la sección anterior también hacen referencia al administrador.
 
 \subsubsection{\texttt{NavBar} de administración}
 Tal y como se aprecia en la Figura~\ref{fig:index-admin}, el administrador posee una barra de navegación lateral en toda la aplicación, permitiendo acceder a esas funcionalidades en cualquier momento desde cualquier lugar. A su vez, en la parte superior derecha posee un acceso directo a la parte de administración, el botón \textit{Administration}.
 
-En caso de querer ocultar la barra lateral de administración, ya que no se va utilizar en ese momento, en la parte superior izquierda aparece una \texttt{X}, haciendo \textit{click} en ella se ocultará la barra lateral.
+En caso de querer ocultar la barra lateral de administración, ya que no se va a utilizar en ese momento, en la parte superior izquierda aparece una \texttt{X}, haciendo \textit{click} en ella se ocultará la barra lateral.
 
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/index-admin}{Vista principal de administrador.}{index-admin}
 
@@ -188,14 +188,14 @@ Se dispone de la siguiente información:
 	\item Número total de experimentos (los modelos) que se encuentran almacenados en el sistema.
 	\item Número total de conjuntos de datos distintos almacenados en el sistema.
 	\item Número de usuarios registrados en el sistema.
-	\item Número total del países de los cuáles los usuarios han dicho ser.
+	\item Número total de los países de los cuáles los usuarios han dicho ser.
 \end{itemize}
 \item \textit{Experiments performed in the last 7 days}. Igual que para el usuario, pero con las estadísticas de todos los usuarios. 
 \item \textit{Algorithm Type Usage Distribution}. Estadísticas globales del número de experimentos de cada tipo que se han ejecutado.
 \item \textit{Algorithm Type Time Used}. Distribución del tiempo de uso (ejecución) de los diferentes tipos de algoritmos.
 \item \textit{Desired Use}. Estadísticas del uso que los usuarios han indicado que le van a dar primordialmente a la aplicación.
 \item \textit{Country Distribution}. Representación de la ubicación geográfica de los usuarios. Siendo representado cada país por un único punto.
-\item \textit{Latests Experiments}. Últimos 10 experimentos lanzados, pueden estar \textit{In Progress}, o terminados, ya sea \textit{Finalized} o bien \textit{Error}. Mostrando la información mínima necesaria así como el usuario dueño del experimento.
+\item \textit{Latests Experiments}. Últimos 10 experimentos lanzados, pueden estar \textit{In Progress}, o terminados, ya sea \textit{Finalized} o bien \textit{Error}. Mostrando la información mínima necesaria, así como el usuario dueño del experimento.
 \item \textit{All Time Datasets Run}. Comparativa del tiempo de ejecución de algunos conjuntos de datos en comparación con el número de veces que han sido ejecutados. Se puede modificar la escala de tiempo.
 \end{itemize}
 
@@ -206,7 +206,7 @@ Tal y como se puede ver en la Figura~\ref{fig:users-admin}, se soporta la búsqu
 
 \imagenFlotante{../img/anexos/manual-usuario/UBUMLaaS/users-admin}{Vista de administración de usuarios.}{users-admin}
 
-Un usuario no puede quitarse a sí mismo privilegios de administrador, ni deactivarse la cuenta, o eliminarla, teniendo que ser otro administrador el que lo haga; de esta manera el sistema siempre tendrá como mínimo un administrador.
+Un usuario no puede quitarse a sí mismo privilegios de administrador, ni desactivarse la cuenta, o eliminarla, teniendo que ser otro administrador el que lo haga; de esta manera el sistema siempre tendrá como mínimo un administrador.
 
 A su vez se soporta crear un usuario haciendo \textit{click} en el botón verde \textit{New user}. Desplegándose un formulario y se deberán de rellenar los campos de correo electrónico, nombre de usuario, país y uso que se va a hacer; las restricciones de los campos existentes deben de seguir cumpliéndose. Al usuario se le generará una contraseña y al correo electrónico llega un correo, valga la redundancia, de activación de la cuenta, pero deberá de re-establecer la contraseña como si la hubiera olvidado antes de poder iniciar sesión por primera vez.
 
@@ -226,7 +226,7 @@ La información que se muestra es la siguiente (todas las unidades que se muestr
 	\item \textit{Memory Load}. El uso total de la memoria en forma de gráfico.
 	\item \textit{Used Memory}. El valor total de memoria en uso en el sistema.
 	\item \textit{Storage in use}. Almacenamiento total del sistema en vista de gráfico.
-	\item \textit{Storaged Used}. El valor total de almacenamiento en uso.
+	\item \textit{Storage Used}. El valor total de almacenamiento en uso.
 \end{itemize}
 \item \textit{System Load 1/5/15}. Cada gráfico representa la carga media del sistema en los últimos 1, 5 y 15 minutos, respectivamente.
 \item \textit{I/O Usage}. Interrupciones de tipo \textit{Input}/\textit{Output} de la CPU y del disco.
@@ -246,7 +246,7 @@ La información que se muestra es la siguiente (todas las unidades que se muestr
 \FloatBarrier
 \clearpage
 \section{IS-SSL}
-A continuación se presenta el manual de usuario de las bibliotecas de algoritmos desarrolladas. Permitiendo a cualquier usuario comprender \texttt{IS-SSL} y poder hacer uso de las mismas.
+A continuación, se presenta el manual de usuario de las bibliotecas de algoritmos desarrolladas. Permitiendo a cualquier usuario comprender \texttt{IS-SSL} y poder hacer uso de estas.
 \subsection{Requisitos de usuarios}
 Los requisitos mínimos para poder hacer uso de \texttt{IS-SSL} son:
 \begin{itemize}
@@ -287,7 +287,7 @@ Para realizar la instalación se deben seguir los siguientes pasos para cualquie
 
 \subsection{Manual del usuario}
 
-A continuación se documentan las funcionalidades de las bibliotecas, desde su importación, a uso y especificación de los diferentes parámetros de entrada y salida esperados. A modo de resumen se puede destacar que todos los algoritmos siguen la misma estructura interna luego el aprendizaje y familizarización es relativamente rápido.
+A continuación, se documentan las funcionalidades de las bibliotecas, desde su importación, a uso y especificación de los diferentes parámetros de entrada y salida esperados. A modo de resumen se puede destacar que todos los algoritmos siguen la misma estructura interna luego el aprendizaje y familiarización es relativamente rápido.
 
 \subsubsection{Biblioteca de algoritmos de selección de instancias}
 \textbf{Importar}\\
@@ -297,12 +297,12 @@ Para poder trabajar con los algoritmos de selección de instancias se deben de i
 
 De esta forma podemos sustituir ENN por el algoritmo que deseemos de entre los disponibles y tenerlo a nuestra disposición para su uso.
 
-Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso del mismo. 
+Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso de este. 
 
 \textbf{Uso}\\
 Como se ha comentado al comienzo, todos los algoritmos poseen la misma estructura. Todos ellos poseen el método \texttt{filter} de tal manera que una vez se haya instanciado se podrá llamar al método y se obtendrá como resultado el conjunto de datos reducido.
 
-Todos los algoritmos en su instanciación reciben aquellos parámetros que son necesarios para la configuración y su uso posterior, mientras que cuando se realiza el filtrado únicamente reciben el conjunto de datos dividido, por un lado los atributos y por otro lado la clase.
+Todos los algoritmos en su instanciación reciben aquellos parámetros que son necesarios para la configuración y su uso posterior, mientras que cuando se realiza el filtrado únicamente reciben el conjunto de datos dividido, por un lado, los atributos y por otro lado la clase.
 
 Tanto las entradas como las salidas deben ser objetos de tipo \texttt{DataFrame} de \texttt{Pandas}.
 
@@ -327,7 +327,7 @@ De manera análoga a la otra biblioteca, importaremos el paquete y seleccionarem
 
 \texttt{from SemiSupervisedLearningDNX import TriTraining}\\
 Pudiendo sustituir TriTraining por el algoritmo deseado.\\
-Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso del mismo. 
+Todos los algoritmos están codificados como \texttt{class} por lo tanto se debe de instanciar antes de poder hacer uso de este. 
 
 \textbf{Uso}\\
 Los algoritmos siguen la misma estructura interna que los propios de \texttt{Scikit-Learn}, por lo que una vez instanciados (con sus respectivos parámetros de configuración) bastará con llamar al método \texttt{fit} de cada uno de ellos, así como para predecir al método correspondiente, denominado \texttt{predict}.

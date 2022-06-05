@@ -1,6 +1,6 @@
 \capitulo{7}{Conclusiones y Líneas de trabajo futuras}
 
-En esta última sección se exponen las conclusiones finales recuperadas del proyecto realizado. Además, se añaden las líneas futuras que se pueden seguir para continuar con el desarrollo de las bibliotecas, y/o de \texttt{UBUMLaaS}.
+En esta última sección se exponen las conclusiones recuperadas del proyecto realizado. Además, se añaden las líneas futuras que se pueden seguir para continuar con el desarrollo de las bibliotecas, y/o de \texttt{UBUMLaaS}.
 
 \section{Conclusiones}
 Conclusiones a las que se llega posterior al desarrollo del proyecto.
@@ -9,17 +9,17 @@ Conclusiones a las que se llega posterior al desarrollo del proyecto.
 \item Los objetivos del proyecto han sido cumplidos satisfactoriamente.
 	\begin{itemize}
 	\item \texttt{IS-SSL}. Ahora la comunidad cuenta con dos bibliotecas las cuales proporcionan aquellos algoritmos más comúnmente utilizados en la literatura. Estas son públicas permitiendo que cualquier persona pueda utilizarlas.
-	\item \texttt{UBUMLaaS.} La aplicación cuenta con soporte para algoritmos de aprendizaje semi-supervisado. Además dispone de una <<parte>> de administración la cuál va a permitir a los usuarios con el rol de administrador ser capaces de no solo conocer el estado del sistema, sino también administrar usuarios y poseer estadísticas en tiempo real, todo ello sin necesidad de acceder a la base de datos <<a mano>>.\\
+	\item \texttt{UBUMLaaS.} La aplicación cuenta con soporte para algoritmos de aprendizaje semi-supervisado. Además, dispone de una <<parte>> de administración la cuál va a permitir a los usuarios con el rol de administrador ser capaces de no solo conocer el estado del sistema, sino también administrar usuarios y poseer estadísticas en tiempo real, todo ello sin necesidad de acceder a la base de datos <<a mano>>.\\
 	Tras la finalización del proyecto, \texttt{UBUMLaaS} cuenta con una documentación técnica de programador, lo cual favorecerá su evolución y desarrollo futuro, así como la facilidad de mantenimiento y reducción de deuda técnica.
 	\end{itemize}
-\item La lectura de artículos científicos ha sido algo totalmente nuevo, siendo necesarias numerosas horas para su interpretación (sobretodo en los primeros), se debe destacar que según se avanzaba en el desarrollo del proyecto, la familiarización con éstos ha sido satisfactoria, permitiendo asimilar e implementar los algoritmos deseados con mayor facilidad.
+\item La lectura de artículos científicos ha sido algo totalmente nuevo, siendo necesarias numerosas horas para su interpretación (sobre todo en los primeros), se debe destacar que según se avanzaba en el desarrollo del proyecto, la familiarización con éstos ha sido satisfactoria, permitiendo asimilar e implementar los algoritmos deseados con mayor facilidad.
 \item El haber desarrollado los algoritmos de \texttt{IS-SSL} en Python posee las ventajas de poseer multitud de bibliotecas orientadas a operaciones vectoriales y con \textit{DataFrames}, su portabilidad, posee una baja curva de aprendizaje, y que se trata de un lenguaje de alto nivel.
-\item Las bibliotecas poseen una estructura que permite su escalabilidad, permitiendo que no sea un trabajo cerrado sino que se puedan ampliar y seguir evolucionando.
+\item Las bibliotecas poseen una estructura que permite su escalabilidad, permitiendo que no sea un trabajo cerrado, sino que se puedan ampliar y seguir evolucionando.
 \item El desarrollo de \texttt{UBUMLaaS} ha permitido ampliar el número de tecnologías conocidas, en un inicio se habían utilizado muy poco la mayor parte de las tecnologías utilizadas para el desarrollo del \textit{frontend}. Pero a la hora de finalizar el trabajo ya se está familiarizado con ello y se posee una confianza y capacidades de desarrollar garantizando una calidad dada.
 \item A lo largo del desarrollo del proyecto se han utilizado diferentes herramientas \emph{cloud}, éstas han permitido aumentar la calidad del producto final que se iba obteniendo en sucesivas iteraciones. Se deberían de haber definido en un primer momento antes de comenzar a desarrollar el proyecto, pero algunas de ellas eran desconocidas. Cabe destacar que el esfuerzo extra que ha tenido que ser invertido, en futuros proyectos resultará útil.
 \end{itemize}
 
-Como \textbf{conclusión final}, destacar la oportunidad de \emph{aprendizaje} que el desarrollo de este proyecto ha supuesto. Desde el minuto uno se ha requerido dominar ciertas tecnologías vistas (y nuevas) a lo largo de todo el Grado, incluso a la hora de escribir la documentación. El número de horas que el proyecto iba a requerir se conocía desde un primer momento pero el razonamiento inicial de \emph{<<quedan 8 meses por delante, hay tiempo para todo>>}, si bien se ha cumplido (el proyecto se ha terminado antes de las fechas de entrega), la disciplina de trabajo como si fuera un entorno laboral ha sido necesaria.
+Como \textbf{conclusión}, hay que destacar la oportunidad de \emph{aprendizaje} que el desarrollo de este proyecto ha supuesto. Desde el minuto uno se ha requerido dominar ciertas tecnologías vistas (y nuevas) a lo largo de todo el Grado, incluso a la hora de escribir la documentación. El número de horas que el proyecto iba a requerir se conocía desde un primer momento, pero el razonamiento inicial de \emph{<<quedan 8 meses por delante, hay tiempo para todo>>}, si bien se ha cumplido (el proyecto se ha terminado antes de las fechas de entrega), la disciplina de trabajo como si fuera un entorno laboral ha sido necesaria.
 
 \section{Líneas de trabajo futuras}
 
@@ -29,7 +29,7 @@ Como \textbf{conclusión final}, destacar la oportunidad de \emph{aprendizaje} q
 \item Migración de la aplicación a \texttt{Kubernetes}, permitiendo el despliegue sobre \textit{clusters}. Dada la naturaleza de la aplicación, es una evolución lógica.
 \item Aumentar el número de algoritmos soportados, incluyendo su implementación en diferentes lenguajes (actualmente soportados \texttt{IS-SSL}, \texttt{Scikit-Learn} y \texttt{Weka}).
 \item Aumentar el conjunto de pruebas de forma que abarquen tanto \textit{backend} como \textit{frontend}.
-\item Realizar un proceso de refactorización (únicamente en caso de que el proyecto vaya aumentar sus funcionalidades).
+\item Realizar un proceso de refactorización (únicamente en caso de que el proyecto vaya a aumentar sus funcionalidades).
 \item Mejoras de \textit{backend}:
 	\begin{itemize}
 	\tightlist
@@ -37,7 +37,7 @@ Como \textbf{conclusión final}, destacar la oportunidad de \emph{aprendizaje} q
 	\item Soporte de parseo de ficheros personalizados (separadores, saltos de línea, etc.).
 	\item Detección de entrenamientos idénticos repetidos con el fin de evitar repetir procesos demasiado largos en CPU.
 	\item Migración de la ejecución de los entrenamientos a ejecución en GPUs.
-	\item Proporcionar soporte de ejecución paralela sobretodo en aquellos procesos con validación cruzada.
+	\item Proporcionar soporte de ejecución paralela sobre todo en aquellos procesos con validación cruzada.
 	\end{itemize}
 \item Mejoras de \textit{frontend}:
 	\begin{itemize}
@@ -51,7 +51,7 @@ Como \textbf{conclusión final}, destacar la oportunidad de \emph{aprendizaje} q
 
 \textbf{\texttt{IS-SSL}}, el propio diseño de ambas bibliotecas sugiera una posible unión en el futuro, en caso de que se acaben comenzando a utilizar de forma conjunta y facilite su uso. 
 
-Para facilitar la aportación de la comunidad a las bibliotecas, se van a definir las convenciones, buenas prácticas, \ldots de forma que la evolución de las bibliotecas mantenga una estructura y un código limpio y sobretodo, \emph{fácil} de mantener. En esta misma línea se va a aplicar el método plantilla~\cite{shvets2021} con el fin de re-estructurar las bibliotecas, permitiendo crear un \texttt{core} común y desacoplar ciertas funcionalidades.
+Para facilitar la aportación de la comunidad a las bibliotecas, se van a definir las convenciones, buenas prácticas, \ldots de forma que la evolución de las bibliotecas mantenga una estructura y un código limpio y, sobre todo, \emph{fácil} de mantener. En esta misma línea se va a aplicar el método plantilla~\cite{shvets2021} con el fin de re-estructurar las bibliotecas, permitiendo crear un \texttt{core} común y desacoplar ciertas funcionalidades.
 
 Una de las mejoras que se plantean para realizar a corto/medio plazo es la migración de los algoritmos a \texttt{Cython}, de manera que haya un aumento considerable del rendimiento. Otra opción que se propone es la modificación de los algoritmos para, en aquellas partes soportadas, corran en paralelo tanto mediante hilos, como mediante procesadores lógicos o reales.
 

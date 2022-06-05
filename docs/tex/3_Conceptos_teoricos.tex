@@ -55,7 +55,7 @@ Principalmente existen dos técnicas de aprendizaje no supervisado.
 	
 	Con los datos agrupados el proceso de análisis de éstos puede comenzar. En ocasiones si el número de grupos detectados es muy alto, se pueden encontrar grupos o \textit{clusters} irrelevantes, permitiendo a los científicos de datos eliminar esos datos que los forman, reduciendo la dimensionalidad~\cite{boutsidis2014randomized}.
 	
-	\item \textbf{Reducción de la dimensionalidad}~\cite{li2002unsupervised}. El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello que resulta útil identificar aquellos atributos que están fuertemente interrelacinados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
+	\item \textbf{Reducción de la dimensionalidad}~\cite{li2002unsupervised}. El aprendizaje se basa en instancias/ejemplos y éstos a su vez están formados por atributos o características, lo cual permite su clasificación, valga la redundancia. Cuando los conjuntos de datos poseen múltiples características, más difícil resulta su clasificación. Es por ello por lo que resulta útil identificar aquellos atributos que están fuertemente interrelacionados entre sí para eliminar todos menos un atributo, reduciendo la dimensionalidad~\cite{li2002unsupervised}.
 \end{enumerate}
 
 \subsection{Aprendizaje semi-supervisado}\label{subsec:Aprendizaje-Semi-Supervisado}
@@ -78,15 +78,15 @@ Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren 
 Dentro de las \textit{best practices} en \textit{semi-supervised learning} se encuentran el uso de diferentes modelos de redes neuronales para el entrenamiento~\cite{thekumparampil2018attention}.
 
 
-\section{Algoritmos de aprendizaje semi-sepervisado}\label{sec_alg:semi-supervised}
+\section{Algoritmos de aprendizaje semi-supervisado}\label{sec_alg:semi-supervised}
 A continuación se van a presentar los algoritmos implementados en este trabajo dentro del aprendizaje semi-supervisado.
 
 \subsection{\textit{Self-training}}
-Los métodos de auto-etiquetado (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{condifence level}~\cite{jesper2020survey}.
+Los métodos de auto-etiquetado (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{confidence level}~\cite{jesper2020survey}.
 
-Yarowsky~\cite{yarowsky1995unsupervised} en 1995 propuso la primera versión de \textit{Self-training}, desde entonces numerosas aproximaciones han sido realizadas, modificando la utilización del conjunto de datos etiquetado, los nuevos datos, etcétera. El diseño que se le puede dar y los campos de aplicación del mismo son muy variados.
+Yarowsky~\cite{yarowsky1995unsupervised} en 1995 propuso la primera versión de \textit{Self-training}, desde entonces numerosas aproximaciones han sido realizadas, modificando la utilización del conjunto de datos etiquetado, los nuevos datos, etcétera. El diseño que se le puede dar y los campos de aplicación de este son muy variados.
 
-El procedimiento de selección de qué datos son pseudo-etiquetados es de vital importancia, puesto que determinará qué datos acaban en el conjunto de datos etiquetado de sucesivas iteraciones. Siendo este un proceso iterativo y no incremental, ya que la probabilidad de etiquetado de los datos es re-calculada en cada iteración. De no serlo sería una apoximación a \textit{expectation-maximization}~\cite{dempster1977maximum}.
+El procedimiento de selección de qué datos son pseudo-etiquetados es de vital importancia, puesto que determinará qué datos acaban en el conjunto de datos etiquetado de sucesivas iteraciones. Siendo este un proceso iterativo y no incremental, ya que la probabilidad de etiquetado de los datos es re-calculada en cada iteración. De no serlo sería una aproximación a \textit{expectation-maximization}~\cite{dempster1977maximum}.
 
 \subsection{\textit{Co-Training}}
 Blum~\cite{blum1998combining} en 1998 propuso el \textit{Co-Training} para conjuntos de datos compuestos por datos separables en dos vistas. Bajo la presunción de que con unos pocos datos etiquetados y diferentes clases que aportan información, se pueden entrenar dos algoritmos de aprendizaje por separado para posteriormente añadir al conjunto de datos etiquetados aquellas predicciones con un mayor intervalo de confianza (\textit{confidence level}).
@@ -171,7 +171,7 @@ Zhou~\cite{zhou2004democratic} en 2004 presentó el algoritmo \textit{Democratic
 
 El algoritmo es por tanto enfocado para el uso en casos donde no existen dos conjuntos de atributos independientes y redundantes, su pseudocódigo se encuentra disponible en los algoritmos~\ref{alg:Democratic-Co}~y~\ref{alg:Democratic-Co-2}.
 
-Es por ello que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver Algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
+Es por ello por lo que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver Algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
 
 Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ (l + h)/2
 $ para $l$ y $h$ definidas por el intervalo de confianza del 95\% $\left[l,h\right]$.
@@ -241,13 +241,13 @@ Finalizando con la combinación de todas las hipótesis generadas para retornar 
 \end{algorithm}
 
 \subsection{\textit{Self-Training} basado en picos de densidad}
-Wu~\cite{wu2018self} en 2018 presentó un \textit{framework} para clasificación utilizando \textit{self-training}. En este caso a diferencia de los métodos estudiados anteriormente, se utilizan técnicas de \textit{clustering} (agrupación) para obtener mejores resultados. Con éste método se descubre la  estructura del espacio de datos, para ello se integra la densidad de los datos en el proceso de \textit{self-training}, de manera que se entrene iterativamente un clasificador. 
+Wu~\cite{wu2018self} en 2018 presentó un \textit{framework} para clasificación utilizando \textit{self-training}. En este caso a diferencia de los métodos estudiados anteriormente, se utilizan técnicas de \textit{clustering} (agrupación) para obtener mejores resultados. Con este método se descubre la  estructura del espacio de datos, para ello se integra la densidad de los datos en el proceso de \textit{self-training}, de manera que se entrene iterativamente un clasificador. 
 
-El proceso, ver algoritmo~\ref{alg:Wu-DensityPeaks}, por el cuál se consigue este nuevo clasificador <<mejorado>> es el siguiente:
+El proceso, ver algoritmo~\ref{alg:Wu-DensityPeaks}, por el cual se consigue este nuevo clasificador <<mejorado>> es el siguiente:
 \begin{enumerate}
 \item Encontrar los picos de densidad de los datos para aprender la estructura subyacente de todo el espacio de datos de entrenamiento. Y se integra esta estructura en el proceso de entrenamiento iterativo de un clasificador.
 \item Se entrena un clasificador con los datos etiquetados. Se clasifican los ejemplos siguientes de los ya etiquetados hasta que no haya más, se predicen y, se añaden y eliminan de los datos etiquetados y no etiquetados, respectivamente.
-\item Se repite el paso anterior pero con los puntos anteriores.
+\item Se repite el paso anterior, pero con los puntos anteriores.
 \end{enumerate}
 
 \begin{algorithm}[H]
@@ -308,7 +308,7 @@ En~\cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o 
 
 \begin{enumerate}
    \item \textbf{Establecer los objetivos y comprensión del problema.}
-    La primera etapa puede resultar la más complicada del proceso. Todas las partes interesadas deben de estar presentes y de acuerdo en la definición del problema que se va tratar, esto incluye tanto a los científicos de datos como las terceras partes involucradas o interesadas. 
+    La primera etapa puede resultar la más complicada del proceso. Todas las partes interesadas deben de estar presentes y de acuerdo en la definición del problema que se va a tratar, esto incluye tanto a los científicos de datos como las terceras partes involucradas o interesadas. 
     Este procedimiento ayuda a la formulación de las preguntas de los datos y los parámetros a utilizar en el proyecto. Si se trata de un proyecto empresarial, se debe hacer un estudio o investigación adicional para comprender el contexto de la empresa.
     \item \textbf{Preparación de los datos.}
     Con el alcance del problema definido ya se puede comenzar a identificar qué conjunto de datos será el más efectivo o representativo con el fin de comenzar a dar respuesta a las preguntas formuladas en el proceso anterior.
@@ -339,14 +339,14 @@ En función de cómo los modelos resuelven el problema se pueden clasificar en:
 \end{enumerate}
 
 El proceso aplicado en la minería de datos proporciona un marco de trabajo mediante el cual se permite extraer información aparentemente no trivial de grandes conjuntos de datos. 
-Es un campo de aprendizaje constante, tanto el aplicar los conocimientos del analista para reducir las dimensiones del conjunto de datos, como una vez que se ha entrenado el modelo y puesto en producción, aprender los puntos fuertes de este y el por qué de éstos~\cite{Chapman2000CRISPDM1S}.
+Es un campo de aprendizaje constante, tanto el aplicar los conocimientos del analista para reducir las dimensiones del conjunto de datos, como una vez que se ha entrenado el modelo y puesto en producción, aprender los puntos fuertes de este y el porqué de éstos~\cite{Chapman2000CRISPDM1S}.
 
 \subsection{Técnicas utilizadas en la minería de datos}
 
-A continuación se presentan una serie de técnicas utilizadas en función de la naturaleza de las instancias predictoras, y de la variable de salida. Si la variable o clase de salida es continua o categórica, nos encontramos con modelos de aprendizaje supervisado, mientras que si no existe variable o clase de salida, nos encontramos con modelos de aprendizaje no supervisado~\cite{palmer2011data}.
+A continuación, se presentan una serie de técnicas utilizadas en función de la naturaleza de las instancias predictoras, y de la variable de salida. Si la variable o clase de salida es continua o categórica, nos encontramos con modelos de aprendizaje supervisado, mientras que, si no existe variable o clase de salida, nos encontramos con modelos de aprendizaje no supervisado~\cite{palmer2011data}.
 
 \begin{enumerate}
-	\item \textbf{Reglas de asociación} (además se trata de una técnica de aprendizaje automático). Se basa en el uso de reglas básicas qutilizadas para localizar relaciones entre instancias en conjuntos de datos de gran tamaño. Para su correcto funcionamiento deben satisfacer el soporte (nivel) mínimo especificado por el usuario y la confianza o grado de satisfacibilidad especificada en tiempo constante.
+	\item \textbf{Reglas de asociación} (además se trata de una técnica de aprendizaje automático). Se basa en el uso de reglas básicas utilizadas para localizar relaciones entre instancias en conjuntos de datos de gran tamaño. Para su correcto funcionamiento deben satisfacer el soporte (nivel) mínimo especificado por el usuario y la confianza o grado de satisfactibilidad especificada en tiempo constante.
 	
 	En determinadas ocasiones la generación de estas reglas es dividida en una serie de pasos:
 	\begin{itemize}
@@ -358,7 +358,7 @@ A continuación se presentan una serie de técnicas utilizadas en función de la
 	Las redes neuronales poseen tres ventajas en el uso de grandes conjuntos de datos: aprendizaje adaptado mediante ejemplos, robustez en el manejo de información redundante e imprecisa, y computación masiva paralela.
 	\item \textbf{Árboles de decisión.} Se pueden definir como particiones secuenciales de un conjunto de datos, maximizando las diferencias a una variable dependiente. Ofrecen una forma concisa de definir grupos que son consistentes en sus atributos pero que varían en términos de la variable dependiente.
 	
-	Los árboles de decisión se encuentran compuestos de nodos (variables de entrada), ramas (grupos de variables de entrada), y hojas (valores de la variable de salida). La construcción de los árboles está basada en el principio de \textit{divide and conquer}, haciendo uso de un algoritmo de aprendizaje supervisado, se realizan divisiones sucesivas del espacio multi-variable con el objetivo de maximizar la distancia entre los grupos de cada división, \textit{i.e.} realizar particiones discriminatorias. El proceso de división finaliza cuando todas las entradas de una rama tienen el mismo valor en el nodo hoja, dando lugar al modelo completo. Cuanto más abajo estén las variables de entrada en el árbol, menos importantes son el la clasificación  de la salida.
+	Los árboles de decisión se encuentran compuestos de nodos (variables de entrada), ramas (grupos de variables de entrada), y hojas (valores de la variable de salida). La construcción de los árboles está basada en el principio de \textit{divide and conquer}, haciendo uso de un algoritmo de aprendizaje supervisado, se realizan divisiones sucesivas del espacio multi-variable con el objetivo de maximizar la distancia entre los grupos de cada división, \textit{i.e.} realizar particiones discriminatorias. El proceso de división finaliza cuando todas las entradas de una rama tienen el mismo valor en el nodo hoja, dando lugar al modelo completo. Cuanto más abajo estén las variables de entrada en el árbol, menos importantes son en la clasificación  de la salida.
 	
 	Para evitar el \textit{overfitting} del modelo, el árbol puede podarse eliminando las ramas con pocas instancias, o donde aquellas instancias sean poco representativas~\cite{palmer2011data}.
 	
@@ -372,9 +372,9 @@ A continuación se presentan una serie de técnicas utilizadas en función de la
 \end{enumerate}
 
 \section{Técnicas de selección de instancias}\label{sec:tecnicas-seleccion-instancias}
-Dentro de los conjuntos de datos nos encontramos con las instancias, también llamadas ejemplos o prototipos, son cada uno de los elementos que componen el \textit{dataset}; en problemas reales de \textit{machine learning} es habitual que se requiera de clasificación automática de estos datos. Este proceso se puede llevar a cabo con algoritmos de aprendizaje supervisado, Sección~\ref{subsec:Aprendizaje-Supervisado}, con el objetivo de etiquetar la nueva información. Para poder hacerlo previamente se ha tenido que entrenado el clasificador con un conjunto de entrenamiento, $T$~\cite{olvera2010review}.
+Dentro de los conjuntos de datos nos encontramos con las instancias, también llamadas ejemplos o prototipos, son cada uno de los elementos que componen el \textit{dataset}; en problemas reales de \textit{machine learning} es habitual que se requiera de clasificación automática de estos datos. Este proceso se puede llevar a cabo con algoritmos de aprendizaje supervisado, Sección~\ref{subsec:Aprendizaje-Supervisado}, con el objetivo de etiquetar la nueva información. Para poder hacerlo previamente se ha tenido que, entrenado el clasificador con un conjunto de entrenamiento, $T$~\cite{olvera2010review}.
 
-En la práctica, cualquier $T$ dado contendrá información útil e información desechable, este último tipo de información --- que en realidad son instancias --- a parte de ser redundantes producen ruido, pudiendo inducir en una clasificación errónea en el proceso de aprendizaje, y posteriormente tener un modelo que no sea capaz de clasificar correctamente la nueva información.
+En la práctica, cualquier $T$ dado contendrá información útil e información desechable, este último tipo de información --- que en realidad son instancias --- aparte de ser redundantes producen ruido, pudiendo inducir en una clasificación errónea en el proceso de aprendizaje, y posteriormente tener un modelo que no sea capaz de clasificar correctamente la nueva información.
 
 \begin{figure}
 \centering
@@ -383,7 +383,7 @@ En la práctica, cualquier $T$ dado contendrá información útil e información
 \label{fig:instance-election-overview}
 \end{figure}
 
-Es por ello que un pre-procesado o \textbf{filtrado} de las instancias pertenecientes al $T$ original es necesario. En la Figura~\ref{fig:instance-election-overview} se ilustra de manera gráfica el proceso de selección de instancias. Dado un conjunto de datos de entrenamiento inicial, $T$, el objetivo será obtener un subconjunto $S$, tal que $S \subseteq T$ de manera que $S$ no contiene instancias redundantes ni <<ruidosas>>. Además, $Acc(S) \cong Acc(T)$, donde $Acc(X)$ es la precisión, \textit{accuracy} en inglés, del modelo entrenado con el conjunto de datos $X$.
+Es por ello por lo que un pre-procesado o \textbf{filtrado} de las instancias pertenecientes al $T$ original es necesario. En la Figura~\ref{fig:instance-election-overview} se ilustra de manera gráfica el proceso de selección de instancias. Dado un conjunto de datos de entrenamiento inicial, $T$, el objetivo será obtener un subconjunto $S$, tal que $S \subseteq T$ de manera que $S$ no contiene instancias redundantes ni <<ruidosas>>. Además, $Acc(S) \cong Acc(T)$, donde $Acc(X)$ es la precisión, \textit{accuracy} en inglés, del modelo entrenado con el conjunto de datos $X$.
 
 En función de cómo comienzan a crear el nuevo subconjunto de datos, $S$, se identifican dos aproximaciones, ascendente y descendente.
 \begin{itemize}
@@ -429,7 +429,7 @@ Existen multitud de algoritmos a día de hoy que son capaces de reducir el núme
 
 \paragraph{Algoritmo de edición de Wilson}\label{paragraph:ENN}
 \hfill \break
-Wilson~\cite{wilson1972asymptotic} (1972) publicó la regla del vecino más cercano editado, \textit{ENN}. Los problemas de clasificación de instancias en función de una etiqueta, se caracterizan por:
+Wilson~\cite{wilson1972asymptotic} (1972) publicó la regla del vecino más cercano editado, \textit{ENN}. Los problemas de clasificación de instancias en función de una etiqueta se caracterizan por:
 \begin{itemize}
 \item Hay una instancia a ser clasificada.
 \item Existe un $S$ el cual posee instancias con la misma distribución que la instancia a clasificar, pudiendo ser comparables las instancias del conjunto con la que estamos analizando.
@@ -470,7 +470,7 @@ El algoritmo propuesto por Hart~\cite{hart1968condensed}, ver algoritmo~\ref{alg
 Si bien es una técnica utilizada por su efectividad, posee una serie de puntos negativos a su vez.
 \begin{itemize}
 \item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestran no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
-\item $S$ no tiene porqué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
+\item $S$ no tiene por qué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
 \end{itemize}
 
 \begin{algorithm}[H]
@@ -528,7 +528,7 @@ Coverage (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x, x')\rbrace  \\
 Reachable (x) = \lbrace x' \in \mathcal{CB} : Adaptable(x',x)\rbrace
 \end{align*}
 
-Una instancia $x$ podrá estar en el conjunto adaptable de $x'$ sí y solo si $x$ es una instancia relevante para la solución de $x'$, \textit{i.e.} $x \in k-NN(x)$. La problemática surge en el momento en el cual una instancia con clase diferente no permite la correcta clasificación de $x'$, es por ello que el vecindario de $x'$ viene definido por todas las instancias antes de la primera instancia de diferente clase, utilizando \textit{sets} descritos por Wilson y Martinez. La propiedad \textit{Reachable} no está fijada desde el principio del algoritmo, sino que es dinámica siendo fijada cada vez en función de la instancia de clase diferente más cercana. El criterio seguido para realizar la eliminación de una muestras es: si el \textit{set} formado por el $reachable(x)$ es mayor que el $coverage(x)$, \textit{i.e.} una instancia $x$ es eliminada cuando más instancias pueden resolver $x$ que las que $x$ puede resolver por sí misma.
+Una instancia $x$ podrá estar en el conjunto adaptable de $x'$ sí y solo si $x$ es una instancia relevante para la solución de $x'$, \textit{i.e.} $x \in k-NN(x)$. La problemática surge en el momento en el cual una instancia con clase diferente no permite la correcta clasificación de $x'$, es por ello por lo que el vecindario de $x'$ viene definido por todas las instancias antes de la primera instancia de diferente clase, utilizando \textit{sets} descritos por Wilson y Martinez. La propiedad \textit{Reachable} no está fijada desde el principio del algoritmo, sino que es dinámica siendo fijada cada vez en función de la instancia de clase diferente más cercana. El criterio seguido para realizar la eliminación de una muestra es: si el \textit{set} formado por el $reachable(x)$ es mayor que el $coverage(x)$, \textit{i.e.} una instancia $x$ es eliminada cuando más instancias pueden resolver $x$ que las que $x$ puede resolver por sí misma.
 
 \begin{algorithm}[H]
 	\KwIn{Conjunto de entrenamiento $X$}
@@ -565,7 +565,7 @@ Ritter~\cite{ritter1975algorithm} 1975 propone un algoritmo capaz de satisfacer 
 Un subconjunto $S$ del conjunto de entrenamiento $T$, es un Subconjunto Selectivo, $SS$, si $SS$ cumple las siguientes condiciones:
 \begin{enumerate}
 \item El subconjunto $S$ debe ser consistente.
-\item Todas las instancias tiene que ser más cercanas a un vecino selectivo de la misma clase que a cualquier otra instancia de otra clase.
+\item Todas las instancias tienen que ser más cercanas a un vecino selectivo de la misma clase que a cualquier otra instancia de otra clase.
 \item No puede haber ningún subconjunto $S'$ que satisfaga las condiciones 1 y 2, y que al mismo tiempo contenga un menor número de instancias que el Subconjunto Selectivo, $SS$.
 \end{enumerate}
 
@@ -573,7 +573,7 @@ La segunda condición es la diferencia principal entre el algoritmo de Hart y el
 
 \emph{Todas las instancias del conjunto de entrenamiento $T$ deben de ser más cercanos a un vecino condensado --- miembro del subconjunto condensado $\mathcal{CS}$ --- de la misma clase que a cualquier otra instancia de otra clase diferente del $\mathcal{CS}$.}
 
-Pudiendo verse como una reformulación del punto nº 1. Además, el punto nº  2 para el subconjunto selectivo permite un subconjunto de menor tamaño, eliminando la necesidad de calcular todas las permutaciones de las instancias en $T$. Con unos criterios más específicos que los que se encuentran en el algoritmo condensado, el subconjunto selectivo resultante no tiene porqué ser mínimamente consistente. Asimismo, de forma general, no será un subconjunto reducido del $S$ producido por \textit{CNN}.
+Pudiendo verse como una reformulación del punto nº 1. Además, el punto nº  2 para el subconjunto selectivo permite un subconjunto de menor tamaño, eliminando la necesidad de calcular todas las permutaciones de las instancias en $T$. Con unos criterios más específicos que los que se encuentran en el algoritmo condensado, el subconjunto selectivo resultante no tiene por qué ser mínimamente consistente. Asimismo, de forma general, no será un subconjunto reducido del $S$ producido por \textit{CNN}.
 
 
 \paragraph{Algoritmo Subconjunto Selectivo Modificado}\label{paragraph:MSS}
@@ -628,7 +628,7 @@ Todas las aproximaciones de $DROP\lbrace 1\dots5\rbrace$ se basan en el mismo al
 \item \textit{DROP1}. Eliminará un objeto $P$ de $S$ si sus socios en $S$ se clasifican correctamente sin $P$, \textit{i.e.} la ausencia de $P$ no impide la correcta clasificación del resto de prototipos.
 \item \textit{DROP2}. Eliminará un objeto $P$ de $S$ si los socios que tiene $P$ en $TS$ se clasifican correctamente sin $P$, \textit{i.e.}, verificará el efecto que causa esta eliminación sobre la muestra original. Previo al proceso de eliminación de objetos $P$, ordena los prototipos a tratar en orden a su enemigo más cercano, permitiendo que los primeros prototipos que se van a tratar serán aquellos más alejados de las fronteras de decisión, ergo las más prescindibles.
 \item \textit{DROP3}. Lo primero de todo realiza un filtrado de ruido, para ello aplica la edición de Wilson, ver algoritmo~\ref{alg:Wilson-ENN}. Seguidamente aplica el algoritmo \textit{DROP2}, ver algoritmo~\ref{alg:DROP3}.
-\item \textit{DROP4}. Aplica un filtro de ruido diferente, en este casos consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
+\item \textit{DROP4}. Aplica un filtro de ruido diferente, en este caso consistirá en eliminar un prototipo solo si su eliminación no provoca que alguna otra instancia sea mal clasificada.
 \item \textit{DROP5}. Modificación sobre \textit{DROP2}, en este algoritmo el proceso de eliminación de objetos comienza por aquellos más cercanos a sus enemigos. 
 \end{itemize}
 
