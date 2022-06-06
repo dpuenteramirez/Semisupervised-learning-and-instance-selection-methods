@@ -68,7 +68,7 @@ Dependiendo el objetivo final de los métodos, SSL puede ser aplicado en problem
 
 En el aprendizaje transductivo, el problema es abordado desde la predicción de las etiquetas de las instancias no etiquetadas, dadas de antemano, teniendo en cuenta tanto los datos no etiquetados como los que sí lo están para entrenar un clasificador. Mientras que en el aprendizaje inductivo se consideran los datos etiquetados y no etiquetados como datos de entrenamiento, siendo su objetivo el predecir los ejemplos no vistos.
 
-Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren inter-relacionadas entre sí por alguna de sus características~\cite{javatpoint_semisupervised} indica las siguientes suposiciones que se dan en el aprendizaje semi-supervisado.
+Para que el aprendizaje sea fructuoso requiere que las instancias se encuentren interrelacionadas entre sí por alguna de sus características~\cite{javatpoint_semisupervised} indica las siguientes suposiciones que se dan en el aprendizaje semi-supervisado.
 \begin{enumerate}
 	\item \textbf{Continuity} o continuidad. Se asume que los objetos cercanos entre sí se encontrarán en el mismo \textit{cluster} o grupo de etiquetas. 
 	\item \textbf{\textit{Clustering}} o agrupamiento. Las instancias son divididas en diferentes grupos discretos, compartiendo todos los elementos de un \textit{cluster} la misma etiqueta.
@@ -79,7 +79,7 @@ Dentro de las \textit{best practices} en \textit{semi-supervised learning} se en
 
 
 \section{Algoritmos de aprendizaje semi-supervisado}\label{sec_alg:semi-supervised}
-A continuación se van a presentar los algoritmos implementados en este trabajo dentro del aprendizaje semi-supervisado.
+A continuación, se van a presentar los algoritmos implementados en este trabajo dentro del aprendizaje semi-supervisado.
 
 \subsection{\textit{Self-training}}
 Los métodos de auto-etiquetado (\textit{self-training}), son uno de los métodos más sencillos de pseudo-etiquetado que existen~\cite{triguero2015self}. Consisten en un único clasificador el cual utiliza aprendizaje supervisado, el clasificador es entrenado con datos etiquetados conocidos al comienzo del entrenamiento y por los que se van conociendo a medida que pasan las iteraciones. Es decir, el clasificador inicialmente es entrenado con aquellos datos para los que se posea una etiqueta, y en sucesivas iteraciones se le reentrenará con el nuevo conjunto de datos etiquetado, que es el resultante de añadir a los datos etiquetados previos, aquellas predicciones con un elevado \textit{confidence level}~\cite{jesper2020survey}.
@@ -173,7 +173,7 @@ El algoritmo es por tanto enfocado para el uso en casos donde no existen dos con
 
 Es por ello por lo que \textit{Democratic Co-Learning} utiliza un conjunto de datos etiquetados, \textit{L}, uno de no etiquetados, \textit{U}, y $A_1,\dots ,A_n$ para $n \geq 3$, siendo $n$ los algoritmos de aprendizaje supervisado, ver Algoritmo~\ref{alg:Democratic-Co}. El algoritmo comienza entrenando los $n$ clasificadores sobre el conjunto de datos etiquetado $L$; y para cada instancia $x$ del conjunto de no etiquetados $U$, cada clasificador predice una etiqueta $c_i \in \mathcal{C} = \lbrace c_1, c_2, \dots , c_r\rbrace$. Siendo $c_k$ la predicción mayoritaria. Posteriormente los $n$ clasificadores son re-entrenados con los nuevos datos etiquetados (añadidos a los que ya teníamos), este proceso se realiza de manera iterativa hasta que no se seleccionen más datos para realizar el etiquetado. Para la selección final se realizar un voto mayoritario ponderado entre los $n$ clasificadores. 
 
-Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ (l + h)/2
+Una instancia $x$ nunca será etiquetada por la decisión única de un clasificador, a menos que la mayoría de los clasificadores estén de acuerdo. Además, se requiere que la suma de los valores medios de confianza de los clasificadores del grupo mayoritario sea mayor, que la suma de los valores medios de confianza de los clasificadores de los grupos minoritarios, siendo la confianza media de un clasificador $ (l + h)/2
 $ para $l$ y $h$ definidas por el intervalo de confianza del 95\% $\left[l,h\right]$.
 
 Finalizando con la combinación de todas las hipótesis generadas para retornar la hipótesis final. Para realizar el cálculo utiliza un sistema de votación mayoritaria de entre las posibles clases, para hilar un poco más fino, se considera también para cada clasificador su valor de confianza de la predicción. 
@@ -425,7 +425,7 @@ Junto con esta diferenciación, en función de la aproximación de selección de
 En la Tabla~\ref{tab:instance-selection-methods} se aprecian aquellos algoritmos implementados en primera instancia para la reducción de instancias dentro de $T$, el objetivo de todos ellos es que el subconjunto generado, $S$, sea capaz de clasificar correctamente  $T$ en su totalidad prácticamente.
 
 \subsubsection{Algoritmos de selección de instancias}\label{subsubsec:Instance-Selection-Algorithms}
-Existen multitud de algoritmos a día de hoy que son capaces de reducir el número de instancias de $T$, en este trabajo se van a comentar los pertenecientes a la Tabla~\ref{tab:instance-selection-methods}. Cada uno de ellos tiene sus ventajas y sus desventajas como cabe esperar, en la literatura no apreciamos un <<este es mejor que aquel>> o similar.
+Existen multitud de algoritmos hoy en día que son capaces de reducir el número de instancias de $T$, en este trabajo se van a comentar los pertenecientes a la Tabla~\ref{tab:instance-selection-methods}. Cada uno de ellos tiene sus ventajas y sus desventajas como cabe esperar, en la literatura no apreciamos un <<este es mejor que aquel>> o similar.
 
 \paragraph{Algoritmo de edición de Wilson}\label{paragraph:ENN}
 \hfill \break
@@ -617,7 +617,7 @@ El criterio que sigue \textit{MSS} para determinar la frontera de decisión es l
 \hfill \break
 Bajo el nombre de \textit{Decremental Reduction Optimization Procedure, DROP}~\cite{wilson2000reduction} nos encontramos con hasta 5 aproximaciones para la resolución del mismo problema. Todas ellas seleccionan prototipos en función de \textit{socio} y \textit{asociado}. Definidos como:
 \begin{itemize}
-\item Socio. Sea $X \not= \emptyset$, el socio de un objeto $P$ el cual pertenece al conjunto $X$, es aquél objeto que tiene a $P$ como uno de sus $k$ vecinos más cercanos.
+\item Socio. Sea $X \not= \emptyset$, el socio de un objeto $P$ el cual pertenece al conjunto $X$, es aquel objeto que tiene a $P$ como uno de sus $k$ vecinos más cercanos.
 \item Asociado. Todo prototipo que contenga a $P$ como a uno de sus $k$ vecinos más cercanos, será denominado asociado de $P$, denotado con la expresión $P.A_{1,\dots,a}$ donde $a$ es el número de asociados de $P$.
 \end{itemize}
 
