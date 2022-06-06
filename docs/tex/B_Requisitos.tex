@@ -3,7 +3,7 @@
 \section{Introducción}
 Este anexo recoge las necesidades funcionales que deberán ser soportadas por el sistema que va a ser desarrollado. Con el fin de obtener una buena documentación se deben identificar y describir los requisitos que debe el sistema satisfacer, pero sin entrar en cómo los va a resolver.
 
-Hoy en día, no existe una autoridad que indique cómo se deben de realizar las especificaciones de requisitos \textit{software}, SRS. La comunidad se encuentra dividida entre <<la vieja escuela>> siguiendo guías de buenas prácticas (IEEE 830-1998~\cite{720574} ó 12207-2-2020~\cite{IEEE1220722020}), en contraposición con el \textit{Agile Manifiesto}, donde no se hace una especificación formal de toda la aplicación, sino que cada 2-4 semanas se revisa y <<rehace>> en función de las necesidades del cliente.
+Hoy en día, no existe una autoridad que indique cómo se deben de realizar las especificaciones de requisitos \textit{software}, SRS. La comunidad se encuentra dividida entre <<la vieja escuela>> siguiendo guías de buenas prácticas (IEEE 830-1998~\cite{720574} o 12207-2-2020~\cite{IEEE1220722020}), en contraposición con el \textit{Agile Manifiesto}, donde no se hace una especificación formal de toda la aplicación, sino que cada 2-4 semanas se revisa y <<rehace>> en función de las necesidades del cliente.
 
 Se va a realizar una combinación de ambos, por un lado, se trabaja a lo largo del proyecto con una planificación ágil, y por otro se va a tener como referencia una especificación de requisitos que va a seguir la guía de buenas prácticas IEEE 830-1998. Ésta última recoge los siguientes puntos como referencias a una buena especificación de requisitos \textit{software}~\cite{ingenieriasoftwareytiemporeal_2020}.
 \begin{itemize}
@@ -18,7 +18,7 @@ Se va a realizar una combinación de ambos, por un lado, se trabaja a lo largo d
 \item \textbf{Consistente.} Si un SRS <<choca>> con algún documento de nivel superior (\textit{i.e.} una especificación de requisitos de sistema), entonces no será consistente.
 \item \textbf{Comprobable.} Será comprobable si, y sólo si, cada requisito declarado es comprobable. A su vez un requisito será comprobable si, y sólo si, allí existe un proceso rentable finito con que una persona o la máquina puede verificar que el producto del \textit{software} reúne el requisito. Cualquier requisito ambiguo no es comprobable.
 \item \textbf{Modificable}. Será modificable si, y sólo si, su estructura y estilo son tales que puede hacerse cualquier cambio a los requisitos fácilmente, completamente y de forma consistente mientras conserva la estructura y estilo.
-\item \textbf{Identificable.} Será identificable si el origen de cada uno de los requisitos está claro y facilita de igual manera las referencias de cada requisito de desarrollo futuro o documentación del mismo.
+\item \textbf{Identificable.} Será identificable si el origen de cada uno de los requisitos está claro y facilita de igual manera las referencias de cada requisito de desarrollo futuro o documentación de este.
 \end{itemize}
 
 
@@ -34,17 +34,17 @@ Los objetivos del proyecto se pueden separar en dos ramas.
 
 En la biblioteca referida a los algoritmos de filtrado más comunes se implementarán algoritmos clásicos de la literatura como son CNN, RNN, ICF, ... Mientras que la biblioteca de algoritmos clásicos de Semi Supervisado contendrá \textit{Co-Training}, \textit{Tri-Training}, etc. Estando estructuradas en forma de clases accesibles mediante importación clásica de paquetes. Deben de ser fácilmente escalables, posterior a la finalización del proyecto deben poder ampliarse sin añadir complejidad.
 
-Las interfaces a diseñar se requieren que sean intuitivas, fáciles de entender y utilizar. Deberán de ser transparentes al usuario, impidiendo que este conozca la lógica de diseño de la aplicación, así como los posibles fallos internos que se puedan producir por acciones del sistema, del usuario, o de terceros.
+Las interfaces por diseñar se requieren que sean intuitivas, fáciles de entender y utilizar. Deberán de ser transparentes al usuario, impidiendo que este conozca la lógica de diseño de la aplicación, así como los posibles fallos internos que se puedan producir por acciones del sistema, del usuario, o de terceros.
 
 
 \section{Usuarios del \textit{software}}\label{usuarios-participantes-software}
 Cualquier persona podrá hacer uso de la aplicación UBUMLaaS, siendo únicamente necesarios una serie de datos básicos para su registro dentro de ella. 
 
-Dentro de la aplicación se encuentra el usuario base y una generalización del mismo en forma de administrador. 
+Dentro de la aplicación se encuentra el usuario base y una generalización de este en forma de administrador. 
 \begin{itemize}
 \item \textbf{Usuario.} El usuario será el modelo base, en la forma de una persona la cual tendrá las capacidades de: crear experimentos y todas las funcionalidades asociadas con los mismos. Así como editar sus datos personales, añadir nuevos, quitar, etc. Y conocer sus estadísticas de uso de la última semana.
 
-\item \textbf{Administrador.} Actor generalizado de usuario. Tiene todas las funcionalidades propias del usuario, pero además posee acceso a toda la parte de administración de la aplicación. En esta nueva parte posee acceso a la monitorización del sistema en tiempo real, a las estadísticas del mismo en cuanto a uso respecta, administración de todos los usuarios, etc. 
+\item \textbf{Administrador.} Actor generalizado de usuario. Tiene todas las funcionalidades propias del usuario, pero además posee acceso a toda la parte de administración de la aplicación. En esta nueva parte posee acceso a la monitorización del sistema en tiempo real, a las estadísticas de este en cuanto a uso respecta, administración de todos los usuarios, etc. 
 \end{itemize}
 
 Un usuario es creado por una persona ajena que quiere registrarse en la aplicación, o por un administrador. Pero un administrador sólo puede ser <<creado>> (elevación de usuario a administrador) por otro administrador, y lo mismo para el caso contrario, pasar de administrador a usuario.
@@ -56,7 +56,7 @@ En esta sección se va a realizar un análisis de las `principales dificultades 
 Se identifican los siguientes factores de riesgo:
 \begin{enumerate}
 \item \textbf{Desconocimiento teórico.} Se posee una cantidad muy limitada de conocimiento en la materia en la que el proyecto transcurre. El proyecto tiene un enfoque fuertemente relacionado con la minería de datos, un área hasta ahora inexplorada. El proyecto ya en su base más pura va a suponer un reto en el día a día.
-\item \textbf{Documentación a utilizar.} Hasta ahora nunca se ha tratado con \textit{papers} o artículos científicos, mucho menos su lectura y comprensión, análisis y posterior implementación de los algoritmos propuestos. Puede suponer retrasos sin previo aviso un \textit{paper} con una alta complejidad, bien por la condensación de información, bien por la encapsulación de información, o simplemente por los conocimientos que se  requieren para entender el documento.
+\item \textbf{Documentación para utilizar.} Hasta ahora nunca se ha tratado con \textit{papers} o artículos científicos, mucho menos su lectura y comprensión, análisis y posterior implementación de los algoritmos propuestos. Puede suponer retrasos sin previo aviso un \textit{paper} con una alta complejidad, bien por la condensación de información, bien por la encapsulación de información, o simplemente por los conocimientos que se  requieren para entender el documento.
 \item \textbf{Experiencia modificando un proyecto \textit{software}.} La experiencia personal dictamina que la modificación de proyectos que han sido iniciados por terceros (como se trabaja en la industria) conlleva una etapa de adaptación la cual no suele ser linear, sino exponencial, en función de la complejidad de la aplicación que se desea asimilar.
 \item \textbf{Mínima experiencia con algunos lenguajes/bibliotecas.} El proyecto requiere del uso de lenguajes de programación como JavaScript, o lenguajes de marcas como son HTML, CSS, \LaTeX ... o bibliotecas como Flask o Vue. Con las que no se tiene prácticamente experiencia real de uso. Supondrá un esfuerzo extra e impedirá que determinadas tareas sean tan cortas como deberían serlo.
 \item \textbf{Existencia del usuario final.} Se desconoce el usuario final de la aplicación, por lo que no se podrán realizar talleres, esto motivará a que el proyecto se creará como se cree que el usuario lo esperaría, pero sin su aprobación.
@@ -159,7 +159,7 @@ A pesar de que el proyecto tiene dos <<enfoques>>, la parte de UBUMLaaS y la par
 \item \textbf{RNF-8 Soporte.} La plataforma debe dar soporte a ficheros CSV y ARFF como mínimo. Así como ser compatible con HTML5.
 \item \textbf{RNF-9 Monitorización.} La plataforma debe ser fácilmente monitorizable por un administrador.
 \item \textbf{RNF-10 Internacionalización.} La plataforma debe de estar desarrollada en un inglés sencillo y fácil de comprender por todo tipo de usuarios no nativos.
-\item \textbf{RNF-11 Respuesta autónoma.} En caso de inicio o reinicio, el tiempo empleado por la plataforma hasta estar al 100\% de operatibilidad de nuevo debe ser inferior a los 3 minutos.
+\item \textbf{RNF-11 Respuesta autónoma.} En caso de inicio o reinicio, el tiempo empleado por la plataforma hasta estar al 100\% de operatividad de nuevo debe ser inferior a los 3 minutos.
 \end{itemize}
 \newpage
 \section{Especificación de requisitos}
@@ -391,7 +391,7 @@ A continuación, se detallan las tablas correspondientes a los casos de uso ante
 \textbf{Autor} & Daniel Puente Ramírez\\
 \textbf{Requisitos asociados} & RF-4, RF-4.1, RF-4.2, RF-4.3, RF-4.4\\
 \textbf{Descripción} & Permite al usuario modificar sus datos personales dentro de la plataforma.\\
-\textbf{Precondición} & Los datos del usuarios son recuperados de la base de datos.\\
+\textbf{Precondición} & Los datos del usuario son recuperados de la base de datos.\\
 \textbf{Acciones} &
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

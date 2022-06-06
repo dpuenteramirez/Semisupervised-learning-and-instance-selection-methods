@@ -35,7 +35,7 @@ Posee dos \textit{timestamps} representando la hora de inicio y fin del entrenam
 \subsection{Diseño procedimental}
 En esta sección interna se recogen los detalles más relevantes en cuanto a los procedimientos llevados a cabo por la plataforma en función de las acciones del usuario.
 
-A continuación se explican los diagramas de secuencia (DS):
+A continuación, se explican los diagramas de secuencia (DS):
 \begin{itemize}
 \item \textbf{DS para la monitorización del sistema en tiempo real.} Figura~\ref{fig:DSec-LiveMonitor}. Muestra el proceso seguido por el sistema en el momento en el que solicita la vista correspondiente. Es el único diagrama en el que se muestra la comprobación de si es administrador o no, por brevedad en el resto se indica en forma de texto nada más. 
 
@@ -71,7 +71,7 @@ En el momento en el que el experimento finalice, la cola pasará a ejecutar el s
 
 \subsection{Diseño arquitectónico}
 \imagenFlotante{../img/anexos/design/client-server}{Arquitectura cliente-servidor.}{client-server}
-La aplicación con el fin de cumplir con todos los requerimientos funcionales así como objetivos principales, y por ende, conseguir un bajo acoplamiento y una alta cohesión. Sigue una arquitectura de cliente servidor.
+La aplicación con el fin de cumplir con todos los requerimientos funcionales, así como objetivos principales, y, por ende, conseguir un bajo acoplamiento y una alta cohesión. Sigue una arquitectura de cliente servidor.
 
 En la Figura~\ref{fig:client-server} se aprecia un modelo simplificado de la arquitectura seguida, en la cual los procesos se van a dividir en dos grupos. 
 \begin{itemize}
@@ -80,7 +80,7 @@ En la Figura~\ref{fig:client-server} se aprecia un modelo simplificado de la arq
 \end{itemize}
 
 \subsubsection{Arquitectura de tres capas}
-La aplicación sigue una arquitectura de tres capas (multicapa), siguiendo esta arquitectura el cliente implementa la lógica de presentación (es un cliente ligero); el servidor de aplicación implementa la lógica de negocio, y los datos residen en una base de datos de \texttt{SQLite}, por definición de la arquitectura de tres capas sería necesario que hubiera un servidor dedicado a la comunicación con la base de datos, pero ahí es donde reside una de las cualidades de \texttt{SQLite}, es \textit{serverless}, permitiendo una auto-gestión y soportando múltiples clientes realizando tareas en paralelo.
+La aplicación sigue una arquitectura de tres capas (multicapa), siguiendo esta arquitectura el cliente implementa la lógica de presentación (es un cliente ligero); el servidor de aplicación implementa la lógica de negocio, y los datos residen en una base de datos de \texttt{SQLite}, por definición de la arquitectura de tres capas sería necesario que hubiera un servidor dedicado a la comunicación con la base de datos, pero ahí es donde reside una de las cualidades de \texttt{SQLite}, es \textit{serverless}, permitiendo una autogestión y soportando múltiples clientes realizando tareas en paralelo.
 
 UBUMLaaS sigue esta arquitectura por las siguientes razones:
 \begin{itemize}

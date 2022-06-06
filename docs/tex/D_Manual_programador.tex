@@ -3,7 +3,7 @@
 \section{Introducción}
 En este anexo se va a describir con detalle la documentación técnica de programación. Se describirá la estructura de directorios que posee, la instalación del propio entorno de desarrollo, cómo llevar a cabo su compilación, instalación y ejecución; además de las pruebas que se han realizado.
 
-Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
+Se debe recordar que el proyecto se encuentra dividido en dos repositorios diferenciados, UBUMLaaS e IS-SSL\footnote{Biblioteca de algoritmos de selección de instancias y aprendizaje semi-supervisado programado.}; es por ello por lo que, se dividirá en dos secciones respectivamente, y tantas subsecciones como son necesarias para cada uno de ellos.
 
 Ambos repositorios son consultables desde:
 \begin{itemize}
@@ -174,7 +174,7 @@ Se diferencian dos aproximaciones, local o como se ha operado, conexión mediant
 \begin{enumerate}
 \item Presionar \texttt{F1} y correr el comando: \texttt{Remote-SSH: Open SSH Host...}
 \item Introducir el usuario y el \texttt{host/IP} en el formato:\\
-\texttt{user@host-o-ip} ó \texttt{user@domain@host-o-ip}
+\texttt{user@host-o-ip} o \texttt{user@domain@host-o-ip}
 \item En caso de que se solicite, introducir la contraseña, pero se recomienda configurar el uso de llaves SSH, ver guía~\cite{Remote-Development-Tricks-Tips}.
 \item Después de la conexión usar Archivo $\rightarrow$ Abrir carpeta, para abrir el directorio donde se encuentra el proyecto en la máquina remota.
 \end{enumerate}
@@ -213,6 +213,10 @@ export EMAIL_PASS=<email-password>
 export EMAIL_URL=<email-url>
 export FLASK_ENV=development #development or production
 LIBFOLDER=/absolute/path/to/UBUMLaaS
+export MONITOR_DISK_USED=<disk used>
+export MONITOR_DISK_SIZE=<disk size>
+export MONITOR_NETWORK_RX=<main network RX>
+export MONITOR_NETWORK_TX=<main network TX>
 \end{lstlisting}
 \item Dentro del entorno virtual de UBUMLaaS en \texttt{Conda}, se debe ejecutar el siguiente comando para permitir la importación de las variables anteriormente declaradas al entorno virtual.\\
 \texttt{source env\_vars\_to\_conda.sh}
@@ -260,7 +264,7 @@ A pesar de que sea un proyecto \textit{open source} no es gratuita, y como todas
 Herramienta \textit{cloud} desarrollada para la realización de pruebas de integración continua sobre proyectos alojados en GitHub (con soporte beta para BitBucket, GitLab y Assembla). Permite realizar un \textit{build} del proyecto y ejecutar sobre ella una batería de pruebas de manera automática cada vez que se realiza un \textit{commit} y/o \textit{pull request}, permitiendo pruebas concurrentes, incluso sobre diferentes sistemas operativos (Linux, Windows, macOS y FreeBSD). 
 
 Con el proyecto configurado en \texttt{Travis-CI} se debe configurar un fichero \texttt{YAML} y debe de estar en el directorio raíz, será a partir del cual se ejecuten las pruebas.
-
+\imagenFlotante{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
 El fichero se encuentra dividido en:
 \begin{itemize}
 \tightlist
@@ -279,17 +283,14 @@ El fichero se encuentra dividido en:
 \item \texttt{before\_script:} configuración de dependencias antes de ejecutar la sección \texttt{script}.
 \item \texttt{script:} pruebas a realizar.
 \end{itemize}
-
 Los \textit{logs} son públicos y consultables desde~\cite{Travis-CI-LOG-UBUMLaaS}.
-
-\imagenRuta{../img/anexos/manual-programador/Travis-CI-UBUMLaaS}{Travis-CI.}{Travis-CI-UBUMLaaS}
-
+\FloatBarrier
 \subsection{Pruebas del sistema}
 Las pruebas del sistema se encuentran dentro de los trabajos futuros que debe seguir la aplicación.
 
 Tal y como se ha descrito, \texttt{UBUMLaaS} es un \textit{software} que ha sufrido un cambio de diseño de grandes dimensiones, por lo que las pruebas de integración continua previas que existían han dejado de ser funcionales. La problemática que surge con las existentes es que no eran pruebas sobre el \textit{backend} de la aplicación, sino la interacción del usuario (mediante el uso de \textit{Selenium}) con el \textit{frontend}. 
 
-Es por ello que, al haberse hecho <<de cero>> toda la interfaz de la aplicación web, literalmente, no existe ninguna referencia de las antiguas que las pruebas existentes puedan reutilizar. 
+Es por ello por lo que, al haberse hecho <<de cero>> toda la interfaz de la aplicación web, literalmente, no existe ninguna referencia de las antiguas que las pruebas existentes puedan reutilizar. 
 
 Debido a esta problemática, y con el fin de obtener un sistema estable, se ha seleccionado a un grupo de personas de edades comprendidas entre 18 y 55 años, profesionales de mecánica y electrónica, medicina, informática y estudiantes del grado de otras universidades españolas; con el fin de que dado un \href{https://github.com/dpr1005/Semisupervised-learning-and-instance-selection-methods/blob/917d49bcc9d7f1a4825225414b246023bfa2ea7b/docs/misc/survey_steps.pdf}{documento} relativamente sencillo, puedan hacer uso de todo el sistema, y sean estos los que reporten en un \href{https://forms.gle/eZUWmT5GNahqYVVa6}{formulario de \texttt{Google}} sus impresiones y resultados. Está preparado para que se vaya leyendo el documento, probando la aplicación y posteriormente rellenando el formulario, de forma que todo sea un proceso auto-guiado.
 
@@ -340,7 +341,7 @@ En los siguientes apartados se detalla la instalación de cada uno de los compon
 El desarrollo se ha realizado siguiendo las últimas formas de programación disponibles a partir de la versión 3.7 de Python. El desarrollo se comenzó después de que se dejara de mantener Python 2, por lo que se trabajó desde el inicio con versiones de Python 3. Se puede obtener la última versión disponible de Python desde~\cite{pythonGetIt}. Es importante que el desarrollador se asegure que los binarios han sido añadidos al \texttt{path} del sistema que esté utilizando.
 
 \subsubsection{Bibliotecas Python}
-Esta sección es la más importante de todas junto con la anterior, debido a que el proyecto depende de (está construido utilizando) bibliotecas de $3^{os}$. Y en especial, determinadas versiones de las mismas. 
+Esta sección es la más importante de todas junto con la anterior, debido a que el proyecto depende de (está construido utilizando) bibliotecas de $3^{os}$. Y en especial, determinadas versiones de estas. 
 
 En la Tabla~\ref{tab:bibliotecas-python-is-ssl} se detallan las bibliotecas necesarias para utilizar el proyecto tal y como se encuentra en el repositorio. Para el uso en exclusiva de las bibliotecas de \texttt{IS-SSL} se deben utilizar aquellas que se encuentran en negrita.
 
@@ -409,7 +410,7 @@ Lo primero que se necesita es obtener el código en el equipo, para ello podemos
 \item En URL introducir:\\
 \texttt{git clone https://github.com/dpr1005/\\Semisupervised-learning-and-instance-selection-\\methods.git}
 \end{itemize}
-\item Hacer \textit{click} en \textit{Clone the repo!}.
+\item Hacer \textit{click} en \textit{Clone the repo!}
 \end{itemize}
 \end{itemize}
 
@@ -486,7 +487,7 @@ Herramienta \textit{open source} la cual permite hacer un análisis estático de
 
 A pesar de que sea un proyecto \textit{open source} no es gratuita, y como todas las herramientas de estas características incluye una versión \textit{community} (gratuita) para aquellos proyectos que sean \textit{open source}.
 
-El proceso de integración es sencillo, una vez registrados y asociada la cuenta con una de GitHub, se selecciona sobre qué proyecto se desea comenzar a analizar el código. El siguiente paso es definir un conjunto de reglas (si no se quiere utilizar el que se proporciona por defecto), y en cada \textit{pull request} que se realice al repositorio, Sonar Cloud analizará todos los cambios y emitirá un informe consultable desde la web así como un comentario en la propia \textit{pull request} con los resultados encontrados.
+El proceso de integración es sencillo, una vez registrados y asociada la cuenta con una de GitHub, se selecciona sobre qué proyecto se desea comenzar a analizar el código. El siguiente paso es definir un conjunto de reglas (si no se quiere utilizar el que se proporciona por defecto), y en cada \textit{pull request} que se realice al repositorio, Sonar Cloud analizará todos los cambios y emitirá un informe consultable desde la web, así como un comentario en la propia \textit{pull request} con los resultados encontrados.
 
 \imagenRuta{../img/anexos/manual-programador/SonarCloud-IS-SSL}{SonarCloud.}{SonarCloud-IS-SSL}
 
@@ -494,7 +495,7 @@ El proceso de integración es sencillo, una vez registrados y asociada la cuenta
 
 En esta sección se van a describir las pruebas que poseen las bibliotecas.
 
-Las pruebas son realmente sencillas, ya que los propios algoritmos no poseen muchas disyunciones. Es por ello que el conjunto de pruebas codificado está compuesto de pruebas unitarias para cada algoritmo programado, permitiendo comprobar tanto que las entradas son correctas, como sus salidas. En el caso de los algoritmos de selección de instancias se asegura que las instancias recuperadas pertenecen al conjunto de datos de entrada, y que no son más que las que se introdujeron en primera instancia. De tal manera que en caso de que los algoritmos se modifiquen, el filtrado lo sigan realizando. La prueba base se puede visualizar en la Figura~\ref{fig:base-test-is}.
+Las pruebas son realmente sencillas, ya que los propios algoritmos no poseen muchas disyunciones. Es por ello por lo que el conjunto de pruebas codificado está compuesto de pruebas unitarias para cada algoritmo programado, permitiendo comprobar tanto que las entradas son correctas, como sus salidas. En el caso de los algoritmos de selección de instancias se asegura que las instancias recuperadas pertenecen al conjunto de datos de entrada, y que no son más que las que se introdujeron en primera instancia. De tal manera que en caso de que los algoritmos se modifiquen, el filtrado lo sigan realizando. La prueba base se puede visualizar en la Figura~\ref{fig:base-test-is}.
 
 Para la biblioteca de algoritmos de aprendizaje semi-supervisado se poseen también pruebas unitarias para todos y cada uno de ellos, la prueba base se puede visualizar en~\ref{fig:base-test-ssl}. En ellas se comprueban:
 \begin{itemize}
@@ -525,12 +526,12 @@ Todos los algoritmos que se incluyen en la biblioteca han sido probados y testad
 
 Los algoritmos de selección de instancias han sido testados contra los homónimos propuestos por \texttt{Weka}, y en ambos se han utilizado árboles de decisión (J48 en \texttt{Weka}) y vecinos más cercanos, como clasificadores base para realizar la comparativa. La experimentación se ha realizado mediante validación cruzada, con 5 \textit{folds}, tanto para \texttt{Weka} como para los implementados. Se ha tenido en cuenta la diferencia de lenguajes de programación Java (\texttt{Weka}) y los implementados en Python.
 
-En las Tablas~\ref{tab:is-algs-checks-knn}~y~\ref{tab:is-algs-checks-tree} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos para cada uno de los clasificadores base utilizados. Si bien puede observarse como para determinados pares conjunto de datos : algoritmo, no son compatibles por diferentes motivos, la muestra es lo suficientemente grande como para asegurar una variación menor al $\pm 5\%$ su fiabilidad.
+En las Tablas~\ref{tab:is-algs-checks-knn}~y~\ref{tab:is-algs-checks-tree} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos para cada uno de los clasificadores base utilizados. Si bien puede observarse como para determinados pares, conjunto de datos : algoritmo, no son compatibles por diferentes motivos, la muestra es lo suficientemente grande como para asegurar una variación menor al $\pm 5\%$ su fiabilidad.
 
 
 De igual manera, los algoritmos de aprendizaje semi-supervisado han sido validados contra los propios del grupo de investigación ADMIRABLE de la Universidad de Burgos. Estos últimos sí que se encuentran implementados en Python, por lo que se esperan resultados prácticamente idénticos. La experimentación en esta ocasión también se ha realizado con validación cruzada de 5 \textit{folds}, pero como se trata de conjuntos de datos de semi-supervisado, ha sido una validación cruzada estratificada.
 
-En la Tabla~\ref{tab:ssl-algs-check} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos. En el caso del \textit{Co-Training}, la implementación desarrollada por este proyecto es capaz de soportar conjuntos de datos con más de dos vistas significativas (internamente las re-trabaja), mientras que el propuesto por ADMIRABLE no. Los resultados son tal y como se esperaba, con variaciones del $\pm 1\%$.
+En la Tabla~\ref{tab:ssl-algs-check} se aprecia la comparativa uno a uno de los resultados arrojados por cada uno de los algoritmos. En el caso del \textit{Co-Training}, la implementación desarrollada por este proyecto es capaz de soportar conjuntos de datos con más de dos vistas significativas (internamente las retrabaja), mientras que el propuesto por ADMIRABLE no. Los resultados son tal y como se esperaba, con variaciones del $\pm 1\%$.
 
 \begin{landscape}
 \begin{table}[]
