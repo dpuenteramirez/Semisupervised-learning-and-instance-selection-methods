@@ -49,11 +49,11 @@ Como \textbf{conclusión}, hay que destacar la oportunidad de \emph{aprendizaje}
 	\end{itemize}
 \end{itemize}
 
-\textbf{\texttt{IS-SSL}}, el propio diseño de ambas bibliotecas sugiera una posible unión en el futuro, en caso de que se acaben comenzando a utilizar de forma conjunta y facilite su uso. 
+\textbf{\texttt{IS-SSL}}, el propio diseño de ambas bibliotecas sugiere una posible unión en el futuro, en caso de que se acaben comenzando a utilizar de forma conjunta, y consecuentemente, facilite su uso. 
 
 Para facilitar la aportación de la comunidad a las bibliotecas, se van a definir las convenciones, buenas prácticas, \ldots de forma que la evolución de las bibliotecas mantenga una estructura y un código limpio y, sobre todo, \emph{fácil} de mantener. En esta misma línea se va a aplicar el método plantilla~\cite{shvets2021} con el fin de re-estructurar las bibliotecas, permitiendo crear un \texttt{core} común y desacoplar ciertas funcionalidades.
 
-Una de las mejoras que se plantean para realizar a corto/medio plazo es la migración de los algoritmos a \texttt{Cython}, de manera que haya un aumento considerable del rendimiento. Otra opción que se propone es la modificación de los algoritmos para, en aquellas partes soportadas, corran en paralelo tanto mediante hilos, como mediante procesadores lógicos o reales.
+Una de las mejoras que se plantean para realizar a corto/medio plazo es la migración de los algoritmos a \texttt{Cython}, de manera que haya un aumento considerable del rendimiento. Otra opción que se propone es la modificación de los algoritmos con el fin de que, en aquellas partes soportadas, se ejecuten en paralelo tanto mediante hilos, como mediante procesadores lógicos o reales.
 
 \textbf{Investigación.} La investigación, como es lógico, no está ni cerca de estar terminada. El campo es muy amplio y quedan muchas preguntas por responder. Una de las principales mejoras que se puede realizar es hacer uso de \textit{Random Forests} en lugar de árboles de decisión, evitando que queden hojas con una única instancia y afecten a la clasificación en el aprendizaje semi-supervisado~\cite{tanha2017semi}.
 

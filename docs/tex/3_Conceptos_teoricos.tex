@@ -308,7 +308,7 @@ En~\cite{KOTU201517} se divide el proceso de la minería de datos en 5 etapas o 
 
 \begin{enumerate}
    \item \textbf{Establecer los objetivos y comprensión del problema.}
-    La primera etapa puede resultar la más complicada del proceso. Todas las partes interesadas deben de estar presentes y de acuerdo en la definición del problema que se va a tratar, esto incluye tanto a los científicos de datos como las terceras partes involucradas o interesadas. 
+    La primera etapa puede resultar la más complicada del proceso. Todas las partes interesadas deben de estar presentes y de acuerdo en la definición del problema que se va a tratar, esto incluye tanto a los científicos de datos como a las terceras partes involucradas o interesadas. 
     Este procedimiento ayuda a la formulación de las preguntas de los datos y los parámetros a utilizar en el proyecto. Si se trata de un proyecto empresarial, se debe hacer un estudio o investigación adicional para comprender el contexto de la empresa.
     \item \textbf{Preparación de los datos.}
     Con el alcance del problema definido ya se puede comenzar a identificar qué conjunto de datos será el más efectivo o representativo con el fin de comenzar a dar respuesta a las preguntas formuladas en el proceso anterior.
@@ -372,7 +372,7 @@ A continuación, se presentan una serie de técnicas utilizadas en función de l
 \end{enumerate}
 
 \section{Técnicas de selección de instancias}\label{sec:tecnicas-seleccion-instancias}
-Dentro de los conjuntos de datos nos encontramos con las instancias, también llamadas ejemplos o prototipos, son cada uno de los elementos que componen el \textit{dataset}; en problemas reales de \textit{machine learning} es habitual que se requiera de clasificación automática de estos datos. Este proceso se puede llevar a cabo con algoritmos de aprendizaje supervisado, Sección~\ref{subsec:Aprendizaje-Supervisado}, con el objetivo de etiquetar la nueva información. Para poder hacerlo previamente se ha tenido que, entrenado el clasificador con un conjunto de entrenamiento, $T$~\cite{olvera2010review}.
+Dentro de los conjuntos de datos nos encontramos con las instancias, también llamadas ejemplos o prototipos, son cada uno de los elementos que componen el \textit{dataset}; en problemas reales de \textit{machine learning} es habitual que se requiera de clasificación automática de estos datos. Este proceso se puede llevar a cabo con algoritmos de aprendizaje supervisado, Sección~\ref{subsec:Aprendizaje-Supervisado}, con el objetivo de etiquetar la nueva información. Para poder hacerlo previamente se ha tenido que, entrenar el clasificador con un conjunto de entrenamiento, $T$~\cite{olvera2010review}.
 
 En la práctica, cualquier $T$ dado contendrá información útil e información desechable, este último tipo de información --- que en realidad son instancias --- aparte de ser redundantes producen ruido, pudiendo inducir en una clasificación errónea en el proceso de aprendizaje, y posteriormente tener un modelo que no sea capaz de clasificar correctamente la nueva información.
 
@@ -469,7 +469,7 @@ El algoritmo propuesto por Hart~\cite{hart1968condensed}, ver algoritmo~\ref{alg
 
 Si bien es una técnica utilizada por su efectividad, posee una serie de puntos negativos a su vez.
 \begin{itemize}
-\item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestran no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
+\item Sensibilidad ante el ruido. Un objeto ruidoso no será correctamente clasificado por sus vecinos. Estas muestras no se eliminarán del conjunto solución $S$, por lo que no desaparecerán.
 \item $S$ no tiene por qué ser el menor conjunto de $T$. Diferentes ejecuciones del algoritmo sobre el mismo $T$ pueden dar diferentes conjuntos solución $S$. Esto se debe al orden aleatorio por el cual se seleccionan las instancias. Por definición del propio algoritmo se asume que no se va a alcanzar de forma general el subconjunto de tamaño mínimo que cumpla con las características especificadas.
 \end{itemize}
 
